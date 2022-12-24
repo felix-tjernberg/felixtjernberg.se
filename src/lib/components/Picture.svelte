@@ -10,10 +10,7 @@
 
 <picture>
     {#each sources as source}
-        <source
-            srcset={source.srcset}
-            type={source.type}
-            media={source.media} />
+        <source srcset={source.srcset} type={source.type} media={source.media} />
     {/each}
     <img src={meta.src} alt={meta.alt} />
 </picture>

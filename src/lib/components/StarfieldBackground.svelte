@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { onMount } from "svelte"
 
     let canvas: HTMLCanvasElement
 
     onMount(() => {
-        const c = canvas.getContext('2d') as CanvasRenderingContext2D
+        const c = canvas.getContext("2d") as CanvasRenderingContext2D
 
         let w: number
         let h: number
@@ -38,14 +38,13 @@
         let stars = makeStars(10000)
 
         const clear = () => {
-            c.fillStyle = 'black'
+            c.fillStyle = "black"
             c.fillRect(0, 0, canvas.width, canvas.height)
         }
 
         const putPixel = (x: number, y: number, brightness: number) => {
             const intensity = brightness * 255
-            const rgb =
-                'rgb(' + intensity + ',' + intensity + ',' + intensity + ')'
+            const rgb = "rgb(" + intensity + "," + intensity + "," + intensity + ")"
             c.fillStyle = rgb
             c.fillRect(x, y, 1.5, 1.5)
         }
