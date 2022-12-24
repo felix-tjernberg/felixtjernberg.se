@@ -1,0 +1,75 @@
+*,
+*::before,
+*::after {
+    border: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color-scheme: light dark;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+img,
+picture {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+}
+
+a,
+input,
+button,
+textarea,
+select {
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+h1 {
+    text-transform: capitalize;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    background-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

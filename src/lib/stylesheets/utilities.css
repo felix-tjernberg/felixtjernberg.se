@@ -1,0 +1,40 @@
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+
+.margin-vertical {
+    --margin-amount: auto;
+    margin-top: var(--margin-amount);
+    margin-bottom: var(--margin-amount);
+}
+.margin-horizontal {
+    --margin-amount: auto;
+    margin-left: var(--margin-amount);
+    margin-right: var(--margin-amount);
+}
+.margin {
+    --margin-amount: auto;
+    margin: var(--margin-amount);
+}
+
+.flex,
+.flex-column {
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.vertical-flow-100 > * + * {
+    margin-top: 1em;
+}
+.vertical-flow-200 > * + * {
+    margin-top: 2em;
+}
