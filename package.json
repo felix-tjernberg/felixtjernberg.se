@@ -12,6 +12,7 @@
         "format": "prettier --plugin-search-dir . --write .",
         "storybook": "storybook dev -p 6006 --no-open",
         "storybook-build": "storybook build",
+        "storybook-clear-cache": "rm -rf node_modules/.cache/storybook",
         "storybook-tests-once": "test-storybook --maxWorkers 2",
         "storybook-tests-watch": "test-storybook --watch --maxWorkers 2"
     },
