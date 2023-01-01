@@ -33,6 +33,6 @@ button,
 input,
 textarea,
 select {
-    border: 2px solid var(--gray-900);
+    border: var(--stroke-300) solid var(--gray-900);
     padding: 0.5em 1em;
 }
