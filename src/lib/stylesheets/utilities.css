@@ -38,3 +38,16 @@
 .vertical-flow-200 > * + * {
     margin-top: 2em;
 }
+
+.background-blur-100 {
+    background-color: var(--color-gray-900-10-percent);
+    backdrop-filter: var(--background-blur-100);
+}
+.background-blur-300 {
+    background-color: var(--color-gray-900-10-percent);
+    backdrop-filter: var(--background-blur-500);
+}
+.background-blur-900 {
+    background-color: var(--color-gray-900-50-percent);
+    backdrop-filter: var(--background-blur-900);
+}

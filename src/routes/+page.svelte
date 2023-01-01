@@ -8,7 +8,7 @@
     const LANGUAGE_INTERVAL = setInterval(() => {
         $locale = LOCALES[localeIndex]
         localeIndex === 1 ? (localeIndex = 0) : (localeIndex += 1)
-    }, 2000)
+    }, 60000)
 
     let audioPlayer: HTMLAudioElement
     let paused: boolean
