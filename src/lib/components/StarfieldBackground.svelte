@@ -46,7 +46,7 @@
             const intensity = brightness * 255
             const rgb = "rgb(" + intensity + "," + intensity + "," + intensity + ")"
             c.fillStyle = rgb
-            c.fillRect(x, y, 1.5, 1.5)
+            c.fillRect(x, y, 3, 3)
         }
 
         const moveStars = (distance: number) => {
