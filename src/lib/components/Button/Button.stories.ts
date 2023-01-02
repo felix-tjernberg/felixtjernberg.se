@@ -54,8 +54,8 @@ Story3.storyName = "Icon variant"
 
 export const Story4: Story = {}
 Story4.args = {
-    label: "test on:click",
-    functionTest: true
+    functionTest: true,
+    label: "test on:click"
 }
 Story4.storyName = "Expect on:click event forwarding"
 Story4.play = async ({ canvasElement }) => {
@@ -75,5 +75,6 @@ Story5.storyName = "Expect $$props.class overide"
 Story5.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
+    //@ts-ignore
     await expect(button).toHaveStyle({ backgroundColor: { b: 0, g: 0, r: 255 } })
 }
