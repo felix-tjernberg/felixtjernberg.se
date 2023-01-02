@@ -60,6 +60,9 @@
     text-align: center;
     margin: auto;
 }
+.docs-story [data-dark-mode] {
+    font-size: var(--font-size-100) !important;
+}
 
 button {
     font-family: var(--font-primary);
