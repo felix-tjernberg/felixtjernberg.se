@@ -25,38 +25,39 @@ const meta: Meta<ButtonStory> = {
 }
 export default meta
 
-const Story1Label = "Hello world!"
+const Story1Label = "I'm underlined :)"
 export const Story1: Story = {}
 Story1.args = {
-    label: Story1Label
-}
-Story1.storyName = "Expect label to be rendered"
-Story1.play = async ({ canvasElement }) => {
-    const canvas = await within(canvasElement)
-    const button = await canvas.getByRole("button")
-    await expect(button.textContent).toBe(Story1Label)
-}
-
-const Story2Label = "I'm underlined :)"
-export const Story2: Story = {}
-Story2.args = {
-    label: Story2Label,
+    label: Story1Label,
     underlined: true
 }
-Story2.storyName = "Underlined variant"
+Story1.storyName = "Underlined variant"
 
-export const Story3: Story = {}
-Story3.args = {
+export const Story2: Story = {}
+Story2.args = {
     iconTest: true,
     label: "settings"
 }
-Story3.storyName = "Icon variant"
+Story2.storyName = "Icon variant"
+
+const Story3Label = "Hello world!"
+export const Story3: Story = {}
+Story3.args = {
+    label: Story3Label
+}
+Story3.storyName = "Expect label to be rendered"
+Story3.play = async ({ canvasElement }) => {
+    const canvas = await within(canvasElement)
+    const button = await canvas.getByRole("button")
+    await expect(button.textContent).toBe(Story3Label)
+}
 
 export const Story4: Story = {}
 Story4.args = {
     functionTest: true,
     label: "test on:click"
 }
+
 Story4.storyName = "Expect on:click event forwarding"
 Story4.play = async ({ canvasElement }) => {
     console.log = jest.fn()
