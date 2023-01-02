@@ -60,3 +60,7 @@
     text-align: center;
     margin: auto;
 }
+
+button {
+    font-family: var(--font-primary);
+}

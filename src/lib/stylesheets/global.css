@@ -12,6 +12,7 @@ body > div {
 body > div {
     display: grid;
     font-family: var(--font-primary);
+    font-size: var(--font-size-100);
     min-height: 100vh;
     place-content: center;
     text-align: center;
@@ -26,10 +27,11 @@ h6,
 p,
 li,
 a,
-span {
+span,
+button:not(.icon) {
     line-height: 2;
     max-width: 60ch;
-    scale: 0.75 1;
+    letter-spacing: 0.06em;
 }
 
 button {

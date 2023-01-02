@@ -9,12 +9,9 @@ export const DefaultState: Story = {}
 
 const meta: Meta<ButtonStory> = {
     argTypes: {
-        classTest: { control: false },
-        functionTest: { control: false },
-        glow: { control: { type: "boolean" } },
-        iconTest: { table: { disable: true } },
-        label: { control: { type: "text" } },
-        underlined: { control: { type: "boolean" } }
+        classTest: { table: { disable: true } },
+        functionTest: { table: { disable: true } },
+        iconTest: { table: { disable: true } }
     },
     component: ButtonStory,
     parameters: {
@@ -78,7 +75,7 @@ Story5.args = {
 Story5.storyName = "Expect $$props.class overide"
 Story5.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const button = await canvas.getByRole("button")
-    //@ts-ignore
-    await expect(button).toHaveStyle({ backgroundColor: { b: 0, g: 0, r: 255 } })
+    const button = await canvas.getByTestId("class-test").children[0]
+    // @ts-ignore
+    await expect(button).toHaveClass("background-blur-500")
 }

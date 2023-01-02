@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Press+Start+2P&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=VT323&display=swap");
 
 :root {
     --font-secondary: "Ubuntu", sans-serif;
-    --font-primary: "Press Start 2P", cursive;
+    --font-primary: "VT323", monospace;
     --font-accent: "Permanent Marker", cursive;
 
     --base-font-size: calc(1rem + 2px);
@@ -14,6 +14,7 @@
     --font-size-500: calc(var(--font-size-400) * 1.42);
     --font-size-600: calc(var(--font-size-500) * 1.42);
 
+    --white: hsl(0, 0%, 98%);
     --gray-900: hsl(0, 0%, 98%);
     --gray-800: hsl(0, 0%, 96%);
     --gray-700: hsl(0, 0%, 93%);
@@ -24,8 +25,8 @@
     --gray-200: hsl(0, 0%, 43%);
     --gray-100: hsl(0, 0%, 24%);
     --gray-000: hsl(0, 0%, 5%);
-    --gray-000-10-percent: hsl(0, 0%, 5%, 10%);
-    --gray-000-50-percent: hsl(0, 0%, 5%, 50%);
+    --gray-000-10-percent: hsl(0, 0%, 0%, 10%);
+    --gray-000-50-percent: hsl(0, 0%, 0%, 50%);
 
     --gradient: linear-gradient(130.82deg, #fa0c91 7.8%, #fa0c91 16.58%, #02ff58 72.59%);
     --gradient-75-percent: linear-gradient(130.82deg, #fa0c91 7.8%, #fa0c91 16.58%, #02ff58 72.59%, 75%);
@@ -43,11 +44,14 @@
     --stroke-300: 4px;
     --stroke-500: 8px;
 
-    --background-blur-100: saturate(42%) blur(2px);
-    --background-blur-500: saturate(42%) blur(17px);
-    --background-blur-900: saturate(42%) blur(90px);
+    --background-blur-100: blur(0.66px);
+    --background-blur-500: blur(1px);
+    --background-blur-900: blur(2px);
 }
 [data-dark-mode="false"] {
+    --gray-000-10-percent: hsl(0, 0%, 100%, 10%);
+    --gray-000-50-percent: hsl(0, 0%, 100%, 50%);
+    --gray-000-90-percent: hsl(0, 0%, 100%, 90%);
     --gray-000: hsl(0, 0%, 98%);
     --gray-100: hsl(0, 0%, 96%);
     --gray-200: hsl(0, 0%, 93%);
@@ -58,6 +62,4 @@
     --gray-700: hsl(0, 0%, 43%);
     --gray-800: hsl(0, 0%, 24%);
     --gray-900: hsl(0, 0%, 5%);
-    --gray-900-10-percent: hsl(0, 0%, 5%, 10%);
-    --gray-900-50-percent: hsl(0, 0%, 5%, 50%);
 }
