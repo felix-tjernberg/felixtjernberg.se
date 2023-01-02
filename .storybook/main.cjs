@@ -11,6 +11,6 @@ module.exports = {
     docs: {
         autodocs: true
     },
-    framework: { name: "@storybook/sveltekit" },
+    framework: { name: "@storybook/sveltekit", options: {} },
     stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"]
 }

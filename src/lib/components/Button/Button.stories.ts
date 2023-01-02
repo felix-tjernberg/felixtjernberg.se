@@ -8,6 +8,11 @@ type Story = StoryObj<ButtonStory>
 export const DefaultState: Story = {}
 
 const meta: Meta<ButtonStory> = {
+    argTypes: {
+        iconTest: { table: { disable: true } },
+        label: { control: { type: "text" } },
+        underlined: { control: { type: "boolean" } }
+    },
     component: ButtonStory,
     parameters: {
         design: {
@@ -42,7 +47,8 @@ Story2.storyName = "Underlined variant"
 
 export const Story3: Story = {}
 Story3.args = {
-    iconTestParameter: true
+    iconTest: true,
+    label: "settings"
 }
 Story3.storyName = "Icon variant"
 
