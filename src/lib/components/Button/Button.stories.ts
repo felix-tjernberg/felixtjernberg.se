@@ -27,7 +27,7 @@ Story1.args = {
 }
 Story1.storyName = "Expect label to be rendered"
 Story1.play = async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
+    const canvas = await within(canvasElement)
     const button = await canvas.getByRole("button")
     await expect(button.textContent).toBe(Story1Label)
 }
@@ -36,13 +36,13 @@ const Story2Label = "I'm underlined :)"
 export const Story2: Story = {}
 Story2.args = {
     label: Story2Label,
-    underLine: true
+    underlined: true
 }
 Story2.storyName = "Underlined variant"
 
 export const Story3: Story = {}
 Story3.args = {
-    icon: true
+    iconTestParameter: true
 }
 Story3.storyName = "Icon variant"
 
