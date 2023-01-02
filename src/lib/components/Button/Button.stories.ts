@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
+import { userEvent, within } from "@storybook/testing-library"
 import ButtonStory from "./ButtonStory.svelte"
 import { expect } from "@storybook/jest"
-import { within } from "@storybook/testing-library"
+import { FUNCTION_TEST_STRING } from "./FUNCTION_TEST_STRING"
 
 type Story = StoryObj<ButtonStory>
+export const DefaultState: Story = {}
 
 const meta: Meta<ButtonStory> = {
     component: ButtonStory,
@@ -14,11 +16,9 @@ const meta: Meta<ButtonStory> = {
         }
     },
     tags: ["docsPage"],
-    title: "Compositions/Button"
+    title: "Components/Button"
 }
 export default meta
-
-export const DefaultState: Story = {}
 
 const story1Label = "Hello world!"
 export const Story1: Story = {
@@ -34,21 +34,32 @@ Story1.play = async ({ canvasElement }) => {
 const story2Label = "I'm underlined :)"
 export const Story2: Story = {
     label: story2Label,
-    underlineVariant: true
+    underLine: true
 }
 Story2.storyName = "Underlined variant"
-Story2.play = async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const button = await canvas.getByRole("button")
-    // TODO: create a test for checking if the button is underlined
-}
 
 export const Story3: Story = {
-    label: 0
+    icon: true
 }
-Story3.storyName = "Expect on:click to work"
-Story3.play = async ({ canvasElement }) => {
+Story3.storyName = "Icon variant"
+
+export const Story4: Story = {
+    label: "test on:click"
+}
+Story4.storyName = "Expect on:click event forwarding"
+Story4.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
-    // TODO create a test for clicking the button
+    await userEvent.click(button)
+    await expect(console.log).toHaveBeenCalledWith(FUNCTION_TEST_STRING)
+}
+
+export const Story5: Story = {
+    label: "$$props.class"
+}
+Story5.storyName = "Expect $$props.class style overide"
+Story5.play = async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = await canvas.getByRole("button")
+    await expect(button).toHaveStyle("background-color: red")
 }
