@@ -20,30 +20,34 @@ const meta: Meta<ButtonStory> = {
 }
 export default meta
 
-const story1Label = "Hello world!"
-export const Story1: Story = {
-    label: story1Label
+const Story1Label = "Hello world!"
+export const Story1: Story = {}
+Story1.args = {
+    label: Story1Label
 }
 Story1.storyName = "Expect label to be rendered"
 Story1.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
-    await expect(button.textContent).toBe(story1Label)
+    await expect(button.textContent).toBe(Story1Label)
 }
 
-const story2Label = "I'm underlined :)"
-export const Story2: Story = {
-    label: story2Label,
+const Story2Label = "I'm underlined :)"
+export const Story2: Story = {}
+Story2.args = {
+    label: Story2Label,
     underLine: true
 }
 Story2.storyName = "Underlined variant"
 
-export const Story3: Story = {
+export const Story3: Story = {}
+Story3.args = {
     icon: true
 }
 Story3.storyName = "Icon variant"
 
-export const Story4: Story = {
+export const Story4: Story = {}
+Story4.args = {
     label: "test on:click"
 }
 Story4.storyName = "Expect on:click event forwarding"
@@ -54,7 +58,8 @@ Story4.play = async ({ canvasElement }) => {
     await expect(console.log).toHaveBeenCalledWith(FUNCTION_TEST_STRING)
 }
 
-export const Story5: Story = {
+export const Story5: Story = {}
+Story5.args = {
     label: "$$props.class"
 }
 Story5.storyName = "Expect $$props.class style overide"
