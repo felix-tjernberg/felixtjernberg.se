@@ -1,11 +1,11 @@
 <script lang="ts">
     export let label: string
-    export let underlined: boolean
+    export let underlined: boolean = false
 
     let icon = Boolean($$slots.icon)
 </script>
 
-<button class:underlined class:icon>
+<button on:click class:underlined class:icon>
     {#if $$slots.icon}
         <slot name="icon" />
         <span class="visually-hidden">{label}</span>

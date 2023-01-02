@@ -1,7 +1,7 @@
+import { expect, jest } from "@storybook/jest"
 import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
 import ButtonStory from "./ButtonStory.svelte"
-import { expect } from "@storybook/jest"
 import { FUNCTION_TEST_STRING } from "./FUNCTION_TEST_STRING"
 
 type Story = StoryObj<ButtonStory>
@@ -54,10 +54,12 @@ Story3.storyName = "Icon variant"
 
 export const Story4: Story = {}
 Story4.args = {
-    label: "test on:click"
+    label: "test on:click",
+    functionTest: true
 }
 Story4.storyName = "Expect on:click event forwarding"
 Story4.play = async ({ canvasElement }) => {
+    console.log = jest.fn()
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
     await userEvent.click(button)
