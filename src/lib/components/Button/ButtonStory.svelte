@@ -4,24 +4,26 @@
     import { FUNCTION_TEST_STRING } from "./FUNCTION_TEST_STRING"
 
     export let label: string
-    export let underlined: boolean
+
+    export let glow: boolean = true
+    export let underlined: boolean = false
 
     // test parameters for this wrapper only
-    export let iconTest: boolean = false
-    export let functionTest: boolean = false
     export let classTest: boolean = false
+    export let functionTest: boolean = false
+    export let iconTest: boolean = false
 </script>
 
 {#if iconTest}
-    <Button {label}>
+    <Button {label} {glow} {underlined}>
         <Settings slot="icon" />
     </Button>
 {:else if functionTest}
-    <Button {label} on:click={() => console.log(FUNCTION_TEST_STRING)} />
+    <Button {label} {glow} {underlined} on:click={() => console.log(FUNCTION_TEST_STRING)} />
 {:else if classTest}
-    <Button {label} class="button-test-class" />
+    <Button {label} {glow} {underlined} class="button-test-class" />
 {:else}
-    <Button {label} {underlined} />
+    <Button {label} {glow} {underlined} />
 {/if}
 
 <style>

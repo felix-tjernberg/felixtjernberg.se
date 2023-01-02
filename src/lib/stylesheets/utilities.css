@@ -62,12 +62,11 @@
     width: 1px;
 }
 
-.glow {
-    font-size: 70px;
-    color: #ffffff;
-    text-align: center;
-    -webkit-animation: glow 1s ease-in-out infinite alternate;
-    -moz-animation: glow 1s ease-in-out infinite alternate;
-    text-shadow: 0 0 10px #eeeeee, 0 0 20px #eee, 0 0 30px #eee, 0 0 40px #eee, 0 0 50px #9554b3, 0 0 60px #9554b3,
-        0 0 70px #9554b3;
+.white-glow {
+    --glow-color: var(--gray-900);
+    --glow-size: 5px;
+    filter: drop-shadow(0px 0px var(--glow-size) var(--glow-color));
+}
+[data-dark-mode="false"] .white-glow {
+    filter: none;
 }

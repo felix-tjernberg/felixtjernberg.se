@@ -1,11 +1,17 @@
 <script lang="ts">
     export let label: string
     export let underlined: boolean = false
+    export let glow: boolean = true
 
     let icon = Boolean($$slots.icon)
 </script>
 
-<button class={$$props.class} on:click class:underlined class:icon>
+<button
+    on:click
+    class={Boolean($$props.class) ? $$props.class : ""}
+    class:white-glow={glow}
+    class:underlined
+    class:icon>
     {#if $$slots.icon}
         <slot name="icon" />
         <span class="visually-hidden">{label}</span>

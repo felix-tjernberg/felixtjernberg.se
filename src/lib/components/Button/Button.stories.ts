@@ -9,6 +9,9 @@ export const DefaultState: Story = {}
 
 const meta: Meta<ButtonStory> = {
     argTypes: {
+        classTest: { control: false },
+        functionTest: { control: false },
+        glow: { control: { type: "boolean" } },
         iconTest: { table: { disable: true } },
         label: { control: { type: "text" } },
         underlined: { control: { type: "boolean" } }
