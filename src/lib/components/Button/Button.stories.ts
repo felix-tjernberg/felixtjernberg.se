@@ -68,11 +68,12 @@ Story4.play = async ({ canvasElement }) => {
 
 export const Story5: Story = {}
 Story5.args = {
+    classTest: true,
     label: "$$props.class"
 }
-Story5.storyName = "Expect $$props.class style overide"
+Story5.storyName = "Expect $$props.class overide"
 Story5.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
-    await expect(button).toHaveStyle("background-color: red")
+    await expect(button).toHaveStyle({ backgroundColor: { b: 0, g: 0, r: 255 } })
 }

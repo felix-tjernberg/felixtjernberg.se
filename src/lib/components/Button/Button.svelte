@@ -5,7 +5,7 @@
     let icon = Boolean($$slots.icon)
 </script>
 
-<button on:click class:underlined class:icon>
+<button class={$$props.class} on:click class:underlined class:icon>
     {#if $$slots.icon}
         <slot name="icon" />
         <span class="visually-hidden">{label}</span>
