@@ -47,7 +47,7 @@
     --background-blur-500: saturate(42%) blur(17px);
     --background-blur-900: saturate(42%) blur(90px);
 }
-[light-mode] {
+[data-dark-mode="false"] {
     --gray-000: hsl(0, 0%, 98%);
     --gray-100: hsl(0, 0%, 96%);
     --gray-200: hsl(0, 0%, 93%);

@@ -1,8 +1,15 @@
 html {
     background-color: #000;
 }
+a,
+input,
+button,
+textarea,
+select,
 body > div {
     color: var(--gray-900);
+}
+body > div {
     display: grid;
     font-family: var(--font-primary);
     min-height: 100vh;

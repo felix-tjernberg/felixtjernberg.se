@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onDestroy } from "svelte"
     import { locale, t } from "svelte-intl-precompile"
-
     import { audioVolume } from "$utilities/stores/audioVolumeStore"
 
     const LOCALES = ["en", "se"]

@@ -31,14 +31,6 @@ body {
     text-rendering: optimizeSpeed;
 }
 
-a,
-input,
-button,
-textarea,
-select {
-    color: inherit;
-}
-
 button {
     cursor: pointer;
 }

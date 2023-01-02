@@ -60,8 +60,3 @@
     text-align: center;
     margin: auto;
 }
-
-[data-dark-mode] {
-    font-family: "Press Start 2P", cursive;
-    color: #eee;
-}
