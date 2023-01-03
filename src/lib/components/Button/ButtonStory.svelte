@@ -1,6 +1,6 @@
 <script lang="ts">
     import Settings from "$assets/icons/Settings.svelte"
-    import StarfieldBackground from "$components/StarfieldBackground.svelte"
+    import StarfieldBackgroundStoryWrapper from "$lib/stories/StarfieldBackgroundStoryWrapper.svelte"
     import Button from "./Button.svelte"
     import { FUNCTION_TEST_STRING } from "./FUNCTION_TEST_STRING"
 
@@ -16,8 +16,7 @@
     export let iconTest: boolean = false
 </script>
 
-<div>
-    <StarfieldBackground />
+<StarfieldBackgroundStoryWrapper>
     {#if iconTest}
         <Button {label} {glow} {blur} {underlined}>
             <Settings slot="icon" />
@@ -33,16 +32,4 @@
     {:else}
         <Button {label} {glow} {blur} {underlined} />
     {/if}
-</div>
-
-<style>
-    div {
-        position: relative;
-        display: inline-block;
-    }
-    :global(canvas) {
-        z-index: 0 !important;
-        top: 0;
-        left: 0;
-    }
-</style>
+</StarfieldBackgroundStoryWrapper>
