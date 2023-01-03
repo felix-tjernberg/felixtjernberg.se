@@ -46,7 +46,7 @@ StoryDescription.storyName = "Expect description to be rendered"
 StoryDescription.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const description = await canvas.getByText(StoryDescriptionString)
-    await expect(description).toBeInDocument()
+    await expect(description).toBeTruthy()
 }
 
 export const StoryToggleBoolean: Story = {}
