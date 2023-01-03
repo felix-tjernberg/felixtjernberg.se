@@ -8,7 +8,8 @@ export const DefaultState: Story = {}
 
 const meta: Meta<BooleanButtonStory> = {
     argTypes: {
-        booleanTest: { table: { disable: true } }
+        booleanTest: { table: { disable: true } },
+        description: { control: "text" }
     },
     component: BooleanButtonStory,
     parameters: {
@@ -51,30 +52,30 @@ StoryDescription.play = async ({ canvasElement }) => {
 
 export const StoryToggleBoolean: Story = {}
 StoryToggleBoolean.args = {
-    labels: StoryLabelsArray,
-    booleanTest: true
+    booleanTest: true,
+    labels: StoryLabelsArray
 }
 StoryToggleBoolean.storyName = "Expect boolean to update when clicking buttons"
 StoryToggleBoolean.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
-    const onButton = await canvas.getByText(StoryLabelsArray[0])
-    const offButton = await canvas.getByText(StoryLabelsArray[1])
+    const trueButton = await canvas.getByText(StoryLabelsArray[0])
+    const falseButton = await canvas.getByText(StoryLabelsArray[1])
     const booleanValueElement = await canvas.getByText("true")
     await expect(booleanValueElement.textContent).toBe("true")
-    await userEvent.click(onButton)
+    await userEvent.click(trueButton)
     await expect(booleanValueElement.textContent).toBe("true")
-    await userEvent.click(offButton)
+    await userEvent.click(falseButton)
     await expect(booleanValueElement.textContent).toBe("false")
-    await userEvent.click(offButton)
+    await userEvent.click(falseButton)
     await expect(booleanValueElement.textContent).toBe("false")
-    await userEvent.click(onButton)
+    await userEvent.click(trueButton)
     await expect(booleanValueElement.textContent).toBe("true")
 }
 
 export const StoryAciveButtonAlwaysWhiteBackground: Story = {}
 StoryAciveButtonAlwaysWhiteBackground.args = {
-    labels: StoryLabelsArray,
-    booleanTest: true
+    booleanTest: true,
+    labels: StoryLabelsArray
 }
 StoryAciveButtonAlwaysWhiteBackground.storyName = "Expect active button to have white background"
 StoryAciveButtonAlwaysWhiteBackground.play = async ({ canvasElement }) => {
