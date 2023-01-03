@@ -11,8 +11,8 @@
         <p>{description}</p>
     {/if}
     <div>
-        <Button label={labels[0]} on:click={() => (boolean = true)} />
-        <Button label={labels[1]} on:click={() => (boolean = false)} />
+        <Button active={boolean ? "yes" : "no"} label={labels[0]} on:click={() => (boolean = true)} />
+        <Button active={!boolean ? "yes" : "no"} label={labels[1]} on:click={() => (boolean = false)} />
     </div>
 </div>
 

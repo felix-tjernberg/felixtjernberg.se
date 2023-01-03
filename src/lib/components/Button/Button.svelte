@@ -1,6 +1,7 @@
 <script lang="ts">
     export let label: string
 
+    export let active: "yes" | "no" | undefined = undefined
     export let blur: boolean = true
     export let glow: boolean = true
     export let underlined: boolean = false
@@ -14,6 +15,8 @@
 <button
     on:click
     class={PROPS_CLASS_STRING}
+    class:active={active === "yes"}
+    class:un-active={active === "no"}
     class:background-blur-000={blur}
     class:icon
     class:underlined
@@ -27,12 +30,26 @@
 </button>
 
 <style>
+    .active,
+    .un-active {
+        border: var(--stroke-200) solid var(--white);
+        --glow-color: var(--white);
+    }
+    .active {
+        background-color: var(--white);
+        color: var(--black);
+    }
+    .un-active {
+        background-color: var(--black-10-percent);
+        color: var(--white);
+    }
     button {
         min-height: 48px;
         min-width: 48px;
     }
     :global([data-dark-mode="false"] button) {
         background-color: var(--gray-000-90-percent);
+        border: none;
     }
     .underlined,
     .icon {
@@ -52,5 +69,12 @@
     }
     :global([data-dark-mode="false"] button .white-glow.icon) {
         --glow-color: var(--white);
+    }
+    :global([data-dark-mode="false"] .white-glow.underlined) {
+        filter: none;
+        text-shadow: none;
+    }
+    :global([data-dark-mode="false"] .white-glow.icon) {
+        --glow-color: var(--gray-000);
     }
 </style>

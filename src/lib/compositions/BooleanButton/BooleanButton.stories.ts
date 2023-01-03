@@ -83,7 +83,7 @@ StoryAciveButtonAlwaysWhiteBackground.play = async ({ canvasElement }) => {
     const onButton = await canvas.getByText(StoryLabelsArray[0])
     const offButton = await canvas.getByText(StoryLabelsArray[1])
     await userEvent.click(onButton)
-    await expect(onButton).toHaveStyle("background-color: white")
+    await expect(onButton).toHaveStyle({ backgroundColor: { b: 250, g: 250, r: 250 } })
     await userEvent.click(offButton)
-    await expect(offButton).toHaveStyle("background-color: white")
+    await expect(offButton).toHaveStyle({ backgroundColor: { b: 250, g: 250, r: 250 } })
 }
