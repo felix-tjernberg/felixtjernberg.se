@@ -1,7 +1,7 @@
-import { expect, jest } from "@storybook/jest"
 import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
 import BooleanButtonStory from "./BooleanButtonStory.svelte"
+import { expect } from "@storybook/jest"
 
 type Story = StoryObj<BooleanButtonStory>
 export const DefaultState: Story = {}
@@ -9,7 +9,8 @@ export const DefaultState: Story = {}
 const meta: Meta<BooleanButtonStory> = {
     argTypes: {
         booleanTest: { table: { disable: true } },
-        description: { control: "text" }
+        description: { control: "text" },
+        iconTest: { table: { disable: true } }
     },
     component: BooleanButtonStory,
     parameters: {
@@ -87,3 +88,10 @@ StoryAciveButtonAlwaysWhiteBackground.play = async ({ canvasElement }) => {
     await userEvent.click(offButton)
     await expect(offButton).toHaveStyle({ backgroundColor: { b: 250, g: 250, r: 250 } })
 }
+
+export const StoryIconsVariant: Story = {}
+StoryIconsVariant.args = {
+    iconTest: true,
+    labels: StoryLabelsArray
+}
+StoryIconsVariant.storyName = "Icons variant"

@@ -18,6 +18,7 @@
     onMount(() => {
         const buttonBoundingRectangle = buttonElement.getBoundingClientRect()
         buttonElement.addEventListener("mouseup", (event) => {
+            if (active === "yes") return
             let x = event.clientX - buttonBoundingRectangle.left
             let y = event.clientY - buttonBoundingRectangle.top
             const ripple = document.createElement("div")
@@ -90,6 +91,11 @@
         background-color: var(--black-10-percent);
         color: var(--white);
     }
+    :global(button.icon.un-active path) {
+        fill: var(--black-10-percent);
+        stroke-width: 2px;
+        stroke: var(--white);
+    }
     button {
         position: relative;
         min-height: 48px;
@@ -103,10 +109,10 @@
     .hover-overlay {
         inset: 0;
         background-color: var(--gray-500-50-percent);
-        transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.15s ease-in-out;
         opacity: 0;
     }
-    button:hover .hover-overlay {
+    button:hover:not(.icon) .hover-overlay {
         opacity: 1;
     }
     .underlined,

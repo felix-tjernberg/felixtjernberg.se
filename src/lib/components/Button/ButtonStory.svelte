@@ -9,7 +9,6 @@
     export let glow: boolean = true
     export let underlined: boolean = false
 
-    // test properties for this wrapper only
     export let classTest: boolean = false
     export let functionTest: boolean = false
     export let iconTest: boolean = false
