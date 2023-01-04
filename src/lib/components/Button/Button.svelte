@@ -17,8 +17,8 @@
     if (PROPS_CLASS_STRING.includes("background-blur-")) blur = false
 
     onMount(() => {
-        const buttonBoundingRectangle = buttonElement.getBoundingClientRect()
         buttonElement.addEventListener("mouseup", (event) => {
+            const buttonBoundingRectangle = buttonElement.getBoundingClientRect()
             if (active === "yes") return
             let x = event.clientX - buttonBoundingRectangle.left
             let y = event.clientY - buttonBoundingRectangle.top
