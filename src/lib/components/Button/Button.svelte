@@ -47,6 +47,7 @@
     class:icon
     class:underlined
     class:white-glow={glow}>
+    <div class="absolute hover-overlay" />
     {#if $$slots.icon}
         <slot name="icon" />
         <span class="visually-hidden">{label}</span>
@@ -64,6 +65,7 @@
         position: absolute;
         translate: -50% -50%;
         width: 100%;
+        opacity: 0; /* Avoids a bug where square reappears */
     }
     @keyframes ripple {
         0% {
@@ -94,19 +96,18 @@
         min-width: 48px;
         overflow: hidden;
     }
-    button:hover,
-    button:focus {
-        background-color: var(--gray-500-50-percent);
-    }
-    button:active {
-        background-color: var(--gray-500) !important;
-    }
     :global([data-dark-mode="false"] button) {
         background-color: var(--gray-000-90-percent);
         border: none;
     }
-    :global([data-dark-mode="false"] button:hover, [data-dark-mode="false"] button:focus) {
-        background-color: var(--gray-000);
+    .hover-overlay {
+        inset: 0;
+        background-color: var(--gray-500-50-percent);
+        transition: opacity 0.2s ease-in-out;
+        opacity: 0;
+    }
+    button:hover .hover-overlay {
+        opacity: 1;
     }
     .underlined,
     .icon {
