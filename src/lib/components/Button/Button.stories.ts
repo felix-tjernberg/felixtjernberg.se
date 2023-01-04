@@ -99,3 +99,25 @@ StoryDarkMode.play = async ({ canvasElement }) => {
     await (dataDarkModeElement.dataset.darkMode = "true")
     await expect(button).toHaveStyle({ backgroundColor: { a: 10, b: 0, g: 0, r: 0 } })
 }
+
+export const StoryRippleEffect: Story = {}
+StoryRippleEffect.args = {
+    label: "Look at all them ripples!"
+}
+StoryRippleEffect.storyName = "Test Ripple Effect"
+StoryRippleEffect.parameters = {
+    layout: "fullscreen"
+}
+StoryRippleEffect.play = async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = await canvas.getByRole("button")
+    await userEvent.click(button)
+    await userEvent.click(button)
+    const ripple = (await button.children[0]) as HTMLElement
+    const ripple2 = (await button.children[1]) as HTMLElement
+    await expect(button).toContainElement(ripple)
+    await expect(button).toContainElement(ripple2)
+    await sleep(2000)
+    await expect(button).not.toContainElement(ripple)
+    await expect(button).not.toContainElement(ripple2)
+}
