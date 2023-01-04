@@ -105,9 +105,6 @@ StoryRippleEffect.args = {
     label: "Look at all them ripples!"
 }
 StoryRippleEffect.storyName = "Test Ripple Effect"
-StoryRippleEffect.parameters = {
-    layout: "fullscreen"
-}
 StoryRippleEffect.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
