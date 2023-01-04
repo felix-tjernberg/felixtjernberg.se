@@ -24,3 +24,14 @@ export const decorators = [
         props: { context: story.globals }
     })
 ]
+
+export const globalTypes = {
+    starField: {
+        name: "Starfield Background",
+        defaultValue: "On",
+        toolbar: {
+            items: ["On", "Off"],
+            name: true
+        }
+    }
+}

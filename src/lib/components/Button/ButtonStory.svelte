@@ -1,6 +1,5 @@
 <script lang="ts">
     import Settings from "$assets/icons/Settings.svelte"
-    import StarfieldBackgroundStoryWrapper from "$lib/stories/StarfieldBackgroundStoryWrapper.svelte"
     import Button from "./Button.svelte"
     import { FUNCTION_TEST_STRING } from "./FUNCTION_TEST_STRING"
 
@@ -16,20 +15,18 @@
     export let iconTest: boolean = false
 </script>
 
-<StarfieldBackgroundStoryWrapper>
-    {#if iconTest}
-        <Button {label} {glow} {blur} {underlined}>
-            <Settings slot="icon" />
-        </Button>
-    {:else if functionTest}
-        <Button {label} {glow} {blur} {underlined} on:click={() => console.log(FUNCTION_TEST_STRING)} />
-    {:else if classTest}
-        <Button {label} {glow} {blur} {underlined} />
-        <div data-testid="class-test">
-            <Button {label} {glow} {blur} {underlined} class="background-blur-500" />
-        </div>
-        <Button {label} {glow} {blur} {underlined} class="background-blur-900" />
-    {:else}
-        <Button {label} {glow} {blur} {underlined} />
-    {/if}
-</StarfieldBackgroundStoryWrapper>
+{#if iconTest}
+    <Button {label} {glow} {blur} {underlined}>
+        <Settings slot="icon" />
+    </Button>
+{:else if functionTest}
+    <Button {label} {glow} {blur} {underlined} on:click={() => console.log(FUNCTION_TEST_STRING)} />
+{:else if classTest}
+    <Button {label} {glow} {blur} {underlined} />
+    <div data-testid="class-test">
+        <Button {label} {glow} {blur} {underlined} class="background-blur-500" />
+    </div>
+    <Button {label} {glow} {blur} {underlined} class="background-blur-900" />
+{:else}
+    <Button {label} {glow} {blur} {underlined} />
+{/if}

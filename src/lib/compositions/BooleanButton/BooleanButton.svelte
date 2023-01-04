@@ -22,5 +22,6 @@
         translate: -1em -0.5em;
         rotate: -7.2deg;
         text-align: left;
+        color: var(--white);
     }
 </style>
