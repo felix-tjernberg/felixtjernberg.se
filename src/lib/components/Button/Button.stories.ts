@@ -78,3 +78,18 @@ Story5.play = async ({ canvasElement }) => {
     const button = await canvas.getByTestId("class-test").children[0]
     await expect(button).toHaveClass("background-blur-500")
 }
+
+export const StoryDarkMode: Story = {}
+StoryDarkMode.args = {
+    label: "Dark/Light mode"
+}
+StoryDarkMode.storyName = "Test dark/light mode"
+StoryDarkMode.play = async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = await canvas.getByRole("button")
+    const dataDarkModeElement = await canvas.getByTestId("storybook-wrapper")
+    await (dataDarkModeElement.dataset.darkMode = "false")
+    await expect(button).toHaveStyle({ backgroundColor: { a: 90, b: 0, g: 0, r: 0 } })
+    await (dataDarkModeElement.dataset.darkMode = "true")
+    await expect(button).toHaveStyle({ backgroundColor: { a: 10, b: 0, g: 0, r: 0 } })
+}

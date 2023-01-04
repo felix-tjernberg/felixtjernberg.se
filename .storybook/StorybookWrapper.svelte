@@ -8,6 +8,6 @@
     $: darkMode = context.backgrounds?.value === "#333333" || context.backgrounds?.value === "hsl(0, 0%, 10%)"
 </script>
 
-<div data-dark-mode={darkMode}>
+<div data-dark-mode={darkMode} data-testid="storybook-wrapper">
     <slot />
 </div>
