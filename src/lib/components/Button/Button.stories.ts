@@ -25,41 +25,46 @@ const meta: Meta<ButtonStory> = {
 }
 export default meta
 
-const Story1Label = "I'm underlined :)"
-export const Story1: Story = {}
-Story1.args = {
-    label: Story1Label,
+const StoryUnderlinedString = "I'm underlined :)"
+export const StoryUnderlined: Story = {}
+StoryUnderlined.args = {
+    label: StoryUnderlinedString,
     underlined: true
 }
-Story1.storyName = "Underlined variant"
+StoryUnderlined.storyName = "Underlined variant"
 
-export const Story2: Story = {}
-Story2.args = {
+export const StoryIconVariant: Story = {}
+StoryIconVariant.args = {
     iconTest: true,
     label: "settings"
 }
-Story2.storyName = "Icon variant"
-
-const Story3Label = "Hello world!"
-export const Story3: Story = {}
-Story3.args = {
-    label: Story3Label
+StoryIconVariant.parameters = {
+    design: {
+        type: "figma",
+        url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=37%3A412&starting-point-node-id=37%3A412&show-proto-sidebar=0"
+    }
 }
-Story3.storyName = "Expect label to be rendered"
-Story3.play = async ({ canvasElement }) => {
+StoryIconVariant.storyName = "Icon variant"
+
+const StoryLabelString = "Hello world!"
+export const StoryLabel: Story = {}
+StoryLabel.args = {
+    label: StoryLabelString
+}
+StoryLabel.storyName = "Expect label to be rendered"
+StoryLabel.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const button = await canvas.getByRole("button")
-    await expect(button.textContent).toBe(Story3Label)
+    await expect(button.textContent).toBe(StoryLabelString)
 }
 
-export const Story4: Story = {}
-Story4.args = {
+export const StoryOnClick: Story = {}
+StoryOnClick.args = {
     functionTest: true,
     label: "test on:click"
 }
-
-Story4.storyName = "Expect on:click event forwarding"
-Story4.play = async ({ canvasElement }) => {
+StoryOnClick.storyName = "Expect on:click event forwarding"
+StoryOnClick.play = async ({ canvasElement }) => {
     console.log = jest.fn()
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
@@ -67,13 +72,13 @@ Story4.play = async ({ canvasElement }) => {
     await expect(console.log).toHaveBeenCalledWith(FUNCTION_TEST_STRING)
 }
 
-export const Story5: Story = {}
-Story5.args = {
+export const Story$$PropsClass: Story = {}
+Story$$PropsClass.args = {
     classTest: true,
     label: "$$props.class"
 }
-Story5.storyName = "Expect $$props.class overide"
-Story5.play = async ({ canvasElement }) => {
+Story$$PropsClass.storyName = "Expect $$props.class overide"
+Story$$PropsClass.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByTestId("class-test").children[0]
     await expect(button).toHaveClass("background-blur-500")
