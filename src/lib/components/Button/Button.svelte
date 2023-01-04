@@ -47,9 +47,18 @@
         min-height: 48px;
         min-width: 48px;
     }
+    button:hover {
+        background-color: var(--gray-500-50-percent);
+    }
+    button:active {
+        background-color: var(--gray-500) !important;
+    }
     :global([data-dark-mode="false"] button) {
         background-color: var(--gray-000-90-percent);
         border: none;
+    }
+    :global([data-dark-mode="false"] button:hover) {
+        background-color: var(--gray-000);
     }
     .underlined,
     .icon {

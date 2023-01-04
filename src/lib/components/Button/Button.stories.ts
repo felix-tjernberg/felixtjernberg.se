@@ -1,3 +1,4 @@
+import sleep from "$lib/stories/sleep"
 import { expect, jest } from "@storybook/jest"
 import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
