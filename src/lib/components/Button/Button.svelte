@@ -64,11 +64,12 @@
         animation: ripple 1s cubic-bezier(0.2, 0.95, 1, 1.42);
         aspect-ratio: 1;
         background-color: var(--black);
+        opacity: 0; /* Avoids a bug where square reappears */
         opacity: 0.5;
+        pointer-events: none;
         position: absolute;
         translate: -50% -50%;
         width: 100%;
-        opacity: 0; /* Avoids a bug where square reappears */
     }
     @keyframes ripple {
         0% {
@@ -131,6 +132,7 @@
     .icon {
         display: flex;
         padding: 0;
+        overflow: visible;
     }
     :global([data-dark-mode="false"] button .white-glow.icon) {
         --glow-color: var(--white);
