@@ -24,32 +24,34 @@ export const StoryPressUpAndDown10Times: Story = {}
 StoryPressUpAndDown10Times.storyName = "Press up and down 10 times"
 StoryPressUpAndDown10Times.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
-    const input = await canvas.getByRole("spinbutton")
-    const increaseButton = await canvas.getByTestId("increase-button")
-    const decreaseButton = await canvas.getByTestId("decrease-button")
-    for (let i = 0; i <= 10; i++) {
+    const input = (await canvas.getByRole("spinbutton")) as HTMLInputElement
+    const increaseButton = await canvas.getByTestId("increase")
+    const decreaseButton = await canvas.getByTestId("decrease")
+    for (let i = 1; i <= 10; i++) {
         await userEvent.click(increaseButton)
         if (i === 10) {
-            await expect(input.textContent).toBe("0")
+            await expect(input.value).toBe("0")
+            break
         }
-        await expect(input.textContent).toBe(i.toString())
+        await expect(input.value).toBe(i.toString())
     }
-    for (let i = 10; i >= 0; i--) {
+    for (let i = 9; i >= 0; i--) {
         await userEvent.click(decreaseButton)
-        if (i === 0) {
-            await expect(input.textContent).toBe("10")
+        if (i === 10) {
+            await expect(input.value).toBe("0")
+            break
         }
-        await expect(input.textContent).toBe(i.toString())
+        await expect(input.value).toBe(i.toString())
     }
 }
 
 export const StoryValuePropertyIsNaN: Story = {}
-StoryValuePropertyIsNaN.storyName = "Expect value property to be 0 if not a number"
+StoryValuePropertyIsNaN.storyName = 'Expect value property to be "" if not a number'
 StoryValuePropertyIsNaN.args = {
     value: NaN
 }
 StoryValuePropertyIsNaN.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const input = await canvas.getByRole("spinbutton")
-    await expect(input.textContent).toBe("0")
+    await expect(input.textContent).toBe("")
 }
