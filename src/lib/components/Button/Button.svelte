@@ -18,8 +18,9 @@
 
     onMount(() => {
         buttonElement.addEventListener("mouseup", (event) => {
-            const buttonBoundingRectangle = buttonElement.getBoundingClientRect()
             if (active === "yes") return
+
+            const buttonBoundingRectangle = buttonElement.getBoundingClientRect()
             let x = event.clientX - buttonBoundingRectangle.left
             let y = event.clientY - buttonBoundingRectangle.top
             const ripple = document.createElement("div")
