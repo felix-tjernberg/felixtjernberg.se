@@ -4,6 +4,7 @@
     export let label: string
 
     export let active: "yes" | "no" | undefined = undefined
+    export let ariaHidden: boolean = false
     export let blur: boolean = true
     export let glow: boolean = true
     export let underlined: boolean = false
@@ -41,6 +42,7 @@
 <button
     bind:this={buttonElement}
     on:click
+    aria-hidden={ariaHidden}
     class={PROPS_CLASS_STRING}
     class:active={active === "yes"}
     class:un-active={active === "no"}
@@ -97,10 +99,10 @@
         stroke: var(--white);
     }
     button {
-        position: relative;
-        min-height: 48px;
-        min-width: 48px;
+        border: var(--stroke-200) solid var(--gray-900);
         overflow: hidden;
+        padding: 0.25em 1em;
+        position: relative;
     }
     :global([data-dark-mode="false"] button) {
         background-color: var(--gray-000-90-percent);
@@ -127,9 +129,8 @@
         --text-glow-size: 1.337px;
     }
     .icon {
+        display: flex;
         padding: 0;
-        height: 1em;
-        width: 1em;
     }
     :global([data-dark-mode="false"] button .white-glow.icon) {
         --glow-color: var(--white);

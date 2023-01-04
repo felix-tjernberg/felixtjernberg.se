@@ -38,7 +38,9 @@ button {
     cursor: pointer;
     background-color: transparent;
 }
-button {
-    border: var(--stroke-200) solid var(--gray-900);
-    padding: 0.25em 1em;
+
+svg {
+    height: 1em;
+    margin: auto;
+    width: 1em;
 }

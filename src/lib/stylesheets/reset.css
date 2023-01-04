@@ -47,8 +47,10 @@ input,
 button,
 textarea,
 select {
-    font: inherit;
     background-color: transparent;
+    font: inherit;
+    min-height: 48px;
+    min-width: 48px;
 }
 
 @media (prefers-reduced-motion: reduce) {

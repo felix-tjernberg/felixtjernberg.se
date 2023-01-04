@@ -2,6 +2,10 @@
     import { z } from "zod"
     import lastDigitOfNumber from "$utilities/lastDigitOfNumber"
 
+    import Button from "$components/Button/Button.svelte"
+    import DownArrow from "$assets/icons/DownArrow.svelte"
+    import UpArrow from "$assets/icons/UpArrow.svelte"
+
     export let label: string
 
     const SingleDigitBetween0and9 = z.coerce.number().int().min(0).max(9)
@@ -56,36 +60,77 @@
     }
 </script>
 
-<div>
-    <label>
-        <span class="visually-hidden">{label}</span>
-        <button
-            on:click={() => {
-                // @ts-ignore
-                value += 1
-            }}
-            data-testid="increase">
-            increase
-        </button>
-        <input type="number" bind:value />
-        <button
-            on:click={() => {
-                // @ts-ignore
-                value -= 1
-            }}
-            data-testid="decrease">
-            decrease
-        </button>
-    </label>
-</div>
+<label class="single-digit-input flex-center-column white-glow" data-testid="input-label">
+    <Button
+        ariaHidden={true}
+        label="increase"
+        on:click={() => {
+            // @ts-ignore
+            value += 1
+        }}>
+        <UpArrow slot="icon" />
+    </Button>
+    <span class="visually-hidden">{label}</span>
+    <div class="bottom-stroke">
+        <input type="number" bind:value placeholder="0" />
+    </div>
+    <Button
+        ariaHidden={true}
+        label="decrease"
+        on:click={() => {
+            // @ts-ignore
+            value -= 1
+        }}>
+        <DownArrow slot="icon" />
+    </Button>
+</label>
 
 <style>
     input {
-        -webkit-appearance: none;
+        appearance: auto;
+        -webkit-appearance: textfield;
         -moz-appearance: textfield;
+        /* Properties above needs to be in order */
+        font-size: calc(1em * 1.42);
+        height: 1em;
         max-width: 1ch;
+        text-align: center;
     }
-    div {
-        border-bottom: var(--stroke-200) solid var(--gray-900);
+    .bottom-stroke {
+        position: relative;
+    }
+    .bottom-stroke::after {
+        background-color: var(--gray-900);
+        content: "";
+        height: calc(1em * 0.1337);
+        opacity: 1;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        translate: 0 0.6em;
+        width: 2ch;
+    }
+    .single-digit-input:hover .bottom-stroke::after {
+        opacity: 0;
+    }
+    :global(.single-digit-input button:first-of-type svg) {
+        margin-bottom: 0;
+        translate: 0 calc(1em * 0.06685);
+    }
+    :global(.single-digit-input button:last-of-type svg) {
+        margin-top: 0;
+    }
+    :global(.single-digit-input button) {
+        opacity: 0;
+    }
+    :global(.single-digit-input:hover button) {
+        opacity: 1;
+    }
+    .single-digit-input:hover {
+        border: 0;
+    }
+    .bottom-stroke::after,
+    :global(.single-digit-input button) {
+        transition: opacity 0.15s ease-in-out;
     }
 </style>

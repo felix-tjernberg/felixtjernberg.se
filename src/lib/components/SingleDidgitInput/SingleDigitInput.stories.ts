@@ -25,8 +25,10 @@ StoryPressUpAndDown10Times.storyName = "Press up and down 10 times"
 StoryPressUpAndDown10Times.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const input = (await canvas.getByRole("spinbutton")) as HTMLInputElement
-    const increaseButton = await canvas.getByTestId("increase")
-    const decreaseButton = await canvas.getByTestId("decrease")
+    const inputLabel = (await canvas.getByTestId("input-label")) as HTMLInputElement
+    const increaseButton = (await inputLabel.children[0]) as HTMLButtonElement
+    const decreaseButton = (await inputLabel.children[3]) as HTMLButtonElement
+
     for (let i = 1; i <= 10; i++) {
         await userEvent.click(increaseButton)
         if (i === 10) {
