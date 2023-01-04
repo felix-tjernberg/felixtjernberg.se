@@ -13,7 +13,6 @@
         display: inline-block;
     }
     :global(canvas) {
-        z-index: inherit !important;
         top: 0;
         left: 0;
     }

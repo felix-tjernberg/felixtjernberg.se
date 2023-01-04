@@ -8,7 +8,7 @@
     let darkMode: boolean = false
     let starFieldBackground: boolean = false
 
-    $: darkMode = context.backgrounds?.value === "#333333" || context.backgrounds?.value === "hsl(0, 0%, 10%)"
+    $: darkMode = context.backgrounds?.value === "#333333" || context.backgrounds?.value === "transparent"
     $: starFieldBackground = context.starField === "On"
 </script>
 
