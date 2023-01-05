@@ -106,10 +106,6 @@
         padding: 0.25em 1em;
         position: relative;
     }
-    :global([data-dark-mode="false"] button) {
-        background-color: var(--gray-000-90-percent);
-        border: none;
-    }
     .hover-overlay {
         inset: 0;
         background-color: var(--gray-500-50-percent);

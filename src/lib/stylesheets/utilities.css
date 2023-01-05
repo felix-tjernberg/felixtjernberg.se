@@ -21,7 +21,8 @@
 }
 
 .flex,
-.flex-column {
+.flex-column,
+.flex-center {
     display: flex;
 }
 .flex-column {

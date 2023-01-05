@@ -83,7 +83,6 @@
         font-size: calc(1em * 1.42);
         height: 1em;
         max-width: 1ch;
-        text-align: center;
     }
     .bottom-stroke {
         position: relative;
@@ -97,7 +96,7 @@
         inset: 0;
         margin: auto;
         translate: 0 0.6em;
-        width: 1ch;
+        width: 1.5ch;
     }
     .single-digit-input:hover .bottom-stroke::after {
         opacity: 0;
@@ -121,5 +120,11 @@
     .bottom-stroke::after,
     :global(.single-digit-input button) {
         transition: opacity 0.15s ease-in-out;
+    }
+    :global([data-dark-mode="false"] .single-digit-input button:nth-of-type(1)) {
+        margin-bottom: 0.5em;
+    }
+    :global([data-dark-mode="false"] .single-digit-input button:nth-of-type(2)) {
+        margin-top: 0.5em;
     }
 </style>

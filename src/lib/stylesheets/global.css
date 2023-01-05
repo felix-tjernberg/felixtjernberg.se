@@ -50,4 +50,12 @@ input[type="number"] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     /* Properties above needs to be in order */
+    text-align: center;
+}
+
+[data-dark-mode="false"] button,
+[data-dark-mode="false"] .single-digit-input input,
+[data-dark-mode="false"] .multi-digit-input input {
+    background-color: var(--gray-000-90-percent);
+    border: none;
 }
