@@ -80,10 +80,6 @@
 
 <style>
     input {
-        appearance: auto;
-        -webkit-appearance: textfield;
-        -moz-appearance: textfield;
-        /* Properties above needs to be in order */
         font-size: calc(1em * 1.42);
         height: 1em;
         max-width: 1ch;

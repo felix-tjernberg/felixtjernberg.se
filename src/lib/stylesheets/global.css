@@ -44,3 +44,10 @@ svg {
     margin: auto;
     width: 1em;
 }
+
+input[type="number"] {
+    appearance: auto;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    /* Properties above needs to be in order */
+}
