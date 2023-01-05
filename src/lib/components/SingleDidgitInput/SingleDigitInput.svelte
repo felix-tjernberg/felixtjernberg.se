@@ -127,4 +127,8 @@
     :global([data-dark-mode="false"] .single-digit-input button:nth-of-type(2)) {
         margin-top: 0.5em;
     }
+    :global([data-dark-mode="false"] .single-digit-input path) {
+        stroke-width: calc(1em * 0.1337);
+        stroke: var(--black);
+    }
 </style>

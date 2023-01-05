@@ -57,5 +57,8 @@ input[type="number"] {
 [data-dark-mode="false"] .single-digit-input input,
 [data-dark-mode="false"] .multi-digit-input input {
     background-color: var(--gray-000-90-percent);
+}
+
+[data-dark-mode="false"] button {
     border: none;
 }
