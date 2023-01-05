@@ -14,48 +14,39 @@
 
     $: if (value === null) value = ""
     $: if (!SingleDigitBetween0and9.safeParse(value).success && value !== null) {
-        switch (value) {
-            case 10:
+        switch (lastDigitOfNumber(Number(value))) {
+            case 0:
                 value = 0
                 break
-            case -1:
+            case 1:
+                value = 1
+                break
+            case 2:
+                value = 2
+                break
+            case 3:
+                value = 3
+                break
+            case 4:
+                value = 4
+                break
+            case 5:
+                value = 5
+                break
+            case 6:
+                value = 6
+                break
+            case 7:
+                value = 7
+                break
+            case 8:
+                value = 8
+                break
+            case 9:
                 value = 9
                 break
             default:
-                switch (lastDigitOfNumber(Number(value))) {
-                    case 0:
-                        value = 0
-                        break
-                    case 1:
-                        value = 1
-                        break
-                    case 2:
-                        value = 2
-                        break
-                    case 3:
-                        value = 3
-                        break
-                    case 4:
-                        value = 4
-                        break
-                    case 5:
-                        value = 5
-                        break
-                    case 6:
-                        value = 6
-                        break
-                    case 7:
-                        value = 7
-                        break
-                    case 8:
-                        value = 8
-                        break
-                    case 9:
-                        value = 9
-                        break
-                    default:
-                        value = ""
-                }
+                value = ""
         }
     }
 </script>
@@ -65,6 +56,7 @@
         ariaHidden={true}
         label="increase"
         on:click={() => {
+            if (value === 9) return (value = 0)
             // @ts-ignore
             value += 1
         }}>
@@ -72,12 +64,13 @@
     </Button>
     <span class="visually-hidden">{label}</span>
     <div class="bottom-stroke">
-        <input type="number" bind:value placeholder="0" />
+        <input type="number" bind:value placeholder="0" min="0" max="9" />
     </div>
     <Button
         ariaHidden={true}
         label="decrease"
         on:click={() => {
+            if (value === 0) return (value = 9)
             // @ts-ignore
             value -= 1
         }}>
@@ -108,7 +101,7 @@
         inset: 0;
         margin: auto;
         translate: 0 0.6em;
-        width: 2ch;
+        width: 1ch;
     }
     .single-digit-input:hover .bottom-stroke::after {
         opacity: 0;
