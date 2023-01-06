@@ -1,14 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
-import Notification from "./Notification.svelte"
+import NotificationStory from "./NotificationStory.svelte"
 
-type Story = StoryObj<Notification>
+type Story = StoryObj<NotificationStory>
 export const DefaultState: Story = {}
+DefaultState.args = {
+    active: true
+}
 
-const meta: Meta<Notification> = {
-    argTypes: {},
-    component: Notification,
+const meta: Meta<NotificationStory> = {
+    argTypes: {
+        active: {
+            control: {
+                type: "boolean"
+            }
+        },
+        closeButton: {
+            control: {
+                type: "boolean"
+            }
+        }
+    },
+    component: NotificationStory,
     parameters: {
         design: {
             type: "figma",
@@ -25,7 +39,7 @@ StoryNotActive.storyName = "Expect notification to not render when not active"
 StoryNotActive.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const notification = await canvas.getByTestId("notification")
-    await expect(notification).not.toBeInTheDocument()
+    await expect(notification.children[0]).toBeFalsy()
 }
 
 export const StoryActive: Story = {}
@@ -36,32 +50,41 @@ StoryActive.args = {
 StoryActive.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const notification = await canvas.getByTestId("notification")
-    await expect(notification).toBeInTheDocument()
+    await expect(notification.children[0]).toBeTruthy()
 }
 
 export const StoryCloseWithButton: Story = {}
-StoryCloseWithButton.storyName = "Expect pressing close notification button to remove notification"
+StoryCloseWithButton.storyName = "Expect notification to not render after pressing close button"
 StoryCloseWithButton.args = {
     active: true
 }
 StoryCloseWithButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const button = await canvas.getByText("close notification")
-    const notification = await canvas.getByTestId("notification")
+    const button = await canvas.getByRole("button")
+    const notification = await canvas.getByTestId("notification").children[0]
     await userEvent.click(button)
     await expect(notification).not.toBeInTheDocument()
 }
 
+export const StoryCloseButton: Story = {}
+StoryCloseButton.storyName = "Expect close notification button to render"
+StoryCloseButton.args = {
+    active: true
+}
+StoryCloseButton.play = async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = await canvas.getByRole("button")
+    await expect(button).toBeTruthy()
+}
+
 export const StoryNoCloseButton: Story = {}
-StoryNoCloseButton.storyName = "No close notification button"
+StoryNoCloseButton.storyName = "Expect close notification button not to render if closeButton is false"
 StoryNoCloseButton.args = {
     active: true,
-    noCloseButton: true
+    closeButton: false
 }
 StoryNoCloseButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const button = await canvas.getByText("close notification")
-    const notification = await canvas.getByTestId("notification")
-    await userEvent.click(button)
-    await expect(notification).not.toBeInTheDocument()
+    const notification = await canvas.getByTestId("notification").children[0]
+    await expect(notification.children[0]).toBeFalsy()
 }
