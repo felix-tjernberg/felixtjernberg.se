@@ -12,7 +12,7 @@
     {#if description}
         <p>{description}</p>
     {/if}
-    <span class="visually-hidden ">{label}</span>
+    <span class="visually-hidden">{label}</span>
     <div class="slider-wrapper relative white-glow" style={`--thumb-position-left: ${value * 100}%`}>
         <input type="range" {max} {min} {step} bind:value />
         <Thumb />
@@ -21,11 +21,11 @@
 
 <style>
     p {
+        color: var(--white);
         max-width: 50ch;
-        translate: -1em -0.5em;
         rotate: -7.2deg;
         text-align: left;
-        color: var(--white);
+        translate: -1em -0.5em;
     }
     /* Selectors has to be separate for some reason */
     input::-webkit-slider-thumb {
@@ -35,8 +35,10 @@
         opacity: 0;
     }
     input {
+        appearance: auto;
         -webkit-appearance: none;
         -moz-appearance: none;
+        /* Properties above needs to be in order */
         background: transparent;
         cursor: pointer;
         display: block;
@@ -48,9 +50,9 @@
     .slider-wrapper:after,
     .slider-wrapper:before,
     :global(.slider-wrapper svg) {
+        pointer-events: none;
         position: absolute;
         top: 50%;
-        pointer-events: none;
     }
     .slider-wrapper:after,
     .slider-wrapper:before {
@@ -61,8 +63,8 @@
     }
     .slider-wrapper:before {
         background-color: var(--gray-200);
-        width: 100%;
         border: 0.01337em solid var(--gray-900);
+        width: 100%;
     }
     .slider-wrapper:after {
         background-color: var(--gray-900);
@@ -72,10 +74,10 @@
         fill: var(--gray-900);
     }
     :global(.slider-wrapper svg) {
-        z-index: 1;
         height: 1.5em;
-        width: 1.5em;
-        translate: -50% -50%;
         left: var(--thumb-position-left);
+        translate: -50% -50%;
+        width: 1.5em;
+        z-index: 1;
     }
 </style>
