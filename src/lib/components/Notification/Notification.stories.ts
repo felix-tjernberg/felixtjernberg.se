@@ -6,11 +6,13 @@ import NotificationStory from "./NotificationStory.svelte"
 type Story = StoryObj<NotificationStory>
 export const DefaultState: Story = {}
 DefaultState.args = {
-    active: true,
-    sampleText: "This is a sample text"
+    active: true
 }
 
 const meta: Meta<NotificationStory> = {
+    args: {
+        sampleText: "Prow scuttle parrel provost Sail! Ho shrouds spirits boom mizzenmast yardarm."
+    },
     argTypes: {
         active: {
             control: {
@@ -28,7 +30,8 @@ const meta: Meta<NotificationStory> = {
         design: {
             type: "figma",
             url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=37%3A387&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=37%3A387&show-proto-sidebar=0"
-        }
+        },
+        layout: "fullscreen"
     },
     tags: ["docsPage"],
     title: "Components/Notification"
@@ -83,7 +86,7 @@ StoryNoCloseButton.storyName = "Expect close notification button not to render i
 StoryNoCloseButton.args = {
     active: true,
     closeButton: false,
-    sampleText: "There is not button below"
+    sampleText: "You can't click to close me!"
 }
 StoryNoCloseButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)

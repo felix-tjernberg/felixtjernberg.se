@@ -15,3 +15,10 @@
         {/if}
     </Notification>
 </div>
+
+<style>
+    div {
+        height: 420px;
+        min-width: 100vw;
+    }
+</style>

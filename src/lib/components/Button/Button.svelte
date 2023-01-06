@@ -109,7 +109,7 @@
     .hover-overlay {
         inset: 0;
         background-color: var(--gray-500-50-percent);
-        transition: opacity 0.15s ease-in-out;
+        transition: opacity 420ms ease-in-out;
         opacity: 0;
     }
     button:hover:not(.icon) .hover-overlay {
