@@ -1,13 +1,17 @@
 <script lang="ts">
     import Thumb from "$assets/icons/thumb.svelte"
+    export let description: string | undefined
     export let label: string
-    export let value: number = 0.1337
     export let max: number = 1
     export let min: number = 0
     export let step: number = 0.01
+    export let value: number = 0.1337
 </script>
 
-<label>
+<label class="flex-center-column">
+    {#if description}
+        <p>{description}</p>
+    {/if}
     <span class="visually-hidden ">{label}</span>
     <div class="slider-wrapper relative white-glow" style={`--thumb-position-left: ${value * 100}%`}>
         <input type="range" {max} {min} {step} bind:value />
@@ -16,6 +20,13 @@
 </label>
 
 <style>
+    p {
+        max-width: 50ch;
+        translate: -1em -0.5em;
+        rotate: -7.2deg;
+        text-align: left;
+        color: var(--white);
+    }
     /* Selectors has to be separate for some reason */
     input::-webkit-slider-thumb {
         opacity: 0;

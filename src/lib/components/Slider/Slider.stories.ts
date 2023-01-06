@@ -30,6 +30,6 @@ StoryDescription.args = {
 }
 StoryDescription.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
-    const description = await canvas.getByTestId("description")
+    const description = await canvas.getByText(StoryDescriptionDescription)
     await expect(description.textContent).toBe(StoryDescriptionDescription)
 }
