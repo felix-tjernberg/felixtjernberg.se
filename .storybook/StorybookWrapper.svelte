@@ -5,7 +5,7 @@
 
     export let context: any
 
-    let darkMode: boolean = false
+    let darkMode: boolean = true
     let starFieldBackground: boolean = false
 
     $: darkMode = context.backgrounds?.value === "#333333" || context.backgrounds?.value === "transparent"
