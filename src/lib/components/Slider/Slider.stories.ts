@@ -1,13 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
-import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import Slider from "./Slider.svelte"
+import { within } from "@storybook/testing-library"
 
 type Story = StoryObj<Slider>
 export const DefaultState: Story = {}
 
 const meta: Meta<Slider> = {
-    argTypes: {},
+    argTypes: {
+        description: {
+            control: {
+                type: "text"
+            }
+        },
+        label: {
+            control: {
+                type: "text"
+            }
+        }
+    },
     component: Slider,
     parameters: {
         design: {

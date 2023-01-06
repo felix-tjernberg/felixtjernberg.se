@@ -7,7 +7,13 @@ type Story = StoryObj<SingleDigitInput>
 export const DefaultState: Story = {}
 
 const meta: Meta<SingleDigitInput> = {
-    argTypes: {},
+    argTypes: {
+        label: {
+            control: {
+                type: "text"
+            }
+        }
+    },
     component: SingleDigitInput,
     parameters: {
         design: {

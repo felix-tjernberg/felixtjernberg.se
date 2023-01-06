@@ -1,13 +1,29 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
-import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import MultiDigitInput from "./MultiDigitInput.svelte"
+import { within } from "@storybook/testing-library"
 
 type Story = StoryObj<MultiDigitInput>
 export const DefaultState: Story = {}
 
 const meta: Meta<MultiDigitInput> = {
-    argTypes: {},
+    argTypes: {
+        label: {
+            control: {
+                type: "text"
+            }
+        },
+        min: {
+            control: {
+                type: "number"
+            }
+        },
+        value: {
+            control: {
+                type: "number"
+            }
+        }
+    },
     component: MultiDigitInput,
     parameters: {
         design: {

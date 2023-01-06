@@ -12,7 +12,12 @@ const meta: Meta<ButtonStory> = {
     argTypes: {
         classTest: { table: { disable: true } },
         functionTest: { table: { disable: true } },
-        iconTest: { table: { disable: true } }
+        iconTest: { table: { disable: true } },
+        label: {
+            control: {
+                type: "text"
+            }
+        }
     },
     component: ButtonStory,
     parameters: {

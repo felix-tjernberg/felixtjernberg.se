@@ -6,7 +6,8 @@ import NotificationStory from "./NotificationStory.svelte"
 type Story = StoryObj<NotificationStory>
 export const DefaultState: Story = {}
 DefaultState.args = {
-    active: true
+    active: true,
+    sampleText: "This is a sample text"
 }
 
 const meta: Meta<NotificationStory> = {
@@ -81,7 +82,8 @@ export const StoryNoCloseButton: Story = {}
 StoryNoCloseButton.storyName = "Expect close notification button not to render if closeButton is false"
 StoryNoCloseButton.args = {
     active: true,
-    closeButton: false
+    closeButton: false,
+    sampleText: "There is not button below"
 }
 StoryNoCloseButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
