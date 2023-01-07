@@ -1,14 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
-import StickyNote from "./StickyNote.svelte"
+import StickyNoteStory from "./StickyNoteStory.svelte"
 
-type Story = StoryObj<StickyNote>
+type Story = StoryObj<StickyNoteStory>
 export const DefaultState: Story = {}
 
-const meta: Meta<StickyNote> = {
-    argTypes: {},
-    component: StickyNote,
+const meta: Meta<StickyNoteStory> = {
+    args: {
+        sampleText: "Prow scuttle parrel provost Sail! Ho shrouds spirits boom mizzenmast yardarm."
+    },
+    argTypes: {
+        sampleText: {
+            control: {
+                type: "text"
+            }
+        }
+    },
+    component: StickyNoteStory,
     parameters: {
         design: {
             type: "figma",
@@ -23,9 +32,6 @@ export default meta
 
 export const StoryCloseButton: Story = {}
 StoryCloseButton.storyName = "Expect remove note button to render"
-StoryCloseButton.args = {
-    active: true
-}
 StoryCloseButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
@@ -34,9 +40,6 @@ StoryCloseButton.play = async ({ canvasElement }) => {
 
 export const StoryCloseWithButton: Story = {}
 StoryCloseWithButton.storyName = "Expect note to not render after pressing Remove Note"
-StoryCloseWithButton.args = {
-    active: true
-}
 StoryCloseWithButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")

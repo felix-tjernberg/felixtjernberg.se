@@ -23,6 +23,11 @@ const meta: Meta<NotificationStory> = {
             control: {
                 type: "boolean"
             }
+        },
+        sampleText: {
+            control: {
+                type: "text"
+            }
         }
     },
     component: NotificationStory,
