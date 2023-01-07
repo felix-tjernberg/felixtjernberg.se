@@ -1,11 +1,12 @@
 <script lang="ts">
+    import { fade } from "svelte/transition"
     import Button from "$components/Button/Button.svelte"
     export let active = false
     export let closeButton = true
 </script>
 
 {#if active}
-    <aside class="notification background-blur-900 flex-center flex-column white-glow absolute">
+    <aside class="notification background-blur-900 flex-center flex-column white-glow absolute" transition:fade>
         <slot />
         {#if closeButton}
             <Button label="close notification" underlined={true} on:click={() => (active = false)} />
@@ -25,6 +26,8 @@
         left: 50%;
         translate: -50%;
         width: 100%;
+        scale: 1;
+        transition: scale 420ms ease-in-out;
     }
     :global([data-dark-mode] aside) {
         background-color: var(--gray-000-90-percent);
