@@ -8,11 +8,7 @@ export const DefaultState: Story = {}
 
 const meta: Meta<MultiDigitInput> = {
     argTypes: {
-        label: {
-            control: {
-                type: "text"
-            }
-        },
+        label: { table: { disable: true } },
         min: {
             control: {
                 type: "number"

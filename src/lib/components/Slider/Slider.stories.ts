@@ -13,11 +13,7 @@ const meta: Meta<Slider> = {
                 type: "text"
             }
         },
-        label: {
-            control: {
-                type: "text"
-            }
-        }
+        label: { table: { disable: true } }
     },
     component: Slider,
     parameters: {

@@ -8,11 +8,7 @@ export const DefaultState: Story = {}
 
 const meta: Meta<SingleDigitInput> = {
     argTypes: {
-        label: {
-            control: {
-                type: "text"
-            }
-        }
+        label: { table: { disable: true } }
     },
     component: SingleDigitInput,
     parameters: {
