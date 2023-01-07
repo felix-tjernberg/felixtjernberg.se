@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
-import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import TextInput from "./TextInput.svelte"
+import { within } from "@storybook/testing-library"
 
 type Story = StoryObj<TextInput>
 export const DefaultState: Story = {}
@@ -29,15 +29,15 @@ StoryPlaceholder.args = {
 }
 StoryPlaceholder.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const input = await canvas.getByRole("textbox")
-    await expect(input.ariaPlaceholder).toBe("I like trains")
+    const input = (await canvas.getByRole("textbox")) as HTMLInputElement
+    await expect(input.placeholder).toBe("I like trains")
 }
 
 export const StoryCaret: Story = {}
 StoryCaret.storyName = "Expect caret to be custom"
 StoryCaret.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const input = await canvas.getByRole("textbox")
+    const input = (await canvas.getByRole("textbox")) as HTMLInputElement
     await expect(input.style.caretColor).toBe("transparent")
     //TODO make test that checks if there is a custom caret rendered
 }
