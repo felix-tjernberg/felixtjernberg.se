@@ -1,5 +1,6 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
+    import { backIn, elasticIn } from "svelte/easing"
 
     // TODO I have not gotten viteimagetools imports to work for storybook to work yet
     // import Picture from "$components/Picture.svelte"
@@ -8,11 +9,36 @@
     import noteTexture from "$assets/images/note-texture.png"
     import tapeTexture from "$assets/images/tape-texture-1.png"
 
+    const RANDOM_SEED = Math.random()
+    const TAPE_ROTATION_AMOUNT = RANDOM_SEED > 0.5 ? RANDOM_SEED * -4.2 : RANDOM_SEED * 4.2
+
+    export let flyToRight = true
+
     let active = true
+
+    function flyAway(_: HTMLElement, { duration, flyToRight }: { duration: number; flyToRight: boolean }) {
+        const targetXSeed = RANDOM_SEED * 50
+
+        return {
+            duration,
+            css: (t: number) => {
+                const easedTimeStepIn = backIn(t)
+                const y = (1 - t) * 110
+                const x = (1 - elasticIn(t)) * targetXSeed
+                return `
+					transform:  rotate(${easedTimeStepIn * 1080}deg);
+                    translate: ${flyToRight ? "" : "-"}${x}vw ${y}vh;
+                    `
+            }
+        }
+    }
 </script>
 
 {#if active}
-    <div class="sticky-note relative flex-center flex-column">
+    <div
+        class="sticky-note absolute flex-center flex-column"
+        style={`--rotation-amount: ${TAPE_ROTATION_AMOUNT}deg`}
+        transition:flyAway={{ duration: 5000, flyToRight }}>
         <!-- TODO I have not gotten viteimagetools imports to work for storybook to work yet
              <Picture
             sources={{ srcset: noteTextureSrcSet, type: "webp" }}
@@ -24,16 +50,30 @@
             <img src={tapeTexture} alt="sticky note texture created by Dalle-2" />
         </picture>
         <slot />
-        <Button class="background-blur-900" glow={false} label="remove note" on:click={() => (active = false)} />
+        {#if active}
+            <Button
+                class="background-blur-900"
+                glow={false}
+                label="remove note"
+                on:click={(event) => {
+                    active = false
+                    const currentTarget = event.currentTarget
+                    // TODO: Solve below @ts-ignore
+                    // @ts-ignore
+                    currentTarget.blur()
+                    // @ts-ignore
+                    currentTarget.style.opacity = "0"
+                }} />
+        {/if}
     </div>
 {/if}
 
 <style>
     div {
         aspect-ratio: 1/1;
-        max-width: 50ch;
         padding: 1em;
         place-content: center;
+        inset: 0;
     }
     :global(.sticky-note picture:nth-of-type(1)) {
         inset: 0;
@@ -44,7 +84,7 @@
     }
     :global(.sticky-note picture:nth-of-type(2) img) {
         height: 25px;
-        rotate: -1.337deg;
+        rotate: var(--rotation-amount);
     }
     :global(.sticky-note picture) {
         position: absolute;

@@ -22,7 +22,7 @@ export default {
             }
         },
         viewPort4: {
-            name: "640x360",
+            name: "640x300",
             styles: {
                 width: "300px",
                 height: "640px"

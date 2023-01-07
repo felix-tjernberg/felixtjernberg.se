@@ -47,3 +47,9 @@ StoryCloseWithButton.play = async ({ canvasElement }) => {
     await userEvent.click(button)
     await expect(note).not.toBeInTheDocument()
 }
+
+export const StoryGridTest: Story = {}
+StoryGridTest.args = {
+    gridTest: true
+}
+StoryGridTest.storyName = "Grid test"
