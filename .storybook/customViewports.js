@@ -24,8 +24,15 @@ export default {
         viewPort4: {
             name: "640x360",
             styles: {
-                width: "360px",
+                width: "300px",
                 height: "640px"
+            }
+        },
+        viewPort5: {
+            name: "400x200",
+            styles: {
+                width: "200px",
+                height: "400px"
             }
         }
     }
