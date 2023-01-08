@@ -25,6 +25,9 @@
         height: 100%;
         width: 100%;
     }
+    p {
+        margin: auto;
+    }
     section[slot="phone"] {
         background-color: red;
     }

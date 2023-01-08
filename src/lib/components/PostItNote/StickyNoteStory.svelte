@@ -42,21 +42,21 @@
         grid-template-columns: 110px auto 110px;
         grid-template-rows: 110px auto 110px;
         grid-template-areas:
-            "a . b"
+            "topLeft . topRight"
             ". . ."
-            "c . d";
+            "bottomRight . bottomLeft";
     }
     .relative:nth-of-type(1) {
-        grid-area: a;
+        grid-area: topLeft;
     }
     .relative:nth-of-type(2) {
-        grid-area: b;
+        grid-area: topRight;
     }
     .relative:nth-of-type(3) {
-        grid-area: c;
+        grid-area: bottomRight;
     }
     .relative:nth-of-type(4) {
-        grid-area: d;
+        grid-area: bottomLeft;
     }
 
     .default {
