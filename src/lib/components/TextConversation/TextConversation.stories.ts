@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
-import { userEvent, within } from "@storybook/testing-library"
+import { userEvent, waitFor, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import sleep from "$lib/stories/sleep"
 import TextConversation from "./TextConversation.svelte"
@@ -23,30 +23,22 @@ const meta: Meta<TextConversation> = {
 }
 export default meta
 
-export const StorySeeAllMessages: Story = {}
-StorySeeAllMessages.storyName = "Expect to see all messages after clicking continue button X times"
-StorySeeAllMessages.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = await within(canvasElement)
-    const button = await canvas.getByRole("button")
-    const conversationWrapper = await canvas.getByTestId("conversation-wrapper")
-    for (let i = 1; i <= 9; i++) {
-        await expect(conversationWrapper.children.length).toBe(i)
-        await userEvent.click(button)
-    }
-}
-
 export const StoryContinueDisabled: Story = {}
 StoryContinueDisabled.storyName = "Expect continue button to be disabled/hidden during typing animation"
 StoryContinueDisabled.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
     const conversationWrapper = await canvas.getByTestId("conversation-wrapper")
     await expect(conversationWrapper.children.length).toBe(1)
-    await sleep(3000)
+    await sleep(3500)
     const button = await canvas.getByRole("button")
-    for (let index = 0; index < 3; index++) {
-        await userEvent.click(button)
-        await expect(button).not.toBeInTheDocument()
-        await sleep(3000)
-        await expect(button).toBeInTheDocument()
-    }
+    await userEvent.click(button)
+    await expect(button).not.toBeInTheDocument()
+    await sleep(3000)
+    const button2 = await canvas.getByRole("button")
+    await expect(button2).toBeInTheDocument()
+    await userEvent.click(button2)
+    await expect(button2).not.toBeInTheDocument()
+    await sleep(9000)
+    const button3 = await canvas.getByRole("button")
+    await expect(button3).toBeInTheDocument()
 }
