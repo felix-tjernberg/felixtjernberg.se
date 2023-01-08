@@ -9,7 +9,7 @@
     let messageIndex = -1
     let buttonActive = false
 
-    function typewriter(node: HTMLElement, { speed = 1337 }) {
+    function typewriter(node: HTMLElement, { speed = 1.337 }) {
         const text = node ? node.textContent : false
         if (!text) return
         const duration = text.length / (speed * 0.01)
