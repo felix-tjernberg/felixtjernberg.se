@@ -67,3 +67,7 @@
 button {
     font-family: var(--font-primary);
 }
+
+.sb-show-main.sb-main-centered #storybook-root {
+    padding: 0;
+}

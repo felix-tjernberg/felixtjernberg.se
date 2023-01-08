@@ -63,7 +63,7 @@
     width: 1px;
 }
 
-.white-glow {
+.glow {
     --glow-color: var(--white);
     --glow-size: 3.33px;
     --text-glow-size: 10px;

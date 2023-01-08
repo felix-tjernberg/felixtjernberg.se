@@ -14,7 +14,7 @@
 
 <label>
     <span class="visually-hidden">{label}</span>
-    <div class="strokes-wrapper white-glow">
+    <div class="strokes-wrapper glow">
         <input
             bind:this={input}
             type="text"

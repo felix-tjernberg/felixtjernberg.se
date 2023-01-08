@@ -6,7 +6,7 @@
 </script>
 
 {#if active}
-    <aside class="notification background-blur-900 flex-center flex-column white-glow absolute" transition:fade>
+    <aside class="notification background-blur-900 flex-center flex-column glow absolute" transition:fade>
         <slot />
         {#if closeButton}
             <Button label="close notification" underlined={true} on:click={() => (active = false)} />

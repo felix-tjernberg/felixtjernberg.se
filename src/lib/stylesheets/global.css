@@ -65,7 +65,8 @@ input[type="number"] {
 
 [data-dark-mode="false"] button,
 [data-dark-mode="false"] .single-digit-input input,
-[data-dark-mode="false"] .multi-digit-input input {
+[data-dark-mode="false"] .multi-digit-input input,
+[data-dark-mode="false"] .conversation {
     background-color: var(--gray-000-90-percent);
 }
 

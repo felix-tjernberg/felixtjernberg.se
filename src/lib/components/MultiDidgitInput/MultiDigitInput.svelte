@@ -27,7 +27,7 @@
     <label>
         <span class="visually-hidden">{label}</span>
         <input
-            class="background-blur-000  white-glow"
+            class="background-blur-000  glow"
             type="number"
             placeholder={String(placeholder)}
             {min}

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Thumb from "$assets/icons/thumb.svelte"
+    import Thumb from "$assets/icons/Thumb.svelte"
     export let description: string | undefined
     export let label: string
     export let max: number = 1
@@ -13,7 +13,7 @@
         <p>{description}</p>
     {/if}
     <span class="visually-hidden">{label}</span>
-    <div class="slider-wrapper relative white-glow" style={`--thumb-position-left: ${value * 100}%`}>
+    <div class="slider-wrapper relative glow" style={`--thumb-position-left: ${value * 100}%`}>
         <input type="range" {max} {min} {step} bind:value />
         <Thumb />
     </div>

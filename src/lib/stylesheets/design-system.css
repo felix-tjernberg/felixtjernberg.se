@@ -36,9 +36,8 @@
     --gradient-75-percent: linear-gradient(130.82deg, #fa0c91 7.8%, #fa0c91 16.58%, #02ff58 72.59%, 75%);
     --gradient-90-percent: linear-gradient(130.82deg, #fa0c91 7.8%, #fa0c91 16.58%, #02ff58 72.59%, 90%);
 
-    --glow-pink: 0px 0px 8px rgba(250, 12, 145, 0.9);
-    --glow-green: 0px 0px 8px rgba(2, 255, 88, 0.9);
-    --glow-white: 0px 0px 8px rgba(255, 255, 255, 0.9);
+    --glow-pink: rgba(250, 12, 145);
+    --glow-green: rgba(2, 255, 88);
 
     --shadow-big: 0px 22px 44px #000000;
     --shadow-small: 0px 4px 4px rgba(0, 0, 0, 0.25);

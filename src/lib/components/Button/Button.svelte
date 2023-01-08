@@ -50,7 +50,7 @@
     class:background-blur-000={blur}
     class:icon
     class:underlined
-    class:white-glow={glow}>
+    class:glow>
     <div class="absolute hover-overlay" />
     {#if $$slots.icon}
         <slot name="icon" />
@@ -131,14 +131,14 @@
         padding: 0;
         overflow: visible;
     }
-    :global([data-dark-mode="false"] button .white-glow.icon) {
+    :global([data-dark-mode="false"] button .glow.icon) {
         --glow-color: var(--white);
     }
-    :global([data-dark-mode="false"] .white-glow.underlined) {
+    :global([data-dark-mode="false"] .glow.underlined) {
         filter: none;
         text-shadow: none;
     }
-    :global([data-dark-mode="false"] .white-glow.icon) {
+    :global([data-dark-mode="false"] .glow.icon) {
         --glow-color: var(--gray-000);
     }
 </style>

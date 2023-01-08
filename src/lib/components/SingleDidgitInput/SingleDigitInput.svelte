@@ -51,7 +51,7 @@
     }
 </script>
 
-<label class="single-digit-input flex-center-column white-glow" data-testid="input-label">
+<label class="single-digit-input flex-center-column glow" data-testid="input-label">
     <Button
         ariaHidden={true}
         label="increase"
