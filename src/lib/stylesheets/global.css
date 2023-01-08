@@ -6,7 +6,8 @@ input,
 button,
 textarea,
 select,
-body > div {
+body > div,
+p {
     color: var(--gray-900);
 }
 body > div {
