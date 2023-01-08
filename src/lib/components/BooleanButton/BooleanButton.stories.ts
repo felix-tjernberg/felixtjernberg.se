@@ -20,7 +20,7 @@ const meta: Meta<BooleanButtonStory> = {
         }
     },
     tags: ["docsPage"],
-    title: "Compositions/BooleanButton"
+    title: "Components/BooleanButton"
 }
 export default meta
 
