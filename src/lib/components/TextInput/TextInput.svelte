@@ -21,7 +21,6 @@
             {placeholder}
             on:input={(event) => {
                 const input = event.currentTarget
-
                 if (input.value.length === 0) {
                     input.style.width = `calc(2em + ${placeholder.length}ch)`
                 } else {
