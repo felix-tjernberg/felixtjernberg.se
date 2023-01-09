@@ -2,12 +2,13 @@
     import NavigationWrapper from "./NavigationWrapper.svelte"
     import { SectionsSchema } from "./NavigationSectionsSchema"
     import type { Sections } from "./NavigationSectionsSchema"
+    import Settings from "$assets/icons/Settings.svelte"
 
     let navigationActive: boolean
     let activeSection: Sections
 </script>
 
-<div class="relative">
+<div id="navigation-wrapper-story" class="relative">
     <NavigationWrapper bind:navigationActive bind:activeSection>
         <section slot="phone">
             <p>phone</p>
@@ -24,6 +25,7 @@
         <section slot="contact">
             <p>contact</p>
         </section>
+        <Settings slot="settings" />
     </NavigationWrapper>
     {#if activeSection !== SectionsSchema.enum.none}
         <button
@@ -40,6 +42,11 @@
 </div>
 
 <style>
+    :global(#navigation-wrapper-story > div > div > svg) {
+        height: 33%;
+        width: 33%;
+        margin: auto;
+    }
     button {
         top: 0;
         left: 50%;

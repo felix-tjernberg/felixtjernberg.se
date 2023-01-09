@@ -7,6 +7,7 @@
     import Computer from "$assets/icons/Computer.svelte"
     import Coach from "$assets/icons/Coach.svelte"
     import Contact from "$assets/icons/Contact.svelte"
+    import Logo from "$assets/icons/Logo.svelte"
 
     export let navigationActive: boolean = true
     export let activeSection: Sections = SectionsSchema.enum.none
@@ -81,9 +82,26 @@
         {/if}
         <slot name="contact" />
     </div>
+    <div>
+        <slot name="settings" />
+    </div>
+    {#if navigationActive}
+        <Logo />
+        <Logo />
+    {/if}
 </div>
 
 <style>
+    :global(.navigation > svg) {
+        position: absolute;
+        inset: 0;
+        height: 75%;
+        width: 75%;
+        z-index: -1;
+    }
+    :global(.navigation > svg:nth-of-type(1)) {
+        filter: blur(15vh);
+    }
     .navigation {
         display: grid;
         height: 100%;
@@ -91,7 +109,7 @@
         grid-template-columns: repeat(3, 100vw);
         grid-template-rows: repeat(3, 100vh);
         grid-template-areas:
-            "phone . computer"
+            "phone settings computer"
             ". welcome ."
             "coach . contact";
         translate: 0 -100vh;
@@ -112,6 +130,12 @@
     }
     .navigation div:nth-of-type(5) {
         grid-area: contact;
+    }
+    .navigation div:nth-of-type(6) {
+        grid-area: settings;
+        display: flex;
+        place-content: center;
+        align-items: center;
     }
     [data-active-section="phone"] {
         translate: 100vw -200vh;
@@ -149,6 +173,9 @@
         inset: 0;
         max-width: none;
         max-width: none;
+    }
+    .navigation > div > a,
+    .navigation > div:nth-of-type(6) {
         backdrop-filter: blur(4px) saturate(90%);
     }
     :global(.navigation > div > a > svg) {
