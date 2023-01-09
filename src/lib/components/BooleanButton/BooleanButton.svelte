@@ -4,7 +4,7 @@
     export let labels: string[]
 
     export let boolean: boolean = true
-    export let description: string | undefined
+    export let description: string | undefined = undefined
 
     let icons = Boolean($$slots.firstIcon && $$slots.secondIcon)
 </script>

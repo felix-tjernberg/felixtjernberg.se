@@ -19,6 +19,6 @@
 <style>
     div {
         height: 420px;
-        min-width: 100vw;
+        min-width: 50vw;
     }
 </style>

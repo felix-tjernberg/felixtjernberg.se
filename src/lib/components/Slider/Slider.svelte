@@ -1,7 +1,7 @@
 <script lang="ts">
     import Thumb from "$assets/icons/Thumb.svelte"
-    export let description: string | undefined
     export let label: string
+    export let description: string | undefined = undefined
     export let max: number = 1
     export let min: number = 0
     export let step: number = 0.01
