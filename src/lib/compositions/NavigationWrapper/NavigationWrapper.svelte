@@ -1,22 +1,74 @@
-<div class="navigation">
+<script lang="ts">
+    import { fade } from "svelte/transition"
+    import type { Sections } from "./NavigationSectionsSchema"
+    import { SectionsSchema } from "./NavigationSectionsSchema"
+
+    export let navigationActive: boolean = true
+    export let activeSection: Sections = SectionsSchema.enum.none
+    $: if (activeSection === SectionsSchema.enum.none) {
+        navigationActive = true
+    } else {
+        navigationActive = false
+    }
+</script>
+
+<div
+    data-testid="navigation-wrapper"
+    class="navigation"
+    data-active-section={`${navigationActive ? SectionsSchema.enum.none : activeSection}`}>
     <div>
-        <a on:click|preventDefault href={"/phone"}>phone</a>
+        {#if navigationActive}
+            <a
+                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.phone)}
+                transition:fade
+                href={"/phone"}>
+                phone
+            </a>
+        {/if}
         <slot name="phone" />
     </div>
     <div>
-        <a on:click|preventDefault href={"/computer"}>computer</a>
+        {#if navigationActive}
+            <a
+                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.computer)}
+                transition:fade
+                href={"/computer"}>
+                computer
+            </a>
+        {/if}
         <slot name="computer" />
     </div>
     <div>
-        <a on:click|preventDefault href={"/welcome"}>welcome</a>
+        {#if navigationActive}
+            <a
+                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.welcome)}
+                transition:fade
+                href={"/welcome"}>
+                welcome
+            </a>
+        {/if}
         <slot name="welcome" />
     </div>
     <div>
-        <a on:click|preventDefault href={"/coach"}>coach</a>
+        {#if navigationActive}
+            <a
+                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}
+                transition:fade
+                href={"/coach"}>
+                coach
+            </a>
+        {/if}
         <slot name="coach" />
     </div>
     <div>
-        <a on:click|preventDefault href={"/contact"}>contact</a>
+        {#if navigationActive}
+            <a
+                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.contact)}
+                transition:fade
+                href={"/contact"}>
+                contact
+            </a>
+        {/if}
         <slot name="contact" />
     </div>
 </div>
@@ -34,7 +86,7 @@
             "coach . contact";
         translate: 0 -100vh;
         overflow: hidden;
-        scale: 0.3;
+        transition: all ease-in-out 0.5s;
     }
     .navigation div:nth-of-type(1) {
         grid-area: phone;
@@ -50,6 +102,30 @@
     }
     .navigation div:nth-of-type(5) {
         grid-area: contact;
+    }
+    [data-active-section="phone"] {
+        translate: 100vw 0;
+        scale: 1;
+    }
+    [data-active-section="computer"] {
+        translate: -100vw;
+        scale: 1;
+    }
+    [data-active-section="welcome"] {
+        translate: 0 -100vh;
+        scale: 1;
+    }
+    [data-active-section="coach"] {
+        translate: 100vw -200vh;
+        scale: 1;
+    }
+    [data-active-section="contact"] {
+        translate: -100vw -200vh;
+        scale: 1;
+    }
+    [data-active-section="none"] {
+        scale: 0.3;
+        translate: 0 -100vh;
     }
     .navigation > div {
         position: relative;
