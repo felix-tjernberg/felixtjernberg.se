@@ -25,10 +25,18 @@
             <p>contact</p>
         </section>
     </NavigationWrapper>
-    <button class="absolute" on:click={() => (navigationActive = true)} data-testid="toggle-navigation"
-        >toggle navigation</button>
-    <button class="absolute" on:click={() => (activeSection = SectionsSchema.enum.coach)} data-testid="switch-section"
-        >switch section programmatically</button>
+    {#if activeSection !== SectionsSchema.enum.none}
+        <button
+            class="absolute"
+            on:click={() => {
+                activeSection = SectionsSchema.enum.none
+            }}
+            data-testid="toggle-navigation">open navigation</button>
+    {/if}
+    <button
+        class="absolute visually-hidden"
+        on:click={() => (activeSection = SectionsSchema.enum.coach)}
+        data-testid="switch-section">switch section programmatically</button>
 </div>
 
 <style>
@@ -37,9 +45,6 @@
         left: 50%;
         translate: -50%;
     }
-    button:nth-of-type(2) {
-        scale: 0;
-    }
     div {
         overflow: hidden;
         max-height: 100vh;
@@ -47,23 +52,26 @@
     section {
         height: 100%;
         width: 100%;
+        display: grid;
+        place-content: center;
     }
     p {
         margin: auto;
+        color: var(--white);
     }
     section[slot="phone"] {
-        background-color: red;
+        background-color: rgba(255, 0, 0, 0.238);
     }
     section[slot="computer"] {
-        background-color: green;
+        background-color: rgba(0, 255, 0, 0.238);
     }
     section[slot="welcome"] {
-        background-color: blue;
+        background-color: rgba(0, 0, 255, 0.238);
     }
     section[slot="coach"] {
-        background-color: yellow;
+        background-color: rgba(255, 255, 0, 0.238);
     }
     section[slot="contact"] {
-        background-color: purple;
+        background-color: rgba(255, 0, 255, 0.238);
     }
 </style>

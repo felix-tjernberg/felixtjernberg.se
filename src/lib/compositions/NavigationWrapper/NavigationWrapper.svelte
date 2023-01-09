@@ -2,6 +2,11 @@
     import { fade } from "svelte/transition"
     import type { Sections } from "./NavigationSectionsSchema"
     import { SectionsSchema } from "./NavigationSectionsSchema"
+    import Welcome from "$assets/icons/Welcome.svelte"
+    import Phone from "$assets/icons/Phone.svelte"
+    import Computer from "$assets/icons/Computer.svelte"
+    import Coach from "$assets/icons/Coach.svelte"
+    import Contact from "$assets/icons/Contact.svelte"
 
     export let navigationActive: boolean = true
     export let activeSection: Sections = SectionsSchema.enum.none
@@ -19,13 +24,14 @@
     <div>
         {#if navigationActive}
             <a
-                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.phone)}
+                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}
                 transition:fade
-                href={"/phone"}>
-                phone
+                href={"/coach"}>
+                <span class="visually-hidden">coach</span>
+                <Coach />
             </a>
         {/if}
-        <slot name="phone" />
+        <slot name="coach" />
     </div>
     <div>
         {#if navigationActive}
@@ -33,7 +39,8 @@
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.computer)}
                 transition:fade
                 href={"/computer"}>
-                computer
+                <span class="visually-hidden">computer</span>
+                <Computer />
             </a>
         {/if}
         <slot name="computer" />
@@ -44,7 +51,8 @@
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.welcome)}
                 transition:fade
                 href={"/welcome"}>
-                welcome
+                <span class="visually-hidden">welcome</span>
+                <Welcome />
             </a>
         {/if}
         <slot name="welcome" />
@@ -52,13 +60,14 @@
     <div>
         {#if navigationActive}
             <a
-                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}
+                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.phone)}
                 transition:fade
-                href={"/coach"}>
-                coach
+                href={"/phone"}>
+                <span class="visually-hidden">phone</span>
+                <Phone />
             </a>
         {/if}
-        <slot name="coach" />
+        <slot name="phone" />
     </div>
     <div>
         {#if navigationActive}
@@ -66,7 +75,8 @@
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.contact)}
                 transition:fade
                 href={"/contact"}>
-                contact
+                <span class="visually-hidden">contact</span>
+                <Contact />
             </a>
         {/if}
         <slot name="contact" />
@@ -104,7 +114,7 @@
         grid-area: contact;
     }
     [data-active-section="phone"] {
-        translate: 100vw 0;
+        translate: 100vw -200vh;
         scale: 1;
     }
     [data-active-section="computer"] {
@@ -116,7 +126,7 @@
         scale: 1;
     }
     [data-active-section="coach"] {
-        translate: 100vw -200vh;
+        translate: 100vw 0;
         scale: 1;
     }
     [data-active-section="contact"] {
@@ -139,6 +149,10 @@
         inset: 0;
         max-width: none;
         max-width: none;
-        font-size: var(--font-size-600);
+        backdrop-filter: blur(4px) saturate(90%);
+    }
+    :global(.navigation > div > a > svg) {
+        height: 75%;
+        width: 75%;
     }
 </style>
