@@ -30,13 +30,18 @@
             <BooleanButton labels={["yes", "no"]} bind:boolean={flickerSensitive} />
         </div>
         <div>
-            <h3>Changed your mind about cookies?</h3>
-            <Button label="Yes delete cookies!" on:click={() => (cookiesAllowed = false)} />
+            {#if cookiesAllowed}
+                <h3>Changed your mind about cookies?</h3>
+                <Button label="Yes delete cookies!" on:click={() => (cookiesAllowed = false)} />
+            {:else}
+                <h3>Changed your mind about cookies?</h3>
+                <Button label="Yes allow essential cookies" on:click={() => (cookiesAllowed = true)} />
+            {/if}
         </div>
         {#if scavengerHuntDone}
             <div transition:fade={{ duration: 1337 }}>
                 <h3>Want to do the scavenger hunt again?</h3>
-                <Button label="restart scavenger hunt" on:click={() => (scavengerHuntDone = false)} />
+                <Button label="yes restart scavenger hunt!" on:click={() => (scavengerHuntDone = false)} />
             </div>
         {/if}
     </div>
