@@ -129,7 +129,7 @@
         --text-glow-size: 1.337px;
     }
     .icon {
-        display: flex;
+        display: inline-flex;
         padding: 0;
         overflow: visible;
     }
