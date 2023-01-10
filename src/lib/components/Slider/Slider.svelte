@@ -42,6 +42,7 @@
         background: transparent;
         cursor: pointer;
         display: block;
+        width: 100%;
     }
     .slider-wrapper {
         --thumb-position-left: 50%;

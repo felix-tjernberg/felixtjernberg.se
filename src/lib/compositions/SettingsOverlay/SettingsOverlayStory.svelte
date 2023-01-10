@@ -1,9 +1,11 @@
 <script lang="ts">
     import SettingsOverlay from "./SettingsOverlay.svelte"
+    let dialog: HTMLDialogElement
 </script>
 
 <div>
-    <SettingsOverlay />
+    <button on:click={() => dialog.showModal()}>open settings</button>
+    <SettingsOverlay bind:dialog />
 </div>
 
 <style>

@@ -3,6 +3,7 @@
     import Slider from "$components/Slider/Slider.svelte"
     import Button from "$components/Button/Button.svelte"
     import SettingsText from "$assets/icons/SettingsText.svelte"
+    import Close from "$assets/icons/Close.svelte"
     import { fade } from "svelte/transition"
 
     let value = 0.5
@@ -10,18 +11,19 @@
     let flickerSensitive = true
     let scavengerHuntDone = true
     let cookiesAllowed = true
+    export let dialog: HTMLDialogElement
 </script>
 
-<section id="settings" class="absolute ">
+<dialog bind:this={dialog} id="settings" class="relative">
     <h2><span class="visually-hidden">settings</span><SettingsText /></h2>
-    <div class="flex-column flex-center vertical-flow-300">
-        <div>
-            <h3>Volume</h3>
-            <Slider label="Volume" bind:value />
-        </div>
+    <div class="flex flex-center">
         <div>
             <h3>Do you like reading 8bit font?</h3>
             <BooleanButton labels={["yes", "no"]} bind:boolean={eightParagrafBitFont} />
+        </div>
+        <div>
+            <h3>Volume</h3>
+            <Slider label="Volume" bind:value />
         </div>
         <div>
             <h3>Are you flicker sensitive?</h3>
@@ -38,18 +40,24 @@
             </div>
         {/if}
     </div>
-</section>
+    <Button id="close-settings" label="close settings" on:click={() => dialog.close()}>
+        <Close slot="icon" />
+    </Button>
+</dialog>
 
 <style>
     #settings {
+        background-color: transparent;
         background-image: var(--gradient-90-percent);
-        inset: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
+        grid-template-rows: 33% 1fr;
+        height: auto;
+        width: auto;
+        max-width: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+    #settings[open] {
         display: grid;
-        grid-template-rows: 66% 1fr;
-        height: 100vh;
-        padding-bottom: 10%;
     }
     #settings > h2 {
         height: 100%;
@@ -63,13 +71,23 @@
     :global(#settings button) {
         margin-top: 12px;
     }
-    #settings > div {
+    #settings > .flex {
         border: var(--stroke-300) solid var(--gray-100);
         margin-left: auto;
         margin-right: auto;
-        max-width: 50ch;
-        padding: 2em 1em;
-        margin-top: 10%;
+        margin-top: 3%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin-right: 10%;
+        margin-left: 10%;
+        margin-bottom: 10%;
+        flex-wrap: wrap;
+        gap: 3em;
+        padding: 3em;
+    }
+    .flex > div {
+        flex-basis: content;
+        min-width: 300px;
     }
     #settings,
     #settings > div {
@@ -77,5 +95,32 @@
     }
     :global([data-dark-mode="false"] #settings > div) {
         background-color: var(--white-50-percent);
+    }
+    :global(#close-settings) {
+        position: fixed;
+        top: 1em;
+        right: 1em;
+        font-size: var(--font-size-400);
+    }
+    @media (max-width: 720px) {
+        #settings {
+            grid-template-rows: 20% 1fr;
+        }
+        #settings .flex {
+            margin: 0;
+            padding: 1em;
+        }
+        .flex > div {
+            min-width: 100%;
+        }
+        :global(#close-settings) {
+            top: 0;
+            right: 10px;
+            font-size: var(--font-size-300);
+        }
+        :global(#close-settings > svg) {
+            margin-right: 0;
+            margin-top: 0;
+        }
     }
 </style>

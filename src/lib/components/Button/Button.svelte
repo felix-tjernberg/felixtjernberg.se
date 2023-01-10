@@ -3,6 +3,7 @@
 
     export let label: string
 
+    export let id: string | undefined = undefined
     export let active: "yes" | "no" | undefined = undefined
     export let ariaHidden: boolean = false
     export let blur: boolean = true
@@ -41,6 +42,7 @@
 </script>
 
 <button
+    {id}
     bind:this={buttonElement}
     on:click
     aria-hidden={ariaHidden}
