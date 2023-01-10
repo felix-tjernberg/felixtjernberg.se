@@ -71,3 +71,11 @@ button {
 .sb-show-main.sb-main-centered #storybook-root {
     padding: 0;
 }
+
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+    display: none;
+}

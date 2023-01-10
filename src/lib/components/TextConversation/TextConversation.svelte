@@ -65,7 +65,7 @@
     }
     section {
         scrollbar-width: none;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding-left: 2ch;
         padding-right: 1ch;
         -ms-overflow-style: none;

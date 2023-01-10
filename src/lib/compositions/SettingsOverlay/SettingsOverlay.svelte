@@ -49,7 +49,6 @@
         display: grid;
         grid-template-rows: 66% 1fr;
         height: 100vh;
-        width: 100vw;
         padding-bottom: 10%;
     }
     #settings > h2 {
