@@ -37,7 +37,7 @@ export default [
         person: false
     },
     {
-        message: "(Most of this conversation was written by GhatGPT)",
+        message: "(Most of this conversation was written by ChatGPT)",
         person: false
     }
 ]

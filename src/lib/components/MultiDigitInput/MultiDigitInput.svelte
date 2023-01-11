@@ -82,7 +82,7 @@
                 }
             }} />
     </label>
-    <div>
+    <div class="flex-column flex-center">
         <Button
             ariaHidden={true}
             label="increase"

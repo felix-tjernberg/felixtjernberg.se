@@ -26,7 +26,7 @@ const meta: Meta<StickyNoteStory> = {
         layout: "fullscreen"
     },
     tags: ["docsPage"],
-    title: "Components/Post It Note"
+    title: "Components/Sticky Note"
 }
 export default meta
 

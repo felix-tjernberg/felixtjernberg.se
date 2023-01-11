@@ -1,0 +1,49 @@
+@import url("./margin.css");
+@import url("./flexbox.css");
+
+.absolute {
+    position: absolute;
+}
+.relative {
+    position: relative;
+}
+
+.background-blur-000 {
+    background-color: var(--gray-000-10-percent);
+    backdrop-filter: var(--background-blur-100);
+}
+.background-blur-500 {
+    background-color: var(--gray-000-50-percent);
+    backdrop-filter: var(--background-blur-500);
+}
+.background-blur-900 {
+    background-color: var(--gray-000-50-percent);
+    backdrop-filter: var(--background-blur-900);
+}
+
+.glow {
+    --glow-color: var(--gray-900);
+    --text-glow-color: var(--gray-900);
+    --glow-size: 3.33px;
+    --text-glow-size: 10px;
+    filter: drop-shadow(0px 0px var(--glow-size) var(--glow-color));
+    text-shadow: 0 0 var(--text-glow-size) var(--text-glow-color);
+}
+[data-dark-mode="false"] .glow {
+    --text-glow-size: 0px;
+}
+
+.gap {
+    --gap-size: 1em;
+    gap: var(--gap-size);
+}
+
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}

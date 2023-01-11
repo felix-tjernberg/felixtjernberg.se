@@ -45,7 +45,6 @@
         width: 100%;
     }
     .slider-wrapper {
-        --thumb-position-left: 50%;
         width: 100%;
     }
     .slider-wrapper:after,
@@ -70,9 +69,6 @@
     .slider-wrapper:after {
         background-color: var(--gray-900);
         width: var(--thumb-position-left);
-    }
-    :global(.slider-wrapper svg path) {
-        fill: var(--gray-900);
     }
     :global(.slider-wrapper svg) {
         height: 1.5em;

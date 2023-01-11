@@ -138,7 +138,6 @@
     }
     :global([data-dark-mode="false"] .glow.underlined) {
         filter: none;
-        text-shadow: none;
     }
     :global([data-dark-mode="false"] .glow.icon) {
         --glow-color: var(--gray-000);

@@ -25,9 +25,10 @@
         padding: 0.5em 1em;
         left: 50%;
         translate: -50%;
-        width: 100%;
         scale: 1;
         transition: scale 420ms ease-in-out;
+        min-width: 48px;
+        min-height: 48px;
     }
     :global([data-dark-mode] aside) {
         background-color: var(--gray-000-90-percent);
