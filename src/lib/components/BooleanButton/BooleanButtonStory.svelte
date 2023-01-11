@@ -29,6 +29,6 @@
 
 <style>
     div {
-        font-size: var(--font-size-300);
+        font-size: var(--static-scale-300);
     }
 </style>

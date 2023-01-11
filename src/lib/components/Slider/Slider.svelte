@@ -63,7 +63,7 @@
     }
     .slider-wrapper:before {
         background-color: var(--gray-200);
-        border: 0.01337em solid var(--gray-900);
+        border: var(--stroke-200) solid var(--gray-900);
         width: 100%;
     }
     .slider-wrapper:after {

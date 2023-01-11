@@ -1,20 +1,16 @@
-.margin,
 .margin-horizontal,
 .margin-vertical,
 .margin-vertical-flow {
     --margin-amount: 1em;
 }
-.margin {
-    margin: var(--margin-amount);
-}
 .margin-horizontal {
     margin-left: var(--margin-amount);
     margin-right: var(--margin-amount);
 }
-.margin-vertical-flow > * + * {
-    margin-top: 1em;
-}
 .margin-vertical {
-    margin-top: var(--margin-amount);
     margin-bottom: var(--margin-amount);
+    margin-top: var(--margin-amount);
+}
+.margin-vertical-flow > * + * {
+    margin-top: var(--margin-amount);
 }

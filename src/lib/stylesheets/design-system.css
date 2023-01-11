@@ -1,18 +1,36 @@
-@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Press+Start+2P&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=VT323&display=swap");
 
 :root {
-    --font-secondary: "Ubuntu", sans-serif;
-    --font-primary: "VT323", monospace;
-    --font-accent: "Permanent Marker", cursive;
+    --font-family-secondary: "Ubuntu", sans-serif;
+    --font-family-primary-thin: "VT323", monospace;
+    --font-family-primary-fat: "Press Start 2P", cursive;
+    --font-family-accent: "Permanent Marker", cursive;
+
+    --scale-value-000: 0.704;
+    --scale-value-100: 1;
+    --scale-value-200: 1.42;
+    --scale-value-300: 2.0164;
+    --scale-value-400: 2.863288;
+    --scale-value-500: 4.06586896;
+    --scale-value-600: 5.7735339232;
+    --scale-value-700: 8.198418170944;
 
     --base-font-size: calc(1rem + 2px);
-    --font-size-000: calc(var(--base-font-size) * 0.58);
-    --font-size-100: var(--base-font-size);
-    --font-size-200: calc(var(--font-size-100) * 1.42);
-    --font-size-300: calc(var(--font-size-200) * 1.42);
-    --font-size-400: calc(var(--font-size-300) * 1.42);
-    --font-size-500: calc(var(--font-size-400) * 1.42);
-    --font-size-600: calc(var(--font-size-500) * 1.42);
+    --static-scale-000: calc(var(--base-font-size) * var(--scale-value-000));
+    --static-scale-100: var(--base-font-size);
+    --static-scale-200: calc(var(--base-font-size) * var(--scale-value-200));
+    --static-scale-300: calc(var(--base-font-size) * var(--scale-value-300));
+    --static-scale-400: calc(var(--base-font-size) * var(--scale-value-400));
+    --static-scale-500: calc(var(--base-font-size) * var(--scale-value-500));
+    --static-scale-600: calc(var(--base-font-size) * var(--scale-value-600));
+
+    --relative-scale-000: calc(1em * var(--scale-value-000));
+    --relative-scale-100: 1em;
+    --relative-scale-200: calc(1em * var(--scale-value-200));
+    --relative-scale-300: calc(1em * var(--scale-value-300));
+    --relative-scale-400: calc(1em * var(--scale-value-400));
+    --relative-scale-500: calc(1em * var(--scale-value-500));
+    --relative-scale-600: calc(1em * var(--scale-value-600));
 
     --white-50-percent: hsl(0, 0%, 98%, 50%);
     --white: hsl(0, 0%, 98%);
@@ -32,6 +50,7 @@
     --gray-000-90-percent: hsl(0, 0%, 0%, 90%);
     --black: hsl(0, 0%, 5%);
     --black-10-percent: hsl(0, 0%, 5%, 10%);
+    --black-50-percent: hsl(0, 0%, 5%, 50%);
 
     --gradient: linear-gradient(172deg, rgba(255, 0, 142, 1) 40%, rgba(0, 255, 87, 1) 60%);
     --gradient-90-percent: linear-gradient(133.32deg, #fa0c9190 28.15%, #fa0c9190 35.38%, #02ff5890 81.49%);
@@ -43,15 +62,18 @@
     --shadow-small: 0px 4px 4px rgba(0, 0, 0, 0.25);
     --shadow-navigation: 0px 0px 6px #000000;
 
-    --stroke-000: 0.78px;
-    --stroke-100: 1.34px;
-    --stroke-200: 2.32px;
-    --stroke-300: 4px;
-    --stroke-500: 8px;
+    --base-stroke-width: calc(1em * 0.1337);
+    --stroke-000: calc(var(--base-stroke-width) * var(--scale-value-000));
+    --stroke-100: var(--base-stroke-width);
+    --stroke-200: calc(var(--base-stroke-width) * var(--scale-value-200));
+    --stroke-300: calc(var(--base-stroke-width) * var(--scale-value-300));
+    --stroke-400: calc(var(--base-stroke-width) * var(--scale-value-400));
+    --stroke-500: calc(var(--base-stroke-width) * var(--scale-value-500));
+    --stroke-600: calc(var(--base-stroke-width) * var(--scale-value-600));
 
-    --background-blur-100: blur(0.66px);
-    --background-blur-500: blur(1px);
-    --background-blur-900: blur(2px);
+    --blur-000: 0.666px;
+    --blur-500: 1px;
+    --blur-900: 2px;
 }
 [data-dark-mode="false"] {
     --gray-000-10-percent: hsl(0, 0%, 100%, 10%);

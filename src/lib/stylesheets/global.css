@@ -15,8 +15,8 @@ h3 {
 
 body > div {
     display: grid;
-    font-family: var(--font-primary);
-    font-size: var(--font-size-100);
+    font-family: var(--font-family-primary-thin);
+    font-size: var(--static-scale-100);
     min-height: 100vh;
     place-content: center;
     text-align: center;
@@ -50,11 +50,6 @@ span {
     letter-spacing: 0.06em;
 }
 
-button {
-    cursor: pointer;
-    background-color: transparent;
-}
-
 svg {
     height: 1em;
     margin: auto;
@@ -67,15 +62,4 @@ input[type="number"] {
     -moz-appearance: textfield;
     /* Properties above needs to be in order */
     text-align: center;
-}
-
-[data-dark-mode="false"] button,
-[data-dark-mode="false"] .single-digit-input input,
-[data-dark-mode="false"] .multi-digit-input input,
-[data-dark-mode="false"] .conversation {
-    background-color: var(--gray-000-90-percent);
-}
-
-[data-dark-mode="false"] button {
-    border: none;
 }

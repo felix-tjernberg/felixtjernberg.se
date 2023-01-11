@@ -7,15 +7,23 @@
     export let active: "yes" | "no" | undefined = undefined
     export let ariaHidden: boolean = false
     export let blur: boolean = true
+    export let border: boolean = true
     export let glow: boolean = true
+    export let hoverOverlay: boolean = true
+    export let tabAble: boolean = true
     export let underlined: boolean = false
 
     let buttonElement: HTMLButtonElement
     let icon = Boolean($$slots.icon)
     let timeoutTimers: ReturnType<typeof setTimeout>[] = []
 
-    const PROPS_CLASS_STRING = $$props.class ? $$props.class : ""
-    if (PROPS_CLASS_STRING.includes("background-blur-")) blur = false
+    if (icon) glow = false
+    if (underlined || icon) {
+        border = false
+        blur = false
+    }
+
+    const PROPS_CLASS_STRING = $$props.class ? $$props.class : undefined
 
     onMount(() => {
         buttonElement.addEventListener("mouseup", (event) => {
@@ -48,12 +56,18 @@
     aria-hidden={ariaHidden}
     class={PROPS_CLASS_STRING}
     class:active={active === "yes"}
-    class:un-active={active === "no"}
-    class:background-blur-000={blur}
+    class:background-blur={blur}
+    class:border
+    class:flex-center={true}
+    class:glow
     class:icon
     class:underlined
-    class:glow>
-    <div class="absolute hover-overlay" />
+    class:un-active={active === "no"}
+    tabindex={tabAble ? 0 : -1}>
+    {#if hoverOverlay}
+        <div class="absolute hover-overlay" />
+    {/if}
+
     {#if $$slots.icon}
         <slot name="icon" />
         <span class="visually-hidden">{label}</span>
@@ -63,12 +77,68 @@
 </button>
 
 <style>
+    button {
+        overflow: hidden;
+        padding: 0.25em 1em;
+        position: relative;
+        font-family: var(--font-family-primary-fat);
+    }
+    :global([data-dark-mode="false"] button:not(.icon, .underlined)) {
+        background-color: var(--white);
+    }
+    button:hover:not(.active) .hover-overlay {
+        opacity: 1;
+    }
+    button.active:hover {
+        cursor: not-allowed;
+    }
+    button:active:not(.icon),
+    .active:not(.icon) {
+        background-color: var(--gray-900);
+        color: var(--gray-000);
+    }
+    :global(button.icon.un-active path) {
+        fill: transparent;
+        stroke-width: var(--stroke-200);
+        stroke: var(--gray-900);
+    }
+    .hover-overlay {
+        background-color: var(--gray-500-50-percent);
+        inset: 0;
+        opacity: 0;
+        transition: opacity 420ms ease-in-out;
+    }
+    :global([data-dark-mode="false"] .hover-overlay) {
+        background-color: var(--black-50-percent) !important;
+    }
+    .underlined {
+        text-decoration: underline;
+        --text-glow-size: 1.337px;
+    }
+    :global([data-dark-mode="false"] .glow.underlined) {
+        filter: none;
+    }
+    .icon {
+        padding: 0;
+        overflow: visible;
+    }
+    .icon .hover-overlay {
+        height: 100%;
+        left: 50%;
+        padding: 0.666em;
+        top: 50%;
+        translate: -50% -50%;
+        width: 100%;
+    }
+    :global([data-dark-mode="false"] .glow.icon) {
+        --glow-color: var(--white);
+        --glow-size: 0;
+    }
     :global(.ripple) {
         animation: ripple 1s cubic-bezier(0.2, 0.95, 1, 1.42);
         aspect-ratio: 1;
         background-color: var(--black);
         opacity: 0; /* Avoids a bug where square reappears */
-        opacity: 0.5;
         pointer-events: none;
         position: absolute;
         translate: -50% -50%;
@@ -83,63 +153,5 @@
             transform: scale(1);
             opacity: 0;
         }
-    }
-    .active,
-    .un-active {
-        border: var(--stroke-200) solid var(--white);
-        --glow-color: var(--white);
-    }
-    .active {
-        background-color: var(--white);
-        color: var(--black);
-    }
-    .un-active {
-        background-color: var(--black-10-percent);
-        color: var(--white);
-    }
-    :global(button.icon.un-active path) {
-        fill: var(--black-10-percent);
-        stroke-width: 2px;
-        stroke: var(--white);
-    }
-    button {
-        border: var(--stroke-200) solid var(--gray-900);
-        overflow: hidden;
-        padding: 0.25em 1em;
-        position: relative;
-    }
-    .hover-overlay {
-        inset: 0;
-        background-color: var(--gray-500-50-percent);
-        transition: opacity 420ms ease-in-out;
-        opacity: 0;
-    }
-    button:hover:not(.icon) .hover-overlay {
-        opacity: 1;
-    }
-    .underlined,
-    .icon {
-        border: none;
-        backdrop-filter: none;
-        background-color: transparent;
-    }
-    .underlined {
-        text-decoration: underline;
-        font-family: var(--font-secondary);
-        --text-glow-size: 1.337px;
-    }
-    .icon {
-        display: inline-flex;
-        padding: 0;
-        overflow: visible;
-    }
-    :global([data-dark-mode="false"] button .glow.icon) {
-        --glow-color: var(--white);
-    }
-    :global([data-dark-mode="false"] .glow.underlined) {
-        filter: none;
-    }
-    :global([data-dark-mode="false"] .glow.icon) {
-        --glow-color: var(--gray-000);
     }
 </style>

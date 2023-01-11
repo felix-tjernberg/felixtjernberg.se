@@ -61,11 +61,11 @@
     margin: auto;
 }
 .docs-story [data-dark-mode] {
-    font-size: var(--font-size-100) !important;
+    font-size: var(--static-scale-100) !important;
 }
 
 button {
-    font-family: var(--font-primary);
+    font-family: var(--font-family-primary-thin);
 }
 
 .sb-show-main.sb-main-centered #storybook-root {

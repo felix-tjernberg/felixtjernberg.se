@@ -36,7 +36,7 @@
 
 {#if active}
     <div
-        class="sticky-note absolute flex-center flex-column"
+        class="sticky-note absolute flex-column-center"
         style={`--rotation-amount: ${TAPE_ROTATION_AMOUNT}deg`}
         transition:flyAway={{ duration: 5000, flyToRight }}>
         <!-- TODO I have not gotten viteimagetools imports to work for storybook to work yet
@@ -52,8 +52,8 @@
         <slot />
         {#if active}
             <Button
-                class="background-blur-900"
                 glow={false}
+                hoverOverlay={false}
                 label="remove note"
                 on:click={(event) => {
                     active = false
@@ -69,7 +69,7 @@
 {/if}
 
 <style>
-    div {
+    .sticky-note {
         aspect-ratio: 1/1;
         padding: 1em;
         place-content: center;
@@ -95,25 +95,23 @@
         height: 100%;
         border-radius: 3px;
     }
-    :global(.sticky-note p) {
-        color: var(--gray-000);
+    :global(.sticky-note p),
+    :global(.sticky-note button) {
+        color: var(--black);
     }
     :global(.sticky-note button),
     :global(.sticky-note p) {
-        font-family: var(--font-accent) !important;
-    }
-    :global([data-dark-mode="false"] .sticky-note p) {
-        color: var(--gray-900);
+        font-family: var(--font-family-accent) !important;
     }
     :global(.sticky-note button) {
-        background-color: var(--gray-000-90-percent) !important;
-        position: absolute !important;
-        height: 100%;
-        width: 100%;
-        opacity: 0;
-        transition: opacity 420ms ease-in-out;
+        --background-blur-amount: 20px;
         border: none !important;
+        height: 100%;
+        opacity: 0;
+        position: absolute !important;
         text-decoration: underline;
+        transition: opacity 420ms ease-in-out;
+        width: 100%;
     }
     :global(.sticky-note:hover button),
     :global(.sticky-note button:focus) {

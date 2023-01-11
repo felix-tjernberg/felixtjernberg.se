@@ -93,9 +93,9 @@
 
 <style>
     :global(.navigation > svg) {
-        position: absolute;
-        inset: 0;
         height: 75%;
+        inset: 0;
+        position: absolute;
         width: 75%;
         z-index: -1;
     }
@@ -104,17 +104,17 @@
     }
     .navigation {
         display: grid;
-        height: 100%;
-        width: 100%;
-        grid-template-columns: repeat(3, 100vw);
-        grid-template-rows: repeat(3, 100vh);
         grid-template-areas:
             "phone settings computer"
             ". welcome ."
             "coach . contact";
-        translate: 0 -100vh;
+        grid-template-columns: repeat(3, 100vw);
+        grid-template-rows: repeat(3, 100vh);
+        height: 100%;
         overflow: hidden;
         transition: all ease-in-out 0.5s;
+        translate: 0 -100vh;
+        width: 100%;
     }
     .navigation div:nth-of-type(1) {
         grid-area: phone;
@@ -133,29 +133,28 @@
     }
     .navigation div:nth-of-type(6) {
         grid-area: settings;
-        display: flex;
-        place-content: center;
-        align-items: center;
+    }
+    [data-active-section="phone"],
+    [data-active-section="computer"],
+    [data-active-section="welcome"],
+    [data-active-section="coach"],
+    [data-active-section="contact"] {
+        scale: 1;
     }
     [data-active-section="phone"] {
         translate: 100vw -200vh;
-        scale: 1;
     }
     [data-active-section="computer"] {
         translate: -100vw;
-        scale: 1;
     }
     [data-active-section="welcome"] {
         translate: 0 -100vh;
-        scale: 1;
     }
     [data-active-section="coach"] {
         translate: 100vw 0;
-        scale: 1;
     }
     [data-active-section="contact"] {
         translate: -100vw -200vh;
-        scale: 1;
     }
     [data-active-section="none"] {
         scale: 0.3;
@@ -166,17 +165,18 @@
         margin: 3%;
     }
     .navigation > div > a {
-        display: flex;
-        place-content: center;
-        align-items: center;
-        position: absolute;
         inset: 0;
         max-width: none;
         max-width: none;
+        position: absolute;
     }
     .navigation > div > a,
     .navigation > div:nth-of-type(6) {
+        align-items: center;
         backdrop-filter: blur(4px) saturate(90%);
+        display: flex;
+        place-content: center;
+        padding: 1em;
     }
     :global(.navigation > div > a > svg) {
         height: 75%;

@@ -6,7 +6,7 @@
 </script>
 
 {#if active}
-    <aside class="notification background-blur-900 flex-center flex-column glow absolute" transition:fade>
+    <aside class="notification background-blur flex-column-center glow absolute border-horizontal" transition:fade>
         <slot />
         {#if closeButton}
             <Button label="close notification" underlined={true} on:click={() => (active = false)} />
@@ -15,26 +15,27 @@
 {/if}
 
 <style>
-    aside {
-        background-color: var(--gray-000-10-percent);
-        border-left: 0.1337em solid var(--gray-900);
-        border-right: 0.1337em solid var(--gray-900);
+    .notification {
+        --background-blur-amount: var(--blur-900);
+        --stroke-width: var(--stroke-200);
         color: var(--gray-900);
-        font-family: var(--font-secondary);
-        top: 1em;
-        padding: 0.5em 1em;
         left: 50%;
-        translate: -50%;
-        scale: 1;
-        transition: scale 420ms ease-in-out;
-        min-width: 48px;
         min-height: 48px;
+        min-width: 48px;
+        padding: 0.5em 1em;
+        scale: 1;
+        top: 1em;
+        transition: scale 420ms ease-in-out;
+        translate: -50%;
     }
-    :global([data-dark-mode] aside) {
-        background-color: var(--gray-000-90-percent);
+    :global([data-dark-mode="false"] .notification) {
+        --glow-color: var(--white);
+        --stroke-width: var(--stroke-400);
+        --stroke-color: var(--gray-000);
     }
     :global(.notification button) {
         background-color: var(--gray-000) !important;
+        font-family: var(--font-family-primary-thin) !important;
         height: 100%;
         left: 0;
         max-width: 100%;

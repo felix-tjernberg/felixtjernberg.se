@@ -23,11 +23,11 @@
     }
 </script>
 
-<div class="multi-digit-input flex-center">
+<div class="multi-digit-input flex-center relative">
     <label>
         <span class="visually-hidden">{label}</span>
         <input
-            class="background-blur-000  glow"
+            class="background-blur glow border-vertical"
             type="number"
             placeholder={String(placeholder)}
             {min}
@@ -82,7 +82,7 @@
                 }
             }} />
     </label>
-    <div class="flex-column flex-center">
+    <div class="flex-column-center absolute">
         <Button
             ariaHidden={true}
             label="increase"
@@ -121,18 +121,34 @@
 
 <style>
     input {
-        border-top: calc(1em * 0.1337) solid var(--gray-900);
-        border-bottom: calc(1em * 0.1337) solid var(--gray-900);
-        width: calc(100% + 48px);
+        --total-numbers: 5ch;
+        width: calc(var(--total-numbers) + 2ch);
+    }
+    :global([data-dark-mode="false"] .multi-digit-input input) {
+        background-color: var(--white);
+    }
+    .multi-digit-input {
+        font-family: var(--font-family-primary-fat);
+    }
+    .multi-digit-input > .absolute {
+        right: 0;
+        translate: 100%;
+    }
+    :global(.multi-digit-input button) {
+        transition: all 0.15s ease-in-out;
+    }
+    :global(.multi-digit-input button) {
+        opacity: 0;
+        scale: 0;
+    }
+    :global(.multi-digit-input:hover button) {
+        opacity: 1;
+        scale: 1;
     }
     :global(.multi-digit-input button:first-of-type svg) {
         margin-bottom: 0;
-        translate: 0 calc(1em * 0.06685);
     }
     :global(.multi-digit-input button:last-of-type svg) {
         margin-top: 0;
-    }
-    :global([data-dark-mode="false"] .multi-digit-input svg path) {
-        fill: var(--black);
     }
 </style>

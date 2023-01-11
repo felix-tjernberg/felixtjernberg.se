@@ -21,11 +21,15 @@
 {:else if functionTest}
     <Button {label} {glow} {blur} {underlined} on:click={() => console.log(FUNCTION_TEST_STRING)} />
 {:else if classTest}
-    <Button {label} {glow} {blur} {underlined} />
     <div data-testid="class-test">
-        <Button {label} {glow} {blur} {underlined} class="background-blur-500" />
+        <Button {label} {glow} {blur} {underlined} class="red" />
     </div>
-    <Button {label} {glow} {blur} {underlined} class="background-blur-900" />
 {:else}
     <Button {label} {glow} {blur} {underlined} />
 {/if}
+
+<style>
+    :global(.red) {
+        background-color: red !important;
+    }
+</style>

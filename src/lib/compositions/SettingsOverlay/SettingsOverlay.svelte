@@ -14,9 +14,9 @@
     export let dialog: HTMLDialogElement
 </script>
 
-<dialog bind:this={dialog} id="settings" class="relative">
+<dialog bind:this={dialog} id="settings-dialog" class="relative background-blur">
     <h2><span class="visually-hidden">settings</span><SettingsText /></h2>
-    <div class="flex flex-center">
+    <div id="settings-box" class="flex flex-center background-blur">
         <div>
             <h3>Do you like reading 8bit font?</h3>
             <BooleanButton labels={["yes", "no"]} bind:boolean={eightParagrafBitFont} />
@@ -51,79 +51,75 @@
 </dialog>
 
 <style>
-    #settings {
+    #settings-dialog {
         background-color: transparent;
         background-image: var(--gradient-90-percent);
         grid-template-rows: 33% 1fr;
         height: auto;
-        width: auto;
-        max-width: 100%;
         max-height: 100%;
+        max-width: 100%;
         overflow: hidden;
+        width: auto;
     }
-    #settings[open] {
+    #settings-dialog[open] {
         display: grid;
     }
-    #settings > h2 {
+    #settings-dialog > h2 {
         height: 100%;
-        width: 100%;
         translate: 0 25%;
+        width: 100%;
     }
-    :global(#settings h2 > svg) {
+    :global(#settings-dialog h2 > svg) {
         height: 100%;
         width: 75%;
     }
-    :global(#settings button) {
+    :global(#settings-dialog button) {
         margin-top: 12px;
     }
-    #settings > .flex {
-        border: var(--stroke-300) solid var(--gray-100);
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 3%;
-        overflow-y: auto;
-        overflow-x: hidden;
-        margin-right: 10%;
-        margin-left: 10%;
-        margin-bottom: 10%;
-        flex-wrap: wrap;
-        gap: 3em;
-        padding: 3em;
+    #settings-dialog,
+    #settings-box {
+        --background-blur-amount: 7px;
     }
-    .flex > div {
+    #settings-box {
+        border: var(--stroke-300) solid var(--gray-100);
+        flex-wrap: wrap;
+        gap: var(--static-scale-300);
+        margin: 3% 10% 10% 10%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: var(--static-scale-300);
+    }
+    #settings-box > div {
         flex-basis: content;
         min-width: 300px;
     }
-    #settings,
-    #settings > div {
-        backdrop-filter: blur(7px) saturate(50%);
-    }
-    :global([data-dark-mode="false"] #settings > div) {
+    :global([data-dark-mode="false"] #settings-box) {
         background-color: var(--white-50-percent);
     }
     :global(#close-settings) {
-        position: fixed;
+        position: absolute;
         top: 1em;
         right: 1em;
-        font-size: var(--font-size-400);
+        font-size: var(--static-scale-400);
+        margin-top: 0 !important;
     }
     @media (max-width: 720px) {
-        #settings {
+        #settings-dialog {
             grid-template-rows: 20% 1fr;
         }
-        #settings .flex {
+        #settings-box {
             margin: 0;
             padding: 1em;
         }
-        .flex > div {
+        #settings-box > div {
             min-width: 100%;
         }
         :global(#close-settings) {
             top: 0;
-            right: 10px;
-            font-size: var(--font-size-300);
+            right: 0;
+            font-size: var(--static-scale-300);
         }
-        :global(#close-settings > svg) {
+        :global(#close-settings > button) {
             margin-right: 0;
             margin-top: 0;
         }

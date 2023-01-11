@@ -87,7 +87,7 @@ Story$$PropsClass.storyName = "Expect $$props.class overide"
 Story$$PropsClass.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByTestId("class-test").children[0]
-    await expect(button).toHaveClass("background-blur-500")
+    await expect(button).toHaveClass("red")
 }
 
 export const StoryDarkMode: Story = {}

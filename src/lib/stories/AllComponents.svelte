@@ -12,44 +12,53 @@
     import Coach from "$components/Coach/Coach.svelte"
 </script>
 
-<div class="margin-vertical-flow flex-column flex-center">
-    <Button label="there" underlined={true} />
-    <Button label="how"><SettingsIcon slot="icon" /></Button>
-    <Button label="hi" />
-    <BooleanButton labels={["on", "off"]} />
-    <BooleanButton labels={["on", "off"]}>
-        <SettingsIcon slot="firstIcon" />
-        <SettingsIcon slot="secondIcon" />
-    </BooleanButton>
-    <Slider label="slider" />
-    <MultiDigitInput label="multi digit input" value={1337} />
-    <SingleDigitInput label="single digit input" />
-    <TextInput label="text input" />
-    <TextConversation />
-    <div class="sticky-wrapper relative">
-        {#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as number}
-            <StickyNote flyToRight={Boolean(number % 2)}>
-                <p>soisoisoisoisoisoisoi</p>
-            </StickyNote>
-        {/each}
+<div id="all-components" class="flex-column-center">
+    <div id="all-components-box" class="margin-vertical-flow flex-column-center glow background-blur border">
+        <Button label="there" underlined={true} />
+        <Button label="how"><SettingsIcon slot="icon" /></Button>
+        <Button label="hi!!!" />
+        <BooleanButton labels={["on", "off"]} />
+        <BooleanButton labels={["on", "off"]}>
+            <SettingsIcon slot="firstIcon" />
+            <SettingsIcon slot="secondIcon" />
+        </BooleanButton>
+        <Slider label="slider" />
+        <MultiDigitInput label="multi digit input" value={1337} />
+        <SingleDigitInput label="single digit input" />
+        <TextInput label="text input" />
+        <div class="sticky-wrapper relative">
+            {#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as number}
+                <StickyNote flyToRight={Boolean(number % 2)}>
+                    <p>
+                        {#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as _}soi<wbr /> {/each}
+                    </p>
+                </StickyNote>
+            {/each}
+        </div>
+        <Coach />
     </div>
-    <Coach />
+    <TextConversation />
+    <Notification active={true}><p>Some text goes here</p></Notification>
 </div>
-<Notification active={true}><p>Some text goes here</p></Notification>
 
 <style>
-    div.margin-vertical-flow {
-        width: 90vh;
-        backdrop-filter: blur(2px) saturate(50%);
-        padding: 2em 1em;
+    #all-components-box {
+        --margin-amount: 100px;
+        --background-blur-amount: var(--blur-900);
+        --stroke-color: var(--gray-100);
+        --stroke-width: var(--stroke-300);
+        --glow-color: var(--gray-100);
         margin: 200px 0;
-        border: 4px solid var(--gray-100);
+        padding: 2em 1em;
+        width: 90vh;
+    }
+    #all-components:last-child {
+        margin-bottom: 200px;
     }
     .sticky-wrapper {
-        width: 200px;
+        text-shadow: none;
+        filter: none;
         aspect-ratio: 1;
-    }
-    :global([data-dark-mode="false"] div.margin-vertical-flow) {
-        background-color: var(--gray-000-50-percent);
+        width: 200px;
     }
 </style>

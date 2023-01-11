@@ -40,8 +40,8 @@
             {$t("greeting", { values: { name: "Felix" } })}
         </p>
     </div>
-    <div class="flex-column flex-center vertical-flow-100">
-        <label class="flex-column flex-center">
+    <div class="flex-column-center vertical-flow-100">
+        <label class="flex-column-center">
             <span>{$t("musicVolume")}</span>
             <input type="range" bind:value={$audioVolume} step="0.01" min="0" max="1" />
         </label>

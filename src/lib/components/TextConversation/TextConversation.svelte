@@ -9,7 +9,7 @@
     let messageIndex = -1
     let buttonActive = false
 
-    function typewriter(node: HTMLElement, { speed = 1.337 }) {
+    function typewriter(node: HTMLElement, { speed = 1.666 }) {
         const text = node ? node.textContent : false
         if (!text) return
         const duration = text.length / (speed * 0.01)
@@ -27,7 +27,7 @@
     })
 </script>
 
-<div class="conversation background-blur-900 relative glow" data-testid="conversation-wrapper">
+<div class="conversation background-blur relative glow border" data-testid="conversation-wrapper">
     <section bind:this={section} class="flex-column">
         {#each TEXT_CONVERSATION as { message, person }, index}
             {#if index <= messageIndex}
@@ -57,48 +57,46 @@
 </div>
 
 <style>
-    span {
-        gap: 1ch;
+    .conversation {
+        --stroke-color: var(--gray-300);
+        --background-blur-amount: var(--blur-900);
+        --glow-color: var(--gray-300);
+        height: 7em;
+        overflow: hidden;
+        padding: 1em 2em 1em 1em;
+        width: 50ch;
     }
-    span p:first-of-type {
-        text-transform: capitalize;
+    :global([data-dark-mode="false"] .conversation) {
+        background-color: var(--white);
     }
     section {
-        scrollbar-width: none;
+        -ms-overflow-style: none;
+        height: 100%;
         overflow-y: auto;
         padding-left: 2ch;
         padding-right: 1ch;
-        -ms-overflow-style: none;
-        height: 100%;
+        scrollbar-width: none;
     }
     section::-webkit-scrollbar {
         display: none;
     }
-    div {
-        width: 50ch;
-        border: var(--stroke-200) solid var(--gray-900);
-        padding: 1em 2em 1em 1em;
-        height: 7em;
-        overflow: hidden;
+    span {
+        gap: 1ch;
+    }
+    span > p:first-of-type {
+        text-transform: uppercase;
     }
     p {
         text-align: left;
+    }
+    p,
+    :global(.conversation button) {
         animation: fadeIn 1337ms;
-    }
-    p::fist-letter {
-        animation: fadeIn 1337ms;
-    }
-    :global([data-dark-mode="false"] .conversation p) {
-        color: var(--gray-900);
-    }
-    :global([data-dark-mode="false"] .conversation) {
-        border: none !important;
     }
     :global(.conversation button) {
-        position: absolute !important;
         bottom: 0;
+        position: absolute !important;
         right: 0;
-        animation: fadeIn 1337ms;
     }
     :global(.conversation button svg) {
         animation: bob 1337ms infinite;

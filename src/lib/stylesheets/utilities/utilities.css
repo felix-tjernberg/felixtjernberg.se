@@ -1,36 +1,49 @@
-@import url("./margin.css");
+@import url("./border.css");
 @import url("./flexbox.css");
+@import url("./margin.css");
+@import url("./padding.css");
 
 .absolute {
-    position: absolute;
+    position: absolute !important;
 }
 .relative {
-    position: relative;
+    position: relative !important;
 }
 
-.background-blur-000 {
-    background-color: var(--gray-000-10-percent);
-    backdrop-filter: var(--background-blur-100);
+.background-blur {
+    --background-blur-amount: var(--blur-000);
+    --background-saturation-amount: 50%;
+    backdrop-filter: blur(var(--background-blur-amount)) saturate(var(--background-saturation-amount));
 }
-.background-blur-500 {
-    background-color: var(--gray-000-50-percent);
-    backdrop-filter: var(--background-blur-500);
-}
-.background-blur-900 {
-    background-color: var(--gray-000-50-percent);
-    backdrop-filter: var(--background-blur-900);
+[data-dark-mode="false"] .background-blur:not(button, input, .conversation) {
+    background-color: var(--gray-000-90-percent);
 }
 
-.glow {
+.glow,
+button svg {
     --glow-color: var(--gray-900);
+    --glow-size: var(--stroke-300);
     --text-glow-color: var(--gray-900);
-    --glow-size: 3.33px;
     --text-glow-size: 10px;
     filter: drop-shadow(0px 0px var(--glow-size) var(--glow-color));
     text-shadow: 0 0 var(--text-glow-size) var(--text-glow-color);
 }
+button.glow:hover:not(.active),
+button.glow.active {
+    --glow-size: var(--stroke-500);
+    --text-glow-size: 20px;
+}
 [data-dark-mode="false"] .glow {
-    --text-glow-size: 0px;
+    text-shadow: none;
+}
+button.un-active:not(:hover) svg {
+    filter: none;
+}
+button svg {
+    --glow-size: var(--stroke-100);
+}
+button:hover:not(.active) svg {
+    --glow-size: var(--stroke-300);
 }
 
 .gap {
