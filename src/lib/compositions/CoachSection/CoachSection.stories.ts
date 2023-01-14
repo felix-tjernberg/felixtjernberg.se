@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
-import CoachSection from "./CoachSection.svelte"
+import CoachSectionStory from "./CoachSectionStory.svelte"
 
-type Story = StoryObj<CoachSection>
+type Story = StoryObj<CoachSectionStory>
 export const DefaultState: Story = {}
 
-const meta: Meta<CoachSection> = {
+const meta: Meta<CoachSectionStory> = {
     args: {},
     argTypes: {},
-    component: CoachSection,
+    component: CoachSectionStory,
     parameters: {
         design: {
             type: "figma",

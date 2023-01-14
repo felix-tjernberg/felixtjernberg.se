@@ -9,7 +9,6 @@
     import TextInput from "$components/TextInput/TextInput.svelte"
     import SettingsIcon from "$assets/icons/SettingsIcon.svelte"
     import StickyNote from "$components/StickyNote/StickyNote.svelte"
-    import Coach from "$components/Coach/Coach.svelte"
 </script>
 
 <div id="all-components" class="flex-column-center">
@@ -35,7 +34,6 @@
                 </StickyNote>
             {/each}
         </div>
-        <Coach />
     </div>
     <TextConversation />
     <Notification active={true}><p>Some text goes here</p></Notification>

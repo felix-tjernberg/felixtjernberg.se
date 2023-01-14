@@ -9,7 +9,12 @@ textarea,
 select,
 body > div,
 p,
-h3 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: var(--gray-900);
 }
 
@@ -45,7 +50,7 @@ button:not(.icon),
 p,
 li,
 span {
-    line-height: 2;
+    line-height: 1.5;
     max-width: 60ch;
     letter-spacing: 0.06em;
 }

@@ -2,32 +2,46 @@
     import coach from "$assets/images/coach.png"
 </script>
 
-<picture class="coach">
+<picture class="absolute">
     <img
+        class="absolute"
         src={coach}
         alt="felix tjernberg in coach attire walking away from camera, with the text Dalecarlia Rebels on his upper back" />
 </picture>
 
 <style>
-    .coach {
+    picture {
+        inset: 0;
+        height: 100%;
+        width: 100%;
+    }
+    img {
         animation: head-bob 4.5s infinite;
         transition-timing-function: cubic-bezier(1, 1, 0, 0);
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        height: 66%;
+    }
+    img,
+    picture {
+        pointer-events: none;
     }
     @keyframes head-bob {
         0% {
-            transform: translate(-1%, 0%);
+            translate: -1% 2%;
         }
         25% {
-            transform: translate(0%, -2%);
+            translate: 0% 0%;
         }
         50% {
-            transform: translate(1%, 0%);
+            translate: 1% 2%;
         }
         75% {
-            transform: translate(0%, -2%);
+            translate: 0% 0%;
         }
         100% {
-            transform: translate(-1%, 0%);
+            translate: -1% 2%;
         }
     }
 </style>
