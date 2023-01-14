@@ -111,6 +111,7 @@
         position: absolute !important;
         text-decoration: underline;
         transition: opacity 420ms ease-in-out;
+        max-width: 100%;
         width: 100%;
     }
     :global(.sticky-note:hover button),

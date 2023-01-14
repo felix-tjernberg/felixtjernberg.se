@@ -156,29 +156,29 @@
     #navigation-item-settings {
         grid-area: settings;
     }
-    [data-active-section="phone"],
-    [data-active-section="computer"],
-    [data-active-section="welcome"],
-    [data-active-section="coach"],
-    [data-active-section="contact"] {
+    #navigation[data-active-section="phone"],
+    #navigation[data-active-section="computer"],
+    #navigation[data-active-section="welcome"],
+    #navigation[data-active-section="coach"],
+    #navigation[data-active-section="contact"] {
         scale: 1;
     }
-    [data-active-section="phone"] {
+    #navigation[data-active-section="coach"] {
         translate: 100vw -200vh;
     }
-    [data-active-section="computer"] {
+    #navigation[data-active-section="computer"] {
         translate: -100vw;
     }
-    [data-active-section="welcome"] {
+    #navigation[data-active-section="welcome"] {
         translate: 0 -100vh;
     }
-    [data-active-section="coach"] {
+    #navigation[data-active-section="phone"] {
         translate: 100vw 0;
     }
-    [data-active-section="contact"] {
+    #navigation[data-active-section="contact"] {
         translate: -100vw -200vh;
     }
-    [data-active-section="none"] {
+    #navigation[data-active-section="none"] {
         scale: 0.3;
         translate: 0 -100vh;
     }

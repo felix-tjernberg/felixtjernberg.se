@@ -1,4 +1,6 @@
-import { browser } from "$app/environment"
+// TODO Because I have not yet figured out how to run storybook against a sveltekit app, app/environment therefore not available
+// import { browser } from "$app/environment"
+const browser = true
 import { writable } from "svelte/store"
 
 export default function persistedWritable(storageKey: string, initialValue: unknown) {
