@@ -1,16 +1,20 @@
 <script lang="ts">
-    import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
-    import Slider from "$components/Slider/Slider.svelte"
-    import Button from "$components/Button/Button.svelte"
-    import SettingsText from "$assets/icons/SettingsText.svelte"
-    import Close from "$assets/icons/Close.svelte"
     import { fade } from "svelte/transition"
+    import { audioVolume } from "$utilities/stores/audioVolumeStore"
+    import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
+    import { darkMode } from "$utilities/stores/darkModeStore"
+    import { flickerSensitive } from "$utilities/stores/flickerSensitiveStore"
+    import { paragrafAsEightBitFont } from "$utilities/stores/paragrafAsEightBitFontStore"
+    import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
 
-    let value = 0.5
-    let eightParagrafBitFont = true
-    let flickerSensitive = true
-    let scavengerHuntDone = true
-    let cookiesAllowed = true
+    import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
+    import Button from "$components/Button/Button.svelte"
+    import Close from "$assets/icons/Close.svelte"
+    import Moon from "$assets/icons/Moon.svelte"
+    import SettingsText from "$assets/icons/SettingsText.svelte"
+    import Slider from "$components/Slider/Slider.svelte"
+    import Sun from "$assets/icons/Sun.svelte"
+
     export let dialog: HTMLDialogElement
 </script>
 
@@ -19,29 +23,36 @@
     <div id="settings-box" class="flex flex-center background-blur">
         <div>
             <h3>Do you like reading 8bit font?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={eightParagrafBitFont} />
-        </div>
-        <div>
-            <h3>Volume</h3>
-            <Slider label="Volume" bind:value />
+            <BooleanButton labels={["yes", "no"]} bind:boolean={$paragrafAsEightBitFont} />
         </div>
         <div>
             <h3>Are you flicker sensitive?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={flickerSensitive} />
+            <BooleanButton labels={["yes", "no"]} bind:boolean={$flickerSensitive} />
+        </div>
+        <div>
+            <h3>Volume</h3>
+            <Slider label="Volume" bind:value={$audioVolume} />
+        </div>
+        <div id="dark-mode">
+            <h3>Dark/Light mode</h3>
+            <BooleanButton labels={["dark", "light"]} bind:boolean={$darkMode}>
+                <Moon slot="firstIcon" />
+                <Sun slot="secondIcon" />
+            </BooleanButton>
         </div>
         <div>
             {#if cookiesAllowed}
                 <h3>Changed your mind about cookies?</h3>
-                <Button label="Yes delete cookies!" on:click={() => (cookiesAllowed = false)} />
+                <Button label="Yes delete cookies!" on:click={() => ($cookiesAllowed = false)} />
             {:else}
                 <h3>Changed your mind about cookies?</h3>
-                <Button label="Yes allow essential cookies" on:click={() => (cookiesAllowed = true)} />
+                <Button label="Yes allow essential cookies" on:click={() => ($cookiesAllowed = true)} />
             {/if}
         </div>
         {#if scavengerHuntDone}
             <div transition:fade={{ duration: 1337 }}>
                 <h3>Want to do the scavenger hunt again?</h3>
-                <Button label="yes restart scavenger hunt!" on:click={() => (scavengerHuntDone = false)} />
+                <Button label="yes restart scavenger hunt!" on:click={() => ($scavengerHuntDone = false)} />
             </div>
         {/if}
     </div>
@@ -102,6 +113,12 @@
         right: 1em;
         font-size: var(--static-scale-400);
         margin-top: 0 !important;
+    }
+    :global(#dark-mode button) {
+        font-size: var(--static-scale-300);
+    }
+    :global(#dark-mode button path) {
+        stroke-width: 2px !important;
     }
     @media (max-width: 720px) {
         #settings-dialog {

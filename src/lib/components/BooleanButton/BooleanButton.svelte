@@ -13,7 +13,7 @@
     {#if description}
         <p>{description}</p>
     {/if}
-    <div class="flex-center">
+    <div class="flex-center" class:icons>
         {#if icons}
             <Button active={boolean ? "yes" : "no"} label={labels[0]} on:click={() => (boolean = true)}>
                 <slot name="firstIcon" slot="icon" />
@@ -35,5 +35,8 @@
         rotate: -7.2deg;
         text-align: left;
         translate: -1em -0.5em;
+    }
+    .icons {
+        gap: 1em;
     }
 </style>
