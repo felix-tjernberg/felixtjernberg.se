@@ -20,9 +20,9 @@
 
 <div
     data-testid="navigation-wrapper"
-    class="navigation"
+    id="navigation"
     data-active-section={`${navigationActive ? SectionsSchema.enum.none : activeSection}`}>
-    <div>
+    <div id="navigation-item-coach">
         {#if navigationActive}
             <a
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}
@@ -34,7 +34,7 @@
         {/if}
         <slot name="coach" />
     </div>
-    <div>
+    <div id="navigation-item-computer">
         {#if navigationActive}
             <a
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.computer)}
@@ -46,7 +46,7 @@
         {/if}
         <slot name="computer" />
     </div>
-    <div>
+    <div id="navigation-item-welcome">
         {#if navigationActive}
             <a
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.welcome)}
@@ -58,7 +58,7 @@
         {/if}
         <slot name="welcome" />
     </div>
-    <div>
+    <div id="navigation-item-phone">
         {#if navigationActive}
             <a
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.phone)}
@@ -70,7 +70,7 @@
         {/if}
         <slot name="phone" />
     </div>
-    <div>
+    <div id="navigation-item-contact">
         {#if navigationActive}
             <a
                 on:click|preventDefault={() => (activeSection = SectionsSchema.enum.contact)}
@@ -82,7 +82,7 @@
         {/if}
         <slot name="contact" />
     </div>
-    <div>
+    <div id="navigation-item-settings">
         <slot name="settings" />
     </div>
     {#if navigationActive}
@@ -92,17 +92,7 @@
 </div>
 
 <style>
-    :global(.navigation > svg) {
-        height: 75%;
-        inset: 0;
-        position: absolute;
-        width: 75%;
-        z-index: -1;
-    }
-    :global(.navigation > svg:nth-of-type(1)) {
-        filter: blur(15vh);
-    }
-    .navigation {
+    #navigation {
         display: grid;
         grid-template-areas:
             "phone settings computer"
@@ -116,22 +106,54 @@
         translate: 0 -100vh;
         width: 100%;
     }
-    .navigation div:nth-of-type(1) {
+    #navigation > div {
+        position: relative;
+        margin: 3%;
+    }
+    #navigation > div > a {
+        inset: 0;
+        max-width: none;
+        max-width: none;
+        position: absolute;
+    }
+    #navigation > div > a,
+    #navigation > div:nth-of-type(6) {
+        align-items: center;
+        backdrop-filter: blur(4px) saturate(90%);
+        display: flex;
+        place-content: center;
+        padding: 1em;
+    }
+    :global(#navigation > div > a > svg) {
+        height: 75%;
+        width: 75%;
+    }
+    :global(#navigation > svg) {
+        height: 75%;
+        inset: 0;
+        position: absolute;
+        width: 75%;
+        z-index: -1;
+    }
+    :global(#navigation > svg:nth-of-type(1)) {
+        filter: blur(15vh);
+    }
+    #navigation-item-phone {
         grid-area: phone;
     }
-    .navigation div:nth-of-type(2) {
+    #navigation-item-computer {
         grid-area: computer;
     }
-    .navigation div:nth-of-type(3) {
+    #navigation-item-welcome {
         grid-area: welcome;
     }
-    .navigation div:nth-of-type(4) {
+    #navigation-item-coach {
         grid-area: coach;
     }
-    .navigation div:nth-of-type(5) {
+    #navigation-item-contact {
         grid-area: contact;
     }
-    .navigation div:nth-of-type(6) {
+    #navigation-item-settings {
         grid-area: settings;
     }
     [data-active-section="phone"],
@@ -160,26 +182,7 @@
         scale: 0.3;
         translate: 0 -100vh;
     }
-    .navigation > div {
-        position: relative;
-        margin: 3%;
-    }
-    .navigation > div > a {
-        inset: 0;
-        max-width: none;
-        max-width: none;
-        position: absolute;
-    }
-    .navigation > div > a,
-    .navigation > div:nth-of-type(6) {
-        align-items: center;
-        backdrop-filter: blur(4px) saturate(90%);
-        display: flex;
-        place-content: center;
-        padding: 1em;
-    }
-    :global(.navigation > div > a > svg) {
-        height: 75%;
-        width: 75%;
+    :global([data-dark-mode="false"] #navigation-item-settings) {
+        background-color: var(--white-50-percent);
     }
 </style>
