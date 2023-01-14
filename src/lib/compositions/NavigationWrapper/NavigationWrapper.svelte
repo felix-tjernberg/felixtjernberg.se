@@ -95,9 +95,9 @@
     #navigation {
         display: grid;
         grid-template-areas:
-            "phone settings computer"
+            "coach settings computer"
             ". welcome ."
-            "coach . contact";
+            "phone . contact";
         grid-template-columns: repeat(3, 100vw);
         grid-template-rows: repeat(3, 100vh);
         overflow: hidden;
@@ -161,7 +161,7 @@
     #navigation[data-active-section="contact"] {
         scale: 1;
     }
-    #navigation[data-active-section="coach"] {
+    #navigation[data-active-section="phone"] {
         translate: 100vw -200vh;
     }
     #navigation[data-active-section="computer"] {
@@ -170,7 +170,7 @@
     #navigation[data-active-section="welcome"] {
         translate: 0 -100vh;
     }
-    #navigation[data-active-section="phone"] {
+    #navigation[data-active-section="coach"] {
         translate: 100vw 0;
     }
     #navigation[data-active-section="contact"] {

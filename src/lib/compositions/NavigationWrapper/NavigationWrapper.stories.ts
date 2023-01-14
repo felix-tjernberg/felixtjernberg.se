@@ -32,7 +32,7 @@ StoryZoomIn.play = async ({ canvasElement }) => {
     for (const navigationLink of navigationLinks) {
         const linkText = navigationLink.textContent
         await userEvent.click(navigationLink)
-        await expect(navigationWrapper).toHaveAttribute("data-active-section", linkText)
+        await expect(navigationWrapper).toHaveAttribute("data-active-section", linkText?.trim())
     }
 }
 
@@ -56,7 +56,7 @@ StoryZoomOutProgrammatically.play = async ({ canvasElement }) => {
     const navigationLink = await within(navigationWrapper).getAllByRole("link")[0]
     const toggleNavigationButton = await canvas.getByTestId("toggle-navigation")
     await userEvent.click(navigationLink)
-    expect(navigationWrapper).toHaveAttribute("data-active-section", "phone")
+    expect(navigationWrapper).toHaveAttribute("data-active-section", "coach")
     await toggleNavigationButton.click()
     expect(navigationWrapper).toHaveAttribute("data-active-section", "none")
 }

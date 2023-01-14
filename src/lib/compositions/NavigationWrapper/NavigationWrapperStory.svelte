@@ -27,14 +27,13 @@
         </section>
         <Settings slot="settings" />
     </NavigationWrapper>
-    {#if activeSection !== SectionsSchema.enum.none}
-        <button
-            class="absolute"
-            on:click={() => {
-                activeSection = SectionsSchema.enum.none
-            }}
-            data-testid="toggle-navigation">open navigation</button>
-    {/if}
+    <button
+        class="absolute"
+        class:visually-hidden={navigationActive}
+        on:click={() => {
+            activeSection = SectionsSchema.enum.none
+        }}
+        data-testid="toggle-navigation">open navigation</button>
     <button
         class="absolute visually-hidden"
         on:click={() => (activeSection = SectionsSchema.enum.coach)}
