@@ -128,9 +128,6 @@
             margin: 0;
             padding: 1em;
         }
-        #settings-box > div {
-            min-width: 100%;
-        }
         :global(#close-settings) {
             top: 0;
             right: 0;

@@ -100,11 +100,9 @@
             "coach . contact";
         grid-template-columns: repeat(3, 100vw);
         grid-template-rows: repeat(3, 100vh);
-        height: 100%;
         overflow: hidden;
         transition: all ease-in-out 0.5s;
         translate: 0 -100vh;
-        width: 100%;
     }
     #navigation > div {
         position: relative;
