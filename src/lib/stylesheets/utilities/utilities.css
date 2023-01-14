@@ -28,7 +28,7 @@ button svg {
     filter: drop-shadow(0px 0px var(--glow-size) var(--glow-color));
     text-shadow: 0 0 var(--text-glow-size) var(--text-glow-color);
 }
-button.glow:hover:not(.active),
+.glow:hover:not(button.glow.active),
 button.glow.active {
     --glow-size: var(--stroke-500);
     --text-glow-size: 20px;

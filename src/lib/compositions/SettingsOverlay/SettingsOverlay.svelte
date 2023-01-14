@@ -83,7 +83,7 @@
     #settings-box {
         border: var(--stroke-300) solid var(--gray-100);
         flex-wrap: wrap;
-        gap: var(--static-scale-300);
+        gap: var(--static-scale-400);
         margin: 3% 10% 10% 10%;
         overflow-x: hidden;
         overflow-y: auto;
