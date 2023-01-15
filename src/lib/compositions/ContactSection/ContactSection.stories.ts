@@ -7,8 +7,6 @@ type Story = StoryObj<CoachSectionStory>
 export const DefaultState: Story = {}
 
 const meta: Meta<CoachSectionStory> = {
-    args: {},
-    argTypes: {},
     component: CoachSectionStory,
     parameters: {
         design: {
@@ -23,25 +21,23 @@ const meta: Meta<CoachSectionStory> = {
 export default meta
 
 export const StoryRenderEmailAndPhoneNumber: Story = {}
-StoryRenderEmailAndPhoneNumber.args = {
-    testScavengerHuntDoneStore: true
-}
 StoryRenderEmailAndPhoneNumber.storyName = "Expect email and phone number to render when scavengerHuntDoneStore is true"
 StoryRenderEmailAndPhoneNumber.play = async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const emailAndPhoneParagraf = await canvas.getByTestId("email-and-phone-paragraf")
+    const canvas = await within(canvasElement)
+    const scavengerHuntParagraph = await canvas.getByTestId("scavenger-hunt-paragraph")
+    await expect(scavengerHuntParagraph).toBeTruthy()
+    const scavengerHuntButtonDone = await canvas.getByTestId("scavenger-hunt-button")
+    await userEvent.click(scavengerHuntButtonDone)
+    const emailAndPhoneParagraf = await canvas.getByTestId("email-and-phone-paragraph")
     await expect(emailAndPhoneParagraf).toBeTruthy()
 }
 
 export const StoryNavigateToCoachSection: Story = {}
-StoryNavigateToCoachSection.args = {
-    testNavigateToCoachSection: true
-}
 StoryNavigateToCoachSection.storyName = "Expect to navigate to coach section when clicking on the coach section link"
 StoryNavigateToCoachSection.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const coachSectionLink = await canvas.getByText("Go to scavenger hunt")
-    const sectionIndicator = await canvas.getByTestId("section-indicator")
+    const sectionIndicator = await canvas.getByTestId("navigation-indicator")
     await userEvent.click(coachSectionLink)
     await expect(sectionIndicator.textContent).toBe("coach")
 }

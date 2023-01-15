@@ -1,9 +1,18 @@
 <script lang="ts">
+    import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
     import ContactSection from "./ContactSection.svelte"
+
+    let activeSection: Sections = SectionsSchema.enum.contact
+
+    $scavengerHuntDone = false
 </script>
 
 <div>
-    <ContactSection />
+    <p class="visually-hidden" data-testid="navigation-indicator">{activeSection}</p>
+    <button class="visually-hidden" data-testid="scavenger-hunt-button" on:click={() => ($scavengerHuntDone = true)} />
+    <ContactSection bind:activeSection />
 </div>
 
 <style>

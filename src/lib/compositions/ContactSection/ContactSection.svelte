@@ -1,10 +1,12 @@
 <script lang="ts">
     import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
+
     import LinkedIn from "$assets/svgs/LinkedIn.svelte"
     import GitHub from "$assets/svgs/GitHub.svelte"
 
-    export let activeSection: Sections | undefined = undefined
+    export let activeSection: Sections
 </script>
 
 <section id="contact-section">
@@ -20,12 +22,21 @@
             <span>GitHub</span>
         </a>
     </div>
-    <div id="text-wrapper" class="border background-blur margin-vertical-flow glow flex-column-center">
+    <div class="border background-blur margin-vertical-flow glow flex-column-center" id="text-wrapper">
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
-        <p>Take a well deserved 5 minute break and do my scavenger hunt to unlock my email and phone number</p>
-        <a href="/coach" on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}>
-            Go to scavenger hunt
-        </a>
+        {#if $scavengerHuntDone}
+            <p data-testid="email-and-phone-paragraph">
+                Email Adress: some-email@adress.com <br />
+                Phone Number: 0123 456 789
+            </p>
+        {:else}
+            <p data-testid="scavenger-hunt-paragraph">
+                Take a well deserved 5 minute break and do my scavenger hunt to unlock my email and phone number
+            </p>
+            <a href="/coach" on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}>
+                Go to scavenger hunt
+            </a>
+        {/if}
     </div>
 </section>
 
