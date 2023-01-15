@@ -29,19 +29,19 @@
     }
     @keyframes head-bob {
         0% {
-            translate: -1% 2%;
+            translate: -1% 3%;
         }
         25% {
-            translate: 0% 0%;
+            translate: 0% 1%;
         }
         50% {
-            translate: 1% 2%;
+            translate: 1% 3%;
         }
         75% {
-            translate: 0% 0%;
+            translate: 0% 1%;
         }
         100% {
-            translate: -1% 2%;
+            translate: -1% 3%;
         }
     }
 </style>

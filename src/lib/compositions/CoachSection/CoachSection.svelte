@@ -8,9 +8,7 @@
     <div id="coach-section-box-wrapper" class="relative background-blur border glow">
         <Coach />
         <section id="coach-section">
-            <h2 id="coach-header">
-                Coaching american football for 3 years <br />taught me a few valuable life lessons
-            </h2>
+            <h2 id="coach-header">Coaching american football for 3 years taught me a few valuable life lessons</h2>
             <div class="padding-horizontal">
                 <div id="statement-1">
                     <p class="clockwise-rotated-text">
@@ -94,6 +92,7 @@
             "statement-two . statement-four";
         grid-template-columns: 1fr 1fr 1fr;
         height: 100%;
+        overflow-y: auto;
         scrollbar-width: none;
         width: 100%;
     }
@@ -103,14 +102,15 @@
     #coach-section p {
         max-width: 35ch;
     }
-    :global(#coach-section > picture) {
+    :global(#coach-section-box-wrapper > picture) {
         margin-bottom: 0;
+        z-index: -1;
     }
     #coach-header {
         padding-top: 2em;
         font-family: var(--font-family-primary-fat);
         font-size: var(--relative-scale-200);
-        max-width: 50ch;
+        max-width: 38ch;
     }
     #statement-1 {
         grid-area: statement-one;
@@ -152,5 +152,52 @@
     }
     .smaller-text {
         font-size: 0.666em;
+    }
+    @media (max-width: 1100px) {
+        #coach-section > div {
+            display: flex;
+            background-color: var(--black-50-percent);
+            padding: var(--static-scale-300);
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        #coach-section > div > div:nth-child(1) {
+            order: 1;
+        }
+        #coach-section > div > div:nth-child(2) {
+            order: 3;
+        }
+        #coach-section > div > div:nth-child(3) {
+            order: 2;
+        }
+        #coach-section > div > div:nth-child(4) {
+            order: 4;
+        }
+    }
+    @media (max-width: 500px) {
+        #coach-section-wrapper {
+            font-size: var(--static-scale-000);
+        }
+    }
+    @media (max-width: 500px) {
+        #coach-section {
+            padding: 0;
+        }
+        #coach-section > h2 {
+            padding: var(--static-scale-400) var(--static-scale-000);
+        }
+    }
+    @media (max-height: 500px) {
+        #coach-section-box-wrapper {
+            font-size: var(--static-scale-000);
+            overflow-y: auto;
+        }
+        #coach-section > div {
+            overflow: visible;
+        }
+        :global(#coach-section-box-wrapper > picture) {
+            display: none;
+        }
     }
 </style>
