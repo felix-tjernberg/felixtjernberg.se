@@ -156,22 +156,22 @@
     @media (max-width: 1100px) {
         #coach-section > div {
             display: flex;
-            background-color: var(--black-50-percent);
+            background-color: var(--gray-000-50-percent);
             padding: var(--static-scale-300);
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
         }
-        #coach-section > div > div:nth-child(1) {
+        #statement-1 {
             order: 1;
         }
-        #coach-section > div > div:nth-child(2) {
+        #statement-2 {
             order: 3;
         }
-        #coach-section > div > div:nth-child(3) {
+        #statement-3 {
             order: 2;
         }
-        #coach-section > div > div:nth-child(4) {
+        #statement-4 {
             order: 4;
         }
     }
