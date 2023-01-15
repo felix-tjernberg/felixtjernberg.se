@@ -52,6 +52,7 @@
         <slot />
         {#if active}
             <Button
+                blur={false}
                 glow={false}
                 hoverOverlay={false}
                 label="remove note"
@@ -104,8 +105,9 @@
         font-family: var(--font-family-accent) !important;
     }
     :global(.sticky-note button) {
-        --background-blur-amount: 20px;
+        color: var(--white);
         border: none !important;
+        background-color: var(--black-90-percent);
         height: 100%;
         opacity: 0;
         position: absolute !important;
@@ -113,6 +115,9 @@
         transition: opacity 420ms ease-in-out;
         max-width: 100%;
         width: 100%;
+    }
+    :global([data-dark-mode="false"] .sticky-note button) {
+        color: var(--black);
     }
     :global(.sticky-note:hover button),
     :global(.sticky-note button:focus) {
