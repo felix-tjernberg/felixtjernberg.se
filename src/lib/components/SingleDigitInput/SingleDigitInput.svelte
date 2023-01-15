@@ -66,7 +66,7 @@
             <UpArrow slot="icon" />
         </Button>
     </div>
-    <label class="glow" data-testid="input-label">
+    <label class="glow glow-hover" data-testid="input-label">
         <span class="visually-hidden">{label}</span>
         <div class="bottom-stroke">
             <input class="border" type="number" bind:value placeholder="0" min="0" max="9" />

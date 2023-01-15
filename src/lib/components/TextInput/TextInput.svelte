@@ -16,7 +16,7 @@
 
 <label>
     <span class="visually-hidden">{label}</span>
-    <div class="strokes-wrapper glow">
+    <div class="strokes-wrapper glow glow-hover">
         <input
             bind:this={input}
             type="text"
@@ -53,6 +53,9 @@
         --input-value-length: 0ch;
         position: relative;
         font-family: var(--font-family-primary-fat);
+    }
+    .strokes-wrapper:hover {
+        --glow-size: var(--stroke-300);
     }
     .strokes-wrapper::before {
         background-color: var(--gray-900);

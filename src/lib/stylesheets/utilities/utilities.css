@@ -28,6 +28,7 @@ button svg {
     filter: drop-shadow(0px 0px var(--glow-size) var(--glow-color));
     text-shadow: 0 0 var(--text-glow-size) var(--text-glow-color);
 }
+.glow.glow-hover:hover,
 input.glow:hover,
 button.glow:hover:not(button.glow.active),
 button.glow.active {
