@@ -1,7 +1,7 @@
 <script lang="ts">
     import BooleanButton from "./BooleanButton.svelte"
     import StarfieldBackgroundStoryWrapper from "$lib/stories/StarfieldBackgroundStoryWrapper.svelte"
-    import Settings from "$assets/icons/SettingsIcon.svelte"
+    import Settings from "$assets/svgs/SettingsIcon.svelte"
 
     export let description: string | undefined
     export let labels: string[] = ["hello", "world"]

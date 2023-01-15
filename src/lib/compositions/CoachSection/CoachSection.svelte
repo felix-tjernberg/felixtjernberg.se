@@ -1,5 +1,5 @@
 <script lang="ts">
-    import FootballPlays from "$assets/icons/FootballPlays.svelte"
+    import FootballPlays from "$assets/svgs/FootballPlays.svelte"
     import Coach from "$components/Coach/Coach.svelte"
 </script>
 

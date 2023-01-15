@@ -9,11 +9,11 @@
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
-    import Close from "$assets/icons/Close.svelte"
-    import Moon from "$assets/icons/Moon.svelte"
-    import SettingsText from "$assets/icons/SettingsText.svelte"
+    import Close from "$assets/svgs/Close.svelte"
+    import Moon from "$assets/svgs/Moon.svelte"
+    import SettingsText from "$assets/svgs/SettingsText.svelte"
     import Slider from "$components/Slider/Slider.svelte"
-    import Sun from "$assets/icons/Sun.svelte"
+    import Sun from "$assets/svgs/Sun.svelte"
 
     export let dialog: HTMLDialogElement
 </script>

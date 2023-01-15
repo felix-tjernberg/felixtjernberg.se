@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Thumb from "$assets/icons/Thumb.svelte"
+    import Thumb from "$assets/svgs/Thumb.svelte"
     export let label: string
     export let description: string | undefined = undefined
     export let max: number = 1

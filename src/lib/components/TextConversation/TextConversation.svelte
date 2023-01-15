@@ -2,7 +2,7 @@
     import { onMount } from "svelte"
     import TEXT_CONVERSATION from "./textConversation"
     import Button from "$components/Button/Button.svelte"
-    import TriangleDown from "$assets/icons/TriangleDown.svelte"
+    import TriangleDown from "$assets/svgs/TriangleDown.svelte"
 
     let section: HTMLElement
 

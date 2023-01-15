@@ -2,7 +2,7 @@
     import NavigationWrapper from "./NavigationWrapper.svelte"
     import { SectionsSchema } from "./NavigationSectionsSchema"
     import type { Sections } from "./NavigationSectionsSchema"
-    import Settings from "$assets/icons/SettingsIcon.svelte"
+    import Settings from "$assets/svgs/SettingsIcon.svelte"
 
     let navigationActive: boolean
     let activeSection: Sections

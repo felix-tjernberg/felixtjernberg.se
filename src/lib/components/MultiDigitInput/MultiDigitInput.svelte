@@ -1,8 +1,8 @@
 <script lang="ts">
     import { z } from "zod"
     import Button from "$components/Button/Button.svelte"
-    import DownArrow from "$assets/icons/DownArrow.svelte"
-    import UpArrow from "$assets/icons/UpArrow.svelte"
+    import DownArrow from "$assets/svgs/DownArrow.svelte"
+    import UpArrow from "$assets/svgs/UpArrow.svelte"
 
     export let label: string
 

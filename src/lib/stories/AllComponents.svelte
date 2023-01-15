@@ -7,7 +7,7 @@
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
     import Slider from "$components/Slider/Slider.svelte"
     import TextInput from "$components/TextInput/TextInput.svelte"
-    import SettingsIcon from "$assets/icons/SettingsIcon.svelte"
+    import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
     import StickyNote from "$components/StickyNote/StickyNote.svelte"
 </script>
 

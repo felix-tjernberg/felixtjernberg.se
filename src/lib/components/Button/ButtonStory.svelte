@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Settings from "$assets/icons/SettingsIcon.svelte"
+    import Settings from "$assets/svgs/SettingsIcon.svelte"
     import Button from "./Button.svelte"
     import { FUNCTION_TEST_STRING } from "./FUNCTION_TEST_STRING"
 

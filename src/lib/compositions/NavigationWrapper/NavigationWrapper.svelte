@@ -2,12 +2,12 @@
     import { fade } from "svelte/transition"
     import type { Sections } from "./NavigationSectionsSchema"
     import { SectionsSchema } from "./NavigationSectionsSchema"
-    import Welcome from "$assets/icons/Welcome.svelte"
-    import Phone from "$assets/icons/Phone.svelte"
-    import Computer from "$assets/icons/Computer.svelte"
-    import Coach from "$assets/icons/Coach.svelte"
-    import Contact from "$assets/icons/Contact.svelte"
-    import Logo from "$assets/icons/Logo.svelte"
+    import Welcome from "$assets/svgs/Welcome.svelte"
+    import Phone from "$assets/svgs/Phone.svelte"
+    import Computer from "$assets/svgs/Computer.svelte"
+    import Coach from "$assets/svgs/Coach.svelte"
+    import Contact from "$assets/svgs/Contact.svelte"
+    import Logo from "$assets/svgs/Logo.svelte"
 
     export let navigationActive: boolean = true
     export let activeSection: Sections = SectionsSchema.enum.none
