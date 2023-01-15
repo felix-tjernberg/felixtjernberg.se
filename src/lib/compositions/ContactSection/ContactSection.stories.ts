@@ -32,3 +32,16 @@ StoryRenderEmailAndPhoneNumber.play = async ({ canvasElement }) => {
     const emailAndPhoneParagraf = await canvas.getByTestId("email-and-phone-paragraf")
     await expect(emailAndPhoneParagraf).toBeTruthy()
 }
+
+export const StoryNavigateToCoachSection: Story = {}
+StoryNavigateToCoachSection.args = {
+    testNavigateToCoachSection: true
+}
+StoryNavigateToCoachSection.storyName = "Expect to navigate to coach section when clicking on the coach section link"
+StoryNavigateToCoachSection.play = async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const coachSectionLink = await canvas.getByText("Go to scavenger hunt")
+    const sectionIndicator = await canvas.getByTestId("section-indicator")
+    await userEvent.click(coachSectionLink)
+    await expect(sectionIndicator.textContent).toBe("coach")
+}

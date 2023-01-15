@@ -50,7 +50,7 @@ button:not(.icon),
 p,
 li,
 span {
-    line-height: 1.5;
+    line-height: 1.337;
     max-width: 60ch;
     letter-spacing: 0.06em;
 }
