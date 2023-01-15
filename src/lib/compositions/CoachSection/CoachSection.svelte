@@ -12,7 +12,7 @@
             <div class="padding-horizontal">
                 <div id="statement-1">
                     <p class="clockwise-rotated-text">
-                        <span class="bigger-text">Confidence</span> to lead when called upon
+                        <span class="bigger-text">Big Confidence</span> to lead when called upon
                     </p>
                 </div>
                 <div id="statement-2">
