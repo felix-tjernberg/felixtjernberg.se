@@ -27,9 +27,8 @@ export const StoryChangeVolumeStore: Story = {}
 StoryChangeVolumeStore.storyName = "Test updating volume store"
 StoryChangeVolumeStore.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const settingsWrapper = await canvas.getByTestId("settings-wrapper")
-    const volumeSlider = await within(settingsWrapper).getByRole("range")
-    const volumeStoreIndicator = await within(settingsWrapper).getByText("volume indicator: 0.5")
+    const volumeSlider = await canvas.getByRole("range")
+    const volumeStoreIndicator = await canvas.getByText("volume indicator: 0.5")
     await userEvent.click(volumeSlider)
     await expect(volumeStoreIndicator).toHaveTextContent("volume indicator: 0.6")
 }
@@ -38,63 +37,45 @@ export const StoryIsElevatorMusicPlayingWhenChangingVolume: Story = {}
 StoryIsElevatorMusicPlayingWhenChangingVolume.storyName = "Test if elevator music is playing when changing volume"
 StoryIsElevatorMusicPlayingWhenChangingVolume.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const settingsWrapper = await canvas.getByTestId("settings-wrapper")
-    const volumeSlider = await within(settingsWrapper).getByRole("range")
-    const elevatorMusicIndicator = await within(settingsWrapper).getByText("elevator-music is playing: false")
+    const volumeSlider = await canvas.getByRole("range")
+    const elevatorMusicIndicator = await canvas.getByText("elevator-music is playing: false")
     await userEvent.click(volumeSlider)
     await expect(elevatorMusicIndicator).toHaveTextContent("elevator-music is playing: true")
     sleep(3000)
     await expect(elevatorMusicIndicator).toHaveTextContent("elevator-music is playing: false")
 }
 
-export const StoryChange8bitStore: Story = {}
-StoryChangeVolumeStore.storyName = "Test updating 8bit store"
-StoryChangeVolumeStore.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+export const StoryUseBooleanButtons: Story = {}
+StoryUseBooleanButtons.storyName = `Test updating eight bit text store`
+StoryUseBooleanButtons.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const settingsWrapper = await canvas.getByTestId("settings-wrapper")
-    const eightBitToggle = await within(settingsWrapper).getByText("Do you like 8bit text?")
-    const eightBitStoreIndicator = await within(settingsWrapper).getByText("8bit indicator: false")
-    await userEvent.click(eightBitToggle.parentElement)
-    await expect(eightBitStoreIndicator).toHaveTextContent("8bit indicator: true")
-}
-
-export const StoryChangeThemeStore: Story = {}
-StoryChangeThemeStore.storyName = "Test updating theme store"
-StoryChangeThemeStore.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = await within(canvasElement)
-    const settingsWrapper = await canvas.getByTestId("settings-wrapper")
-    const themeToggle = await within(settingsWrapper).getByText("Do you like dark mode?")
-    const themeStoreIndicator = await within(settingsWrapper).getByText("theme indicator: light")
-    await userEvent.click(themeToggle.parentElement)
-    await expect(themeStoreIndicator).toHaveTextContent("theme indicator: dark")
-}
-
-export const StoryChangeFlickerSensitiveStore: Story = {}
-StoryChangeFlickerSensitiveStore.storyName = "Test updating flicker sensitive store"
-StoryChangeFlickerSensitiveStore.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = await within(canvasElement)
-    const settingsWrapper = await canvas.getByTestId("settings-wrapper")
-    const flickerSensitiveToggle = await within(settingsWrapper).getByText("Are you flicker sensitive?")
-    const flickerSensitiveStoreIndicator = await within(settingsWrapper).getByText("flicker sensitive indicator: false")
-    await userEvent.click(flickerSensitiveToggle.parentElement)
-    await expect(flickerSensitiveStoreIndicator).toHaveTextContent("flicker sensitive indicator: true")
+    const testIds = ["eight-bit-text", "flicker-sensitive", "dark-mode"]
+    await sleep(420)
+    for (const id of testIds) {
+        const trueButton = await canvas.getByTestId(`${id}-true`)
+        const falseButton = await canvas.getByTestId(`${id}-false`)
+        const storeIndicator = await canvas.getByTestId(`${id}-store-indicator`)
+        await userEvent.click(trueButton)
+        await expect(storeIndicator).toHaveTextContent("true")
+        await userEvent.click(falseButton)
+        await expect(storeIndicator).toHaveTextContent("false")
+    }
 }
 
 export const StoryDeleteCookies: Story = {}
 StoryDeleteCookies.storyName = "Test deleting cookies"
 StoryDeleteCookies.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const settingsWrapper = await canvas.getByTestId("settings-wrapper")
-    const deleteCookiesButton = await within(settingsWrapper).getByText("Delete cookies")
-    await userEvent.click(deleteCookiesButton.parentElement)
-    const flickerSensitiveStoreIndicator = await within(settingsWrapper).getByText("flicker sensitive indicator: false")
-    const themeStoreIndicator = await within(settingsWrapper).getByText("theme indicator: light")
-    const eightBitStoreIndicator = await within(settingsWrapper).getByText("8bit indicator: false")
-    const volumeStoreIndicator = await within(settingsWrapper).getByText("volume indicator: 0.5")
-    const cookiesAllowedIndicator = await within(settingsWrapper).getByText("cookies allowed indicator: true")
+    const deleteCookiesButton = await canvas.getByText("Delete cookies")
+    await userEvent.click(deleteCookiesButton)
+    const flickerSensitiveStoreIndicator = await canvas.getByText("flicker sensitive indicator: false")
+    const themeStoreIndicator = await canvas.getByText("theme indicator: light")
+    const eightBitStoreIndicator = await canvas.getByText("8bit indicator: false")
+    const volumeStoreIndicator = await canvas.getByText("volume indicator: 0.5")
+    const cookiesAllowedIndicator = await canvas.getByText("cookies allowed indicator: true")
     await expect(flickerSensitiveStoreIndicator).toHaveTextContent("flicker sensitive indicator: undefined")
     await expect(themeStoreIndicator).toHaveTextContent("theme indicator: undefined")
     await expect(eightBitStoreIndicator).toHaveTextContent("8bit indicator: undefined")
     await expect(volumeStoreIndicator).toHaveTextContent("volume indicator: undefined")
-    await expect(volumeStoreIndicator).toHaveTextContent("cookies allowed: false")
+    await expect(cookiesAllowedIndicator).toHaveTextContent("cookies allowed: false")
 }
