@@ -31,10 +31,11 @@
 <style>
     p {
         color: var(--white);
-        max-width: 50ch;
-        rotate: -7.2deg;
+        max-width: 100%;
+        rotate: -1.72deg;
         text-align: left;
         translate: -1em -0.5em;
+        width: auto;
     }
     .icons {
         gap: 1em;

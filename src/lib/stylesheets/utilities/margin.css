@@ -1,16 +1,25 @@
 .margin-horizontal,
 .margin-vertical,
-.margin-vertical-flow {
+.margin-vertical-flow,
+.margin {
     --margin-amount: 1em;
 }
+.margin {
+    margin: var(--margin-amount);
+}
 .margin-horizontal {
-    margin-left: var(--margin-amount);
-    margin-right: var(--margin-amount);
+    --margin-horizontal-amount: var(--margin-amount);
+    margin-left: var(--margin-horizontal-amount);
+    margin-right: var(--margin-horizontal-amount);
 }
 .margin-vertical {
-    margin-bottom: var(--margin-amount);
-    margin-top: var(--margin-amount);
+    --margin-vertical-amount: var(--margin-amount);
+    margin-bottom: var(--margin-vertical-amount);
+    margin-top: var(--margin-vertical-amount);
+}
+.margin-vertical-flow {
+    --margin-vertical-flow-amount: var(--margin-amount);
 }
 .margin-vertical-flow > * + * {
-    margin-top: var(--margin-amount);
+    margin-top: var(--margin-vertical-flow-amount);
 }

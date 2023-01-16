@@ -1,0 +1,69 @@
+text-align-left {
+    text-align: left;
+}
+.text-align-center {
+    text-align: center;
+}
+.text-align-right {
+    text-align: right;
+}
+.text-decoration-none {
+    text-decoration: none;
+}
+.text-decoration-underline {
+    text-decoration: underline;
+}
+.font-family-primary-fat {
+    font-family: var(--font-family-primary-fat);
+}
+.font-family-primary-thin {
+    font-family: var(--font-family-primary-thin);
+}
+.font-family-secondary {
+    font-family: var(--font-family-secondary);
+}
+.font-family-accent {
+    font-family: var(--font-family-accent);
+}
+.font-size-000 {
+    font-size: var(--static-scale-000);
+}
+.font-size-100 {
+    font-size: var(--static-scale-100);
+}
+.font-size-200 {
+    font-size: var(--static-scale-200);
+}
+.font-size-300 {
+    font-size: var(--static-scale-300);
+}
+.font-size-400 {
+    font-size: var(--static-scale-400);
+}
+.font-size-500 {
+    font-size: var(--static-scale-500);
+}
+.font-size-600 {
+    font-size: var(--static-scale-600);
+}
+.relative-font-size-000 {
+    font-size: var(--relative-scale-000);
+}
+.relative-font-size-100 {
+    font-size: var(--relative-scale-100);
+}
+.relative-font-size-200 {
+    font-size: var(--relative-scale-200);
+}
+.relative-font-size-300 {
+    font-size: var(--relative-scale-300);
+}
+.relative-font-size-400 {
+    font-size: var(--relative-scale-400);
+}
+.relative-font-size-500 {
+    font-size: var(--relative-scale-500);
+}
+.relative-font-size-600 {
+    font-size: var(--relative-scale-600);
+}

@@ -1,7 +1,9 @@
 .flex,
 .flex-center,
 .flex-column,
-.flex-column-center {
+.flex-column-center,
+.flex-wrap,
+.flex-wrap-center {
     display: flex;
 }
 .flex-column,
@@ -9,7 +11,12 @@
     flex-direction: column;
 }
 .flex-center,
-.flex-column-center {
+.flex-column-center,
+.flex-wrap-center {
     align-items: center;
     justify-content: center;
+}
+.flex-wrap,
+.flex-wrap-center {
+    flex-wrap: wrap;
 }

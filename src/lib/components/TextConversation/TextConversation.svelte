@@ -3,32 +3,20 @@
     import TEXT_CONVERSATION from "./textConversation"
     import Button from "$components/Button/Button.svelte"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
+    import typewriter from "$utilities/transitions/typewriter"
 
     let section: HTMLElement
 
     let messageIndex = -1
     let buttonActive = false
 
-    function typewriter(node: HTMLElement, { speed = 1.666 }) {
-        const text = node ? node.textContent : false
-        if (!text) return
-        const duration = text.length / (speed * 0.01)
-        return {
-            duration,
-            tick: (t: number) => {
-                const i = Math.trunc(text.length * t)
-                node.textContent = text.slice(0, i)
-                section.scrollTop = section.scrollHeight
-            }
-        }
-    }
     onMount(() => {
         messageIndex = 0
     })
 </script>
 
 <div class="conversation background-blur relative glow border" data-testid="conversation-wrapper">
-    <section bind:this={section} class="flex-column">
+    <section bind:this={section} class="flex-column margin-vertical-flow">
         {#each TEXT_CONVERSATION as { message, person }, index}
             {#if index <= messageIndex}
                 <span
@@ -37,7 +25,10 @@
                     {#if person}
                         <p>{person}:</p>
                     {/if}
-                    <p class="flex" transition:typewriter on:introend={() => (buttonActive = true)}>
+                    <p
+                        class="flex"
+                        transition:typewriter={{ containerElement: section }}
+                        on:introend={() => (buttonActive = true)}>
                         {message}
                     </p>
                 </span>
@@ -70,6 +61,7 @@
         background-color: var(--white);
     }
     section {
+        --margin-vertical-flow-amount: 0.5em;
         -ms-overflow-style: none;
         height: 100%;
         overflow-y: auto;
@@ -83,7 +75,7 @@
     span {
         gap: 1ch;
     }
-    span > p:first-of-type {
+    span > p:first-of-type:not(:last-of-type) {
         text-transform: uppercase;
     }
     p {

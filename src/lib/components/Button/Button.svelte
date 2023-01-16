@@ -99,7 +99,7 @@
     }
     :global(button.icon.un-active path) {
         fill: transparent;
-        stroke-width: var(--stroke-200);
+        stroke-width: 2.5px;
         stroke: var(--gray-900);
     }
     .hover-overlay {

@@ -8,24 +8,28 @@
     export let value: number = 0.1337
 </script>
 
-<label class="flex-center-column">
+<div class="slider flex-column-center">
     {#if description}
         <p>{description}</p>
     {/if}
-    <span class="visually-hidden">{label}</span>
-    <div class="slider-wrapper relative glow glow-hover" style={`--thumb-position-left: ${value * 100}%`}>
-        <input type="range" {max} {min} {step} bind:value />
-        <Thumb />
-    </div>
-</label>
+    <label>
+        <span class="visually-hidden">{label}</span>
+        <div class="slider-wrapper relative glow glow-hover" style={`--thumb-position-left: ${value * 100}%`}>
+            <input type="range" {max} {min} {step} bind:value />
+            <Thumb />
+        </div>
+    </label>
+</div>
 
 <style>
     p {
         color: var(--white);
-        max-width: 50ch;
-        rotate: -7.2deg;
+        max-width: 100%;
+        padding-top: 1em;
+        rotate: -1.72deg;
         text-align: left;
-        translate: -1em -0.5em;
+        translate: -1em 0;
+        width: auto;
     }
     /* Selectors has to be separate for some reason */
     input::-webkit-slider-thumb {
@@ -45,6 +49,8 @@
         width: 100%;
     }
     .slider-wrapper {
+        --slider-max-width: 300px;
+        max-width: var(--slider-max-width);
         width: 100%;
     }
     .slider-wrapper:after,

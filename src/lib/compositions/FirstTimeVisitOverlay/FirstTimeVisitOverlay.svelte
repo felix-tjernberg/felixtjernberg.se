@@ -1,16 +1,24 @@
 <script lang="ts">
+    import { onMount } from "svelte"
+
     import { audioVolume } from "$utilities/stores/audioVolumeStore"
+    import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
     import { darkMode } from "$utilities/stores/darkModeStore"
     import { flickerSensitive } from "$utilities/stores/flickerSensitiveStore"
     import { paragrafAsEightBitFont } from "$utilities/stores/paragrafAsEightBitFontStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
+    import Button from "$components/Button/Button.svelte"
+    import DetailsContent from "./DetailsContent.svelte"
     import Moon from "$assets/svgs/Moon.svelte"
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
-    import { onMount } from "svelte"
 
     let dialog: HTMLDialogElement
+    let details: HTMLDetailsElement
+
+    let decidingAboutCookies: boolean = true
+    let detailsOpen: boolean = false
 
     onMount(() => {
         dialog.showModal()
@@ -18,31 +26,72 @@
 </script>
 
 <dialog bind:this={dialog} id="first-time-visit-dialog" class="relative background-blur">
-    <div id="first-time-visit-box" class="flex-column-center background-blur">
-        <h2><span class="visually-hidden">First Time Visit dialog</span></h2>
-        <div>
-            <h3>Do you like reading 8bit font?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={$paragrafAsEightBitFont} />
-        </div>
-        <div>
-            <h3>Are you flicker sensitive?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={$flickerSensitive} />
-        </div>
-        <div>
-            <h3>Volume</h3>
-            <Slider label="Volume" bind:value={$audioVolume} />
-        </div>
-        <div id="dark-mode">
-            <h3>Dark/Light mode</h3>
-            <BooleanButton labels={["dark", "light"]} bind:boolean={$darkMode}>
+    <h2 class="visually-hidden">First Time Visit Dialog</h2>
+    <div id="first-time-visit-box" class="background-blur margin-vertical-flow margin glow">
+        {#if decidingAboutCookies}
+            <details class="margin-vertical-flow flex-column-center" bind:open={detailsOpen} bind:this={details}>
+                <summary class="font-family-primary-fat text-align-center">
+                    Are you ok with me saving some things about you between page visits?
+                    <br />
+                    <span class="font-family-primary-thin font-size-100 text-decoration-underline">
+                        Click here to read how cookies are managed
+                    </span>
+                </summary>
+                {#if detailsOpen}
+                    <DetailsContent {details} {detailsOpen} />
+                {/if}
+            </details>
+            <div class="flex-center font-size-000 gap">
+                <Button
+                    label="Decline cookies"
+                    on:click={() => {
+                        decidingAboutCookies = false
+                        $cookiesAllowed = false
+                    }} />
+                <Button
+                    label="Allow essential cookies"
+                    on:click={() => {
+                        decidingAboutCookies = false
+                        $cookiesAllowed = true
+                    }} />
+            </div>
+        {:else}
+            <p class="font-family-primary-fat text-align-center">
+                Before you explore my page here I would like you to set some preferences
+            </p>
+            <Slider
+                description="Set the elevator music volume to a comfortable level please :)"
+                label="Elevator music volume"
+                bind:value={$audioVolume} />
+            <div class="flex-wrap-center gap" style="--gap-size: 2em">
+                <BooleanButton
+                    description="Do you like reading the 8bit font?"
+                    labels={["yes", "no"]}
+                    bind:boolean={$paragrafAsEightBitFont} />
+                <BooleanButton
+                    description="Are you flicker sensitive?"
+                    labels={["yes", "no"]}
+                    bind:boolean={$flickerSensitive} />
+            </div>
+            <BooleanButton
+                description="If you need higher contrast or like light theme click the sun"
+                labels={["dark", "light"]}
+                bind:boolean={$darkMode}>
                 <Moon slot="firstIcon" />
                 <Sun slot="secondIcon" />
             </BooleanButton>
-        </div>
+            <Button id="close-first-time-visit-dialog" label="I'm ready to explore!" on:click={() => dialog.close()} />
+        {/if}
     </div>
 </dialog>
 
 <style>
+    details {
+        cursor: pointer;
+        max-height: 10em;
+        overflow-y: auto;
+        text-align: left;
+    }
     #first-time-visit-dialog {
         background-color: transparent;
         background-image: var(--gradient-90-percent);
@@ -50,60 +99,36 @@
         max-height: 100%;
         max-width: 100%;
         overflow: hidden;
-        place-items: center;
+        place-content: center;
         width: auto;
     }
     #first-time-visit-dialog[open] {
         display: grid;
+    }
+    :global(#first-time-visit-dialog .icon) {
+        font-size: var(--relative-scale-300);
     }
     #first-time-visit-dialog,
     #first-time-visit-box {
         --background-blur-amount: 7px;
     }
     #first-time-visit-box {
+        --glow-color: var(--gray-100);
+        --margin-vertical-flow-amount: var(--relative-scale-400);
         border: var(--stroke-300) solid var(--gray-100);
-        flex-wrap: wrap;
-        gap: var(--static-scale-400);
         overflow-x: hidden;
         overflow-y: auto;
         padding: var(--static-scale-300);
     }
-    #first-time-visit-box > div {
-        flex-basis: content;
-        min-width: 300px;
-    }
     :global([data-dark-mode="false"] #first-time-visit-box) {
         background-color: var(--white-50-percent);
     }
-    :global(#close-first-time-visit) {
-        position: absolute;
-        top: 1em;
-        right: 1em;
-        font-size: var(--static-scale-400);
-        margin-top: 0 !important;
+    :global(#first-time-visit-box .slider) {
+        --margin-vertical-flow-amount: var(--relative-scale-000) !important;
     }
-    :global(#dark-mode button) {
-        font-size: var(--static-scale-300);
-    }
-    :global(#dark-mode button path) {
-        stroke-width: 2px !important;
-    }
-    @media (max-width: 720px) {
-        #first-time-visit-dialog {
-            grid-template-rows: 20% 1fr;
-        }
-        #first-time-visit-box {
-            margin: 0;
-            padding: 1em;
-        }
-        :global(#close-first-time-visit) {
-            top: 0;
-            right: 0;
-            font-size: var(--static-scale-300);
-        }
-        :global(#close-first-time-visit > button) {
-            margin-right: 0;
-            margin-top: 0;
-        }
+    :global(#close-first-time-visit-dialog) {
+        --margin-vertical-flow-amount: var(--static-scale-300);
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
