@@ -137,6 +137,12 @@
         display: inline-block;
         transform: rotate(-7deg);
     }
+    .bigger-text {
+        font-size: 2em;
+    }
+    .smaller-text {
+        font-size: 0.666em;
+    }
     .perspective-text {
         --face-color: var(--gray-900);
         --side-color: var(--gray-200);
@@ -147,11 +153,8 @@
             0 2px 0 var(--side-color), 0 2.5px 0 var(--side-color), 0 3px 0 var(--side-color),
             0 3.5px 0 var(--side-color), 0 4px 0 var(--side-color);
     }
-    .bigger-text {
-        font-size: 2em;
-    }
-    .smaller-text {
-        font-size: 0.666em;
+    :global([data-dark-mode="false"] .perspective-text) {
+        --side-color: var(--gray-600) !important;
     }
     @media (max-width: 1100px) {
         #coach-section > div {
