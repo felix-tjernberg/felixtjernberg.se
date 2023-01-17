@@ -20,12 +20,12 @@
 <div>
     <button on:click={() => dialog.showModal()}>open settings</button>
     <SettingsOverlay bind:dialog />
-    <!-- <p class="visually-hidden" data-testid="volume-indicator">volume indicator: {$audioVolume}</p> -->
-    <p class="visually-hidden" data-testid="likes-eight-bit-font-indicator">volume indicator: {$likesEightBitFont}</p>
-    <p class="visually-hidden" data-testid="flicker-sensitive-indicator">volume indicator: {$flickerSensitive}</p>
-    <p class="visually-hidden" data-testid="dark-mode-indicator">volume indicator: {$darkMode}</p>
-    <p class="visually-hidden" data-testid="cookies-allowed-indicator">volume indicator: {$cookiesAllowed}</p>
-    <p class="visually-hidden" data-testid="scavenger-hunt-done-indicator">volume indicator: {$scavengerHuntDone}</p>
+    <p class="visually-hidden" data-testid="cookies-allowed-indicator">{$cookiesAllowed}</p>
+    <p class="visually-hidden" data-testid="dark-mode-indicator">{$darkMode}</p>
+    <p class="visually-hidden" data-testid="flicker-sensitive-indicator">{$flickerSensitive}</p>
+    <p class="visually-hidden" data-testid="likes-eight-bit-font-indicator">{$likesEightBitFont}</p>
+    <p class="visually-hidden" data-testid="scavenger-hunt-done-indicator">{$scavengerHuntDone}</p>
+    <!-- <p class="visually-hidden" data-testid="volume-indicator">{$audioVolume}</p> -->
 </div>
 
 <style>

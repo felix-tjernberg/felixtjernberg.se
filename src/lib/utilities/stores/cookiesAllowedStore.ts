@@ -1,3 +1,3 @@
 import persistedWritable from "$utilities/persistedWritable"
 
-export const cookiesAllowed = persistedWritable("cookiesAllowed", undefined)
+export const cookiesAllowed = persistedWritable("cookiesAllowed", false)

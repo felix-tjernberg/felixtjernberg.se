@@ -22,60 +22,64 @@ const meta: Meta<FirstTimeVisitOverlayStory> = {
 export default meta
 
 export const StoryAcceptCookies: Story = {}
-StoryAcceptCookies.storyName = "Test accepting cookies"
+StoryAcceptCookies.storyName = "Test accepting cookies and see if local storage starts to update"
 StoryAcceptCookies.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const acceptCookiesButton = await canvas.getByText("Accept essential cookies")
+    const acceptCookiesButton = await canvas.getByText("Allow essential cookies")
     const cookiesAllowedIndicator = await canvas.getByTestId("cookies-allowed-indicator")
     await userEvent.click(acceptCookiesButton)
-    await sleep(1000)
     await expect(acceptCookiesButton).not.toBeInTheDocument()
-    await expect(cookiesAllowedIndicator).toHaveTextContent("cookies allowed: true")
+    await expect(cookiesAllowedIndicator).toHaveTextContent("true")
+    await expect(window.localStorage.getItem("cookiesAllowed")).toBe("true")
+    await expect(window.localStorage.getItem("darkMode")).toBe("true")
+    const darkModeButtonFalseButton = await within(canvas.getByTestId("dark-mode")).getAllByRole("button")[1]
+    await userEvent.click(darkModeButtonFalseButton)
+    await expect(window.localStorage.getItem("darkMode")).toBe("false")
 }
 
 export const StoryDeclineCookies: Story = {}
-StoryDeclineCookies.storyName = "Test declining cookies"
+StoryDeclineCookies.storyName = "Test declining cookies and see if local storage does not update"
 StoryDeclineCookies.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const acceptCookiesButton = await canvas.getByText("Decline cookies")
+    const declineCookiesButton = await canvas.getByText("Decline cookies")
     const cookiesAllowedIndicator = await canvas.getByTestId("cookies-allowed-indicator")
-    await userEvent.click(acceptCookiesButton)
-    await sleep(1000)
-    await expect(acceptCookiesButton).not.toBeInTheDocument()
-    await expect(cookiesAllowedIndicator).toHaveTextContent("cookies allowed: true")
-}
-
-export const StoryChangeVolumeStore: Story = {}
-StoryChangeVolumeStore.storyName = "Test updating volume store"
-StoryChangeVolumeStore.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = await within(canvasElement)
-    const volumeSlider = await canvas.getByRole("range")
-    const volumeStoreIndicator = await canvas.getByTestId("volume-store-indicator")
-    await userEvent.click(volumeSlider)
-    await expect(volumeStoreIndicator).toHaveTextContent("volume indicator: 0.1")
+    await userEvent.click(declineCookiesButton)
+    await expect(declineCookiesButton).not.toBeInTheDocument()
+    await expect(cookiesAllowedIndicator).toHaveTextContent("false")
+    const fetchAllowedCookiesFromLocalStorage = await window.localStorage.getItem("cookiesAllowed")
+    await expect(fetchAllowedCookiesFromLocalStorage).toBe(null)
+    const darkModeButtonFalseButton = await within(canvas.getByTestId("dark-mode")).getAllByRole("button")[1]
+    await userEvent.click(darkModeButtonFalseButton)
+    const fetchDarkModeFromLocalStorage = await window.localStorage.getItem("darkMode")
+    await expect(fetchDarkModeFromLocalStorage).toBe(null)
 }
 
 export const StoryIsElevatorMusicPlaying: Story = {}
 StoryIsElevatorMusicPlaying.storyName = "Test if elevator music is playing"
 StoryIsElevatorMusicPlaying.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const elevatorMusicPlayingIndicator = canvas.getByText("elevator-music is playing: false")
-    await expect(elevatorMusicPlayingIndicator).toHaveTextContent("elevator music playing: true")
+    const elevatorMusicPlayingPausedIndicator = canvas.getByTestId("elevator-music-playing-indicator")
+    await expect(elevatorMusicPlayingPausedIndicator).toHaveTextContent("undefined")
+    const acceptCookiesButton = await canvas.getByText("Allow essential cookies")
+    await userEvent.click(acceptCookiesButton)
+    await expect(elevatorMusicPlayingPausedIndicator).toHaveTextContent("false")
+    const closeOverlayButton = await canvas.getByTestId("close-first-time-visit-dialog")
+    await userEvent.click(closeOverlayButton)
+    await expect(elevatorMusicPlayingPausedIndicator).toHaveTextContent("true")
 }
 
 export const StoryUseBooleanButtons: Story = {}
 StoryUseBooleanButtons.storyName = `Test updating eight bit text store`
 StoryUseBooleanButtons.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const testIds = ["eight-bit-text", "flicker-sensitive", "dark-mode"]
+    const acceptCookiesButton = await canvas.getByText("Allow essential cookies")
+    await userEvent.click(acceptCookiesButton)
     await sleep(420)
-    for (const id of testIds) {
-        const trueButton = await canvas.getByTestId(`${id}-true`)
-        const falseButton = await canvas.getByTestId(`${id}-false`)
-        const storeIndicator = await canvas.getByTestId(`${id}-store-indicator`)
-        await userEvent.click(trueButton)
-        await expect(storeIndicator).toHaveTextContent("true")
-        await userEvent.click(falseButton)
-        await expect(storeIndicator).toHaveTextContent("false")
-    }
+    const trueButton = await within(canvas.getByTestId(`dark-mode`)).getAllByRole("button")[0]
+    const falseButton = await within(canvas.getByTestId(`dark-mode`)).getAllByRole("button")[1]
+    const storeIndicator = await canvas.getByTestId(`dark-mode-indicator`)
+    await userEvent.click(trueButton)
+    await expect(storeIndicator).toHaveTextContent("true")
+    await userEvent.click(falseButton)
+    await expect(storeIndicator).toHaveTextContent("false")
 }

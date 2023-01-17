@@ -1,5 +1,8 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte"
     import { onMount } from "svelte"
+    // import { browser } from "$app/environment"
+    const browser = true
 
     import { audioVolume } from "$utilities/stores/audioVolumeStore"
     import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
@@ -14,13 +17,15 @@
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
 
+    const dispatch = createEventDispatcher()
+
     let dialog: HTMLDialogElement
     let details: HTMLDetailsElement
 
     let decidingAboutCookies: boolean = true
     let detailsOpen: boolean = false
 
-    onMount(() => {
+    onMount(async () => {
         dialog.showModal()
     })
 </script>
@@ -45,14 +50,23 @@
                 <Button
                     label="Decline cookies"
                     on:click={() => {
+                        dispatch("startElevatorMusic")
                         decidingAboutCookies = false
                         $cookiesAllowed = false
                     }} />
                 <Button
                     label="Allow essential cookies"
-                    on:click={() => {
+                    on:click={async () => {
                         decidingAboutCookies = false
-                        $cookiesAllowed = true
+                        dispatch("startElevatorMusic")
+                        if (browser) {
+                            window.localStorage.setItem("cookiesAllowed", "true")
+                            darkMode.persistValue()
+                            flickerSensitive.persistValue()
+                            likesEightBitFont.persistValue()
+                            audioVolume.persistValue()
+                            $cookiesAllowed = true
+                        }
                     }} />
             </div>
         {:else}
@@ -76,11 +90,19 @@
             <BooleanButton
                 description="If you need higher contrast or like light theme click the sun"
                 labels={["dark", "light"]}
+                testid="dark-mode"
                 bind:boolean={$darkMode}>
                 <Moon slot="firstIcon" />
                 <Sun slot="secondIcon" />
             </BooleanButton>
-            <Button id="close-first-time-visit-dialog" label="I'm ready to explore!" on:click={() => dialog.close()} />
+            <Button
+                id="close-first-time-visit-dialog"
+                label="I'm ready to explore!"
+                testid="close-first-time-visit-dialog"
+                on:click={() => {
+                    dialog.close()
+                    dispatch("stopElevatorMusic")
+                }} />
         {/if}
     </div>
 </dialog>
