@@ -3,6 +3,7 @@
 
     export let label: string
 
+    export let testid: string | undefined = undefined
     export let id: string | undefined = undefined
     export let active: "yes" | "no" | undefined = undefined
     export let ariaHidden: boolean = false
@@ -63,6 +64,7 @@
     class:icon
     class:underlined
     class:un-active={active === "no"}
+    data-testid={testid}
     tabindex={tabAble ? 0 : -1}>
     {#if hoverOverlay}
         <div class="absolute hover-overlay" />

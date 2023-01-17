@@ -4,7 +4,7 @@
     import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
     import { darkMode } from "$utilities/stores/darkModeStore"
     import { flickerSensitive } from "$utilities/stores/flickerSensitiveStore"
-    import { paragrafAsEightBitFont } from "$utilities/stores/paragrafAsEightBitFontStore"
+    import { likesEightBitFont } from "$utilities/stores/likesEightBitFontStore"
     import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
@@ -18,16 +18,16 @@
     export let dialog: HTMLDialogElement
 </script>
 
-<dialog bind:this={dialog} id="settings-dialog" class="relative background-blur">
+<dialog bind:this={dialog} id="settings-dialog" class="relative background-blur" data-testid="settings-dialog">
     <h2><span class="visually-hidden">settings</span><SettingsText /></h2>
     <div id="settings-box" class="flex flex-center background-blur">
         <div>
             <h3>Do you like reading 8bit font?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={$paragrafAsEightBitFont} />
+            <BooleanButton labels={["yes", "no"]} bind:boolean={$likesEightBitFont} testid="likes-eight-bit-font" />
         </div>
         <div>
             <h3>Are you flicker sensitive?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={$flickerSensitive} />
+            <BooleanButton labels={["yes", "no"]} bind:boolean={$flickerSensitive} testid="flicker-sensitive" />
         </div>
         <div>
             <h3>Volume</h3>
@@ -35,28 +35,37 @@
         </div>
         <div id="dark-mode">
             <h3>Dark/Light mode</h3>
-            <BooleanButton labels={["dark", "light"]} bind:boolean={$darkMode}>
+            <BooleanButton labels={["dark", "light"]} bind:boolean={$darkMode} testid="dark-mode">
                 <Moon slot="firstIcon" />
                 <Sun slot="secondIcon" />
             </BooleanButton>
         </div>
         <div>
-            {#if cookiesAllowed}
+            {#if $cookiesAllowed}
                 <h3>Changed your mind about cookies?</h3>
-                <Button label="Yes delete cookies!" on:click={() => ($cookiesAllowed = false)} />
+                <Button
+                    label="Yes delete cookies!"
+                    on:click={() => ($cookiesAllowed = false)}
+                    testid="cookies-allowed-false" />
             {:else}
                 <h3>Changed your mind about cookies?</h3>
-                <Button label="Yes allow essential cookies" on:click={() => ($cookiesAllowed = true)} />
+                <Button
+                    label="Yes allow essential cookies"
+                    on:click={() => ($cookiesAllowed = true)}
+                    testid="cookies-allowed-true" />
             {/if}
         </div>
-        {#if scavengerHuntDone}
+        {#if $scavengerHuntDone}
             <div transition:fade={{ duration: 1337 }}>
                 <h3>Want to do the scavenger hunt again?</h3>
-                <Button label="yes restart scavenger hunt!" on:click={() => ($scavengerHuntDone = false)} />
+                <Button
+                    label="yes restart scavenger hunt!"
+                    on:click={() => ($scavengerHuntDone = false)}
+                    testid="reset-scavenger-hunt" />
             </div>
         {/if}
     </div>
-    <Button id="close-settings" label="close settings" on:click={() => dialog.close()}>
+    <Button id="close-settings" label="close settings" on:click={() => dialog.close()} testid="close-settings">
         <Close slot="icon" />
     </Button>
 </dialog>

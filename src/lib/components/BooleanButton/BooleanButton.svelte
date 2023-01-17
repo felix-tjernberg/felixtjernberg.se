@@ -5,11 +5,12 @@
 
     export let boolean: boolean = true
     export let description: string | undefined = undefined
+    export let testid: string | undefined = undefined
 
     let icons = Boolean($$slots.firstIcon && $$slots.secondIcon)
 </script>
 
-<div class="flex-column-center">
+<div class="flex-column-center" data-testid={testid}>
     {#if description}
         <p>{description}</p>
     {/if}

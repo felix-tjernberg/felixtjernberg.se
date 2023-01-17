@@ -5,7 +5,7 @@
     import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
     import { darkMode } from "$utilities/stores/darkModeStore"
     import { flickerSensitive } from "$utilities/stores/flickerSensitiveStore"
-    import { paragrafAsEightBitFont } from "$utilities/stores/paragrafAsEightBitFontStore"
+    import { likesEightBitFont } from "$utilities/stores/likesEightBitFontStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
@@ -67,7 +67,7 @@
                 <BooleanButton
                     description="Do you like reading the 8bit font?"
                     labels={["yes", "no"]}
-                    bind:boolean={$paragrafAsEightBitFont} />
+                    bind:boolean={$likesEightBitFont} />
                 <BooleanButton
                     description="Are you flicker sensitive?"
                     labels={["yes", "no"]}

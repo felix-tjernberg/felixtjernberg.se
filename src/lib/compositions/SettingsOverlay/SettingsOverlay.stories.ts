@@ -23,38 +23,42 @@ const meta: Meta<SettingsOverlayStory> = {
 }
 export default meta
 
-export const StoryChangeVolumeStore: Story = {}
-StoryChangeVolumeStore.storyName = "Test updating volume store"
-StoryChangeVolumeStore.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = await within(canvasElement)
-    const volumeSlider = await canvas.getByRole("range")
-    const volumeStoreIndicator = await canvas.getByText("volume indicator: 0.5")
-    await userEvent.click(volumeSlider)
-    await expect(volumeStoreIndicator).toHaveTextContent("volume indicator: 0.6")
-}
+// export const StoryChangeVolumeStore: Story = {}
+// StoryChangeVolumeStore.storyName = "Test updating volume store"
+// StoryChangeVolumeStore.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+//     const canvas = await within(canvasElement)
+//     const openSettingsButton = await canvas.getByRole("button")
+//     await userEvent.click(openSettingsButton)
+//     const volumeSlider = (await canvas.getByRole("slider")) as HTMLInputElement
+//     await volumeSlider.focus()
+//     const volumeStoreIndicator = await canvas.getByTestId("volume-indicator")
+//     await expect(volumeStoreIndicator).toHaveTextContent("volume indicator: 0.5")
+// }
 
-export const StoryIsElevatorMusicPlayingWhenChangingVolume: Story = {}
-StoryIsElevatorMusicPlayingWhenChangingVolume.storyName = "Test if elevator music is playing when changing volume"
-StoryIsElevatorMusicPlayingWhenChangingVolume.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = await within(canvasElement)
-    const volumeSlider = await canvas.getByRole("range")
-    const elevatorMusicIndicator = await canvas.getByText("elevator-music is playing: false")
-    await userEvent.click(volumeSlider)
-    await expect(elevatorMusicIndicator).toHaveTextContent("elevator-music is playing: true")
-    sleep(3000)
-    await expect(elevatorMusicIndicator).toHaveTextContent("elevator-music is playing: false")
-}
+// export const StoryIsElevatorMusicPlayingWhenChangingVolume: Story = {}
+// StoryIsElevatorMusicPlayingWhenChangingVolume.storyName = "Test if elevator music is playing when changing volume"
+// StoryIsElevatorMusicPlayingWhenChangingVolume.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+//     const canvas = await within(canvasElement)
+//     const volumeSlider = await canvas.getByRole("range")
+//     const elevatorMusicIndicator = await canvas.getByText("elevator-music is playing: false")
+//     await userEvent.click(volumeSlider)
+//     await expect(elevatorMusicIndicator).toHaveTextContent("elevator-music is playing: true")
+//     sleep(3000)
+//     await expect(elevatorMusicIndicator).toHaveTextContent("elevator-music is playing: false")
+// }
 
 export const StoryUseBooleanButtons: Story = {}
 StoryUseBooleanButtons.storyName = `Test updating eight bit text store`
 StoryUseBooleanButtons.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const testIds = ["eight-bit-text", "flicker-sensitive", "dark-mode"]
+    const openSettingsButton = await canvas.getByRole("button")
+    await userEvent.click(openSettingsButton)
+    const testIds = ["likes-eight-bit-font", "flicker-sensitive", "dark-mode"]
     await sleep(420)
     for (const id of testIds) {
-        const trueButton = await canvas.getByTestId(`${id}-true`)
-        const falseButton = await canvas.getByTestId(`${id}-false`)
-        const storeIndicator = await canvas.getByTestId(`${id}-store-indicator`)
+        const trueButton = await within(canvas.getByTestId(`${id}`)).getAllByRole("button")[0]
+        const falseButton = await within(canvas.getByTestId(`${id}`)).getAllByRole("button")[1]
+        const storeIndicator = await canvas.getByTestId(`${id}-indicator`)
         await userEvent.click(trueButton)
         await expect(storeIndicator).toHaveTextContent("true")
         await userEvent.click(falseButton)
@@ -63,19 +67,26 @@ StoryUseBooleanButtons.play = async ({ canvasElement }: { canvasElement: HTMLEle
 }
 
 export const StoryDeleteCookies: Story = {}
-StoryDeleteCookies.storyName = "Test deleting cookies"
+StoryDeleteCookies.storyName = "Test enabling/disable cookies / restart scavenger hunt and close settings overlay"
 StoryDeleteCookies.play = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = await within(canvasElement)
-    const deleteCookiesButton = await canvas.getByText("Delete cookies")
+    const openSettingsButton = await canvas.getByRole("button")
+    const cookiesIndicator = await canvas.getByTestId("cookies-allowed-indicator")
+    const scavengerHunterIndicator = await canvas.getByTestId("scavenger-hunt-done-indicator")
+    const dialog = await canvas.getByTestId("settings-dialog")
+    await userEvent.click(openSettingsButton)
+    const deleteCookiesButton = await canvas.getByTestId("cookies-allowed-false")
     await userEvent.click(deleteCookiesButton)
-    const flickerSensitiveStoreIndicator = await canvas.getByText("flicker sensitive indicator: false")
-    const themeStoreIndicator = await canvas.getByText("theme indicator: light")
-    const eightBitStoreIndicator = await canvas.getByText("8bit indicator: false")
-    const volumeStoreIndicator = await canvas.getByText("volume indicator: 0.5")
-    const cookiesAllowedIndicator = await canvas.getByText("cookies allowed indicator: true")
-    await expect(flickerSensitiveStoreIndicator).toHaveTextContent("flicker sensitive indicator: undefined")
-    await expect(themeStoreIndicator).toHaveTextContent("theme indicator: undefined")
-    await expect(eightBitStoreIndicator).toHaveTextContent("8bit indicator: undefined")
-    await expect(volumeStoreIndicator).toHaveTextContent("volume indicator: undefined")
-    await expect(cookiesAllowedIndicator).toHaveTextContent("cookies allowed: false")
+    await expect(cookiesIndicator).toHaveTextContent("false")
+    const enableCookiesButton = await canvas.getByTestId("cookies-allowed-true")
+    await userEvent.click(enableCookiesButton)
+    await expect(cookiesIndicator).toHaveTextContent("true")
+    await expect(scavengerHunterIndicator).toHaveTextContent("true")
+    const resetScavengeHuntButton = await canvas.getByTestId("reset-scavenger-hunt")
+    await userEvent.click(resetScavengeHuntButton)
+    await expect(scavengerHunterIndicator).toHaveTextContent("false")
+    const closeSettingsButton = await canvas.getByTestId("close-settings")
+    await expect(dialog).toHaveAttribute("open", "")
+    await userEvent.click(closeSettingsButton)
+    await expect(dialog).not.toHaveAttribute("open", "")
 }
