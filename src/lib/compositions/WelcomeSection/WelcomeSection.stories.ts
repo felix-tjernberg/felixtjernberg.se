@@ -40,3 +40,17 @@ StoryNotificationRenders.play = async ({ canvasElement }) => {
     const notification = await canvas.getByTestId("notification")
     await expect(notification).toBeTruthy()
 }
+
+export const StoryRemoveFirstWordAndRecommendation: Story = {}
+StoryRemoveFirstWordAndRecommendation.storyName = "Expect to remove the first word and the recommendation"
+StoryRemoveFirstWordAndRecommendation.play = async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const firstSentenceSpan = await canvas.getByTestId("first-sentence")
+    const recommendationSpan = await canvas.getByTestId("recommendation")
+    const sectionLink = await canvas.getByText("coach")
+    await expect(firstSentenceSpan).toContainText("first")
+    await expect(recommendationSpan).toBeTruthy()
+    await userEvent.click(sectionLink)
+    await expect(recommendationSpan).toBeFalsy()
+    await expect(firstSentenceSpan).not.toContainText("first")
+}

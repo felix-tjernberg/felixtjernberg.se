@@ -3,18 +3,22 @@
 
     export let label: string
 
-    export let testid: string | undefined = undefined
-    export let id: string | undefined = undefined
     export let active: "yes" | "no" | undefined = undefined
     export let ariaHidden: boolean = false
     export let blur: boolean = true
     export let border: boolean = true
     export let glow: boolean = true
     export let hoverOverlay: boolean = true
+    export let href: string | undefined = undefined
+    export let id: string | undefined = undefined
+    export let style: string | undefined = undefined
     export let tabAble: boolean = true
+    export let testid: string | undefined = undefined
     export let underlined: boolean = false
 
-    let buttonElement: HTMLButtonElement
+    const elementType: "a" | "button" = href ? "a" : "button"
+
+    let element: HTMLElement | HTMLAnchorElement
     let icon = Boolean($$slots.icon)
     let timeoutTimers: ReturnType<typeof setTimeout>[] = []
 
@@ -27,17 +31,18 @@
     const PROPS_CLASS_STRING = $$props.class ? $$props.class : undefined
 
     onMount(() => {
-        buttonElement.addEventListener("mouseup", (event) => {
+        element.addEventListener("mouseup", (event) => {
             if (active === "yes") return
-
-            const buttonBoundingRectangle = buttonElement.getBoundingClientRect()
+            const buttonBoundingRectangle = element.getBoundingClientRect()
+            // @ts-ignore //TODO Figure out what kind of event type is required for clientX/Y
             let x = event.clientX - buttonBoundingRectangle.left
+            // @ts-ignore //TODO Figure out what kind of event type is required for clientX/Y
             let y = event.clientY - buttonBoundingRectangle.top
             const ripple = document.createElement("div")
             ripple.classList.add("ripple")
             ripple.style.left = x + "px"
             ripple.style.top = y + "px"
-            buttonElement.appendChild(ripple)
+            element.appendChild(ripple)
             const timeoutId = setTimeout(() => {
                 ripple.remove()
             }, 1000)
@@ -50,12 +55,13 @@
     })
 </script>
 
-<button
-    {id}
-    bind:this={buttonElement}
-    on:click
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+<svelte:element
+    this={elementType}
     aria-hidden={ariaHidden}
+    bind:this={element}
     class={PROPS_CLASS_STRING}
+    class:button={true}
     class:active={active === "yes"}
     class:background-blur={blur}
     class:border
@@ -65,21 +71,26 @@
     class:underlined
     class:un-active={active === "no"}
     data-testid={testid}
+    {href}
+    {id}
+    on:click
+    {style}
     tabindex={tabAble ? 0 : -1}>
     {#if hoverOverlay}
         <div class="absolute hover-overlay" />
     {/if}
-
     {#if $$slots.icon}
         <slot name="icon" />
         <span class="visually-hidden">{label}</span>
     {:else}
         {label}
     {/if}
-</button>
+</svelte:element>
 
 <style>
-    button {
+    .button {
+        text-decoration: none;
+        text-transform: capitalize;
         overflow: hidden;
         padding: 0.25em 1em;
         position: relative;
@@ -88,13 +99,13 @@
     :global([data-dark-mode="false"] button:not(.icon, .underlined)) {
         background-color: var(--white);
     }
-    button:hover:not(.active) .hover-overlay {
+    .button:hover:not(.active) .hover-overlay {
         opacity: 1;
     }
-    button.active:hover {
+    .button.active:hover {
         cursor: not-allowed;
     }
-    button:active:not(.icon),
+    .button:active:not(.icon),
     .active:not(.icon) {
         background-color: var(--gray-900);
         color: var(--gray-000);

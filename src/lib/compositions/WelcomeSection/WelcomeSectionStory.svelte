@@ -8,7 +8,7 @@
 
 <div>
     <p class="visually-hidden" data-testid="navigation-indicator">{activeSection}</p>
-    <WelcomeSection {activeSection} />
+    <WelcomeSection bind:activeSection />
 </div>
 
 <style>

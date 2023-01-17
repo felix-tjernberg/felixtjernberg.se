@@ -2,14 +2,69 @@
     import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
+    import Button from "$components/Button/Button.svelte"
+    import WelcomeSectionText from "$assets/svgs/WelcomeSectionText.svelte"
+
     export let activeSection: Sections
 </script>
 
 <section id="welcome-section">
-    <div class="border background-blur margin-vertical-flow glow flex-column-center">
-        <a href="/coach" on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}>Coach</a>
+    <h1><WelcomeSectionText /><span class="visually-hidden">Welcome!</span></h1>
+    <div class="flex-column-center gap">
+        <p>
+            <span>What do you want to check out first?<br /></span>
+            <span>(I recommend checking out my computer first)</span>
+        </p>
+        <div class="flex-wrap-center gap">
+            {#each ["computer", "coach", "contact", "phone"] as section}
+                <Button
+                    style="--background-blur-amount: 2px"
+                    label={section}
+                    href={`/${section}`}
+                    on:click={(event) => {
+                        event.preventDefault()
+                        activeSection = SectionsSchema.parse(section)
+                    }} />
+            {/each}
+        </div>
     </div>
 </section>
 
 <style>
+    p {
+        max-width: 100%;
+    }
+    p > span {
+        color: transparent;
+        background: var(--gradient);
+        background-clip: text;
+    }
+    p > span:nth-child(1) {
+        font-size: var(--static-scale-200);
+    }
+    p > span:nth-child(2) {
+        font-size: var(--static-scale-100);
+    }
+    #welcome-section {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        height: 100%;
+        width: 100%;
+    }
+    #welcome-section > h1 {
+        align-self: end;
+    }
+    #welcome-section > div {
+        margin-top: 1em;
+        align-self: start;
+        z-index: 1;
+    }
+    :global(#welcome-section svg) {
+        display: flex;
+        max-width: 50ch !important;
+        max-height: 100% !important;
+        height: 100%;
+        width: 100%;
+        filter: drop-shadow(0px 10px 10px rgb(0 0 0));
+    }
 </style>

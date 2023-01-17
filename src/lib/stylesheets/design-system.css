@@ -53,7 +53,7 @@
     --black-50-percent: hsl(0, 0%, 5%, 50%);
     --black-90-percent: hsl(0, 0%, 5%, 90%);
 
-    --gradient: linear-gradient(172deg, rgba(255, 0, 142, 1) 40%, rgba(0, 255, 87, 1) 60%);
+    --gradient: linear-gradient(133.32deg, #fa0c91 28.15%, #fa0c91 35.38%, #02ff58 81.49%);
     --gradient-90-percent: linear-gradient(133.32deg, #fa0c9190 28.15%, #fa0c9190 35.38%, #02ff5890 81.49%);
 
     --glow-pink: rgba(250, 12, 145);

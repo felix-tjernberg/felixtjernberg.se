@@ -21,7 +21,7 @@
 }
 
 .glow,
-button svg {
+.button svg {
     --glow-color: var(--gray-900);
     --glow-size: var(--stroke-300);
     --text-glow-color: var(--gray-900);
@@ -31,21 +31,21 @@ button svg {
 }
 .glow.glow-hover:hover,
 input.glow:hover,
-button.glow:hover:not(button.glow.active),
-button.glow.active {
+.button.glow:hover:not(.button.glow.active),
+.button.glow.active {
     --glow-size: var(--stroke-500);
     --text-glow-size: 20px;
 }
 [data-dark-mode="false"] .glow {
     text-shadow: none;
 }
-button.un-active:not(:hover) svg {
+.button.un-active:not(:hover) svg {
     filter: none;
 }
-button svg {
+.button svg {
     --glow-size: var(--stroke-100);
 }
-button:hover:not(.active) svg {
+.button:hover:not(.active) svg {
     --glow-size: var(--stroke-300);
 }
 
