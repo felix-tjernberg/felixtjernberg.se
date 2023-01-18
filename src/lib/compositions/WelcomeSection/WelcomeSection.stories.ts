@@ -33,24 +33,17 @@ StoryNavigateToCoachSection.play = async ({ canvasElement }) => {
     }
 }
 
-export const StoryNotificationRenders: Story = {}
-StoryNotificationRenders.storyName = "Expect to render the notification"
-StoryNotificationRenders.play = async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const notification = await canvas.getByTestId("notification")
-    await expect(notification).toBeTruthy()
-}
-
 export const StoryRemoveFirstWordAndRecommendation: Story = {}
 StoryRemoveFirstWordAndRecommendation.storyName = "Expect to remove the first word and the recommendation"
 StoryRemoveFirstWordAndRecommendation.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const firstSentenceSpan = await canvas.getByTestId("first-sentence")
-    const recommendationSpan = await canvas.getByTestId("recommendation")
+    const paragraph = await canvas.getByTestId("welcome-paragraph")
     const sectionLink = await canvas.getByText("coach")
-    await expect(firstSentenceSpan).toContainText("first")
-    await expect(recommendationSpan).toBeTruthy()
+    await expect(paragraph.children.length).toBe(2)
+    await expect(firstSentenceSpan.textContent).toContain("first")
     await userEvent.click(sectionLink)
-    await expect(recommendationSpan).toBeFalsy()
-    await expect(firstSentenceSpan).not.toContainText("first")
+    await expect(firstSentenceSpan).not.toContain("first")
+    await expect(firstSentenceSpan.textContent).toContain("now")
+    await expect(paragraph.children.length).toBe(1)
 }

@@ -3,17 +3,25 @@
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
     import Button from "$components/Button/Button.svelte"
+    import Logo from "$assets/svgs/Logo.svelte"
     import WelcomeSectionText from "$assets/svgs/WelcomeSectionText.svelte"
 
     export let activeSection: Sections
+
+    let firstVisit: boolean = true
 </script>
 
 <section id="welcome-section">
+    <Logo />
     <h1><WelcomeSectionText /><span class="visually-hidden">Welcome!</span></h1>
     <div class="flex-column-center gap">
-        <p>
-            <span>What do you want to check out first?<br /></span>
-            <span>(I recommend checking out my computer first)</span>
+        <p data-testid="welcome-paragraph">
+            <span data-testid="first-sentence">
+                What do you want to check out {firstVisit ? "first" : "now"}?<br />
+            </span>
+            {#if firstVisit}
+                <span data-testid="recommendation">(I recommend checking out my computer first)</span>
+            {/if}
         </p>
         <div class="flex-wrap-center gap">
             {#each ["computer", "coach", "contact", "phone"] as section}
@@ -24,6 +32,7 @@
                     on:click={(event) => {
                         event.preventDefault()
                         activeSection = SectionsSchema.parse(section)
+                        firstVisit = false
                     }} />
             {/each}
         </div>
@@ -59,7 +68,15 @@
         align-self: start;
         z-index: 1;
     }
-    :global(#welcome-section svg) {
+    :global(#welcome-section > svg) {
+        filter: blur(10px);
+        opacity: 0.3;
+        height: 90%;
+        inset: 0;
+        position: absolute;
+        width: 90%;
+    }
+    :global(#welcome-section > h1 > svg) {
         display: flex;
         max-width: 50ch !important;
         max-height: 100% !important;

@@ -22,6 +22,10 @@
     data-testid="navigation-wrapper"
     id="navigation"
     data-active-section={`${navigationActive ? SectionsSchema.enum.none : activeSection}`}>
+    {#if navigationActive}
+        <Logo />
+        <Logo />
+    {/if}
     <div id="navigation-item-coach">
         {#if navigationActive}
             <a
@@ -85,10 +89,6 @@
     <div id="navigation-item-settings">
         <slot name="settings" />
     </div>
-    {#if navigationActive}
-        <Logo />
-        <Logo />
-    {/if}
 </div>
 
 <style>
@@ -131,7 +131,6 @@
         inset: 0;
         position: absolute;
         width: 75%;
-        z-index: -1;
     }
     :global(#navigation > svg:nth-of-type(1)) {
         filter: blur(15vh);
