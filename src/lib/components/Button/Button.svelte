@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy, onMount } from "svelte"
+    import { onDestroy } from "svelte"
 
     export let label: string
 
@@ -18,7 +18,6 @@
 
     const elementType: "a" | "button" = href ? "a" : "button"
 
-    let element: HTMLElement | HTMLAnchorElement
     let icon = Boolean($$slots.icon)
     let timeoutTimers: ReturnType<typeof setTimeout>[] = []
 
@@ -30,26 +29,23 @@
 
     const PROPS_CLASS_STRING = $$props.class ? $$props.class : undefined
 
-    onMount(() => {
-        element.addEventListener("mouseup", (event) => {
-            if (active === "yes") return
-            const buttonBoundingRectangle = element.getBoundingClientRect()
-            // @ts-ignore //TODO Figure out what kind of event type is required for clientX/Y
-            let x = event.clientX - buttonBoundingRectangle.left
-            // @ts-ignore //TODO Figure out what kind of event type is required for clientX/Y
-            let y = event.clientY - buttonBoundingRectangle.top
-            const ripple = document.createElement("div")
-            ripple.classList.add("ripple")
-            ripple.style.left = x + "px"
-            ripple.style.top = y + "px"
-            element.appendChild(ripple)
-            const timeoutId = setTimeout(() => {
-                ripple.remove()
-            }, 1000)
-            timeoutTimers.push(timeoutId)
-            timeoutTimers = timeoutTimers
-        })
-    })
+    function handeMouseUp(event: { clientX: number; clientY: number; currentTarget: HTMLElement }) {
+        if (active === "yes") return
+        const buttonBoundingRectangle = event.currentTarget.getBoundingClientRect()
+        let x = event.clientX - buttonBoundingRectangle.left
+        let y = event.clientY - buttonBoundingRectangle.top
+        const ripple = document.createElement("div")
+        ripple.classList.add("ripple")
+        ripple.style.left = x + "px"
+        ripple.style.top = y + "px"
+        event.currentTarget.appendChild(ripple)
+        const timeoutId = setTimeout(() => {
+            ripple.remove()
+        }, 1000)
+        timeoutTimers.push(timeoutId)
+        timeoutTimers = timeoutTimers
+    }
+
     onDestroy(() => {
         timeoutTimers.forEach((timer) => clearTimeout(timer))
     })
@@ -59,7 +55,6 @@
 <svelte:element
     this={elementType}
     aria-hidden={ariaHidden}
-    bind:this={element}
     class={PROPS_CLASS_STRING}
     class:button={true}
     class:active={active === "yes"}
@@ -74,6 +69,7 @@
     {href}
     {id}
     on:click
+    on:mouseup={handeMouseUp}
     {style}
     tabindex={tabAble ? 0 : -1}>
     {#if hoverOverlay}
