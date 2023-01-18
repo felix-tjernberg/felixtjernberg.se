@@ -57,6 +57,7 @@
             ariaHidden={true}
             class="absolute"
             label="increase"
+            testid="increase-button"
             tabAble={false}
             on:click={() => {
                 if (value === 9) return (value = 0)
@@ -75,8 +76,9 @@
     <div class="absolute">
         <Button
             ariaHidden={true}
-            tabAble={false}
             label="decrease"
+            testid="decrease-button"
+            tabAble={false}
             on:click={() => {
                 if (value === 0) return (value = 9)
                 // @ts-ignore

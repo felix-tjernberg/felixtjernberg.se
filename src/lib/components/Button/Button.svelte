@@ -73,7 +73,7 @@
     {style}
     tabindex={tabAble ? 0 : -1}>
     {#if hoverOverlay}
-        <div class="absolute hover-overlay" />
+        <div aria-hidden="true" class="absolute hover-overlay" />
     {/if}
     {#if $$slots.icon}
         <slot name="icon" />

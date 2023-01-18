@@ -11,7 +11,8 @@
 
 <div>
     <p class="visually-hidden" data-testid="navigation-indicator">{activeSection}</p>
-    <button class="visually-hidden" data-testid="scavenger-hunt-button" on:click={() => ($scavengerHuntDone = true)} />
+    <button class="visually-hidden" data-testid="scavenger-hunt-button" on:click={() => ($scavengerHuntDone = true)}>
+        scavenger-hunt-button</button>
     <ContactSection bind:activeSection />
 </div>
 

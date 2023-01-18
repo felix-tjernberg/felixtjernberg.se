@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import NotificationStory from "./NotificationStory.svelte"
+import sleep from "$lib/stories/sleep"
 
 type Story = StoryObj<NotificationStory>
 export const DefaultState: Story = {}
@@ -70,9 +71,11 @@ StoryCloseWithButton.args = {
 StoryCloseWithButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
-    const notification = await canvas.getByTestId("notification").children[0]
+    const notification = await canvas.getByTestId("notification")
+    await expect(notification.children[0]).toBeTruthy()
     await userEvent.click(button)
-    await expect(notification).not.toBeInTheDocument()
+    await sleep(420)
+    await expect(notification.children[0]).toBeFalsy()
 }
 
 export const StoryCloseButton: Story = {}
@@ -95,6 +98,6 @@ StoryNoCloseButton.args = {
 }
 StoryNoCloseButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const notification = await canvas.getByTestId("notification").children[0]
-    await expect(notification.children[0]).toBeFalsy()
+    const notification = await canvas.getByTestId("notification")
+    await expect(notification.textContent).not.toContain("close notification")
 }

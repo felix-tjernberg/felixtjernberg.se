@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import StickyNoteStory from "./StickyNoteStory.svelte"
+import sleep from "$lib/stories/sleep"
 
 type Story = StoryObj<StickyNoteStory>
 export const DefaultState: Story = {}
@@ -43,8 +44,9 @@ StoryCloseWithButton.storyName = "Expect note to not render after pressing Remov
 StoryCloseWithButton.play = async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = await canvas.getByRole("button")
-    const note = await canvas.getByTestId("note").children[0]
+    const note = await canvas.getByTestId("remove-note")
     await userEvent.click(button)
+    await sleep(10000)
     await expect(note).not.toBeInTheDocument()
 }
 

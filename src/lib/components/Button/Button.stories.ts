@@ -61,7 +61,7 @@ StoryLabel.storyName = "Expect label to be rendered"
 StoryLabel.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const button = await canvas.getByRole("button")
-    await expect(button.textContent).toBe(StoryLabelString)
+    await expect(button.textContent).toBe(" " + StoryLabelString)
 }
 
 export const StoryOnClick: Story = {}

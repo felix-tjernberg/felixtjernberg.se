@@ -56,6 +56,7 @@
                 glow={false}
                 hoverOverlay={false}
                 label="remove note"
+                testid="remove-note"
                 on:click={(event) => {
                     active = false
                     const currentTarget = event.currentTarget

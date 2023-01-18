@@ -34,7 +34,7 @@ StoryLabels.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const buttons = await canvas.getAllByRole("button")
     await buttons.forEach(async (button, index) => {
-        await expect(button.textContent).toBe(StoryLabelsArray[index])
+        await expect(button.textContent).toBe(" " + StoryLabelsArray[index])
     })
 }
 

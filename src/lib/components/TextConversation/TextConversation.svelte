@@ -75,6 +75,9 @@
     span {
         gap: 1ch;
     }
+    :global([data-dark-mode="false"] .conversation span) {
+        filter: none;
+    }
     span > p:first-of-type:not(:last-of-type) {
         text-transform: uppercase;
     }
