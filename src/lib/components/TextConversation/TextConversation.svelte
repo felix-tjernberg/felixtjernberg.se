@@ -42,6 +42,7 @@
         <Button
             flashing={firstMessage}
             label="See next message"
+            testid="next-message-button"
             on:click={() => {
                 if (messageIndex + 2 === TEXT_CONVERSATION.length) conversationDone = true
                 if (firstMessage) firstMessage = false

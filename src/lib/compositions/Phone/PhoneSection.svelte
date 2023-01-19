@@ -13,7 +13,11 @@
 
 <section id="phone-section" class="flex-column-center gap margin">
     {#if !conversationDone}
-        <p id="answer-instruction" class="background-blur border glow font-family-primary-fat" transition:fade>
+        <p
+            class="background-blur border glow font-family-primary-fat"
+            data-testid="answer-instruction"
+            id="answer-instruction"
+            transition:fade>
             {#if $momCalling}
                 Press <br />
                 "C" <br />
@@ -34,6 +38,7 @@
         <picture><img src={phone} alt="nokia 3310 launched 2000" /></picture>
         {#if $momCalling}
             <button
+                data-testid="c-button"
                 class="absolute glow opacity-flashing"
                 on:click={() => {
                     answeredCall = true

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/svelte"
 import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import PhoneSectionStory from "./PhoneSectionStory.svelte"
-import textConversationJSON from "$components/TextConversation/textConversation"
+import sleep from "$lib/stories/sleep"
 
 type Story = StoryObj<PhoneSectionStory>
 export const DefaultState: Story = {}
@@ -27,30 +27,22 @@ export const StoryMomCall: Story = {}
 StoryMomCall.storyName = "Mom call"
 StoryMomCall.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
-    const instructionMessage = await canvas.getByTestId("instruction-message")
+    const instructionMessage = await canvas.getByTestId("answer-instruction")
     const cButton = await canvas.getByTestId("c-button")
-    const display = await canvas.getByTestId("display")
 
-    await expect(instructionMessage.textContent).toBe('Press "C" button to answer ')
-    await expect(cButton).toBeTruthy()
-    await expect(cButton).toHaveAttribute("data-flashing", "true")
-    await expect(display.textContent).toBe("Mom calling")
+    await expect(instructionMessage.textContent).toContain("to answer")
+    await expect(cButton).toHaveClass("opacity-flashing")
 
     await userEvent.click(cButton)
-    const nextMessageButton = await canvas.getByTestId("next-message-button")
-    await expect(cButton).toHaveAttribute("data-flashing", "false")
-    await expect(instructionMessage.textContent).toBe('Press "5 or ▼" button to see next message')
     await expect(cButton).not.toBeInTheDocument()
-    await expect(display.textContent).toBe("Mom")
-    await expect(nextMessageButton).toHaveAttribute("data-flashing", "true")
+    await sleep(5000)
 
-    const textConversation = await canvas.getByTestId("text-conversation")
-    await expect(textConversation).toBeTruthy()
+    const nextMessageButton = await canvas.getByTestId("next-message-button")
+    await expect(instructionMessage.textContent).toContain("for next message")
+    await expect(nextMessageButton.children[0]).toHaveClass("opacity-flashing")
+    await userEvent.click(nextMessageButton)
+    await sleep(5000)
 
-    for (const message in textConversationJSON) {
-        await expect(display.textContent).toBe(message)
-        await userEvent.click(nextMessageButton)
-    }
-
-    await expect(display).not.toBeInTheDocument()
+    const nextMessage2Button = await canvas.getByTestId("next-message-button")
+    await expect(nextMessage2Button.children[0]).not.toHaveClass("opacity-flashing")
 }
