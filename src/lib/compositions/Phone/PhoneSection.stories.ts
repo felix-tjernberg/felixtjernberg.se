@@ -3,6 +3,7 @@ import { userEvent, within } from "@storybook/testing-library"
 import { expect } from "@storybook/jest"
 import PhoneSectionStory from "./PhoneSectionStory.svelte"
 import sleep from "$lib/stories/sleep"
+import TEXT_CONVERSATION from "$lib/components/TextConversation/textConversation"
 
 type Story = StoryObj<PhoneSectionStory>
 export const DefaultState: Story = {}
@@ -23,9 +24,18 @@ const meta: Meta<PhoneSectionStory> = {
 }
 export default meta
 
-export const StoryMomCall: Story = {}
-StoryMomCall.storyName = "Mom call"
-StoryMomCall.play = async ({ canvasElement }) => {
+export const StoryMomCalling: Story = {}
+StoryMomCalling.storyName = "Mom calling"
+StoryMomCalling.args = {
+    momCallingTest: true
+}
+
+export const StoryTestMomCall: Story = {}
+StoryTestMomCall.storyName = "Test mom call"
+StoryTestMomCall.args = {
+    momCallingTest: true
+}
+StoryTestMomCall.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const instructionMessage = await canvas.getByTestId("answer-instruction")
     const cButton = await canvas.getByTestId("c-button")
@@ -38,11 +48,20 @@ StoryMomCall.play = async ({ canvasElement }) => {
     await sleep(5000)
 
     const nextMessageButton = await canvas.getByTestId("next-message-button")
-    await expect(instructionMessage.textContent).toContain("for next message")
+    await expect(instructionMessage.textContent).toContain("next message")
     await expect(nextMessageButton.children[0]).toHaveClass("opacity-flashing")
     await userEvent.click(nextMessageButton)
     await sleep(5000)
 
     const nextMessage2Button = await canvas.getByTestId("next-message-button")
     await expect(nextMessage2Button.children[0]).not.toHaveClass("opacity-flashing")
+
+    for (let i = 0; i < TEXT_CONVERSATION.length - 2; i++) {
+        const nextMessageButton = await canvas.getByTestId("next-message-button")
+        await userEvent.click(nextMessageButton)
+        await sleep(10000)
+    }
+
+    await sleep(1000)
+    await expect(instructionMessage).not.toBeInTheDocument()
 }

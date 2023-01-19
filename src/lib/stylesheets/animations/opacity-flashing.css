@@ -1,0 +1,11 @@
+@keyframes opacity-flashing {
+    0% {
+        opacity: var(--lowest-opacity);
+    }
+    50% {
+        opacity: var(--highest-opacity);
+    }
+    100% {
+        opacity: var(--lowest-opacity);
+    }
+}

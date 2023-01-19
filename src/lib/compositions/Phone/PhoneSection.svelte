@@ -1,18 +1,14 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { momCalling } from "$utilities/stores/momCallingStore"
+    import { answeredCall, conversationDone, momCalling } from "$utilities/stores/phoneSectionStores"
     import phone from "$assets/images/phone.png"
     import PhoneCanvas from "./PhoneCanvas.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
-
-    $momCalling = true
-    let conversationDone: boolean
-    let answeredCall = false
 </script>
 
 <section id="phone-section" class="flex-column-center gap margin">
-    {#if !conversationDone}
+    {#if !$conversationDone && ($momCalling || $answeredCall)}
         <p
             class="background-blur border glow font-family-primary-fat"
             data-testid="answer-instruction"
@@ -25,25 +21,27 @@
             {:else}
                 Press <br />
                 "<span class="visually-hidden">▼</span><TriangleDown />"<br />
-                button for next message
+                button to show next message
             {/if}
         </p>
     {/if}
-    {#if answeredCall}
-        <TextConversation bind:conversationDone />
+    {#if $answeredCall}
+        <TextConversation />
     {/if}
     <h2 class="visually-hidden">Phone</h2>
     <div class="relative">
-        <PhoneCanvas answeredCall />
+        <PhoneCanvas />
         <picture><img src={phone} alt="nokia 3310 launched 2000" /></picture>
         {#if $momCalling}
             <button
                 data-testid="c-button"
                 class="absolute glow opacity-flashing"
                 on:click={() => {
-                    answeredCall = true
+                    $answeredCall = true
                     $momCalling = false
-                }}><span class="visually-hidden">answer call</span></button>
+                }}>
+                <span class="visually-hidden">answer call</span>
+            </button>
         {/if}
     </div>
 </section>
