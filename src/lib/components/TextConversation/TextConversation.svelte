@@ -1,12 +1,15 @@
 <script lang="ts">
     import { onMount } from "svelte"
-    import TEXT_CONVERSATION from "./textConversation"
     import Button from "$components/Button/Button.svelte"
+    import TEXT_CONVERSATION from "./textConversation"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
     import typewriter from "$utilities/transitions/typewriter"
 
+    export let conversationDone: boolean = false
+
     let section: HTMLElement
 
+    let firstMessage = true
     let messageIndex = -1
     let buttonActive = false
 
@@ -15,7 +18,7 @@
     })
 </script>
 
-<div class="conversation background-blur relative glow border" data-testid="conversation-wrapper">
+<div id="conversation" class="background-blur relative glow border" data-testid="conversation-wrapper">
     <section bind:this={section} class="flex-column margin-vertical-flow">
         {#each TEXT_CONVERSATION as { message, person }, index}
             {#if index <= messageIndex}
@@ -37,8 +40,11 @@
     </section>
     {#if messageIndex + 1 !== TEXT_CONVERSATION.length && buttonActive}
         <Button
+            flashing={firstMessage}
             label="See next message"
             on:click={() => {
+                if (messageIndex + 2 === TEXT_CONVERSATION.length) conversationDone = true
+                if (firstMessage) firstMessage = false
                 messageIndex += 1
                 buttonActive = false
             }}>
@@ -48,16 +54,17 @@
 </div>
 
 <style>
-    .conversation {
+    #conversation {
         --stroke-color: var(--gray-300);
         --background-blur-amount: var(--blur-900);
         --glow-color: var(--gray-300);
         height: 7em;
         overflow: hidden;
         padding: 1em 2em 1em 1em;
-        width: 50ch;
+        width: 100%;
+        max-width: 50ch;
     }
-    :global([data-dark-mode="false"] .conversation) {
+    :global([data-dark-mode="false"] #conversation) {
         background-color: var(--white);
     }
     section {
@@ -75,7 +82,7 @@
     span {
         gap: 1ch;
     }
-    :global([data-dark-mode="false"] .conversation span) {
+    :global([data-dark-mode="false"] #conversation span) {
         filter: none;
     }
     span > p:first-of-type:not(:last-of-type) {
@@ -85,15 +92,15 @@
         text-align: left;
     }
     p,
-    :global(.conversation button) {
+    :global(#conversation button) {
         animation: fadeIn 1337ms;
     }
-    :global(.conversation button) {
+    :global(#conversation button) {
         bottom: 0;
         position: absolute !important;
         right: 0;
     }
-    :global(.conversation button svg) {
+    :global(#conversation button svg) {
         animation: bob 1337ms infinite;
     }
     @keyframes fadeIn {

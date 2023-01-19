@@ -63,3 +63,11 @@ input.glow:hover,
     white-space: nowrap;
     width: 1px;
 }
+
+.opacity-flashing {
+    --glow-color: var(--glow-pink);
+    --lowest-opacity: 0.5;
+    --highest-opacity: 0.9;
+    animation: opacity-flashing 2s infinite;
+    background-color: var(--glow-pink) !important;
+}

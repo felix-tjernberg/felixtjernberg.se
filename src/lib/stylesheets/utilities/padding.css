@@ -4,6 +4,9 @@
 .padding-vertical-flow {
     --padding-amount: 1em;
 }
+.padding {
+    padding: var(--padding-amount);
+}
 .padding-horizontal {
     padding-left: var(--padding-amount);
     padding-right: var(--padding-amount);

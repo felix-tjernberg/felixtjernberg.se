@@ -7,6 +7,7 @@
     export let ariaHidden: boolean = false
     export let blur: boolean = true
     export let border: boolean = true
+    export let flashing: boolean = false
     export let glow: boolean = true
     export let hoverOverlay: boolean = true
     export let href: string | undefined = undefined
@@ -73,7 +74,7 @@
     {style}
     tabindex={tabAble ? 0 : -1}>
     {#if hoverOverlay}
-        <div aria-hidden="true" class="absolute hover-overlay" />
+        <div aria-hidden="true" class="absolute hover-overlay" class:opacity-flashing={flashing} />
     {/if}
     {#if $$slots.icon}
         <slot name="icon" />
