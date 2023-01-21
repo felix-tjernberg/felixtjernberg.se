@@ -10,6 +10,8 @@
     import { onDestroy } from "svelte"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
+    export let screenIndex: number = 0
+
     let phoneRingtoneTimeout: ReturnType<typeof setTimeout>
 
     $activeSection = SectionsSchema.enum.computer
@@ -28,7 +30,7 @@
         bind:paused={$dialUpAudioPaused}
         bind:currentTime={$dialUpAudioCurrentTime}
         src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
-    <ComputerSection />
+    <ComputerSection {screenIndex} />
     <p class="visually-hidden" data-testid="active-section-indicator">activeSection indicator: {$activeSection}</p>
 </div>
 

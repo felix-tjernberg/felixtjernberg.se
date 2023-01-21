@@ -22,6 +22,34 @@ const meta: Meta<ComputerSectionStory> = {
 }
 export default meta
 
+export const StoryFirstScreen: Story = {}
+StoryFirstScreen.name = "First screen"
+StoryFirstScreen.args = { screenIndex: 0 }
+
+export const StorySecondScreen: Story = {}
+StorySecondScreen.name = "Second screen"
+StorySecondScreen.args = { screenIndex: 1 }
+
+export const StoryThirdScreen: Story = {}
+StoryThirdScreen.name = "Third screen"
+StoryThirdScreen.args = { screenIndex: 2 }
+
+export const StoryFourthScreen: Story = {}
+StoryFourthScreen.name = "Fourth screen"
+StoryFourthScreen.args = { screenIndex: 3 }
+
+export const StoryFifthScreen: Story = {}
+StoryFifthScreen.name = "Fifth screen"
+StoryFifthScreen.args = { screenIndex: 4 }
+
+export const StorySixthScreen: Story = {}
+StorySixthScreen.name = "Sixth screen"
+StorySixthScreen.args = { screenIndex: 5 }
+
+export const StorySeventhScreen: Story = {}
+StorySeventhScreen.name = "Seventh screen"
+StorySeventhScreen.args = { screenIndex: 6 }
+
 export const StoryScavengerHunt: Story = {}
 StoryScavengerHunt.name = "Test Scavenger Hunt"
 StoryScavengerHunt.play = async ({ canvasElement }) => {
