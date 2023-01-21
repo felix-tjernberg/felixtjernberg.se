@@ -1,19 +1,10 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-
-    import StickyNote from "$components/StickyNote/StickyNote.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
-    import Notification from "$components/Notification/Notification.svelte"
-    import rickRoll from "$assets/images/rick-roll.png"
 
     export let screenIndex: number
 
     let pin: string
-
-    let clueActive: boolean = true
-    let clueNotificationActive = false
-    let clueNotificationTimeout: ReturnType<typeof setTimeout>
-    $: if (!clueActive) clueNotificationTimeout = setTimeout(() => (clueNotificationActive = true), 60000)
 
     let pin1: number | "" | undefined = undefined
     let pin2: number | "" | undefined = undefined
@@ -23,33 +14,17 @@
     $: if (pin === "1234") screenIndex = 1
 </script>
 
-<Notification bind:active={clueNotificationActive}>
-    <p>
-        PIN CODE:<br />
-        Is the sum of the 4 numbers in the corners
-    </p>
-</Notification>
 <div id="first-screen" class="grid" transition:fade>
     <div id="top-left" class="flex-center">
         <p><span class="visually-hidden">corner number 1: </span>1000</p>
     </div>
     <div id="top-right" class="flex-center relative">
-        <StickyNote flyToRight={false}><p>Press the notes to remove them</p></StickyNote>
         <p><span class="visually-hidden">corner number 2: </span>200</p>
     </div>
     <div id="bottom-left" class="flex-center relative">
-        <StickyNote bind:active={clueActive}>
-            <p class="font-size-000">
-                PIN CODE:<br />
-                sum of the 4 corner numbers
-            </p>
-        </StickyNote>
         <p><span class="visually-hidden">corner number 3: </span>30</p>
     </div>
     <div id="bottom-right" class="flex-center relative">
-        <StickyNote flyToRight={false}>
-            <picture><img src={rickRoll} alt="a qr code" /></picture>
-        </StickyNote>
         <p><span class="visually-hidden">corner number 4: </span>4</p>
     </div>
     <div id="content" class="flex-column-center font-family-primary-fat">
@@ -64,7 +39,8 @@
 </div>
 
 <style>
-    .grid {
+    #first-screen {
+        z-index: 1;
         height: 100%;
         width: 100%;
         margin: auto;
@@ -95,6 +71,12 @@
         grid-area: bottom-right;
         rotate: -7.2deg;
         translate: -6.66px 13.37px;
+    }
+    #bottom-left > p {
+        translate: 0 -30px;
+    }
+    #bottom-right > p {
+        translate: -20px -30px;
     }
     #content {
         grid-area: content;

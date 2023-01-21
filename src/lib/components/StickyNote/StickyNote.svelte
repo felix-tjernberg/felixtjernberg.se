@@ -76,7 +76,7 @@
         inset: 0;
     }
     :global(.sticky-note > *:not(picture)) {
-        z-index: 1;
+        z-index: 1337;
     }
     :global(.sticky-note picture:nth-of-type(1)) {
         inset: 0;

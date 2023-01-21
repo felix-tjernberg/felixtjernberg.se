@@ -16,6 +16,7 @@
 
 <style>
     .notification {
+        z-index: 9001;
         --background-blur-amount: var(--blur-900);
         --stroke-width: var(--stroke-200);
         color: var(--gray-900);
