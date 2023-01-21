@@ -5,7 +5,7 @@
     import UpArrow from "$assets/svgs/UpArrow.svelte"
 
     export let label: string
-    export let input: HTMLInputElement
+    export let input: HTMLInputElement | undefined = undefined
 
     export let description: string | undefined = undefined
     export let value: number | "" | "-"

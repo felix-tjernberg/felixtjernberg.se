@@ -7,6 +7,13 @@
 .padding {
     padding: var(--padding-amount);
 }
+.padding-top,
+.padding-top-400 {
+    padding-top: var(--padding-amount);
+}
+.padding-top-400 {
+    --padding-amount: var(--static-scale-400);
+}
 .padding-horizontal {
     padding-left: var(--padding-amount);
     padding-right: var(--padding-amount);

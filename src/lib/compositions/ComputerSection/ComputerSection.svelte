@@ -1,14 +1,19 @@
 <script lang="ts">
     import FirstScreen from "./FirstScreen.svelte"
+    import FirstScreenStickyNotes from "./FirstScreenStickyNotes.svelte"
     import SecondScreen from "./SecondScreen.svelte"
     import ThirdScreen from "./ThirdScreen.svelte"
     import FourthScreen from "./FourthScreen.svelte"
     import FifthScreen from "./FifthScreen.svelte"
-    import FirstScreenStickyNotes from "./FirstScreenStickyNotes.svelte"
+    import SixthScreen from "./SixthScreen.svelte"
+    import SeventhScreen from "./SeventhScreen.svelte"
+    import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
+    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { activeSection } from "$utilities/stores/activeSectionStore"
 
-    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen]
-    let screenIndex = 4
+    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
+    let screenIndex = 6
 
     let clueNotificationActive: boolean
 </script>
@@ -23,11 +28,24 @@
             </p>
         </Notification>
     {/if}
+    {#if screenIndex === 5}
+        <Notification active={true} closeButton={false}>
+            <p>
+                Mom is calling
+                <a href="/phone" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}>
+                    go answer the phone!
+                </a>
+            </p>
+        </Notification>
+    {/if}
     <div id="computer" class="flex-column-center relative">
         <svelte:component this={SCREENS[screenIndex]} bind:screenIndex />
         <div id="computer-crt-effect" class="absolute" />
         {#if screenIndex === 0}
             <FirstScreenStickyNotes bind:clueNotificationActive />
+        {/if}
+        {#if screenIndex === 6}
+            <SeventhScreenStickyNotes />
         {/if}
     </div>
 </section>

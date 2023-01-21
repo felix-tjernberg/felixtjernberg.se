@@ -1,6 +1,7 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
     import { backIn, elasticIn } from "svelte/easing"
+    import { createEventDispatcher } from "svelte"
 
     // TODO I have not gotten viteimagetools imports to work for storybook to work yet
     // import Picture from "$components/Picture.svelte"
@@ -8,6 +9,8 @@
     // import { src, width, height } from "$lib/assets/images/note-texture.png?width=300&metadata"
     import noteTexture from "$assets/images/note-texture.png"
     import tapeTexture from "$assets/images/tape-texture-1.png"
+
+    const dispatch = createEventDispatcher()
 
     const RANDOM_SEED = Math.random()
     const TAPE_ROTATION_AMOUNT = RANDOM_SEED > 0.5 ? RANDOM_SEED * -4.2 : RANDOM_SEED * 4.2
@@ -56,6 +59,7 @@
                 label="remove note"
                 testid="remove-note"
                 on:click={(event) => {
+                    dispatch("removedNote")
                     active = false
                     const currentTarget = event.currentTarget
                     // TODO: Solve below @ts-ignore
