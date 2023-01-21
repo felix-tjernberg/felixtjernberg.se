@@ -58,13 +58,13 @@
         width: 100%;
     }
     :global(#coach-section-wrapper > svg) {
-        height: initial;
+        height: auto;
         left: 50%;
         opacity: 50%;
         position: absolute;
         top: 50%;
         translate: -50% -50%;
-        width: initial;
+        width: auto;
     }
     #coach-section-box-wrapper {
         --background-blur-amount: 5px;

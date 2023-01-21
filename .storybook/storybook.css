@@ -33,9 +33,9 @@
 }
 
 #storybook-docs {
-    display: initial;
-    color: initial;
-    background-color: initial;
+    display: revert;
+    color: revert;
+    background-color: revert;
 }
 #storybook-docs h1,
 #storybook-docs h2,
@@ -47,9 +47,8 @@
 #storybook-docs li,
 #storybook-docs a,
 #storybook-docs span {
-    line-height: initial;
+    line-height: revert;
     max-width: 60ch;
-    scale: initial;
 }
 #storybook-root[hidden="true"] {
     display: none;
