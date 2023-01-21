@@ -3,11 +3,12 @@
     import SecondScreen from "./SecondScreen.svelte"
     import ThirdScreen from "./ThirdScreen.svelte"
     import FourthScreen from "./FourthScreen.svelte"
+    import FifthScreen from "./FifthScreen.svelte"
     import FirstScreenStickyNotes from "./FirstScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
 
-    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen]
-    let screenIndex = 3
+    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen]
+    let screenIndex = 4
 
     let clueNotificationActive: boolean
 </script>
@@ -58,6 +59,10 @@
         background-size: 100% 6.66px, 6.66px 100%;
         pointer-events: none;
         z-index: 1;
+    }
+    #computer-crt-effect::before,
+    #computer-crt-effect::after {
+        pointer-events: none;
     }
     #computer-crt-effect::after {
         animation: scan-line 5s linear infinite;

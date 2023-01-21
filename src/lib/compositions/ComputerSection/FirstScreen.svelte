@@ -26,8 +26,8 @@
     <div id="bottom-right" class="flex-center relative">
         <p><span class="visually-hidden">corner number 4: </span>4</p>
     </div>
-    <div id="content" class="flex-column-center font-family-primary-fat">
-        <p>enter pin to log in</p>
+    <div id="content" class="flex-column-center ">
+        <p class="font-family-primary-fat">enter pin to log in</p>
         <div class="flex-center gap">
             <SingleDigitInput label="pin number 1" bind:value={pin1} />
             <SingleDigitInput label="pin number 2" bind:value={pin2} />

@@ -64,7 +64,7 @@
         }}>
         <UpArrow slot="icon" />
     </Button>
-    <label class="glow glow-hover" data-testid="input-label">
+    <label class="glow glow-hover font-family-primary-fat" data-testid="input-label">
         <span class="visually-hidden">{label}</span>
         <div class="bottom-stroke">
             <input class="border" type="number" bind:value placeholder="0" min="0" max="9" />
@@ -90,7 +90,6 @@
     }
     input {
         --stroke-width: 0;
-        font-family: var(--font-family-primary-fat);
         height: 1em;
         max-width: 1ch;
     }

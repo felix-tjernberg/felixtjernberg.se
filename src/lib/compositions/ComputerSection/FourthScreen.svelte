@@ -19,7 +19,9 @@
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen />
-    <p class="font-family-primary-fat font-size-000 padding-horizontal" style="--padding-amount: 4em">
+    <p
+        class="font-family-primary-fat font-size-000 padding-horizontal tex-transform-capitalize"
+        style="--padding-amount: 4em">
         How many seconds is my friends song?<br />
         <span class="font-family-primary-thin">(Which I did the animations for)</span>
     </p>

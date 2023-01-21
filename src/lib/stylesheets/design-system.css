@@ -32,6 +32,7 @@
     --relative-scale-500: calc(1em * var(--scale-value-500));
     --relative-scale-600: calc(1em * var(--scale-value-600));
 
+    --white-90-percent: hsl(0, 0%, 98%, 80%);
     --white-50-percent: hsl(0, 0%, 98%, 50%);
     --white: hsl(0, 0%, 98%);
     --gray-900: hsl(0, 0%, 98%);

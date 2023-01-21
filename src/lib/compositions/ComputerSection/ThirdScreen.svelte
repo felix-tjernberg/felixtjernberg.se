@@ -15,6 +15,8 @@
 </script>
 
 <div class="flex-column-center gap" in:fade>
-    <p class="font-family-primary-fat padding-horizontal">Are you ready to start the scavenger hunt?</p>
+    <p class="font-family-primary-fat padding-horizontal text-transform-capitalize">
+        Are you ready to start the scavenger hunt?
+    </p>
     <TextInput label="answer" placeholder="Yes" bind:value bind:input />
 </div>
