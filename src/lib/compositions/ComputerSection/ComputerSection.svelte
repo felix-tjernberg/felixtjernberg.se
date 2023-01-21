@@ -1,9 +1,10 @@
 <script lang="ts">
     import FirstScreen from "./FirstScreen.svelte"
+    import SecondScreen from "./SecondScreen.svelte"
     import FirstScreenStickyNotes from "./FirstScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
 
-    const SCREENS = [FirstScreen]
+    const SCREENS = [FirstScreen, SecondScreen]
     let screenIndex = 0
 
     let clueNotificationActive: boolean
@@ -36,6 +37,9 @@
     #computer {
         width: 500px;
         aspect-ratio: 1 / 1;
+    }
+    :global(#computer > :nth-child(1)) {
+        z-index: 1;
     }
     #computer-crt-effect {
         inset: 0;

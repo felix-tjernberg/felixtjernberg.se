@@ -29,7 +29,7 @@
         rotate: -1.72deg;
         text-align: left;
         translate: -1em 0;
-        width: auto;
+        width: 100%;
     }
     /* Selectors has to be separate for some reason */
     input::-webkit-slider-thumb {

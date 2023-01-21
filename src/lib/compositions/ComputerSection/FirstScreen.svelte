@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
 
     export let screenIndex: number
@@ -14,7 +13,7 @@
     $: if (pin === "1234") screenIndex = 1
 </script>
 
-<div id="first-screen" class="grid" transition:fade>
+<div id="first-screen" class="grid">
     <div id="top-left" class="flex-center">
         <p><span class="visually-hidden">corner number 1: </span>1000</p>
     </div>
@@ -40,7 +39,6 @@
 
 <style>
     #first-screen {
-        z-index: 1;
         height: 100%;
         width: 100%;
         margin: auto;
