@@ -12,13 +12,11 @@
     const RANDOM_SEED = Math.random()
     const TAPE_ROTATION_AMOUNT = RANDOM_SEED > 0.5 ? RANDOM_SEED * -4.2 : RANDOM_SEED * 4.2
 
-    export let flyToRight = true
-
-    let active = true
+    export let flyToRight: boolean = true
+    export let active: boolean = true
 
     function flyAway(_: HTMLElement, { duration, flyToRight }: { duration: number; flyToRight: boolean }) {
         const targetXSeed = RANDOM_SEED * 50
-
         return {
             duration,
             css: (t: number) => {
@@ -77,10 +75,15 @@
         place-content: center;
         inset: 0;
     }
+    :global(.sticky-note > *:not(picture)) {
+        z-index: 1;
+    }
     :global(.sticky-note picture:nth-of-type(1)) {
         inset: 0;
     }
     :global(.sticky-note picture:nth-of-type(2)) {
+        pointer-events: none;
+        z-index: 10;
         top: 0;
         translate: 0 -50%;
     }
@@ -90,7 +93,6 @@
     }
     :global(.sticky-note picture) {
         position: absolute;
-        z-index: -1;
     }
     :global(.sticky-note button),
     :global(.sticky-note img) {

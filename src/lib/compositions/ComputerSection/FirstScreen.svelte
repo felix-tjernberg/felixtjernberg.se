@@ -1,0 +1,104 @@
+<script lang="ts">
+    import { fade } from "svelte/transition"
+
+    import StickyNote from "$components/StickyNote/StickyNote.svelte"
+    import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
+    import Notification from "$components/Notification/Notification.svelte"
+    import rickRoll from "$assets/images/rick-roll.png"
+
+    export let screenIndex: number
+
+    let pin: string
+
+    let clueActive: boolean = true
+    let clueNotificationActive = false
+    let clueNotificationTimeout: ReturnType<typeof setTimeout>
+    $: if (!clueActive) clueNotificationTimeout = setTimeout(() => (clueNotificationActive = true), 60000)
+
+    let pin1: number | "" | undefined = undefined
+    let pin2: number | "" | undefined = undefined
+    let pin3: number | "" | undefined = undefined
+    let pin4: number | "" | undefined = undefined
+    $: pin = `${pin1}${pin2}${pin3}${pin4}`
+    $: if (pin === "1234") screenIndex = 1
+</script>
+
+<Notification bind:active={clueNotificationActive}>
+    <p>
+        PIN CODE:<br />
+        Is the sum of the 4 numbers in the corners
+    </p>
+</Notification>
+<div id="first-screen" class="grid" transition:fade>
+    <div id="top-left" class="flex-center">
+        <p><span class="visually-hidden">corner number 1: </span>1000</p>
+    </div>
+    <div id="top-right" class="flex-center relative">
+        <StickyNote flyToRight={false}><p>Press the notes to remove them</p></StickyNote>
+        <p><span class="visually-hidden">corner number 2: </span>200</p>
+    </div>
+    <div id="bottom-left" class="flex-center relative">
+        <StickyNote bind:active={clueActive}>
+            <p class="font-size-000">
+                PIN CODE:<br />
+                sum of the 4 corner numbers
+            </p>
+        </StickyNote>
+        <p><span class="visually-hidden">corner number 3: </span>30</p>
+    </div>
+    <div id="bottom-right" class="flex-center relative">
+        <StickyNote flyToRight={false}>
+            <picture><img src={rickRoll} alt="a qr code" /></picture>
+        </StickyNote>
+        <p><span class="visually-hidden">corner number 4: </span>4</p>
+    </div>
+    <div id="content" class="flex-column-center font-family-primary-fat">
+        <p>enter pin to log in</p>
+        <div class="flex-center gap">
+            <SingleDigitInput label="pin number 1" bind:value={pin1} />
+            <SingleDigitInput label="pin number 2" bind:value={pin2} />
+            <SingleDigitInput label="pin number 3" bind:value={pin3} />
+            <SingleDigitInput label="pin number 4" bind:value={pin4} />
+        </div>
+    </div>
+</div>
+
+<style>
+    .grid {
+        height: 100%;
+        width: 100%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 137px auto 137px;
+        grid-template-rows: 137px auto 137px;
+        grid-template-areas:
+            "top-left . top-right"
+            "content content content"
+            "bottom-left . bottom-right";
+    }
+    #top-left {
+        grid-area: top-left;
+        rotate: -6.66deg;
+        translate: 10px 30px;
+    }
+    #top-right {
+        grid-area: top-right;
+        rotate: 6.66deg;
+        translate: -10px 30px;
+    }
+    #bottom-left {
+        grid-area: bottom-left;
+        rotate: 6.9deg;
+        translate: 6.9px 13.37px;
+    }
+    #bottom-right {
+        grid-area: bottom-right;
+        rotate: -7.2deg;
+        translate: -6.66px 13.37px;
+    }
+    #content {
+        grid-area: content;
+        /* padding to match the height of the sticky-note increase button plus 1em which centers the content visually, 48px is the min height of a sticky note */
+        padding-top: calc(1em + max(48px, 1em));
+    }
+</style>

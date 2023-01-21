@@ -107,5 +107,7 @@
     canvas {
         position: fixed;
         z-index: -1337;
+        height: 100%;
+        width: 100%;
     }
 </style>

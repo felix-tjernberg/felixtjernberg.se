@@ -51,42 +51,37 @@
     }
 </script>
 
-<div class="single-digit-input relative">
-    <div class="absolute">
-        <Button
-            ariaHidden={true}
-            class="absolute"
-            label="increase"
-            testid="increase-button"
-            tabAble={false}
-            on:click={() => {
-                if (value === 9) return (value = 0)
-                // @ts-ignore
-                value += 1
-            }}>
-            <UpArrow slot="icon" />
-        </Button>
-    </div>
+<div class="single-digit-input flex-column-center">
+    <Button
+        ariaHidden={true}
+        label="increase"
+        testid="increase-button"
+        tabAble={false}
+        on:click={() => {
+            if (value === 9) return (value = 0)
+            // @ts-ignore
+            value += 1
+        }}>
+        <UpArrow slot="icon" />
+    </Button>
     <label class="glow glow-hover" data-testid="input-label">
         <span class="visually-hidden">{label}</span>
         <div class="bottom-stroke">
             <input class="border" type="number" bind:value placeholder="0" min="0" max="9" />
         </div>
     </label>
-    <div class="absolute">
-        <Button
-            ariaHidden={true}
-            label="decrease"
-            testid="decrease-button"
-            tabAble={false}
-            on:click={() => {
-                if (value === 0) return (value = 9)
-                // @ts-ignore
-                value -= 1
-            }}>
-            <DownArrow slot="icon" />
-        </Button>
-    </div>
+    <Button
+        ariaHidden={true}
+        label="decrease"
+        testid="decrease-button"
+        tabAble={false}
+        on:click={() => {
+            if (value === 0) return (value = 9)
+            // @ts-ignore
+            value -= 1
+        }}>
+        <DownArrow slot="icon" />
+    </Button>
 </div>
 
 <style>
@@ -118,8 +113,8 @@
         opacity: 1;
         position: absolute;
         scale: 1;
-        translate: -0.1ch 0.65em;
-        width: 2.5ch;
+        translate: -0.05ch 0.65em;
+        width: 1.1ch;
     }
     :global([data-dark-mode="false"] .single-digit-input .bottom-stroke::after) {
         display: none;
@@ -137,25 +132,14 @@
         scale: 0;
     }
     :global(.single-digit-input:hover button svg),
-    :global(.single-digit-input .absolute:hover button svg) {
+    :global(.single-digit-input button:hover svg) {
         opacity: 1;
         scale: 1;
     }
-    .absolute {
-        height: 100%;
-        width: 100%;
-        translate: -0.1ch;
+    :global(.single-digit-input > :first-of-type svg) {
+        margin-bottom: var(--stroke-100);
     }
-    .absolute:first-of-type {
-        top: -100%;
-    }
-    .absolute:last-of-type {
-        bottom: -100%;
-    }
-    :global(.single-digit-input > .absolute:first-of-type svg) {
-        margin-bottom: var(--stroke-200);
-    }
-    :global(.single-digit-input > .absolute:last-of-type svg) {
-        margin-top: var(--stroke-200);
+    :global(.single-digit-input > :last-of-type svg) {
+        margin-top: var(--stroke-100);
     }
 </style>
