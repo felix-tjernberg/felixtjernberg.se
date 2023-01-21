@@ -2,11 +2,12 @@
     import FirstScreen from "./FirstScreen.svelte"
     import SecondScreen from "./SecondScreen.svelte"
     import ThirdScreen from "./ThirdScreen.svelte"
+    import FourthScreen from "./FourthScreen.svelte"
     import FirstScreenStickyNotes from "./FirstScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
 
-    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen]
-    let screenIndex = 2
+    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen]
+    let screenIndex = 3
 
     let clueNotificationActive: boolean
 </script>
@@ -67,6 +68,7 @@
         background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
         position: absolute;
         bottom: 100%;
+        z-index: 2;
     }
     @keyframes scan-line {
         0% {

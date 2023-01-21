@@ -5,7 +5,9 @@
     import UpArrow from "$assets/svgs/UpArrow.svelte"
 
     export let label: string
+    export let input: HTMLInputElement
 
+    export let description: string | undefined = undefined
     export let value: number | "" | "-"
     export let max: number = 9999
     export let min: number = -9999
@@ -23,103 +25,120 @@
     }
 </script>
 
-<div class="multi-digit-input flex-center relative">
-    <label>
-        <span class="visually-hidden">{label}</span>
-        <input
-            class="background-blur glow border-vertical"
-            type="number"
-            placeholder={String(placeholder)}
-            {min}
-            {max}
-            bind:value
-            on:keydown={(event) => {
-                if (hyphenPressed) {
-                    switch (event.key) {
-                        case "1":
-                            break
-                        case "2":
-                            break
-                        case "3":
-                            break
-                        case "4":
-                            break
-                        case "5":
-                            break
-                        case "6":
-                            break
-                        case "7":
-                            break
-                        case "8":
-                            break
-                        case "9":
-                            break
-                        case "0":
-                            break
-                        case "Backspace":
-                            break
-                        default:
-                            valueAsString = ""
-                            value = ""
-                    }
-                }
-                if (event.key === "-" && value !== null) {
-                    hyphenPressed = true
-                    if (NumberSchema.safeParse(value).success) {
-                        const currentValue = Number(event.currentTarget.value)
-                        if (String(currentValue) === "") {
-                            valueAsString = "-"
-                        } else if (currentValue === 0) {
-                            valueAsString = "-"
-                        } else if (currentValue > 0) {
-                            value = Number(currentValue) * -1
-                            valueAsString = String(value)
-                        } else {
-                            value = Math.abs(Number(currentValue))
-                            valueAsString = String(value)
+<div class="multi-digit-input flex-column-center relative">
+    {#if description}
+        <p>{description}</p>
+    {/if}
+    <div class="relative flex-center">
+        <label>
+            <span class="visually-hidden">{label}</span>
+            <input
+                class="background-blur glow border-vertical"
+                type="number"
+                placeholder={String(placeholder)}
+                {min}
+                {max}
+                bind:this={input}
+                bind:value
+                on:keydown={(event) => {
+                    if (hyphenPressed) {
+                        switch (event.key) {
+                            case "1":
+                                break
+                            case "2":
+                                break
+                            case "3":
+                                break
+                            case "4":
+                                break
+                            case "5":
+                                break
+                            case "6":
+                                break
+                            case "7":
+                                break
+                            case "8":
+                                break
+                            case "9":
+                                break
+                            case "0":
+                                break
+                            case "Backspace":
+                                break
+                            default:
+                                valueAsString = ""
+                                value = ""
                         }
                     }
-                }
-            }} />
-    </label>
-    <div class="flex-column-center absolute">
-        <Button
-            ariaHidden={true}
-            label="increase"
-            on:click={() => {
-                if (valueAsString === "") {
-                    value = 1
-                    valueAsString = "1"
-                    return
-                }
-                if (valueAsString === "-") {
-                    value = 1
-                    valueAsString = "1"
-                    return
-                }
-                if (NumberSchema.safeParse(value).success && value !== null && value !== "-" && value !== "") value += 1
-            }}>
-            <UpArrow slot="icon" />
-        </Button>
-        <Button
-            ariaHidden={true}
-            label="decrease"
-            on:click={() => {
-                if (valueAsString === "") {
-                    value = 1
-                    valueAsString = String(value)
-                    return
-                }
-                if (valueAsString === "-") return (valueAsString = "-1")
-                if (NumberSchema.safeParse(value).success && value !== null && value !== "-" && value !== "")
-                    return (value -= 1)
-            }}>
-            <DownArrow slot="icon" />
-        </Button>
+                    if (event.key === "-" && value !== null) {
+                        hyphenPressed = true
+                        if (NumberSchema.safeParse(value).success) {
+                            const currentValue = Number(event.currentTarget.value)
+                            if (String(currentValue) === "") {
+                                valueAsString = "-"
+                            } else if (currentValue === 0) {
+                                valueAsString = "-"
+                            } else if (currentValue > 0) {
+                                value = Number(currentValue) * -1
+                                valueAsString = String(value)
+                            } else {
+                                value = Math.abs(Number(currentValue))
+                                valueAsString = String(value)
+                            }
+                        }
+                    }
+                }} />
+        </label>
+        <div class="flex-column-center absolute">
+            <Button
+                ariaHidden={true}
+                label="increase"
+                on:click={() => {
+                    if (valueAsString === "") {
+                        value = 1
+                        valueAsString = "1"
+                        return
+                    }
+                    if (valueAsString === "-") {
+                        value = 1
+                        valueAsString = "1"
+                        return
+                    }
+                    if (NumberSchema.safeParse(value).success && value !== null && value !== "-" && value !== "")
+                        value += 1
+                }}>
+                <UpArrow slot="icon" />
+            </Button>
+            <Button
+                ariaHidden={true}
+                label="decrease"
+                on:click={() => {
+                    if (valueAsString === "") {
+                        value = 1
+                        valueAsString = String(value)
+                        return
+                    }
+                    if (valueAsString === "-") return (valueAsString = "-1")
+                    if (NumberSchema.safeParse(value).success && value !== null && value !== "-" && value !== "")
+                        return (value -= 1)
+                }}>
+                <DownArrow slot="icon" />
+            </Button>
+        </div>
     </div>
 </div>
 
 <style>
+    p {
+        color: var(--white);
+        font-family: var(--font-family-primary-thin);
+        max-width: 100%;
+        padding-top: 0.1em;
+        rotate: -1.72deg;
+        text-align: left;
+        translate: -1em 0;
+        width: 100%;
+    }
     input {
         --total-numbers: 5ch;
         width: calc(var(--total-numbers) + 2ch);
@@ -130,7 +149,7 @@
     .multi-digit-input {
         font-family: var(--font-family-primary-fat);
     }
-    .multi-digit-input > .absolute {
+    .multi-digit-input .absolute {
         right: 0;
         translate: 100%;
     }

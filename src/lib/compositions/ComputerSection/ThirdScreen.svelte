@@ -8,7 +8,7 @@
     let input: HTMLInputElement
     let value: string
 
-    $: if (value === "Yes") screenIndex = 3
+    $: if (String(value).toLowerCase() === "yes") screenIndex = 3
     onMount(() => {
         input.focus()
     })
