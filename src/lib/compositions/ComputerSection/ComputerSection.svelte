@@ -1,11 +1,12 @@
 <script lang="ts">
     import FirstScreen from "./FirstScreen.svelte"
     import SecondScreen from "./SecondScreen.svelte"
+    import ThirdScreen from "./ThirdScreen.svelte"
     import FirstScreenStickyNotes from "./FirstScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
 
-    const SCREENS = [FirstScreen, SecondScreen]
-    let screenIndex = 0
+    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen]
+    let screenIndex = 2
 
     let clueNotificationActive: boolean
 </script>

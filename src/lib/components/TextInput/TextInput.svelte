@@ -5,8 +5,8 @@
 
     export let label: string
     export let placeholder: string = "Placeholder"
-
-    let input: HTMLInputElement
+    export let value: string
+    export let input: HTMLInputElement
 
     onMount(() => {
         input.style.width = `calc(${PADDING_OFFSET}em + ${placeholder.length}ch)`
@@ -18,6 +18,7 @@
     <span class="visually-hidden">{label}</span>
     <div class="strokes-wrapper glow glow-hover">
         <input
+            bind:value
             bind:this={input}
             type="text"
             {placeholder}
