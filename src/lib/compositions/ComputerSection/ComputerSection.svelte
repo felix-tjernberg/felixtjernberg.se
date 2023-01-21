@@ -13,7 +13,7 @@
     import { activeSection } from "$utilities/stores/activeSectionStore"
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
-    let screenIndex = 6
+    let screenIndex = 3
 
     let clueNotificationActive: boolean
 </script>

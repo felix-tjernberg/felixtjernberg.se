@@ -7,7 +7,7 @@
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 184) screenIndex = 4
+    $: if (value === 184 || value === 185) screenIndex = 4
 
     onMount(() => input.focus())
 </script>
