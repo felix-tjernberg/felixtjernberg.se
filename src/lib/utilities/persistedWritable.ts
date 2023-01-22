@@ -14,5 +14,15 @@ export default function persistedWritable(storageKey: string, initialValue: unkn
         })
     }
 
-    return { persistValue: () => (window.localStorage[storageKey] = initialValue), set, subscribe, update }
+    return {
+        persistValue: async () => {
+            window.localStorage[storageKey] = initialValue
+            subscribe((value) => {
+                window.localStorage[storageKey] = value
+            })
+        },
+        set,
+        subscribe,
+        update
+    }
 }

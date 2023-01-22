@@ -4,10 +4,14 @@
     // import { browser } from "$app/environment"
     const browser = true
 
+    import { activeSection } from "$stores/activeSectionStore"
+    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
     import { audioVolume } from "$stores/audioVolumeStore"
     import { cookiesAllowed } from "$stores/cookiesAllowedStore"
     import { darkMode } from "$stores/darkModeStore"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"
+    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
@@ -60,9 +64,18 @@
                         dispatch("startElevatorMusic")
                         if (browser) {
                             window.localStorage.setItem("cookiesAllowed", "true")
-                            darkMode.persistValue()
-                            likesEightBitFont.persistValue()
+                            activeSection.persistValue()
+                            answeredCall.persistValue()
+                            conversationDone.persistValue()
+                            momCalling.persistValue()
                             audioVolume.persistValue()
+                            cookiesAllowed.persistValue()
+                            darkMode.persistValue()
+                            dialUpAudioCurrentTime.persistValue()
+                            dialUpAudioPaused.persistValue()
+                            phoneRingtonePaused.persistValue()
+                            likesEightBitFont.persistValue()
+                            scavengerHuntDone.persistValue()
                             $cookiesAllowed = true
                         }
                     }} />
