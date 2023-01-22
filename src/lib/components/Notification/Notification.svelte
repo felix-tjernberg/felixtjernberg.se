@@ -32,6 +32,11 @@
         top: 1em;
         transition: scale 420ms ease-in-out;
         translate: -50%;
+        max-width: max-content;
+        width: 90%;
+    }
+    :global(.notification p) {
+        max-width: 100%;
     }
     :global([data-dark-mode="false"] .notification) {
         --glow-color: var(--white);

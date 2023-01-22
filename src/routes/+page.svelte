@@ -12,8 +12,10 @@
     import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
     import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
     import StarfieldBackground from "$components/StarfieldBackground.svelte"
+    import Notification from "$components/Notification/Notification.svelte"
 
     let settingsOverlay: HTMLDialogElement
+    let firstTimeVisitNotification: boolean
 
     let elevatorMusicAudioElement: HTMLAudioElement
     let elevatorMusicPaused: boolean = true
@@ -49,10 +51,21 @@
 </nav>
 
 <StarfieldBackground />
+{#if firstTimeVisitNotification}
+    <Notification active={firstTimeVisitNotification}>
+        <p class="font-size-200">
+            If you change your mind about any settings click the cogwheel icon in the top right of the screen
+        </p>
+        <p class="font-size-100">(Click this notification to close it)</p>
+    </Notification>
+{/if}
 
 <FirstTimeVisitOverlay
     on:startElevatorMusic={() => (elevatorMusicPaused = false)}
-    on:stopElevatorMusic={() => (elevatorMusicPaused = true)} />
+    on:stopElevatorMusic={() => {
+        firstTimeVisitNotification = true
+        elevatorMusicPaused = true
+    }} />
 <SettingsOverlay bind:dialog={settingsOverlay} />
 
 <style>
