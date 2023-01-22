@@ -55,7 +55,12 @@
     --black-90-percent: hsl(0, 0%, 5%, 90%);
 
     --gradient: linear-gradient(133.32deg, #fa0c91 28.15%, #fa0c91 35.38%, #02ff58 81.49%);
-    --gradient-90-percent: linear-gradient(133.32deg, #fa0c9190 28.15%, #fa0c9190 35.38%, #02ff5890 81.49%);
+    --gradient-90-percent: linear-gradient(
+        133.32deg,
+        rgba(250, 10, 146, 0.9) 28.15%,
+        rgba(250, 12, 145, 0.9) 35.38%,
+        rgba(2, 255, 88, 0.9) 81.49%
+    );
 
     --glow-pink: rgba(250, 12, 145);
     --glow-green: rgba(2, 255, 88);
