@@ -11,6 +11,7 @@
     import Notification from "$components/Notification/Notification.svelte"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import { activeSection } from "$stores/activeSectionStore"
+    import { answeredCall } from "$stores/phoneSectionStores"
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
 
@@ -29,7 +30,7 @@
             </p>
         </Notification>
     {/if}
-    {#if screenIndex === 5}
+    {#if screenIndex === 5 && !JSON.parse($answeredCall)}
         <Notification active={true} closeButton={false} testid="mom-calling-notification">
             <p>
                 Mom is calling

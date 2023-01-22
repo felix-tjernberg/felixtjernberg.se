@@ -5,6 +5,7 @@
     import PhoneCanvas from "./PhoneCanvas.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
+    import { phoneRingtonePaused } from "$stores/computerSectionStores"
 </script>
 
 <section id="phone-section" class="flex-column-center gap margin">
@@ -39,6 +40,7 @@
                 on:click={() => {
                     $answeredCall = true
                     $momCalling = false
+                    $phoneRingtonePaused = true
                 }}>
                 <span class="visually-hidden">answer call</span>
             </button>

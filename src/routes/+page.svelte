@@ -4,6 +4,7 @@
     import { audioVolume } from "$stores/audioVolumeStore"
     import { browser } from "$app/environment"
     import { darkMode } from "$stores/darkModeStore"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"
     import { locale } from "svelte-intl-precompile"
     import { t } from "svelte-intl-precompile"
@@ -37,6 +38,7 @@
 
     $: if (browser) window.document.body.dataset.darkMode = $darkMode
     $: if (browser) window.document.body.dataset.eightBitFont = $likesEightBitFont
+
     // if (browser) window.localStorage.clear()
 </script>
 
@@ -49,6 +51,15 @@
     bind:this={elevatorMusicAudioElement}
     bind:paused={elevatorMusicPaused}
     src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast.mp3" />
+<audio
+    bind:volume={$audioVolume}
+    bind:paused={$phoneRingtonePaused}
+    src="https://cdn.pixabay.com/download/audio/2021/08/09/audio_a4637e27f0.mp3?filename=smartphone_vibrating_alarm_silent-7040.mp3" />
+<audio
+    bind:volume={$audioVolume}
+    bind:paused={$dialUpAudioPaused}
+    bind:currentTime={$dialUpAudioCurrentTime}
+    src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
 <StarfieldBackground />
 {#if firstTimeVisitNotification}

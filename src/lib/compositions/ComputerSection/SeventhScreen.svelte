@@ -11,7 +11,7 @@
         Phone number and email is now unlocked in the
         <a
             href="/contact"
-            on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}
+            on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.contact)}
             data-testid="contact-section-link">
             contact section
         </a>

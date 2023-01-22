@@ -1,5 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
+    import { answeredCall, momCalling } from "$stores/phoneSectionStores"
     import { phoneRingtonePaused } from "$stores/computerSectionStores"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
     import { onMount } from "svelte"
@@ -10,9 +11,10 @@
 
     $: if (value === 200) screenIndex = 6
 
-    $phoneRingtonePaused = true
     onMount(() => {
         $phoneRingtonePaused = false
+        $momCalling = true
+        $answeredCall = false
     })
 </script>
 
