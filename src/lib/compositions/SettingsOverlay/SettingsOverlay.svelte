@@ -36,7 +36,7 @@
             </BooleanButton>
         </div>
         <div class="flex-column-center">
-            {#if $cookiesAllowed}
+            {#if JSON.parse($cookiesAllowed)}
                 <h3>Changed your mind about cookies?</h3>
                 <Button
                     label="Yes delete cookies!"
@@ -50,7 +50,7 @@
                     testid="cookies-allowed-true" />
             {/if}
         </div>
-        {#if $scavengerHuntDone}
+        {#if JSON.parse($scavengerHuntDone)}
             <div class="flex-column-center" transition:fade={{ duration: 1337 }}>
                 <h3>Want to do the scavenger hunt again?</h3>
                 <Button

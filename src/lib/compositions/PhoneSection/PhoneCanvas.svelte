@@ -24,15 +24,15 @@
         const middleY = canvasHeight / 2
         const middleX = canvasWidth / 2
 
-        if ($answeredCall) {
+        if (JSON.parse($answeredCall)) {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
             canvasContext.fillText("mom", middleX, middleY + FONT_SIZE / 2)
         }
-        if ($momCalling) {
+        if (JSON.parse($momCalling)) {
             canvasContext.fillText("mom", middleX, middleY - 2)
             canvasContext.fillText("calling", middleX, middleY + FONT_SIZE + 2)
         }
-        if ($conversationDone) {
+        if (JSON.parse($conversationDone)) {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
         }
     }

@@ -28,7 +28,9 @@
 
     let elevatorMusicAudioElement: HTMLAudioElement
     let elevatorMusicPaused: boolean = true
-    $activeSection = SectionsSchema.enum.none
+
+    let navigationActive: boolean
+
     $: if (elevatorMusicAudioElement) elevatorMusicAudioElement.volume = $audioVolume
 
     $: if (browser) document.documentElement.lang = $locale
@@ -58,7 +60,7 @@
     </Notification>
 {/if}
 
-<NavigationWrapper>
+<NavigationWrapper bind:navigationActive>
     <CoachSection slot="coach" />
     <ComputerSection slot="computer" />
     <ContactSection slot="contact" />
@@ -66,7 +68,7 @@
     <WelcomeSection slot="welcome" />
 </NavigationWrapper>
 
-{#if $activeSection !== SectionsSchema.enum.none}
+{#if !navigationActive}
     <Button
         id="navigation-button"
         href="/navigation"

@@ -8,13 +8,13 @@
 </script>
 
 <section id="phone-section" class="flex-column-center gap margin">
-    {#if !$conversationDone && ($momCalling || $answeredCall)}
+    {#if !JSON.parse($conversationDone) && (JSON.parse($momCalling) || JSON.parse($answeredCall))}
         <p
             class="background-blur border glow font-family-primary-fat"
             data-testid="answer-instruction"
             id="answer-instruction"
             transition:fade>
-            {#if $momCalling}
+            {#if JSON.parse($momCalling)}
                 Press <br />
                 "C" <br />
                 button to answer
@@ -25,14 +25,14 @@
             {/if}
         </p>
     {/if}
-    {#if $answeredCall}
+    {#if JSON.parse($answeredCall)}
         <TextConversation />
     {/if}
     <h2 class="visually-hidden">Phone</h2>
     <div class="relative">
         <PhoneCanvas />
         <picture><img src={phone} alt="nokia 3310 launched 2000" /></picture>
-        {#if $momCalling}
+        {#if JSON.parse($momCalling)}
             <button
                 data-testid="c-button"
                 class="absolute glow opacity-flashing"

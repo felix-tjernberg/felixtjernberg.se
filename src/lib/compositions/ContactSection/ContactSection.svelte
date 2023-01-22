@@ -22,7 +22,7 @@
     </div>
     <div class="border background-blur margin-vertical-flow glow flex-column-center" id="text-wrapper">
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
-        {#if $scavengerHuntDone}
+        {#if JSON.parse($scavengerHuntDone)}
             <p data-testid="email-and-phone-paragraph">
                 Email Adress: some-email@adress.com <br />
                 Phone Number: 0123 456 789

@@ -10,6 +10,7 @@
     import { cookiesAllowed } from "$stores/cookiesAllowedStore"
     import { darkMode } from "$stores/darkModeStore"
     import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
+    import { firstVisit } from "$stores/firstVisitStore"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"
     import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
 
@@ -29,7 +30,10 @@
     let detailsOpen: boolean = false
 
     onMount(async () => {
-        if (browser && !$cookiesAllowed) dialog.showModal()
+        if (browser && !$cookiesAllowed) {
+            dialog.showModal()
+            $firstVisit = true
+        }
     })
 </script>
 
@@ -76,6 +80,7 @@
                             phoneRingtonePaused.persistValue()
                             likesEightBitFont.persistValue()
                             scavengerHuntDone.persistValue()
+                            firstVisit.persistValue()
                             $cookiesAllowed = true
                         }
                     }} />
