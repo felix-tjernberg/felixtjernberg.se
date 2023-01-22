@@ -24,8 +24,10 @@ body > div {
     font-family: var(--font-family-primary-thin);
     font-size: var(--static-scale-100);
     min-height: 100vh;
+    max-height: 100vh;
     place-content: center;
     text-align: center;
+    overflow: hidden;
 }
 
 h1,

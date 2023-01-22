@@ -1,8 +1,8 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte"
     import { onMount } from "svelte"
-    // import { browser } from "$app/environment"
-    const browser = true
+    import { browser } from "$app/environment"
+    // const browser = true
 
     import { activeSection } from "$stores/activeSectionStore"
     import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
@@ -29,7 +29,7 @@
     let detailsOpen: boolean = false
 
     onMount(async () => {
-        dialog.showModal()
+        if (browser && !$cookiesAllowed) dialog.showModal()
     })
 </script>
 

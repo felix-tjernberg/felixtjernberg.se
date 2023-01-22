@@ -1,7 +1,12 @@
 <script lang="ts">
     import { onMount } from "svelte"
+    import { browser } from "$app/environment"
+    // const browser = true
 
     let canvas: HTMLCanvasElement
+
+    const height = browser ? document.body.clientHeight : 1080
+    const width = browser ? document.body.clientWidth : 1920
 
     onMount(() => {
         const c = canvas.getContext("2d") as CanvasRenderingContext2D
@@ -101,7 +106,7 @@
     })
 </script>
 
-<canvas bind:this={canvas} height={32} width={32} />
+<canvas bind:this={canvas} {height} {width} />
 
 <style>
     canvas {
