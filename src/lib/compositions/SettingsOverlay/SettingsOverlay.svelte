@@ -3,7 +3,6 @@
     import { audioVolume } from "$utilities/stores/audioVolumeStore"
     import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
     import { darkMode } from "$utilities/stores/darkModeStore"
-    import { flickerSensitive } from "$utilities/stores/flickerSensitiveStore"
     import { likesEightBitFont } from "$utilities/stores/likesEightBitFontStore"
     import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
 
@@ -24,10 +23,6 @@
         <div>
             <h3>Do you like reading 8bit font?</h3>
             <BooleanButton labels={["yes", "no"]} bind:boolean={$likesEightBitFont} testid="likes-eight-bit-font" />
-        </div>
-        <div>
-            <h3>Are you flicker sensitive?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={$flickerSensitive} testid="flicker-sensitive" />
         </div>
         <div>
             <h3>Volume</h3>

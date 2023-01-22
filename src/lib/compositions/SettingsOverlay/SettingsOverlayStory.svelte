@@ -1,7 +1,6 @@
 <script lang="ts">
     import SettingsOverlay from "./SettingsOverlay.svelte"
     // import { audioVolume } from "$utilities/stores/audioVolumeStore"
-    import { flickerSensitive } from "$utilities/stores/flickerSensitiveStore"
     import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
     import { darkMode } from "$utilities/stores/darkModeStore"
     import { likesEightBitFont } from "$utilities/stores/likesEightBitFontStore"
@@ -13,7 +12,6 @@
     $cookiesAllowed = true
     $darkMode = true
     $likesEightBitFont = true
-    $flickerSensitive = true
     // $audioVolume = 0.5
 </script>
 
@@ -22,7 +20,6 @@
     <SettingsOverlay bind:dialog />
     <p class="visually-hidden" data-testid="cookies-allowed-indicator">{$cookiesAllowed}</p>
     <p class="visually-hidden" data-testid="dark-mode-indicator">{$darkMode}</p>
-    <p class="visually-hidden" data-testid="flicker-sensitive-indicator">{$flickerSensitive}</p>
     <p class="visually-hidden" data-testid="likes-eight-bit-font-indicator">{$likesEightBitFont}</p>
     <p class="visually-hidden" data-testid="scavenger-hunt-done-indicator">{$scavengerHuntDone}</p>
     <!-- <p class="visually-hidden" data-testid="volume-indicator">{$audioVolume}</p> -->

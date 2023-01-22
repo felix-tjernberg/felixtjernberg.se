@@ -7,7 +7,6 @@
     import { audioVolume } from "$utilities/stores/audioVolumeStore"
     import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
     import { darkMode } from "$utilities/stores/darkModeStore"
-    import { flickerSensitive } from "$utilities/stores/flickerSensitiveStore"
     import { likesEightBitFont } from "$utilities/stores/likesEightBitFontStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
@@ -62,7 +61,6 @@
                         if (browser) {
                             window.localStorage.setItem("cookiesAllowed", "true")
                             darkMode.persistValue()
-                            flickerSensitive.persistValue()
                             likesEightBitFont.persistValue()
                             audioVolume.persistValue()
                             $cookiesAllowed = true
@@ -77,16 +75,10 @@
                 description="Set the elevator music volume to a comfortable level please :)"
                 label="Elevator music volume"
                 bind:value={$audioVolume} />
-            <div class="flex-wrap-center gap" style="--gap-size: 2em">
-                <BooleanButton
-                    description="Do you like reading the 8bit font?"
-                    labels={["yes", "no"]}
-                    bind:boolean={$likesEightBitFont} />
-                <BooleanButton
-                    description="Are you flicker sensitive?"
-                    labels={["yes", "no"]}
-                    bind:boolean={$flickerSensitive} />
-            </div>
+            <BooleanButton
+                description="Do you like reading the 8bit font?"
+                labels={["yes", "no"]}
+                bind:boolean={$likesEightBitFont} />
             <BooleanButton
                 description="If you need higher contrast or like light theme click the sun"
                 labels={["dark", "light"]}

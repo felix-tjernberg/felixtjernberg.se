@@ -53,7 +53,7 @@ StoryUseBooleanButtons.play = async ({ canvasElement }: { canvasElement: HTMLEle
     const canvas = await within(canvasElement)
     const openSettingsButton = await canvas.getByRole("button")
     await userEvent.click(openSettingsButton)
-    const testIds = ["likes-eight-bit-font", "flicker-sensitive", "dark-mode"]
+    const testIds = ["likes-eight-bit-font", "dark-mode"]
     await sleep(420)
     for (const id of testIds) {
         const trueButton = await within(canvas.getByTestId(`${id}`)).getAllByRole("button")[0]
