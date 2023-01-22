@@ -1,5 +1,6 @@
 html {
     background-color: #000;
+    overflow: hidden;
 }
 
 details,
@@ -23,8 +24,6 @@ body > div {
     display: grid;
     font-family: var(--font-family-primary-thin);
     font-size: var(--static-scale-200);
-    max-height: 100vh;
-    min-height: 100vh;
     overflow: hidden;
     place-content: center;
     position: relative;

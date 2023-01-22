@@ -1,12 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte"
-    import { browser } from "$app/environment"
-    // const browser = true
 
     let canvas: HTMLCanvasElement
-
-    const height = browser ? document.body.clientHeight : 1080
-    const width = browser ? document.body.clientWidth : 1920
 
     onMount(() => {
         const c = canvas.getContext("2d") as CanvasRenderingContext2D
@@ -15,8 +10,8 @@
         let h: number
 
         const setCanvasExtents = () => {
-            w = document.body.clientWidth
-            h = document.body.clientHeight
+            w = window.innerWidth
+            h = window.innerHeight
             canvas.width = w
             canvas.height = h
         }
@@ -106,7 +101,7 @@
     })
 </script>
 
-<canvas bind:this={canvas} {height} {width} />
+<canvas bind:this={canvas} />
 
 <style>
     canvas {

@@ -14,7 +14,7 @@
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
 
-    export let screenIndex: number = 3
+    export let screenIndex: number = 0
 
     let clueNotificationActive: boolean
 </script>

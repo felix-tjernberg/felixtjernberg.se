@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import type { Sections } from "./NavigationSectionsSchema"
+    import { activeSection } from "$stores/activeSectionStore"
     import { SectionsSchema } from "./NavigationSectionsSchema"
     import Welcome from "$assets/svgs/Welcome.svelte"
     import Phone from "$assets/svgs/Phone.svelte"
@@ -10,8 +10,8 @@
     import Logo from "$assets/svgs/Logo.svelte"
 
     export let navigationActive: boolean = true
-    export let activeSection: Sections = SectionsSchema.enum.none
-    $: if (activeSection === SectionsSchema.enum.none) {
+
+    $: if ($activeSection === SectionsSchema.enum.none) {
         navigationActive = true
     } else {
         navigationActive = false
@@ -21,7 +21,7 @@
 <div
     data-testid="navigation-wrapper"
     id="navigation"
-    data-active-section={`${navigationActive ? SectionsSchema.enum.none : activeSection}`}>
+    data-active-section={`${navigationActive ? SectionsSchema.enum.none : $activeSection}`}>
     {#if navigationActive}
         <Logo />
         <Logo />
@@ -29,7 +29,7 @@
     <div id="navigation-item-coach">
         {#if navigationActive}
             <a
-                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}
+                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}
                 transition:fade
                 href={"/coach"}>
                 <span class="visually-hidden">coach</span>
@@ -41,7 +41,7 @@
     <div id="navigation-item-computer">
         {#if navigationActive}
             <a
-                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.computer)}
+                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}
                 transition:fade
                 href={"/computer"}>
                 <span class="visually-hidden">computer</span>
@@ -53,7 +53,7 @@
     <div id="navigation-item-welcome">
         {#if navigationActive}
             <a
-                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.welcome)}
+                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.welcome)}
                 transition:fade
                 href={"/welcome"}>
                 <span class="visually-hidden">welcome</span>
@@ -65,7 +65,7 @@
     <div id="navigation-item-phone">
         {#if navigationActive}
             <a
-                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.phone)}
+                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}
                 transition:fade
                 href={"/phone"}>
                 <span class="visually-hidden">phone</span>
@@ -77,7 +77,7 @@
     <div id="navigation-item-contact">
         {#if navigationActive}
             <a
-                on:click|preventDefault={() => (activeSection = SectionsSchema.enum.contact)}
+                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.contact)}
                 transition:fade
                 href={"/contact"}>
                 <span class="visually-hidden">contact</span>
@@ -85,9 +85,6 @@
             </a>
         {/if}
         <slot name="contact" />
-    </div>
-    <div id="navigation-item-settings">
-        <slot name="settings" />
     </div>
 </div>
 
@@ -102,17 +99,17 @@
         grid-template-rows: repeat(3, 100vh);
         overflow: hidden;
         transition: all ease-in-out 0.5s;
-        translate: 0 -100vh;
+        width: 300vw;
     }
     #navigation > div {
         position: relative;
-        margin: 3%;
     }
     #navigation > div > a {
         inset: 0;
         max-width: none;
         max-width: none;
         position: absolute;
+        z-index: 9001;
     }
     #navigation > div > a,
     #navigation > div:nth-of-type(6) {
@@ -149,9 +146,6 @@
     }
     #navigation-item-contact {
         grid-area: contact;
-    }
-    #navigation-item-settings {
-        grid-area: settings;
     }
     #navigation[data-active-section="phone"],
     #navigation[data-active-section="computer"],

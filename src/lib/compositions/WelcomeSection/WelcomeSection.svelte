@@ -1,12 +1,10 @@
 <script lang="ts">
-    import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { activeSection } from "$stores/activeSectionStore"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
     import Button from "$components/Button/Button.svelte"
     import Logo from "$assets/svgs/Logo.svelte"
     import WelcomeSectionText from "$assets/svgs/WelcomeSectionText.svelte"
-
-    export let activeSection: Sections
 
     let firstVisit: boolean = true
 </script>
@@ -31,7 +29,7 @@
                     href={`/${section}`}
                     on:click={(event) => {
                         event.preventDefault()
-                        activeSection = SectionsSchema.parse(section)
+                        $activeSection = SectionsSchema.parse(section)
                         firstVisit = false
                     }} />
             {/each}

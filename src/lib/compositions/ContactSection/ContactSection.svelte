@@ -1,12 +1,10 @@
 <script lang="ts">
-    import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { activeSection } from "$stores/activeSectionStore"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
 
     import LinkedIn from "$assets/svgs/LinkedIn.svelte"
     import GitHub from "$assets/svgs/GitHub.svelte"
-
-    export let activeSection: Sections
 </script>
 
 <section id="contact-section">
@@ -33,7 +31,7 @@
             <p data-testid="scavenger-hunt-paragraph">
                 Take a well deserved 5 minute break and do my scavenger hunt to unlock my email and phone number
             </p>
-            <a href="/coach" on:click|preventDefault={() => (activeSection = SectionsSchema.enum.coach)}>
+            <a href="/coach" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}>
                 Go to scavenger hunt
             </a>
         {/if}
