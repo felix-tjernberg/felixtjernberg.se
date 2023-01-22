@@ -1,6 +1,6 @@
 <script lang="ts">
     import PhoneSection from "./PhoneSection.svelte"
-    import { answeredCall, conversationDone, momCalling } from "$utilities/stores/phoneSectionStores"
+    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
 
     export let momCallingTest = false
 

@@ -1,10 +1,10 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { audioVolume } from "$utilities/stores/audioVolumeStore"
-    import { cookiesAllowed } from "$utilities/stores/cookiesAllowedStore"
-    import { darkMode } from "$utilities/stores/darkModeStore"
-    import { likesEightBitFont } from "$utilities/stores/likesEightBitFontStore"
-    import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
+    import { audioVolume } from "$stores/audioVolumeStore"
+    import { cookiesAllowed } from "$stores/cookiesAllowedStore"
+    import { darkMode } from "$stores/darkModeStore"
+    import { likesEightBitFont } from "$stores/likesEightBitFontStore"
+    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"

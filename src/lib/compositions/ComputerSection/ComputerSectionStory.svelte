@@ -1,12 +1,8 @@
 <script lang="ts">
     import ComputerSection from "./ComputerSection.svelte"
-    import { audioVolume } from "$utilities/stores/audioVolumeStore"
-    import {
-        dialUpAudioCurrentTime,
-        dialUpAudioPaused,
-        phoneRingtonePaused
-    } from "$utilities/stores/computerSectionStores"
-    import { activeSection } from "$utilities/stores/activeSectionStore"
+    import { audioVolume } from "$stores/audioVolumeStore"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
+    import { activeSection } from "$stores/activeSectionStore"
     import { onDestroy } from "svelte"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 

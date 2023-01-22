@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte"
-    import { answeredCall, conversationDone, momCalling } from "$utilities/stores/phoneSectionStores"
+    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
 
     const FONT_SIZE = 12 as const
 

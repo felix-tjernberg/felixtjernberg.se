@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
+    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
 
     import LinkedIn from "$assets/svgs/LinkedIn.svelte"
     import GitHub from "$assets/svgs/GitHub.svelte"

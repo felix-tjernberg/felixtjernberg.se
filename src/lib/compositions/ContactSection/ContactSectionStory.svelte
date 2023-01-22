@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { scavengerHuntDone } from "$utilities/stores/scavengerHuntDoneStore"
+    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
     import ContactSection from "./ContactSection.svelte"
 
     let activeSection: Sections = SectionsSchema.enum.contact

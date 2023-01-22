@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { answeredCall, conversationDone, momCalling } from "$utilities/stores/phoneSectionStores"
+    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
     import phone from "$assets/images/phone.png"
     import PhoneCanvas from "./PhoneCanvas.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"

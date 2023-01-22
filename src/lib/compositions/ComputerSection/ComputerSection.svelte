@@ -10,7 +10,7 @@
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { activeSection } from "$utilities/stores/activeSectionStore"
+    import { activeSection } from "$stores/activeSectionStore"
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
 

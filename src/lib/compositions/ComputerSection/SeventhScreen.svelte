@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { activeSection } from "$utilities/stores/activeSectionStore"
+    import { activeSection } from "$stores/activeSectionStore"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
     export let screenIndex: number

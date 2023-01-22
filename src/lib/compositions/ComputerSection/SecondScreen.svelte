@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte"
     import { fade } from "svelte/transition"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$utilities/stores/computerSectionStores"
-    import { audioVolume } from "$utilities/stores/audioVolumeStore"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/computerSectionStores"
+    import { audioVolume } from "$stores/audioVolumeStore"
     import Slider from "$components/Slider/Slider.svelte"
 
     export let screenIndex: number

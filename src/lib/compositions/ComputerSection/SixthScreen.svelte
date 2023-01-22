@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { phoneRingtonePaused } from "$utilities/stores/computerSectionStores"
+    import { phoneRingtonePaused } from "$stores/computerSectionStores"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
     import { onMount } from "svelte"
 

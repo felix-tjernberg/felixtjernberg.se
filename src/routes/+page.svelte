@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onDestroy } from "svelte"
     import { locale, t } from "svelte-intl-precompile"
-    import { audioVolume } from "$utilities/stores/audioVolumeStore"
+    import { audioVolume } from "$stores/audioVolumeStore"
 
     const LOCALES = ["en", "se"]
     const LANGUAGE_INTERVAL = setInterval(() => {
