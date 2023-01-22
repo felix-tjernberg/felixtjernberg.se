@@ -72,4 +72,8 @@
         max-width: 400px;
         text-transform: capitalize;
     }
+    #phone-section {
+        height: 100%;
+        width: 100%;
+    }
 </style>
