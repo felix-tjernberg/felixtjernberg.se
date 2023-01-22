@@ -17,7 +17,7 @@
         Felix Tjernberg <br />
         coach american football?
     </p>
-    <SingleDigitInput label="years felix coached" bind:value />
+    <SingleDigitInput label="years felix coached" bind:value testid="coach-years-number-input" />
 </div>
 
 <style>

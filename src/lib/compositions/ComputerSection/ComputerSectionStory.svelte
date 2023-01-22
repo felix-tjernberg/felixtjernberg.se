@@ -17,6 +17,12 @@
 </script>
 
 <div class="wrapper">
+    <button class="visually-hidden" data-testid="skip-init-screen" on:click={() => (screenIndex = 2)}
+        >skip init screen</button>
+    <p class="visually-hidden" data-testid="active-section-indicator">activeSection indicator: {$activeSection}</p>
+    <p class="visually-hidden" data-testid="initialize-noise-playing-indicator">
+        initialize noise playing: {$dialUpAudioPaused}
+    </p>
     <audio
         bind:volume={$audioVolume}
         bind:paused={$phoneRingtonePaused}
@@ -27,7 +33,6 @@
         bind:currentTime={$dialUpAudioCurrentTime}
         src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
     <ComputerSection {screenIndex} />
-    <p class="visually-hidden" data-testid="active-section-indicator">activeSection indicator: {$activeSection}</p>
 </div>
 
 <style>
@@ -37,6 +42,5 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden;
     }
 </style>

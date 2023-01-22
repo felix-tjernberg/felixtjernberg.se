@@ -29,10 +29,10 @@
     <div id="content" class="flex-column-center ">
         <p class="font-family-primary-fat">enter pin to log in</p>
         <div class="flex-center gap">
-            <SingleDigitInput label="pin number 1" bind:value={pin1} />
-            <SingleDigitInput label="pin number 2" bind:value={pin2} />
-            <SingleDigitInput label="pin number 3" bind:value={pin3} />
-            <SingleDigitInput label="pin number 4" bind:value={pin4} />
+            <SingleDigitInput label="pin number 1" bind:value={pin1} testid="pin-input" />
+            <SingleDigitInput label="pin number 2" bind:value={pin2} testid="pin-input" />
+            <SingleDigitInput label="pin number 3" bind:value={pin3} testid="pin-input" />
+            <SingleDigitInput label="pin number 4" bind:value={pin4} testid="pin-input" />
         </div>
     </div>
 </div>

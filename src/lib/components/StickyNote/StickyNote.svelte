@@ -15,8 +15,9 @@
     const RANDOM_SEED = Math.random()
     const TAPE_ROTATION_AMOUNT = RANDOM_SEED > 0.5 ? RANDOM_SEED * -4.2 : RANDOM_SEED * 4.2
 
-    export let flyToRight: boolean = true
     export let active: boolean = true
+    export let flyToRight: boolean = true
+    export let testid: string | undefined = undefined
 
     function flyAway(_: HTMLElement, { duration, flyToRight }: { duration: number; flyToRight: boolean }) {
         const targetXSeed = RANDOM_SEED * 50
@@ -38,6 +39,7 @@
 {#if active}
     <div
         class="sticky-note absolute flex-column-center"
+        data-testid={testid}
         style={`--rotation-amount: ${TAPE_ROTATION_AMOUNT}deg`}
         transition:flyAway={{ duration: 5000, flyToRight }}>
         <!-- TODO I have not gotten viteimagetools imports to work for storybook to work yet

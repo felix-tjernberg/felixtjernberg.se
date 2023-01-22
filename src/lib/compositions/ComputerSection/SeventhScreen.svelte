@@ -9,7 +9,10 @@
     <p class="font-family-primary-fat">Congratulations!!!</p>
     <p class="font-family-primary-fat font-size-000">
         Phone number and email is now unlocked in the
-        <a href="/contact" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}>
+        <a
+            href="/contact"
+            on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}
+            data-testid="contact-section-link">
             contact section
         </a>
     </p>

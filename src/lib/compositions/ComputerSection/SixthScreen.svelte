@@ -18,5 +18,5 @@
 
 <div class="flex-column-center gap" in:fade>
     <p class="font-family-primary-fat">How many miligrams of anakinra does mom need?</p>
-    <MultiDigitInput label="anakinra" bind:value />
+    <MultiDigitInput label="anakinra" bind:value testid="mg-mom-needs-input" />
 </div>

@@ -15,7 +15,7 @@
         <StickyNote flyToRight={false}><p>Press the notes to remove them</p></StickyNote>
     </div>
     <div id="first-screen-notes-bottom-left" class="flex-center relative">
-        <StickyNote bind:active={clueActive}>
+        <StickyNote bind:active={clueActive} testid="clue-note">
             <p class="font-size-000">
                 PIN CODE:<br />
                 sum of the 4 corner numbers

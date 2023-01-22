@@ -8,10 +8,11 @@
     export let input: HTMLInputElement | undefined = undefined
 
     export let description: string | undefined = undefined
-    export let value: number | "" | "-"
+    export let placeholder: number = 0
     export let max: number = 9999
     export let min: number = -9999
-    export let placeholder: number = 0
+    export let testid: string | undefined = undefined
+    export let value: number | "" | "-"
 
     const NumberSchema = z.coerce.number().int().min(min).max(max).finite()
 
@@ -35,6 +36,7 @@
             <input
                 class="background-blur glow border-vertical"
                 type="number"
+                data-testid={testid}
                 placeholder={String(placeholder)}
                 {min}
                 {max}

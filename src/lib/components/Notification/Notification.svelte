@@ -3,10 +3,14 @@
     import Button from "$components/Button/Button.svelte"
     export let active = false
     export let closeButton = true
+    export let testid: string | undefined = undefined
 </script>
 
 {#if active}
-    <aside class="notification background-blur flex-column-center glow absolute border-horizontal" transition:fade>
+    <aside
+        class="notification background-blur flex-column-center glow absolute border-horizontal"
+        transition:fade
+        data-testid={testid}>
         <slot />
         {#if closeButton}
             <Button label="close notification" underlined={true} on:click={() => (active = false)} />

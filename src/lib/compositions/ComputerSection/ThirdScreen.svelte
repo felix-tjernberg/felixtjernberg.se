@@ -18,5 +18,5 @@
     <p class="font-family-primary-fat padding-horizontal text-transform-capitalize">
         Are you ready to start the scavenger hunt?
     </p>
-    <TextInput label="answer" placeholder="Yes" bind:value bind:input />
+    <TextInput label="answer" placeholder="Yes" bind:value bind:input testid="start-scavenger-hunt-text-input" />
 </div>

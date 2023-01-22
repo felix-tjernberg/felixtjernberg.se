@@ -25,7 +25,12 @@
         How many seconds is my friends song?<br />
         <span class="font-family-primary-thin">(Which I did the animations for)</span>
     </p>
-    <MultiDigitInput label="answer" description="seconds using no decimals" bind:value bind:input />
+    <MultiDigitInput
+        label="answer"
+        description="seconds using no decimals"
+        bind:value
+        bind:input
+        testid="song-number-input" />
 </div>
 
 <style>

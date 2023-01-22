@@ -4,9 +4,11 @@
     const PADDING_OFFSET = 2.674
 
     export let label: string
-    export let placeholder: string = "Placeholder"
     export let value: string
+
     export let input: HTMLInputElement
+    export let placeholder: string = "Placeholder"
+    export let testid: string | undefined = undefined
 
     onMount(() => {
         input.style.width = `calc(${PADDING_OFFSET}em + ${placeholder.length}ch)`
@@ -18,6 +20,7 @@
     <span class="visually-hidden">{label}</span>
     <div class="strokes-wrapper glow glow-hover">
         <input
+            data-testid={testid}
             bind:value
             bind:this={input}
             type="text"
