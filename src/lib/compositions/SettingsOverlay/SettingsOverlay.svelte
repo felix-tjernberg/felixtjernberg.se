@@ -20,11 +20,11 @@
 <dialog bind:this={dialog} id="settings-dialog" class="relative background-blur" data-testid="settings-dialog">
     <h2><span class="visually-hidden">settings</span><SettingsText /></h2>
     <div id="settings-box" class="flex flex-center background-blur">
-        <div>
+        <div class="flex-column-center">
             <h3>Do you like reading 8bit font?</h3>
             <BooleanButton labels={["yes", "no"]} bind:boolean={$likesEightBitFont} testid="likes-eight-bit-font" />
         </div>
-        <div>
+        <div class="flex-column-center">
             <h3>Volume</h3>
             <Slider label="Volume" bind:value={$audioVolume} />
         </div>
@@ -35,7 +35,7 @@
                 <Sun slot="secondIcon" />
             </BooleanButton>
         </div>
-        <div>
+        <div class="flex-column-center">
             {#if $cookiesAllowed}
                 <h3>Changed your mind about cookies?</h3>
                 <Button
@@ -51,7 +51,7 @@
             {/if}
         </div>
         {#if $scavengerHuntDone}
-            <div transition:fade={{ duration: 1337 }}>
+            <div class="flex-column-center" transition:fade={{ duration: 1337 }}>
                 <h3>Want to do the scavenger hunt again?</h3>
                 <Button
                     label="yes restart scavenger hunt!"
@@ -131,11 +131,6 @@
         #settings-box {
             margin: 0;
             padding: 1em;
-        }
-        :global(#close-settings) {
-            top: 0;
-            right: 0;
-            font-size: var(--static-scale-300);
         }
         :global(#close-settings > button) {
             margin-right: 0;

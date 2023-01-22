@@ -93,3 +93,8 @@
     --gray-800: hsl(0, 0%, 24%);
     --gray-900: hsl(0, 0%, 5%);
 }
+
+[data-eight-bit-font="false"] * {
+    --font-family-primary-fat: var(--font-family-secondary);
+    --font-family-primary-thin: var(--font-family-secondary);
+}

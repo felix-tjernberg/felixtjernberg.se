@@ -19,6 +19,9 @@ text-align-left {
 .font-family-primary-fat {
     font-family: var(--font-family-primary-fat);
 }
+[data-eight-bit-font="false"] *.font-family-primary-fat {
+    text-decoration: bold;
+}
 .font-family-primary-thin {
     font-family: var(--font-family-primary-thin);
 }

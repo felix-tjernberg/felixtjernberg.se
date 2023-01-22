@@ -22,12 +22,13 @@ h6 {
 body > div {
     display: grid;
     font-family: var(--font-family-primary-thin);
-    font-size: var(--static-scale-100);
-    min-height: 100vh;
+    font-size: var(--static-scale-200);
     max-height: 100vh;
-    place-content: center;
-    text-align: center;
+    min-height: 100vh;
     overflow: hidden;
+    place-content: center;
+    position: relative;
+    text-align: center;
 }
 
 h1,

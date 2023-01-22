@@ -86,12 +86,16 @@
 
 <style>
     .button {
+        font-size: var(--relative-scale-000);
         text-decoration: none;
         text-transform: capitalize;
         overflow: hidden;
         padding: 0.25em 1em;
         position: relative;
         font-family: var(--font-family-primary-fat);
+    }
+    :global([data-eight-bit-font="false"] .button:not(.icon)) {
+        font-size: var(--relative-scale-100) !important;
     }
     :global([data-dark-mode="false"] button:not(.icon, .underlined)) {
         background-color: var(--white);
