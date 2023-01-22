@@ -68,6 +68,9 @@
         overflow: hidden;
         background: radial-gradient(transparent, black), green;
     }
+    :global([data-dark-mode="false"] #computer-crt-effect) {
+        background: radial-gradient(transparent, #888888), #ffffff;
+    }
     #computer-crt-effect::before {
         content: " ";
         display: block;

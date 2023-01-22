@@ -130,7 +130,7 @@
 
 <style>
     p {
-        color: var(--white);
+        color: var(--gray-900);
         font-family: var(--font-family-primary-thin);
         max-width: 100%;
         padding-top: 0.1em;

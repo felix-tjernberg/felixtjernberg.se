@@ -23,7 +23,7 @@
 
 <style>
     p {
-        color: var(--white);
+        color: var(--gray-900);
         max-width: 100%;
         padding-top: 1em;
         rotate: -1.72deg;
