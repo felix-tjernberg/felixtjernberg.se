@@ -80,6 +80,7 @@
         padding: 1em;
         place-content: center;
         inset: 0;
+        font-size: var(--static-scale-100);
     }
     :global(.sticky-note > *:not(picture)) {
         z-index: 1337;
