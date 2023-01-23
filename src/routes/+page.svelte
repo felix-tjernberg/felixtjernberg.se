@@ -101,7 +101,7 @@
 <style>
     :global(body > div > a) {
         font-size: var(--static-scale-400) !important;
-        position: absolute !important;
+        position: fixed !important;
         top: 1em;
     }
     :global(body > div > #navigation-button) {
