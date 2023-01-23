@@ -6,10 +6,12 @@
     import { onMount } from "svelte"
 
     let value: number
+    let input: HTMLInputElement
 
     $: if (value === 200) $screenIndex = 6
 
     onMount(() => {
+        input.focus()
         if (JSON.parse($answeredCall) === true) return
         $phoneRingtonePaused = false
         $momCalling = true
@@ -19,5 +21,5 @@
 
 <div class="flex-column-center gap" in:fade>
     <p class="font-family-primary-fat">How many miligrams of anakinra does mom need?</p>
-    <MultiDigitInput label="anakinra" bind:value testid="mg-mom-needs-input" />
+    <MultiDigitInput label="anakinra" bind:value testid="mg-mom-needs-input" bind:input />
 </div>

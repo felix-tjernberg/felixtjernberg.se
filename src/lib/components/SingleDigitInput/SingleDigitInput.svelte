@@ -7,6 +7,7 @@
     import UpArrow from "$assets/svgs/UpArrow.svelte"
 
     export let label: string
+    export let input: HTMLInputElement | undefined = undefined
     export let testid: string | undefined = undefined
 
     const SingleDigitBetween0and9 = z.coerce.number().int().min(0).max(9)
@@ -68,7 +69,15 @@
     <label class="glow glow-hover font-family-primary-fat" data-testid="input-label">
         <span class="visually-hidden">{label}</span>
         <div class="bottom-stroke">
-            <input class="border" type="number" bind:value placeholder="0" min="0" max="9" data-testid={testid} />
+            <input
+                class="border"
+                type="number"
+                bind:value
+                placeholder="0"
+                min="0"
+                max="9"
+                data-testid={testid}
+                bind:this={input} />
         </div>
     </label>
     <Button

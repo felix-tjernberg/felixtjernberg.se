@@ -14,8 +14,13 @@
     import SettingsText from "$assets/svgs/SettingsText.svelte"
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
+    import { onMount } from "svelte"
 
     export let dialog: HTMLDialogElement
+    onMount(() => {
+        $likesEightBitFont = JSON.parse($likesEightBitFont)
+        $darkMode = JSON.parse($darkMode)
+    })
 </script>
 
 <dialog bind:this={dialog} id="settings-dialog" class="relative background-blur" data-testid="settings-dialog">

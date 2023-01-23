@@ -1,8 +1,10 @@
 <script lang="ts">
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
     import { screenIndex } from "$stores/computerSectionStores"
+    import { onMount } from "svelte"
 
     let pin: string
+    let input: HTMLInputElement
 
     let pin1: number | "" | undefined = undefined
     let pin2: number | "" | undefined = undefined
@@ -10,6 +12,7 @@
     let pin4: number | "" | undefined = undefined
     $: pin = `${pin1}${pin2}${pin3}${pin4}`
     $: if (pin === "1234") $screenIndex = 1
+    onMount(() => input.focus())
 </script>
 
 <div id="first-screen" class="grid">
@@ -28,7 +31,7 @@
     <div id="content" class="flex-column-center ">
         <p class="font-family-primary-fat">enter pin to log in</p>
         <div class="flex-center gap">
-            <SingleDigitInput label="pin number 1" bind:value={pin1} testid="pin-input" />
+            <SingleDigitInput label="pin number 1" bind:value={pin1} testid="pin-input" bind:input />
             <SingleDigitInput label="pin number 2" bind:value={pin2} testid="pin-input" />
             <SingleDigitInput label="pin number 3" bind:value={pin3} testid="pin-input" />
             <SingleDigitInput label="pin number 4" bind:value={pin4} testid="pin-input" />
