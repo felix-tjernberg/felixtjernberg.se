@@ -14,7 +14,7 @@
     <div class="flex-column-center gap">
         <p data-testid="welcome-paragraph">
             <span data-testid="first-sentence">
-                What do you want to check out {$firstVisit ? "first" : "now"}?<br />
+                What do you want to check out {JSON.parse($firstVisit) ? "first" : "now"}?<br />
             </span>
             {#if JSON.parse($firstVisit)}
                 <span data-testid="recommendation">(I recommend checking out my computer first)</span>
