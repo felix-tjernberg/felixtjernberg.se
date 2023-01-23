@@ -1,7 +1,6 @@
 <script lang="ts">
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
-
-    export let screenIndex: number
+    import { screenIndex } from "$stores/computerSectionStores"
 
     let pin: string
 
@@ -10,7 +9,7 @@
     let pin3: number | "" | undefined = undefined
     let pin4: number | "" | undefined = undefined
     $: pin = `${pin1}${pin2}${pin3}${pin4}`
-    $: if (pin === "1234") screenIndex = 1
+    $: if (pin === "1234") $screenIndex = 1
 </script>
 
 <div id="first-screen" class="grid">

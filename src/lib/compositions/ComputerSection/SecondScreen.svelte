@@ -4,12 +4,11 @@
     import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/computerSectionStores"
     import { audioVolume } from "$stores/audioVolumeStore"
     import Slider from "$components/Slider/Slider.svelte"
-
-    export let screenIndex: number
+    import { screenIndex } from "$stores/computerSectionStores"
 
     let jsLoaded = false
     $dialUpAudioPaused = true
-    $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) screenIndex = 2
+    $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) $screenIndex = 2
 
     onMount(() => {
         $dialUpAudioPaused = false

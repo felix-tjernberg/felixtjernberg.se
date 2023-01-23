@@ -2,12 +2,11 @@
     import Coach from "$components/Coach/Coach.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
     import { fade } from "svelte/transition"
-
-    export let screenIndex: number
+    import { screenIndex } from "$stores/computerSectionStores"
 
     let value: number
 
-    $: if (value === 3) screenIndex = 5
+    $: if (value === 3) $screenIndex = 5
 </script>
 
 <div id="fifth-screen" class="flex-column-center relative" in:fade>

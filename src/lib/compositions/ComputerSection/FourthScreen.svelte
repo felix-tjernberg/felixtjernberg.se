@@ -2,12 +2,12 @@
     import { fade } from "svelte/transition"
     import { onMount } from "svelte"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
+    import { screenIndex } from "$stores/computerSectionStores"
 
-    export let screenIndex: number
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 184 || value === 185) screenIndex = 4
+    $: if (value === 184 || value === 185) $screenIndex = 4
 
     onMount(() => input.focus())
 </script>

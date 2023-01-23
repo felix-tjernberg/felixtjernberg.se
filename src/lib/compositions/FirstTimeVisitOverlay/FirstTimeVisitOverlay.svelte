@@ -9,7 +9,12 @@
     import { audioVolume } from "$stores/audioVolumeStore"
     import { cookiesAllowed } from "$stores/cookiesAllowedStore"
     import { darkMode } from "$stores/darkModeStore"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
+    import {
+        dialUpAudioCurrentTime,
+        dialUpAudioPaused,
+        phoneRingtonePaused,
+        screenIndex
+    } from "$stores/computerSectionStores"
     import { firstVisit } from "$stores/firstVisitStore"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"
     import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
@@ -81,6 +86,7 @@
                             likesEightBitFont.persistValue()
                             scavengerHuntDone.persistValue()
                             firstVisit.persistValue()
+                            screenIndex.persistValue()
                             $cookiesAllowed = true
                         }
                     }} />

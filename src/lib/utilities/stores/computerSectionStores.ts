@@ -5,3 +5,5 @@ export const dialUpAudioCurrentTime = persistedWritable("dialUpAudioCurrentTime"
 export const dialUpAudioPaused = persistedWritable("dialUpAudioPaused", false)
 
 export const phoneRingtonePaused = persistedWritable("phoneRingtonePaused", true)
+
+export const screenIndex = persistedWritable("screenIndex", 0)

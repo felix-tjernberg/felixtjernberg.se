@@ -1,17 +1,16 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
     import { answeredCall, momCalling } from "$stores/phoneSectionStores"
-    import { phoneRingtonePaused } from "$stores/computerSectionStores"
+    import { screenIndex, phoneRingtonePaused } from "$stores/computerSectionStores"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
     import { onMount } from "svelte"
 
-    export let screenIndex: number
-
     let value: number
 
-    $: if (value === 200) screenIndex = 6
+    $: if (value === 200) $screenIndex = 6
 
     onMount(() => {
+        if (JSON.parse($answeredCall) === true) return
         $phoneRingtonePaused = false
         $momCalling = true
         $answeredCall = false

@@ -12,17 +12,16 @@
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import { activeSection } from "$stores/activeSectionStore"
     import { answeredCall } from "$stores/phoneSectionStores"
+    import { screenIndex } from "$stores/computerSectionStores"
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
-
-    export let screenIndex: number = 0
 
     let clueNotificationActive: boolean
 </script>
 
 <section id="computer-section" class="flex-column-center relative">
     <h2 class="visually-hidden absolute">computer</h2>
-    {#if screenIndex === 0}
+    {#if $screenIndex == 0}
         <Notification bind:active={clueNotificationActive} testid="clue-notification">
             <p>
                 PIN CODE:<br />
@@ -30,28 +29,32 @@
             </p>
         </Notification>
     {/if}
-    {#if screenIndex === 5 && !JSON.parse($answeredCall)}
+    {#if $screenIndex == 5}
         <Notification active={true} closeButton={false} testid="mom-calling-notification">
-            <p>
-                Mom is calling
-                <a href="/phone" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}>
-                    go answer the phone!
-                </a>
-            </p>
+            {#if !JSON.parse($answeredCall)}
+                <p>
+                    Mom is calling
+                    <a href="/phone" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}>
+                        go answer the phone!
+                    </a>
+                </p>
+            {:else}
+                <p>Did mom mention anything about her dosage?</p>
+            {/if}
         </Notification>
     {/if}
-    {#if screenIndex === 6}
+    {#if $screenIndex == 6}
         <Notification active={true} testid="hunt-done-notification">
             <p>Scavenger hunt is now done and can be reset in the settings menu</p>
         </Notification>
     {/if}
     <div id="computer" class="flex-column-center relative">
-        <svelte:component this={SCREENS[screenIndex]} bind:screenIndex />
+        <svelte:component this={SCREENS[$screenIndex]} />
         <div id="computer-crt-effect" class="absolute" />
-        {#if screenIndex === 0}
+        {#if $screenIndex == 0}
             <FirstScreenStickyNotes bind:clueNotificationActive />
         {/if}
-        {#if screenIndex === 6}
+        {#if $screenIndex == 6}
             <SeventhScreenStickyNotes />
         {/if}
     </div>
