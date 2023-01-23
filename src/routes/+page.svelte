@@ -16,7 +16,6 @@
     import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
     import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
     import StarfieldBackground from "$components/StarfieldBackground.svelte"
-    import Notification from "$components/Notification/Notification.svelte"
     import NavigationWrapper from "$compositions/NavigationWrapper/NavigationWrapper.svelte"
     import CoachSection from "$compositions/CoachSection/CoachSection.svelte"
     import ComputerSection from "$compositions/ComputerSection/ComputerSection.svelte"
@@ -25,7 +24,6 @@
     import WelcomeSection from "$compositions/WelcomeSection/WelcomeSection.svelte"
 
     let settingsOverlay: HTMLDialogElement
-    let firstTimeVisitNotification: boolean
 
     let elevatorMusicAudioElement: HTMLAudioElement
     let elevatorMusicPaused: boolean = true
@@ -62,14 +60,6 @@
     src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
 <StarfieldBackground />
-{#if firstTimeVisitNotification}
-    <Notification active={firstTimeVisitNotification}>
-        <p class="font-size-200">
-            If you change your mind about any settings click the cogwheel icon in the top right of the screen
-        </p>
-        <p class="font-size-100">(Click this notification to close it)</p>
-    </Notification>
-{/if}
 
 <NavigationWrapper bind:navigationActive>
     <CoachSection slot="coach" />
@@ -104,10 +94,7 @@
 
 <FirstTimeVisitOverlay
     on:startElevatorMusic={() => (elevatorMusicPaused = false)}
-    on:stopElevatorMusic={() => {
-        firstTimeVisitNotification = true
-        elevatorMusicPaused = true
-    }} />
+    on:stopElevatorMusic={() => (elevatorMusicPaused = true)} />
 <SettingsOverlay bind:dialog={settingsOverlay} />
 
 <style>

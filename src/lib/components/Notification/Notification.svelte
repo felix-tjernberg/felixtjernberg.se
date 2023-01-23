@@ -29,7 +29,7 @@
         min-width: 48px;
         padding: 0.5em 1em;
         scale: 1;
-        top: 1em;
+        top: var(--static-scale-300);
         transition: scale 420ms ease-in-out;
         translate: -50%;
         max-width: max-content;

@@ -1,13 +1,23 @@
 <script lang="ts">
     import { activeSection } from "$stores/activeSectionStore"
-    import { firstVisit } from "$stores/firstVisitStore"
+    import { firstVisit, firstVisitNotification } from "$stores/firstVisitStore"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
     import Button from "$components/Button/Button.svelte"
+    import Notification from "$components/Notification/Notification.svelte"
+
     import Logo from "$assets/svgs/Logo.svelte"
     import WelcomeSectionText from "$assets/svgs/WelcomeSectionText.svelte"
 </script>
 
+{#if JSON.parse($firstVisitNotification)}
+    <Notification active={JSON.parse($firstVisitNotification)}>
+        <p class="font-size-200">
+            If you change your mind about any settings click the cogwheel icon in the top right of the screen
+        </p>
+        <p class="font-size-100">(Click this notification to close it)</p>
+    </Notification>
+{/if}
 <section id="welcome-section">
     <Logo />
     <h1><WelcomeSectionText /><span class="visually-hidden">Welcome!</span></h1>

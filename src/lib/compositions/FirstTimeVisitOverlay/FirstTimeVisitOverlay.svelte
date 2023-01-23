@@ -15,7 +15,7 @@
         phoneRingtonePaused,
         screenIndex
     } from "$stores/computerSectionStores"
-    import { firstVisit } from "$stores/firstVisitStore"
+    import { firstVisit, firstVisitNotification } from "$stores/firstVisitStore"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"
     import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
 
@@ -64,12 +64,14 @@
                     on:click={() => {
                         dispatch("startElevatorMusic")
                         decidingAboutCookies = false
+                        $firstVisitNotification = true
                         $cookiesAllowed = false
                     }} />
                 <Button
                     label="Allow essential cookies"
                     on:click={async () => {
                         decidingAboutCookies = false
+                        $firstVisitNotification = true
                         dispatch("startElevatorMusic")
                         if (browser) {
                             window.localStorage.setItem("cookiesAllowed", "true")
@@ -87,6 +89,7 @@
                             scavengerHuntDone.persistValue()
                             firstVisit.persistValue()
                             screenIndex.persistValue()
+                            firstVisitNotification.persistValue()
                             $cookiesAllowed = true
                         }
                     }} />
