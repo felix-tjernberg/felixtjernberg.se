@@ -23,12 +23,12 @@
     <div class="border background-blur margin-vertical-flow glow flex-column-center" id="text-wrapper">
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
         {#if JSON.parse($scavengerHuntDone)}
-            <p data-testid="email-and-phone-paragraph">
+            <p class="font-size-300" data-testid="email-and-phone-paragraph">
                 Email Adress: some-email@adress.com <br />
                 Phone Number: 0123 456 789
             </p>
         {:else}
-            <p data-testid="scavenger-hunt-paragraph">
+            <p class="font-size-300" data-testid="scavenger-hunt-paragraph">
                 Take a well deserved 5 minute break and do my scavenger hunt to unlock my email and phone number
             </p>
             <a href="/coach" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}>
@@ -41,10 +41,10 @@
 <style>
     #contact-section {
         display: grid;
-        grid-template-rows: 1fr 2fr;
         height: 100%;
         padding: var(--static-scale-400);
         overflow-y: auto;
+        place-content: center;
         width: 100%;
     }
     #links-wrapper {
@@ -52,6 +52,7 @@
         padding: var(--static-scale-300);
         display: grid;
         grid-template-columns: 1fr 1fr;
+        place-items: end;
         width: 100%;
         height: 100%;
         gap: var(--relative-scale-300);
