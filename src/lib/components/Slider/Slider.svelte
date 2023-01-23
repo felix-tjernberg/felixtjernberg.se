@@ -15,7 +15,7 @@
     <label>
         <span class="visually-hidden">{label}</span>
         <div class="slider-wrapper relative glow glow-hover" style={`--thumb-position-left: ${value * 100}%`}>
-            <input type="range" {max} {min} {step} bind:value />
+            <input tabindex="-1" type="range" {max} {min} {step} bind:value />
             <Thumb />
         </div>
     </label>

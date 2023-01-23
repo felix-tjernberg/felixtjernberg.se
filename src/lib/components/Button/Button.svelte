@@ -13,7 +13,6 @@
     export let href: string | undefined = undefined
     export let id: string | undefined = undefined
     export let style: string | undefined = undefined
-    export let tabAble: boolean = true
     export let testid: string | undefined = undefined
     export let underlined: boolean = false
 
@@ -72,7 +71,7 @@
     on:click
     on:mouseup={handeMouseUp}
     {style}
-    tabindex={tabAble ? 0 : -1}>
+    tabindex="-1">
     {#if hoverOverlay}
         <div aria-hidden="true" class="absolute hover-overlay" class:opacity-flashing={flashing} />
     {/if}

@@ -34,6 +34,7 @@
         <label>
             <span class="visually-hidden">{label}</span>
             <input
+                tabindex="-1"
                 class="background-blur glow border-vertical"
                 type="number"
                 data-testid={testid}

@@ -29,6 +29,7 @@
     <div id="navigation-item-coach">
         {#if navigationActive}
             <a
+                tabindex="-1"
                 on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}
                 transition:fade
                 href={"/coach"}>
@@ -41,6 +42,7 @@
     <div id="navigation-item-computer">
         {#if navigationActive}
             <a
+                tabindex="-1"
                 on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}
                 transition:fade
                 href={"/computer"}>
@@ -53,6 +55,7 @@
     <div id="navigation-item-welcome">
         {#if navigationActive}
             <a
+                tabindex="-1"
                 on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.welcome)}
                 transition:fade
                 href={"/welcome"}>
@@ -65,6 +68,7 @@
     <div id="navigation-item-phone">
         {#if navigationActive}
             <a
+                tabindex="-1"
                 on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}
                 transition:fade
                 href={"/phone"}>
@@ -77,6 +81,7 @@
     <div id="navigation-item-contact">
         {#if navigationActive}
             <a
+                tabindex="-1"
                 on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.contact)}
                 transition:fade
                 href={"/contact"}>

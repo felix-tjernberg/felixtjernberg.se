@@ -47,7 +47,7 @@
     <div id="first-time-visit-box" class="background-blur margin-vertical-flow margin glow">
         {#if decidingAboutCookies}
             <details class="margin-vertical-flow flex-column-center" bind:open={detailsOpen} bind:this={details}>
-                <summary class="font-family-primary-fat text-align-center">
+                <summary tabindex="-1" class="font-family-primary-fat text-align-center">
                     Are you ok with me saving some things about you between page visits?
                     <br />
                     <span class="font-family-primary-thin font-size-100 text-decoration-underline">

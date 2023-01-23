@@ -22,6 +22,7 @@
     import ContactSection from "$compositions/ContactSection/ContactSection.svelte"
     import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
     import WelcomeSection from "$compositions/WelcomeSection/WelcomeSection.svelte"
+    import { onMount } from "svelte"
 
     let settingsOverlay: HTMLDialogElement
 

@@ -58,7 +58,6 @@
         ariaHidden={true}
         label="increase"
         testid="increase-button"
-        tabAble={false}
         on:click={() => {
             if (value === 9) return (value = 0)
             // @ts-ignore
@@ -70,6 +69,7 @@
         <span class="visually-hidden">{label}</span>
         <div class="bottom-stroke">
             <input
+                tabindex="-1"
                 class="border"
                 type="number"
                 bind:value
@@ -84,7 +84,6 @@
         ariaHidden={true}
         label="decrease"
         testid="decrease-button"
-        tabAble={false}
         on:click={() => {
             if (value === 0) return (value = 9)
             // @ts-ignore

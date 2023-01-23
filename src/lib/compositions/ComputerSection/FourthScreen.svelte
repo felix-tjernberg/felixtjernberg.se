@@ -14,6 +14,7 @@
 
 <div class="flex-column-center gap" in:fade>
     <iframe
+        tabindex="-1"
         src="https://www.youtube-nocookie.com/embed/pgJXHhmN45Y?autoplay=1"
         title="YouTube video player"
         frameborder="0"

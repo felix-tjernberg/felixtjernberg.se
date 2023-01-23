@@ -11,6 +11,7 @@
     <p class="font-family-primary-fat font-size-000">
         Phone number and email is now unlocked in the
         <a
+            tabindex="-1"
             href="/contact"
             on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.contact)}
             data-testid="contact-section-link">

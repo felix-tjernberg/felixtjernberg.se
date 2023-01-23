@@ -9,12 +9,12 @@
 
 <section id="contact-section">
     <div id="links-wrapper" class="glow">
-        <a class="flex-column-center" href="https://www.linkedin.com/in/felix-tjernberg">
+        <a tabindex="-1" class="flex-column-center" href="https://www.linkedin.com/in/felix-tjernberg">
             <span class="visually-hidden">Go to Felix Tjernbergs LinkedIn profile</span>
             <LinkedIn />
             <span>LinkedIn</span>
         </a>
-        <a class="flex-column-center" href="https://github.com/felix-tjernberg">
+        <a tabindex="-1" class="flex-column-center" href="https://github.com/felix-tjernberg">
             <span class="visually-hidden">Go to Felix Tjernbergs GitHub profile</span>
             <GitHub />
             <span>GitHub</span>
@@ -31,7 +31,10 @@
             <p class="font-size-300" data-testid="scavenger-hunt-paragraph">
                 Take a well deserved 5 minute break and do my scavenger hunt to unlock my email and phone number
             </p>
-            <a href="/coach" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}>
+            <a
+                tabindex="-1"
+                href="/coach"
+                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}>
                 Go to scavenger hunt
             </a>
         {/if}
