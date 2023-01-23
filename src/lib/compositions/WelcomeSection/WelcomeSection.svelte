@@ -54,6 +54,7 @@
         color: transparent;
         background: var(--gradient);
         background-clip: text;
+        -webkit-background-clip: text;
     }
     p > span:nth-child(1) {
         font-size: var(--static-scale-200);
