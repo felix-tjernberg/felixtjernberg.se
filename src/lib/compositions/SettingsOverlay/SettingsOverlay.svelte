@@ -4,6 +4,7 @@
     import { cookiesAllowed } from "$stores/cookiesAllowedStore"
     import { darkMode } from "$stores/darkModeStore"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"
+    import { screenIndex } from "$stores/computerSectionStores"
     import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
@@ -55,7 +56,10 @@
                 <h3>Want to do the scavenger hunt again?</h3>
                 <Button
                     label="yes restart scavenger hunt!"
-                    on:click={() => ($scavengerHuntDone = false)}
+                    on:click={() => {
+                        $scavengerHuntDone = false
+                        $screenIndex = 0
+                    }}
                     testid="reset-scavenger-hunt" />
             </div>
         {/if}

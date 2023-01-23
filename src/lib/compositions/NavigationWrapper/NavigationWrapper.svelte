@@ -109,7 +109,7 @@
         max-width: none;
         max-width: none;
         position: absolute;
-        z-index: 9001;
+        z-index: 9999;
     }
     #navigation > div > a,
     #navigation > div:nth-of-type(6) {

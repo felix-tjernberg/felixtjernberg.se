@@ -8,6 +8,8 @@
 
     let jsLoaded = false
     $dialUpAudioPaused = true
+    $dialUpAudioCurrentTime = 0
+
     $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) $screenIndex = 2
 
     onMount(() => {

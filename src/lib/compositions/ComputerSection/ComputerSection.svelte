@@ -68,6 +68,7 @@
     #computer {
         width: 500px;
         aspect-ratio: 1 / 1;
+        max-height: 500px;
     }
     :global(#computer > :nth-child(1)) {
         z-index: 1;

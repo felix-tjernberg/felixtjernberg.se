@@ -1,6 +1,9 @@
 <script lang="ts">
     import { activeSection } from "$stores/activeSectionStore"
     import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+
+    $scavengerHuntDone = true
 </script>
 
 <div class="flex-column-center gap padding-top-400">

@@ -31,7 +31,7 @@
             <p data-testid="scavenger-hunt-paragraph">
                 Take a well deserved 5 minute break and do my scavenger hunt to unlock my email and phone number
             </p>
-            <a href="/coach" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}>
+            <a href="/coach" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}>
                 Go to scavenger hunt
             </a>
         {/if}

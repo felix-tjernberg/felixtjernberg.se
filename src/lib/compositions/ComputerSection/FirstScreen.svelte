@@ -42,8 +42,8 @@
         width: 100%;
         margin: auto;
         display: grid;
-        grid-template-columns: 137px auto 137px;
-        grid-template-rows: 137px auto 137px;
+        grid-template-columns: 100px auto 100px;
+        grid-template-rows: 100px auto 100px;
         grid-template-areas:
             "top-left . top-right"
             "content content content"
