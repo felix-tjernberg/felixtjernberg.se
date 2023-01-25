@@ -20,7 +20,7 @@
 <div id="conversation" class="background-blur relative glow border" data-testid="conversation-wrapper">
     <section bind:this={section} class="flex-column margin-vertical-flow">
         {#each TEXT_CONVERSATION as { message, person }, index}
-            {#if index <= messageIndex}
+            {#if index <= messageIndex || JSON.parse($conversationDone)}
                 <span
                     class="flex glow"
                     style={`${person === "mom" ? "--glow-color:var(--glow-pink)" : "--glow-color:var(--glow-green)"}`}>

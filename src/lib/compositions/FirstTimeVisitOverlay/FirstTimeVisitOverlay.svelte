@@ -25,6 +25,7 @@
     import Moon from "$assets/svgs/Moon.svelte"
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
+    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
     const dispatch = createEventDispatcher()
 
@@ -35,7 +36,8 @@
     let detailsOpen: boolean = false
 
     onMount(async () => {
-        if (browser && !$cookiesAllowed) {
+        if (browser && !JSON.parse($cookiesAllowed)) {
+            $activeSection = SectionsSchema.enum.welcome
             dialog.showModal()
             $firstVisit = true
         }
