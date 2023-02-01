@@ -7,9 +7,9 @@
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 184 || value === 185) $screenIndex = 4
+    $: if (value === 188 || value === 189) $screenIndex = 4
 
-    onMount(() => input.focus())
+    // onMount(() => input.focus())
 </script>
 
 <div class="flex-column-center gap" in:fade>

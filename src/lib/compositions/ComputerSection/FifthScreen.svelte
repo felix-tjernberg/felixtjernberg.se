@@ -9,7 +9,7 @@
     let input: HTMLInputElement
 
     $: if (value === 3) $screenIndex = 5
-    onMount(() => input.focus())
+    // onMount(() => input.focus())
 </script>
 
 <div id="fifth-screen" class="flex-column-center relative" in:fade>

@@ -11,7 +11,7 @@
     $: if (value === 200) $screenIndex = 6
 
     onMount(() => {
-        input.focus()
+        // input.focus()
         if (JSON.parse($answeredCall) === true) return
         $phoneRingtonePaused = false
         $momCalling = true

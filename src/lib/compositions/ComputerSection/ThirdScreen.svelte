@@ -8,9 +8,7 @@
     let value: string
 
     $: if (String(value).toLowerCase() === "yes") $screenIndex = 3
-    onMount(() => {
-        input.focus()
-    })
+    // onMount(() => { input.focus()})
 </script>
 
 <div class="flex-column-center gap" in:fade>
