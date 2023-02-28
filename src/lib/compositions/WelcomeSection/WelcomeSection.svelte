@@ -1,9 +1,6 @@
 <script lang="ts">
-    import { activeSection } from "$stores/activeSectionStore"
     import { firstVisit, firstVisitNotification } from "$stores/firstVisitStore"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
-    import Button from "$components/Button/Button.svelte"
     import Notification from "$components/Notification/Notification.svelte"
 
     import Logo from "$assets/svgs/Logo.svelte"
@@ -22,27 +19,15 @@
     <Logo />
     <h1><WelcomeSectionText /><span class="visually-hidden">Welcome!</span></h1>
     <div class="flex-column-center gap">
-        <p data-testid="welcome-paragraph">
+        <p id="welcome-paragraph" data-testid="welcome-paragraph">
             <span data-testid="first-sentence">
-                What do you want to check out {JSON.parse($firstVisit) ? "first" : "now"}?<br />
+                To my spot on the interwebs! <br />Click the button in the top right to navigate
             </span>
+            <br />
             {#if JSON.parse($firstVisit)}
                 <span data-testid="recommendation">(I recommend checking out my computer first)</span>
             {/if}
         </p>
-        <div class="flex-wrap-center gap">
-            {#each ["computer", "coach", "contact", "phone"] as section}
-                <Button
-                    style="--background-blur-amount: 2px"
-                    label={section}
-                    href={`/${section}`}
-                    on:click={(event) => {
-                        event.preventDefault()
-                        $activeSection = SectionsSchema.parse(section)
-                        $firstVisit = false
-                    }} />
-            {/each}
-        </div>
     </div>
 </section>
 
@@ -58,10 +43,10 @@
         background-clip: text;
         -webkit-background-clip: text;
     }
-    p > span:nth-child(1) {
+    p > span:nth-of-type(1) {
         font-size: var(--static-scale-200);
     }
-    p > span:nth-child(2) {
+    p > span:nth-of-type(2) {
         font-size: var(--static-scale-100);
     }
     #welcome-section {
@@ -80,6 +65,10 @@
         margin-top: 1em;
         align-self: start;
         z-index: 1;
+    }
+    #welcome-paragraph {
+        background-image: radial-gradient(circle at 50% 50%, #000000ff 0%, #00000000 100%);
+        padding: 1em;
     }
     :global(#welcome-section > svg) {
         filter: blur(10px);

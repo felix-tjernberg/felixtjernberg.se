@@ -5,6 +5,7 @@
     import { browser } from "$app/environment"
     import { darkMode } from "$stores/darkModeStore"
     import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
+    import { firstVisit } from "$stores/firstVisitStore"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"
     import { locale } from "svelte-intl-precompile"
     import { t } from "svelte-intl-precompile"
@@ -72,10 +73,12 @@
 
 {#if !navigationActive}
     <Button
+        flashing={JSON.parse($firstVisit)}
         id="navigation-button"
         href="/navigation"
         label="Open navigation"
         on:click={(event) => {
+            if (JSON.parse($firstVisit)) $firstVisit = false
             event.preventDefault()
             $activeSection = SectionsSchema.enum.none
         }}>
