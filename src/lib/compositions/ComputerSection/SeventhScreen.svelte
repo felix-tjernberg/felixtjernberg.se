@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex-column-center gap padding-top-400">
-    <p class="font-family-primary-fat">Congratulations!!!</p>
+    <p class="font-family-primary-fat">Congratu<wbr />lations!!!</p>
     <p class="font-family-primary-fat font-size-000">
         Phone number and email is now unlocked in the
         <a
@@ -19,3 +19,9 @@
         </a>
     </p>
 </div>
+
+<style>
+    div {
+        width: 100%;
+    }
+</style>
