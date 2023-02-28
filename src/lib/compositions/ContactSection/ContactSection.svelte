@@ -29,8 +29,9 @@
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
         {#if JSON.parse($scavengerHuntDone)}
             <p class="font-size-300" data-testid="email-and-phone-paragraph">
-                Email Adress: {data.email} <br />
-                Phone Number: {data.phoneNumber}
+                Email Adress: <br class="br-small-screen" />{data.email}
+                <br />
+                Phone Number: <br class="br-small-screen" />{data.phoneNumber}
             </p>
         {:else}
             <p class="font-size-300" data-testid="scavenger-hunt-paragraph">
@@ -47,6 +48,9 @@
 </section>
 
 <style>
+    .br-small-screen {
+        display: none;
+    }
     #contact-section {
         display: grid;
         padding: var(--static-scale-400);
@@ -112,6 +116,9 @@
         }
         .font-size-300 {
             font-size: var(--static-scale-200);
+        }
+        .br-small-screen {
+            display: block;
         }
     }
 </style>
