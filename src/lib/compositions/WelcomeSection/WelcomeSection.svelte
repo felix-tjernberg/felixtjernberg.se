@@ -21,7 +21,7 @@
     <div class="flex-column-center gap">
         <p id="welcome-paragraph" data-testid="welcome-paragraph">
             <span data-testid="first-sentence">
-                To my spot on the interwebs! <br />Click the button in the top right to navigate
+                To my spot on the interwebs! <br />Click the button in the top left to navigate
             </span>
             <br />
             {#if JSON.parse($firstVisit)}
