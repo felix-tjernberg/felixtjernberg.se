@@ -5,6 +5,11 @@
 
     import LinkedIn from "$assets/svgs/LinkedIn.svelte"
     import GitHub from "$assets/svgs/GitHub.svelte"
+
+    export let data: {
+        email: string
+        phoneNumber: string
+    }
 </script>
 
 <section id="contact-section">
@@ -24,8 +29,8 @@
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
         {#if JSON.parse($scavengerHuntDone)}
             <p class="font-size-300" data-testid="email-and-phone-paragraph">
-                Email Adress: some-email@adress.com <br />
-                Phone Number: 0123 456 789
+                Email Adress: {data.email} <br />
+                Phone Number: {data.phoneNumber}
             </p>
         {:else}
             <p class="font-size-300" data-testid="scavenger-hunt-paragraph">

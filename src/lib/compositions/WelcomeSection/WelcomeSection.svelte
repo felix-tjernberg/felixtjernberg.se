@@ -21,12 +21,18 @@
     <div class="flex-column-center gap">
         <p id="welcome-paragraph" data-testid="welcome-paragraph">
             <span data-testid="first-sentence">
-                To my spot on the interwebs! <br />Click the button in the top left to navigate
+                To my spot on the interwebs! <br />Click the button with 5 squares in the top left of the screen to
+                navigate
             </span>
-            <br />
             {#if JSON.parse($firstVisit)}
+                <br />
                 <span data-testid="recommendation">(I recommend checking out my computer first)</span>
             {/if}
+            <br />
+            <span>
+                (Also there are still a few bugs to iron out on this website as it was quickly thrown together, so if
+                you find any please let me know!)
+            </span>
         </p>
     </div>
 </section>
@@ -46,7 +52,8 @@
     p > span:nth-of-type(1) {
         font-size: var(--static-scale-200);
     }
-    p > span:nth-of-type(2) {
+    p > span:nth-of-type(2),
+    p > span:nth-of-type(3) {
         font-size: var(--static-scale-100);
     }
     #welcome-section {

@@ -25,6 +25,11 @@
     import WelcomeSection from "$compositions/WelcomeSection/WelcomeSection.svelte"
     import { onMount } from "svelte"
 
+    export let data: {
+        email: string
+        phoneNumber: string
+    }
+
     let settingsOverlay: HTMLDialogElement
 
     let elevatorMusicAudioElement: HTMLAudioElement
@@ -66,7 +71,7 @@
 <NavigationWrapper bind:navigationActive>
     <CoachSection slot="coach" />
     <ComputerSection slot="computer" />
-    <ContactSection slot="contact" />
+    <ContactSection slot="contact" {data} />
     <PhoneSection slot="phone" />
     <WelcomeSection slot="welcome" />
 </NavigationWrapper>
