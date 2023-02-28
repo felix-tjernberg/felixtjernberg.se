@@ -28,7 +28,7 @@
     </p>
     <MultiDigitInput
         label="answer"
-        description="seconds using no decimals"
+        description="Enter number of seconds"
         bind:value
         bind:input
         testid="song-number-input" />

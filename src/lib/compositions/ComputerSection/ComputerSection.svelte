@@ -34,7 +34,10 @@
             {#if !JSON.parse($answeredCall)}
                 <p>
                     Mom is calling
-                    <a href="/phone" on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}>
+                    <a
+                        tabindex="-1"
+                        href="/phone"
+                        on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}>
                         go answer the phone!
                     </a>
                 </p>
@@ -114,6 +117,12 @@
         100% {
             opacity: 0.1;
             bottom: -50px;
+        }
+    }
+    @media (max-width: 720px) {
+        #computer {
+            width: 100%;
+            height: 100%;
         }
     }
 </style>

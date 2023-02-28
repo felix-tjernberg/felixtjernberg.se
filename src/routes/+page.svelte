@@ -110,4 +110,10 @@
     :global(body > div > #settings-button) {
         right: 1em;
     }
+    @media (max-width: 666px) {
+        :global([data-active-section="none"] + #settings-button) {
+            left: 50%;
+            translate: -50%;
+        }
+    }
 </style>

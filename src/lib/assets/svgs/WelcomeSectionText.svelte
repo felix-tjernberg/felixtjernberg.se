@@ -114,3 +114,10 @@
         </linearGradient>
     </defs>
 </svg>
+
+<style>
+    svg {
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+</style>

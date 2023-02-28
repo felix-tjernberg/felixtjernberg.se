@@ -59,7 +59,6 @@
         --background-blur-amount: var(--blur-900);
         --glow-color: var(--gray-300);
         height: 7em;
-        overflow: hidden;
         padding: 1em 2em 1em 1em;
         width: 100%;
         max-width: 50ch;

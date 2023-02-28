@@ -8,7 +8,7 @@
     import { phoneRingtonePaused } from "$stores/computerSectionStores"
 </script>
 
-<section id="phone-section" class="flex-column-center gap margin">
+<section id="phone-section" class="gap">
     {#if !JSON.parse($conversationDone) && (JSON.parse($momCalling) || JSON.parse($answeredCall))}
         <p
             class="background-blur border glow font-family-primary-fat"
@@ -76,6 +76,10 @@
     }
     #phone-section {
         height: 100%;
-        width: 100%;
+        overflow-y: auto;
+        display: grid;
+        place-items: center;
+        padding-top: 5em;
+        padding-bottom: 4em;
     }
 </style>

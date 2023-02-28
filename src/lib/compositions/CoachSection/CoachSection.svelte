@@ -188,7 +188,7 @@
             padding: 0;
         }
         #coach-section > h2 {
-            padding: var(--static-scale-400) var(--static-scale-000);
+            padding-top: 8em;
         }
     }
     @media (max-height: 500px) {

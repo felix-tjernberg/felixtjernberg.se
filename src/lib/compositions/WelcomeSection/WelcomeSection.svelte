@@ -49,6 +49,8 @@
 <style>
     p {
         max-width: 100%;
+        padding-left: 1em;
+        padding-right: 1em;
     }
     p > span {
         color: transparent;
@@ -66,7 +68,10 @@
         display: grid;
         grid-template-rows: 1fr 1fr;
         height: 100%;
-        width: 100%;
+        overflow-y: auto;
+        place-items: center;
+        padding-top: 5em;
+        padding-bottom: 4em;
     }
     #welcome-section > h1 {
         align-self: end;

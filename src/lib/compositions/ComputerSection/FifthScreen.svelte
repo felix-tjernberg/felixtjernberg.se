@@ -24,6 +24,7 @@
 
 <style>
     p {
+        margin-top: 3em;
         z-index: 1;
         background-color: var(--gray-000-50-percent);
     }

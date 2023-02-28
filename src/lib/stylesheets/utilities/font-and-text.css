@@ -19,6 +19,11 @@ text-align-left {
 .font-family-primary-fat {
     font-family: var(--font-family-primary-fat);
 }
+@media (max-width: 420px) {
+    .font-family-primary-fat {
+        font-size: var(--static-scale-100);
+    }
+}
 [data-eight-bit-font="false"] *.font-family-primary-fat {
     text-decoration: bold;
 }

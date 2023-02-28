@@ -21,7 +21,7 @@
 <style>
     .notification {
         z-index: 9001;
-        --background-blur-amount: var(--blur-900);
+        --background-blur-amount: 7px;
         --stroke-width: var(--stroke-200);
         color: var(--gray-900);
         left: 50%;
@@ -29,7 +29,7 @@
         min-width: 48px;
         padding: 0.5em 1em;
         scale: 1;
-        top: var(--static-scale-300);
+        top: 5em;
         transition: scale 420ms ease-in-out;
         translate: -50%;
         max-width: max-content;
@@ -58,5 +58,16 @@
     :global(.notification:hover button),
     :global(.notification button:focus) {
         opacity: 1;
+    }
+    @media (max-width: 500px) {
+        :global(.notification p.font-size-200) {
+            font-size: var(--static-scale-100) !important;
+        }
+    }
+    @media (max-width: 720px) {
+        .notification {
+            top: auto;
+            bottom: 1em;
+        }
     }
 </style>

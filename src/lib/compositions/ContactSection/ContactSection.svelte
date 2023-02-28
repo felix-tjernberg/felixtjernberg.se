@@ -44,21 +44,21 @@
 <style>
     #contact-section {
         display: grid;
-        height: 100%;
         padding: var(--static-scale-400);
+        height: 100%;
         overflow-y: auto;
-        place-content: center;
-        width: 100%;
+        display: grid;
+        place-items: center;
+        padding-top: 5em;
+        padding-bottom: 4em;
     }
     #links-wrapper {
         font-size: var(--static-scale-500);
         padding: var(--static-scale-300);
         display: grid;
         grid-template-columns: 1fr 1fr;
-        place-items: end;
-        width: 100%;
-        height: 100%;
         gap: var(--relative-scale-300);
+        place-items: center end;
     }
     #links-wrapper a:nth-child(1) {
         justify-self: end;
@@ -93,20 +93,20 @@
     #text-wrapper a {
         font-size: var(--relative-scale-200);
     }
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
         #contact-section,
         #links-wrapper {
             display: flex;
             flex-direction: column;
             gap: 1em;
+            padding-left: 0;
+            padding-right: 0;
         }
-        #contact-section {
-            padding: 1em;
+        #text-wrapper h2 {
+            font-size: var(--static-scale-100);
         }
-    }
-    @media (max-height: 800px) {
-        #contact-section {
-            padding: 1em;
+        .font-size-300 {
+            font-size: var(--static-scale-200);
         }
     }
 </style>

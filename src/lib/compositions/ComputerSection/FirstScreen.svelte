@@ -83,4 +83,12 @@
         /* padding to match the height of the sticky-note increase button plus 1em which centers the content visually, 48px is the min height of a sticky note */
         padding-top: calc(1em + max(48px, 1em));
     }
+    @media (max-width: 720px) {
+        #top-left {
+            translate: 40px 80px;
+        }
+        #top-right {
+            translate: -40px 80px;
+        }
+    }
 </style>
