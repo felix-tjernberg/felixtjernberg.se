@@ -9,7 +9,6 @@ const meta: Meta<AllComponents> = {
     parameters: {
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/All Components"
 }
 export default meta

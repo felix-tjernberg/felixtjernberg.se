@@ -15,7 +15,6 @@ const meta: Meta<WelcomeSectionStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/Welcome Section"
 }
 export default meta

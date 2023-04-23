@@ -18,7 +18,6 @@ const meta: Meta<NavigationWrapperStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/Navigation Wrapper"
 }
 export default meta

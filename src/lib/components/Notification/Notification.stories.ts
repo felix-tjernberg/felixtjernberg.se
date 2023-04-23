@@ -39,7 +39,6 @@ const meta: Meta<NotificationStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Components/Notification"
 }
 export default meta

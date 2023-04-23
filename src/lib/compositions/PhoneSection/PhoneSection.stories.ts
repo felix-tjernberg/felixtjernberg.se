@@ -19,7 +19,6 @@ const meta: Meta<PhoneSectionStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/Phone Section"
 }
 export default meta

@@ -18,7 +18,6 @@ const meta: Meta<SettingsOverlayStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/Settings Overlay"
 }
 export default meta

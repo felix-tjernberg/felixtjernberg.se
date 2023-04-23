@@ -27,7 +27,6 @@ const meta: Meta<MultiDigitInput> = {
             url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=37%3A176&starting-point-node-id=37%3A176&show-proto-sidebar=0"
         }
     },
-    tags: ["docsPage"],
     title: "Components/Multi Digit Input"
 }
 export default meta
