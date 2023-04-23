@@ -19,7 +19,6 @@ const meta: Meta<BooleanButtonStory> = {
             url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=17%3A118&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=17%3A118&show-proto-sidebar=0"
         }
     },
-    tags: ["docsPage"],
     title: "Components/BooleanButton"
 }
 export default meta

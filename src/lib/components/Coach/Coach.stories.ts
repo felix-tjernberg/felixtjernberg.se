@@ -13,7 +13,6 @@ const meta: Meta<Coach> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Components/Coach"
 }
 export default meta

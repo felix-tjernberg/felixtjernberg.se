@@ -16,7 +16,6 @@ const meta: Meta<FirstTimeVisitOverlayStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/First Time Visit Overlay"
 }
 export default meta

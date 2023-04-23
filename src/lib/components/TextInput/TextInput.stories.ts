@@ -17,7 +17,6 @@ const meta: Meta<TextInput> = {
             url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=116%3A377&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=116%3A377&show-proto-sidebar=0"
         }
     },
-    tags: ["docsPage"],
     title: "Components/Text Input"
 }
 export default meta

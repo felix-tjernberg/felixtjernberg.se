@@ -15,7 +15,6 @@ const meta: Meta<CoachSectionStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/Coach Section"
 }
 export default meta

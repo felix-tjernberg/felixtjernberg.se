@@ -1,6 +1,5 @@
 <script lang="ts">
     import "../src/lib/stylesheets/stylesheets.css"
-    import "./storybook.css"
     import { darkMode as darkModeStore } from "../src/lib/utilities/stores/darkModeStore"
     import StarfieldBackgroundStoryWrapper from "$lib/stories/StarfieldBackgroundStoryWrapper.svelte"
 

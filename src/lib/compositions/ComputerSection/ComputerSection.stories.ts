@@ -18,7 +18,6 @@ const meta: Meta<ComputerSectionStory> = {
         },
         layout: "fullscreen"
     },
-    tags: ["docsPage"],
     title: "Compositions/Computer Section"
 }
 export default meta
