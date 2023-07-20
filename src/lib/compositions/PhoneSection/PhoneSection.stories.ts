@@ -15,24 +15,24 @@ const meta: Meta<PhoneSectionStory> = {
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=119%3A2181&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=119%3A2181&show-proto-sidebar=0"
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=119%3A2181&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=119%3A2181&show-proto-sidebar=0",
         },
-        layout: "fullscreen"
+        layout: "fullscreen",
     },
-    title: "Compositions/Phone Section"
+    title: "Compositions/Phone Section",
 }
 export default meta
 
 export const StoryMomCalling: Story = {}
 StoryMomCalling.storyName = "Mom calling"
 StoryMomCalling.args = {
-    momCallingTest: true
+    momCallingTest: true,
 }
 
 export const StoryTestMomCall: Story = {}
 StoryTestMomCall.storyName = "Test mom call"
 StoryTestMomCall.args = {
-    momCallingTest: true
+    momCallingTest: true,
 }
 StoryTestMomCall.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)

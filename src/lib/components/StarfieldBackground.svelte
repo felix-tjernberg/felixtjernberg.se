@@ -28,7 +28,7 @@
                 const s = {
                     x: Math.random() * 1600 - 800,
                     y: Math.random() * 900 - 450,
-                    z: Math.random() * 1000
+                    z: Math.random() * 1000,
                 }
                 out.push(s)
             }

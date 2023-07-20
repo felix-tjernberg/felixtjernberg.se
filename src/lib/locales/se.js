@@ -3,5 +3,5 @@ export default {
     greeting: "{name} säger hejsan!",
     musicVolume: "Musik Volym",
     toggleMusic: "Spela/Pausa Musik",
-    welcome: "Välkommen till min plats på nätet!"
+    welcome: "Välkommen till min plats på nätet!",
 }

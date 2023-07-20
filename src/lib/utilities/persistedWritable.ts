@@ -21,6 +21,6 @@ export default function persistedWritable(storageKey: string, initialValue: unkn
         },
         set,
         subscribe,
-        update
+        update,
     }
 }

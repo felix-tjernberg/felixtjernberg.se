@@ -7,10 +7,10 @@ const config: StorybookConfig = {
         "@storybook/jest",
         "@storybook/addon-essentials",
         "@storybook/addon-interactions",
-        "storybook-addon-designs"
+        "storybook-addon-designs",
     ],
     core: { disableTelemetry: true },
     docs: { autodocs: true },
-    framework: { name: "@storybook/sveltekit", options: {} }
+    framework: { name: "@storybook/sveltekit", options: {} },
 }
 export default config

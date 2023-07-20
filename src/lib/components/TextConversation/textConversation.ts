@@ -1,43 +1,43 @@
 export default [
     {
         message: "Hey sweetie, how are you?",
-        person: "mom"
+        person: "mom",
     },
     {
         message: "good, just busy at work",
-        person: "you"
+        person: "you",
     },
     {
         message: "Oh, I know how that goes. Hey, did you hear anything about the broken pencil?",
-        person: "mom"
+        person: "mom",
     },
     {
         message: "what broken pencil?",
-        person: "you"
+        person: "you",
     },
     {
         message:
             "Nevermind its was pointless, see what I did there? Anyways could you remind me to take 200mg of anakinra later today?",
-        person: "mom"
+        person: "mom",
     },
     {
         message: "lol that was terrible, i will remind you when I get home",
-        person: "you"
+        person: "you",
     },
     {
         message: "I know, but I love you anyway.",
-        person: "mom"
+        person: "mom",
     },
     {
         message: "luv u too xoxo",
-        person: "you"
+        person: "you",
     },
     {
         message: "Remember to call your parents this weekend :)",
-        person: false
+        person: false,
     },
     {
         message: "(Most of this conversation was written by ChatGPT)",
-        person: false
-    }
+        person: false,
+    },
 ]

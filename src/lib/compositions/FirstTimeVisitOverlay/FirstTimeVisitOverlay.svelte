@@ -12,7 +12,7 @@
         dialUpAudioCurrentTime,
         dialUpAudioPaused,
         phoneRingtonePaused,
-        screenIndex
+        screenIndex,
     } from "$stores/computerSectionStores"
     import { firstVisit, firstVisitNotification } from "$stores/firstVisitStore"
     import { likesEightBitFont } from "$stores/likesEightBitFontStore"

@@ -31,7 +31,7 @@
 					transform:  rotate(${easedTimeStepIn * 1080}deg);
                     translate: ${flyToRight ? "" : "-"}${x}vw ${y}vh;
                     `
-            }
+            },
         }
     }
 </script>

@@ -10,19 +10,19 @@ const meta: Meta<Slider> = {
     argTypes: {
         description: {
             control: {
-                type: "text"
-            }
+                type: "text",
+            },
         },
-        label: { table: { disable: true } }
+        label: { table: { disable: true } },
     },
     component: Slider,
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=37%3A353&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=37%3A353&show-proto-sidebar=0"
-        }
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=37%3A353&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=37%3A353&show-proto-sidebar=0",
+        },
     },
-    title: "Components/Slider"
+    title: "Components/Slider",
 }
 export default meta
 
@@ -32,7 +32,7 @@ export const StoryDescription: Story = {}
 StoryDescription.storyName = "Expect description to render"
 StoryDescription.args = {
     description: StoryDescriptionDescription,
-    label: StoryDescriptionLabel
+    label: StoryDescriptionLabel,
 }
 StoryDescription.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)

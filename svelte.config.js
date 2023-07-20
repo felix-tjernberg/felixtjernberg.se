@@ -12,8 +12,8 @@ const config = {
             $components: "src/lib/components",
             $compositions: "src/lib/compositions",
             $stores: "src/lib/utilities/stores",
-            $utilities: "src/lib/utilities"
-        }
+            $utilities: "src/lib/utilities",
+        },
     },
     // Consult https://kit.svelte.dev/docs/integrations#preprocessors
     // for more information about preprocessors
@@ -22,11 +22,11 @@ const config = {
             plugins: [
                 autoprefixer("> 0.01%"),
                 cssnano({
-                    preset: "default"
-                })
-            ]
-        }
-    })
+                    preset: "default",
+                }),
+            ],
+        },
+    }),
 }
 
 export default config

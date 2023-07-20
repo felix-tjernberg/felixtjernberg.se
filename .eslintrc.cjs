@@ -5,33 +5,33 @@ module.exports = {
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "prettier",
-        "plugin:storybook/recommended"
+        "plugin:storybook/recommended",
     ],
     plugins: ["svelte3", "@typescript-eslint"],
     ignorePatterns: ["*.cjs"],
     overrides: [
         {
             files: ["*.svelte"],
-            processor: "svelte3/svelte3"
-        }
+            processor: "svelte3/svelte3",
+        },
     ],
     settings: {
-        "svelte3/typescript": () => require("typescript")
+        "svelte3/typescript": () => require("typescript"),
     },
     parserOptions: {
         sourceType: "module",
-        ecmaVersion: 2020
+        ecmaVersion: 2020,
     },
     env: {
         browser: true,
         es2017: true,
-        node: true
+        node: true,
     },
     rules: {
         "@typescript-eslint/ban-ts-comment": "off",
         "no-unused-vars": "warn",
         "sort-imports": ["warn", { ignoreCase: true }],
         "sort-keys": ["warn", "asc", { caseSensitive: false, natural: true }],
-        "sort-vars": "warn"
-    }
+        "sort-vars": "warn",
+    },
 }

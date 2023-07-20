@@ -8,16 +8,16 @@ export const DefaultState: Story = {}
 
 const meta: Meta<SingleDigitInput> = {
     argTypes: {
-        label: { table: { disable: true } }
+        label: { table: { disable: true } },
     },
     component: SingleDigitInput,
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=28%3A333&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=28%3A333&show-proto-sidebar=0"
-        }
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=28%3A333&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=28%3A333&show-proto-sidebar=0",
+        },
     },
-    title: "Components/Single Digit Input"
+    title: "Components/Single Digit Input",
 }
 export default meta
 
@@ -50,7 +50,7 @@ StoryPressUpAndDown10Times.play = async ({ canvasElement }) => {
 export const StoryValuePropertyIsNaN: Story = {}
 StoryValuePropertyIsNaN.storyName = 'Expect value property to be "" if not a number'
 StoryValuePropertyIsNaN.args = {
-    value: NaN
+    value: NaN,
 }
 StoryValuePropertyIsNaN.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)

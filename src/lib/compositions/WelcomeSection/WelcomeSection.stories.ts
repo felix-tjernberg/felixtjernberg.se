@@ -11,11 +11,11 @@ const meta: Meta<WelcomeSectionStory> = {
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=101%3A1370&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=101%3A1370&show-proto-sidebar=0"
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=101%3A1370&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=101%3A1370&show-proto-sidebar=0",
         },
-        layout: "fullscreen"
+        layout: "fullscreen",
     },
-    title: "Compositions/Welcome Section"
+    title: "Compositions/Welcome Section",
 }
 export default meta
 

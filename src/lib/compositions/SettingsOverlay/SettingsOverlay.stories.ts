@@ -14,11 +14,11 @@ const meta: Meta<SettingsOverlayStory> = {
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=119%3A2145&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=119%3A2145&show-proto-sidebar=0"
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=119%3A2145&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=119%3A2145&show-proto-sidebar=0",
         },
-        layout: "fullscreen"
+        layout: "fullscreen",
     },
-    title: "Compositions/Settings Overlay"
+    title: "Compositions/Settings Overlay",
 }
 export default meta
 

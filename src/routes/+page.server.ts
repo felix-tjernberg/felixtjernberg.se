@@ -4,6 +4,6 @@ import type { PageServerLoad } from "./$types"
 export const load = (() => {
     return {
         email: EMAIL,
-        phoneNumber: PHONE_NUMBER
+        phoneNumber: PHONE_NUMBER,
     }
 }) satisfies PageServerLoad

@@ -7,8 +7,8 @@ export const DefaultState: Story = {}
 const meta: Meta<AllComponents> = {
     component: AllComponents,
     parameters: {
-        layout: "fullscreen"
+        layout: "fullscreen",
     },
-    title: "Compositions/All Components"
+    title: "Compositions/All Components",
 }
 export default meta
