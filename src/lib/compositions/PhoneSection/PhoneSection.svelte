@@ -1,21 +1,20 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
+    import { answeredCall, conversationDone, momCalling, phoneRingtonePaused } from "$stores/states/phone"
     import phone from "$assets/images/phone.png"
     import PhoneCanvas from "./PhoneCanvas.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
-    import { phoneRingtonePaused } from "$stores/computerSectionStores"
 </script>
 
 <section id="phone-section" class="gap">
-    {#if !JSON.parse($conversationDone) && (JSON.parse($momCalling) || JSON.parse($answeredCall))}
+    {#if !$conversationDone && ($momCalling || $answeredCall)}
         <p
             class="background-blur border glow font-family-primary-fat"
             data-testid="answer-instruction"
             id="answer-instruction"
             transition:fade>
-            {#if JSON.parse($momCalling)}
+            {#if $momCalling}
                 Press <br />
                 "C" <br />
                 button to answer
@@ -26,14 +25,14 @@
             {/if}
         </p>
     {/if}
-    {#if JSON.parse($answeredCall)}
+    {#if $answeredCall}
         <TextConversation />
     {/if}
     <h2 class="visually-hidden">Phone</h2>
     <div class="relative">
         <PhoneCanvas />
         <picture><img src={phone} alt="nokia 3310 launched 2000" /></picture>
-        {#if JSON.parse($momCalling)}
+        {#if $momCalling}
             <button
                 data-testid="c-button"
                 class="absolute glow opacity-flashing"

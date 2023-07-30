@@ -24,31 +24,31 @@ export default meta
 
 export const StoryFirstScreen: Story = {}
 StoryFirstScreen.storyName = "First screen"
-StoryFirstScreen.args = { screenIndex: 0 }
+StoryFirstScreen.args = { computerScreenIndex: 0 }
 
 export const StorySecondScreen: Story = {}
 StorySecondScreen.storyName = "Second screen"
-StorySecondScreen.args = { screenIndex: 1 }
+StorySecondScreen.args = { computerScreenIndex: 1 }
 
 export const StoryThirdScreen: Story = {}
 StoryThirdScreen.storyName = "Third screen"
-StoryThirdScreen.args = { screenIndex: 2 }
+StoryThirdScreen.args = { computerScreenIndex: 2 }
 
 export const StoryFourthScreen: Story = {}
 StoryFourthScreen.storyName = "Fourth screen"
-StoryFourthScreen.args = { screenIndex: 3 }
+StoryFourthScreen.args = { computerScreenIndex: 3 }
 
 export const StoryFifthScreen: Story = {}
 StoryFifthScreen.storyName = "Fifth screen"
-StoryFifthScreen.args = { screenIndex: 4 }
+StoryFifthScreen.args = { computerScreenIndex: 4 }
 
 export const StorySixthScreen: Story = {}
 StorySixthScreen.storyName = "Sixth screen"
-StorySixthScreen.args = { screenIndex: 5 }
+StorySixthScreen.args = { computerScreenIndex: 5 }
 
 export const StorySeventhScreen: Story = {}
 StorySeventhScreen.storyName = "Seventh screen"
-StorySeventhScreen.args = { screenIndex: 6 }
+StorySeventhScreen.args = { computerScreenIndex: 6 }
 
 export const StoryScavengerHunt: Story = {}
 StoryScavengerHunt.storyName = "Test Scavenger Hunt"

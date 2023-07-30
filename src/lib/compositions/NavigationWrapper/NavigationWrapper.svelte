@@ -1,7 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { activeSection } from "$stores/activeSectionStore"
-    import { SectionsSchema } from "./NavigationSectionsSchema"
+    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
     import Welcome from "$assets/svgs/Welcome.svelte"
     import Phone from "$assets/svgs/Phone.svelte"
     import Computer from "$assets/svgs/Computer.svelte"

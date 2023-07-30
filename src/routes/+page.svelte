@@ -1,15 +1,15 @@
 <script lang="ts">
     import "$lib/stylesheets/stylesheets.css"
-    import { activeSection } from "$stores/activeSectionStore"
-    import { audioVolume } from "$stores/audioVolumeStore"
+    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { audioVolume } from "$stores/settings/audioVolume"
     import { browser } from "$app/environment"
-    import { darkMode } from "$stores/darkModeStore"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
-    import { firstVisit } from "$stores/firstVisitStore"
-    import { likesEightBitFont } from "$stores/likesEightBitFontStore"
+    import { darkMode } from "$stores/settings/darkMode"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/computer"
+    import { firstVisit } from "$stores/states/firstVisit"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
     import { locale } from "svelte-intl-precompile"
     import { t } from "svelte-intl-precompile"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
+    import { phoneRingtonePaused } from "$stores/states/phone"
 
     import Button from "$components/Button/Button.svelte"
     import FirstTimeVisitOverlay from "$compositions/FirstTimeVisitOverlay/FirstTimeVisitOverlay.svelte"
@@ -41,8 +41,8 @@
 
     $: if (browser) document.documentElement.lang = $locale
 
-    $: if (browser) window.document.body.dataset.darkMode = $darkMode
-    $: if (browser) window.document.body.dataset.eightBitFont = $likesEightBitFont
+    $: if (browser) window.document.body.dataset.darkMode = String($darkMode)
+    $: if (browser) window.document.body.dataset.eightBitFont = String($likesEightBitFont)
 
     // if (browser) window.localStorage.clear()
 </script>
@@ -78,12 +78,12 @@
 
 {#if !navigationActive}
     <Button
-        flashing={JSON.parse($firstVisit)}
+        flashing={$firstVisit}
         id="navigation-button"
         href="/navigation"
         label="Open navigation"
         on:click={(event) => {
-            if (JSON.parse($firstVisit)) $firstVisit = false
+            if ($firstVisit) $firstVisit = false
             event.preventDefault()
             $activeSection = SectionsSchema.enum.none
         }}>

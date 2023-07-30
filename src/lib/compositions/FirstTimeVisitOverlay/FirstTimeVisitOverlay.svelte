@@ -3,20 +3,12 @@
     import { onMount } from "svelte"
     import { browser } from "$app/environment"
 
-    import { activeSection } from "$stores/activeSectionStore"
-    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
-    import { audioVolume } from "$stores/audioVolumeStore"
-    import { cookiesAllowed } from "$stores/cookiesAllowedStore"
-    import { darkMode } from "$stores/darkModeStore"
-    import {
-        dialUpAudioCurrentTime,
-        dialUpAudioPaused,
-        phoneRingtonePaused,
-        screenIndex,
-    } from "$stores/computerSectionStores"
-    import { firstVisit, firstVisitNotification } from "$stores/firstVisitStore"
-    import { likesEightBitFont } from "$stores/likesEightBitFontStore"
-    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { audioVolume } from "$stores/settings/audioVolume"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { darkMode } from "$stores/settings/darkMode"
+    import { firstVisit, firstVisitNotification } from "$stores/states/firstVisit"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
@@ -24,7 +16,6 @@
     import Moon from "$assets/svgs/Moon.svelte"
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
     const dispatch = createEventDispatcher()
 
@@ -35,7 +26,7 @@
     let detailsOpen: boolean = false
 
     onMount(async () => {
-        if (browser && !JSON.parse($cookiesAllowed)) {
+        if ($cookiesAllowed) {
             $activeSection = SectionsSchema.enum.welcome
             dialog.showModal()
             $firstVisit = true
@@ -75,22 +66,6 @@
                         $firstVisitNotification = true
                         dispatch("startElevatorMusic")
                         if (browser) {
-                            window.localStorage.setItem("cookiesAllowed", "true")
-                            activeSection.persistValue()
-                            answeredCall.persistValue()
-                            conversationDone.persistValue()
-                            momCalling.persistValue()
-                            audioVolume.persistValue()
-                            cookiesAllowed.persistValue()
-                            darkMode.persistValue()
-                            dialUpAudioCurrentTime.persistValue()
-                            dialUpAudioPaused.persistValue()
-                            phoneRingtonePaused.persistValue()
-                            likesEightBitFont.persistValue()
-                            scavengerHuntDone.persistValue()
-                            firstVisit.persistValue()
-                            screenIndex.persistValue()
-                            firstVisitNotification.persistValue()
                             $cookiesAllowed = true
                         }
                     }} />

@@ -1,9 +1,9 @@
 <script lang="ts">
     import FirstTimeVisitOverlay from "./FirstTimeVisitOverlay.svelte"
-    import { cookiesAllowed } from "$stores/cookiesAllowedStore"
-    import { darkMode } from "$stores/darkModeStore"
-    import { likesEightBitFont } from "$stores/likesEightBitFontStore"
-    import { audioVolume } from "$stores/audioVolumeStore"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { darkMode } from "$stores/settings/darkMode"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
+    import { audioVolume } from "$stores/settings/audioVolume"
 
     window.localStorage.clear()
     $audioVolume = 0.1

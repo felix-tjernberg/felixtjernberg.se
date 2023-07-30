@@ -2,13 +2,13 @@
     import Coach from "$components/Coach/Coach.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
     import { fade } from "svelte/transition"
-    import { screenIndex } from "$stores/computerSectionStores"
+    import { computerScreenIndex } from "$stores/states/computer"
     import { onMount } from "svelte"
 
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 3) $screenIndex = 5
+    $: if (value === 3) $computerScreenIndex = 5
     // onMount(() => input.focus())
 </script>
 

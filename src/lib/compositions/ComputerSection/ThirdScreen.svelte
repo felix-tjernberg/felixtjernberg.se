@@ -2,12 +2,12 @@
     import TextInput from "$components/TextInput/TextInput.svelte"
     import { onMount } from "svelte"
     import { fade } from "svelte/transition"
-    import { screenIndex } from "$stores/computerSectionStores"
+    import { computerScreenIndex } from "$stores/states/computer"
 
     let input: HTMLInputElement
     let value: string
 
-    $: if (String(value).toLowerCase() === "yes") $screenIndex = 3
+    $: if (String(value).toLowerCase() === "yes") $computerScreenIndex = 3
     // onMount(() => { input.focus()})
 </script>
 

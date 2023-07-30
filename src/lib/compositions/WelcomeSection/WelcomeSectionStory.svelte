@@ -1,14 +1,12 @@
 <script lang="ts">
-    import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
     import WelcomeSection from "./WelcomeSection.svelte"
 
-    let activeSection: Sections
+    let activeSection = "TODO"
 </script>
 
 <div>
     <p class="visually-hidden" data-testid="navigation-indicator">{activeSection}</p>
-    <WelcomeSection bind:activeSection />
+    <WelcomeSection />
 </div>
 
 <style>

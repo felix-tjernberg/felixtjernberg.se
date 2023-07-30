@@ -1,16 +1,16 @@
 <script lang="ts">
     import { onMount } from "svelte"
     import { fade } from "svelte/transition"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/computerSectionStores"
-    import { audioVolume } from "$stores/audioVolumeStore"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/computer"
+    import { audioVolume } from "$stores/settings/audioVolume"
     import Slider from "$components/Slider/Slider.svelte"
-    import { screenIndex } from "$stores/computerSectionStores"
+    import { computerScreenIndex } from "$stores/states/computer"
 
     let jsLoaded = false
     $dialUpAudioPaused = true
     $dialUpAudioCurrentTime = 0
 
-    $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) $screenIndex = 2
+    $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) $computerScreenIndex = 2
 
     onMount(() => {
         $dialUpAudioPaused = false

@@ -9,10 +9,9 @@
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { activeSection } from "$stores/activeSectionStore"
-    import { answeredCall } from "$stores/phoneSectionStores"
-    import { screenIndex } from "$stores/computerSectionStores"
+    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { answeredCall } from "$stores/states/phone"
+    import { computerScreenIndex } from "$stores/states/computer"
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
 
@@ -21,7 +20,7 @@
 
 <section id="computer-section" class="flex-column-center relative">
     <h2 class="visually-hidden absolute">computer</h2>
-    {#if $screenIndex == 0}
+    {#if $computerScreenIndex == 0}
         <Notification bind:active={clueNotificationActive} testid="clue-notification">
             <p>
                 PIN CODE:<br />
@@ -29,9 +28,9 @@
             </p>
         </Notification>
     {/if}
-    {#if $screenIndex == 5}
+    {#if $computerScreenIndex == 5}
         <Notification active={true} closeButton={false} testid="mom-calling-notification">
-            {#if !JSON.parse($answeredCall)}
+            {#if !$answeredCall}
                 <p>
                     Mom is calling
                     <a
@@ -46,18 +45,18 @@
             {/if}
         </Notification>
     {/if}
-    {#if $screenIndex == 6}
+    {#if $computerScreenIndex == 6}
         <Notification active={true} testid="hunt-done-notification">
             <p>Scavenger hunt is now done and can be reset in the settings menu</p>
         </Notification>
     {/if}
     <div id="computer" class="flex-column-center relative">
-        <svelte:component this={SCREENS[$screenIndex]} />
+        <svelte:component this={SCREENS[$computerScreenIndex]} />
         <div id="computer-crt-effect" class="absolute" />
-        {#if $screenIndex == 0}
+        {#if $computerScreenIndex == 0}
             <FirstScreenStickyNotes bind:clueNotificationActive />
         {/if}
-        {#if $screenIndex == 6}
+        {#if $computerScreenIndex == 6}
             <SeventhScreenStickyNotes />
         {/if}
     </div>

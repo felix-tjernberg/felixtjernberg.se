@@ -1,10 +1,10 @@
 <script lang="ts">
     import SettingsOverlay from "./SettingsOverlay.svelte"
-    // import { audioVolume } from "$stores/audioVolumeStore"
-    import { cookiesAllowed } from "$stores/cookiesAllowedStore"
-    import { darkMode } from "$stores/darkModeStore"
-    import { likesEightBitFont } from "$stores/likesEightBitFontStore"
-    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+    // import { audioVolume } from "$stores/settings/audioVolume"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { darkMode } from "$stores/settings/darkMode"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
+    import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
 
     let dialog: HTMLDialogElement
 

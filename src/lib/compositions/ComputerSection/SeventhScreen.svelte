@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { activeSection } from "$stores/activeSectionStore"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
 
     $scavengerHuntDone = true
 </script>

@@ -4,7 +4,7 @@
     import TEXT_CONVERSATION from "./textConversation"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
     import typewriter from "$utilities/transitions/typewriter"
-    import { conversationDone } from "$stores/phoneSectionStores"
+    import { conversationDone } from "$stores/states/phone"
 
     let section: HTMLElement
 

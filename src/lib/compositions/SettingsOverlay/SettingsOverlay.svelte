@@ -1,11 +1,11 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { audioVolume } from "$stores/audioVolumeStore"
-    import { cookiesAllowed } from "$stores/cookiesAllowedStore"
-    import { darkMode } from "$stores/darkModeStore"
-    import { likesEightBitFont } from "$stores/likesEightBitFontStore"
-    import { screenIndex } from "$stores/computerSectionStores"
-    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+    import { audioVolume } from "$stores/settings/audioVolume"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { darkMode } from "$stores/settings/darkMode"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
+    import { computerScreenIndex } from "$stores/states/computer"
+    import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
@@ -63,7 +63,7 @@
                     label="yes restart scavenger hunt!"
                     on:click={() => {
                         $scavengerHuntDone = false
-                        $screenIndex = 0
+                        $computerScreenIndex = 0
                     }}
                     testid="reset-scavenger-hunt" />
             </div>

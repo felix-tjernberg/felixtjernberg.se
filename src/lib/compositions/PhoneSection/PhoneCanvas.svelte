@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte"
-    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
+    import { answeredCall, conversationDone, momCalling } from "$stores/states/phone"
 
     const FONT_SIZE = 12 as const
 
@@ -24,15 +24,15 @@
         const middleY = canvasHeight / 2
         const middleX = canvasWidth / 2
 
-        if (JSON.parse($answeredCall)) {
+        if ($answeredCall) {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
             canvasContext.fillText("mom", middleX, middleY + FONT_SIZE / 2)
         }
-        if (JSON.parse($momCalling)) {
+        if ($momCalling) {
             canvasContext.fillText("mom", middleX, middleY - 2)
             canvasContext.fillText("calling", middleX, middleY + FONT_SIZE + 2)
         }
-        if (JSON.parse($conversationDone)) {
+        if ($conversationDone) {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
         }
     }

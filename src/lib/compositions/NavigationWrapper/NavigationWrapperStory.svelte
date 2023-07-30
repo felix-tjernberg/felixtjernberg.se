@@ -1,15 +1,13 @@
 <script lang="ts">
     import NavigationWrapper from "./NavigationWrapper.svelte"
-    import { SectionsSchema } from "./NavigationSectionsSchema"
-    import type { Sections } from "./NavigationSectionsSchema"
-    import Settings from "$assets/svgs/SettingsIcon.svelte"
+    import { SectionsSchema, type Sections } from "$stores/states/activeSection"
 
     let navigationActive: boolean
-    let activeSection: Sections
+    let activeSection: Sections = SectionsSchema.enum.none
 </script>
 
 <div id="navigation-wrapper-story" class="relative">
-    <NavigationWrapper bind:navigationActive bind:activeSection>
+    <NavigationWrapper bind:navigationActive>
         <section slot="phone">
             <p>phone</p>
         </section>
@@ -25,7 +23,6 @@
         <section slot="contact">
             <p>contact</p>
         </section>
-        <Settings slot="settings" />
     </NavigationWrapper>
     <button
         class="absolute"

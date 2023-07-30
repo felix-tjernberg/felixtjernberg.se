@@ -1,18 +1,18 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { answeredCall, momCalling } from "$stores/phoneSectionStores"
-    import { screenIndex, phoneRingtonePaused } from "$stores/computerSectionStores"
+    import { answeredCall, momCalling, phoneRingtonePaused } from "$stores/states/phone"
+    import { computerScreenIndex } from "$stores/states/computer"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
     import { onMount } from "svelte"
 
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 200) $screenIndex = 6
+    $: if (value === 200) $computerScreenIndex = 6
 
     onMount(() => {
         // input.focus()
-        if (JSON.parse($answeredCall) === true) return
+        if ($answeredCall) return
         $phoneRingtonePaused = false
         $momCalling = true
         $answeredCall = false
