@@ -1,14 +1,10 @@
 <script lang="ts">
     import { activeSection, SectionsSchema } from "$stores/states/activeSection"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
+    import { page } from "$app/stores"
 
     import LinkedIn from "$assets/svgs/LinkedIn.svelte"
     import GitHub from "$assets/svgs/GitHub.svelte"
-
-    export let data: {
-        email: string
-        phoneNumber: string
-    }
 </script>
 
 <section id="contact-section">
@@ -28,9 +24,9 @@
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
         {#if $scavengerHuntDone}
             <p class="font-size-300" data-testid="email-and-phone-paragraph">
-                Email Adress: <br class="br-small-screen" />{data.email}
+                Email Adress: <br class="br-small-screen" />{$page.data.email}
                 <br />
-                Phone Number: <br class="br-small-screen" />{data.phoneNumber}
+                Phone Number: <br class="br-small-screen" />{$page.data.phoneNumber}
             </p>
         {:else}
             <p class="font-size-300" data-testid="scavenger-hunt-paragraph">

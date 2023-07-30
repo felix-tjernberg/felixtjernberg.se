@@ -8,7 +8,7 @@
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { darkMode } from "$stores/settings/darkMode"
     import { firstVisit, firstVisitNotification } from "$stores/states/firstVisit"
-    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
 
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
@@ -24,17 +24,9 @@
 
     let decidingAboutCookies: boolean = true
     let detailsOpen: boolean = false
-
-    onMount(async () => {
-        if ($cookiesAllowed) {
-            $activeSection = SectionsSchema.enum.welcome
-            dialog.showModal()
-            $firstVisit = true
-        }
-    })
 </script>
 
-<dialog bind:this={dialog} id="first-time-visit-dialog" class="relative background-blur">
+<dialog open={$firstVisit} id="first-time-visit-dialog" class="relative background-blur">
     <h2 class="visually-hidden">First Time Visit Dialog</h2>
     <div id="first-time-visit-box" class="background-blur margin-vertical-flow margin glow">
         {#if decidingAboutCookies}

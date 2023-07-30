@@ -3,7 +3,7 @@
     import { audioVolume } from "$stores/settings/audioVolume"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { darkMode } from "$stores/settings/darkMode"
-    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
     import { computerScreenIndex } from "$stores/states/computer"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
 
@@ -17,10 +17,6 @@
     import { onMount } from "svelte"
 
     export let dialog: HTMLDialogElement
-    onMount(() => {
-        $likesEightBitFont = JSON.parse($likesEightBitFont)
-        $darkMode = JSON.parse($darkMode)
-    })
 </script>
 
 <dialog bind:this={dialog} id="settings-dialog" class="relative background-blur" data-testid="settings-dialog">
@@ -42,7 +38,7 @@
             </BooleanButton>
         </div>
         <div class="flex-column-center">
-            {#if JSON.parse($cookiesAllowed)}
+            {#if $cookiesAllowed}
                 <h3>Changed your mind about cookies?</h3>
                 <Button
                     label="Yes delete cookies!"
@@ -56,7 +52,7 @@
                     testid="cookies-allowed-true" />
             {/if}
         </div>
-        {#if JSON.parse($scavengerHuntDone)}
+        {#if $scavengerHuntDone}
             <div class="flex-column-center" transition:fade={{ duration: 1337 }}>
                 <h3>Want to do the scavenger hunt again?</h3>
                 <Button

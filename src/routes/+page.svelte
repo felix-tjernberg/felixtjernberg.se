@@ -1,12 +1,22 @@
 <script lang="ts">
     import "$lib/stylesheets/stylesheets.css"
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
-    import { audioVolume } from "$stores/settings/audioVolume"
+    import { activeSection, activeSectionKey, SectionsSchema } from "$stores/states/activeSection"
+    import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { browser } from "$app/environment"
-    import { darkMode } from "$stores/settings/darkMode"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/computer"
-    import { firstVisit } from "$stores/states/firstVisit"
-    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
+    import { darkMode, darkModeKey } from "$stores/settings/darkMode"
+    import {
+        computerScreenIndex,
+        computerScreenIndexKey,
+        dialUpAudioCurrentTime,
+        dialUpAudioPaused,
+    } from "$stores/states/computer"
+    import {
+        firstVisit,
+        firstVisitKey,
+        firstVisitNotification,
+        firstVisitNotificationKey,
+    } from "$stores/states/firstVisit"
+    import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { locale } from "svelte-intl-precompile"
     import { t } from "svelte-intl-precompile"
     import { phoneRingtonePaused } from "$stores/states/phone"
@@ -23,12 +33,20 @@
     import ContactSection from "$compositions/ContactSection/ContactSection.svelte"
     import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
     import WelcomeSection from "$compositions/WelcomeSection/WelcomeSection.svelte"
-    import { onMount } from "svelte"
+    import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
+    import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
+    import { cookiesAllowed, cookiesAllowedKey } from "$stores/settings/cookiesAllowed"
 
-    export let data: {
-        email: string
-        phoneNumber: string
-    }
+    export let data: DataBasedOnCookies | DataBasedOnDefaults
+    $activeSection = data[activeSectionKey]
+    $audioVolume = data[audioVolumeKey]
+    $computerScreenIndex = data[computerScreenIndexKey]
+    $cookiesAllowed = data[cookiesAllowedKey]
+    $darkMode = data[darkModeKey]
+    $firstVisit = data[firstVisitKey]
+    $firstVisitNotification = data[firstVisitNotificationKey]
+    $likesEightBitFont = data[likesEightBitFontKey]
+    $scavengerHuntDone = data[scavengerHuntDoneKey]
 
     let settingsOverlay: HTMLDialogElement
 
@@ -71,7 +89,7 @@
 <NavigationWrapper bind:navigationActive>
     <CoachSection slot="coach" />
     <ComputerSection slot="computer" />
-    <ContactSection slot="contact" {data} />
+    <ContactSection slot="contact" />
     <PhoneSection slot="phone" />
     <WelcomeSection slot="welcome" />
 </NavigationWrapper>

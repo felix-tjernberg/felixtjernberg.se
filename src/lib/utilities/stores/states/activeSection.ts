@@ -6,3 +6,4 @@ export const SectionsSchema = z.enum(SECTIONS)
 export type Sections = z.infer<typeof SectionsSchema>
 
 export const activeSection = writable<Sections>(SectionsSchema.enum.none)
+export const activeSectionKey = "activeSection" as const

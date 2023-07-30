@@ -2,7 +2,7 @@
     import FirstTimeVisitOverlay from "./FirstTimeVisitOverlay.svelte"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { darkMode } from "$stores/settings/darkMode"
-    import { likesEightBitFont } from "$stores/settings/likesEightBitFontStore"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
     import { audioVolume } from "$stores/settings/audioVolume"
 
     window.localStorage.clear()
