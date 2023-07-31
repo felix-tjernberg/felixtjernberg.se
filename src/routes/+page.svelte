@@ -1,9 +1,21 @@
 <script lang="ts">
-    import "$lib/stylesheets/stylesheets.css"
+    import Button from "$components/Button/Button.svelte"
+    import FirstTimeVisitOverlay from "$compositions/FirstTimeVisitOverlay/FirstTimeVisitOverlay.svelte"
+    import NavigationIcon from "$assets/svgs/NavigationIcon.svelte"
+    import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
+    import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
+    import NavigationWrapper from "$compositions/NavigationWrapper/NavigationWrapper.svelte"
+    import CoachSection from "$compositions/CoachSection/CoachSection.svelte"
+    import ComputerSection from "$compositions/ComputerSection/ComputerSection.svelte"
+    import ContactSection from "$compositions/ContactSection/ContactSection.svelte"
+    import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
+    import WelcomeSection from "$compositions/WelcomeSection/WelcomeSection.svelte"
+
     import { activeSection, activeSectionKey, SectionsSchema } from "$stores/states/activeSection"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { browser } from "$app/environment"
-    import { darkMode, darkModeKey } from "$stores/settings/darkMode"
+    import { cookiesAllowed, cookiesAllowedKey } from "$stores/settings/cookiesAllowed"
+    import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
     import {
         computerScreenIndex,
         computerScreenIndexKey,
@@ -16,28 +28,16 @@
         firstVisitNotification,
         firstVisitNotificationKey,
     } from "$stores/states/firstVisit"
+    import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { locale } from "svelte-intl-precompile"
-    import { t } from "svelte-intl-precompile"
     import { phoneRingtonePaused } from "$stores/states/phone"
-
-    import Button from "$components/Button/Button.svelte"
-    import FirstTimeVisitOverlay from "$compositions/FirstTimeVisitOverlay/FirstTimeVisitOverlay.svelte"
-    import NavigationIcon from "$assets/svgs/NavigationIcon.svelte"
-    import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
-    import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
-    import StarfieldBackground from "$components/StarfieldBackground.svelte"
-    import NavigationWrapper from "$compositions/NavigationWrapper/NavigationWrapper.svelte"
-    import CoachSection from "$compositions/CoachSection/CoachSection.svelte"
-    import ComputerSection from "$compositions/ComputerSection/ComputerSection.svelte"
-    import ContactSection from "$compositions/ContactSection/ContactSection.svelte"
-    import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
-    import WelcomeSection from "$compositions/WelcomeSection/WelcomeSection.svelte"
-    import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
     import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
-    import { cookiesAllowed, cookiesAllowedKey } from "$stores/settings/cookiesAllowed"
+    import { t } from "svelte-intl-precompile"
 
     export let data: DataBasedOnCookies | DataBasedOnDefaults
+
+    // Initialize website state
     $activeSection = data[activeSectionKey]
     $audioVolume = data[audioVolumeKey]
     $computerScreenIndex = data[computerScreenIndexKey]
@@ -61,8 +61,6 @@
 
     $: if (browser) window.document.body.dataset.darkMode = String($darkMode)
     $: if (browser) window.document.body.dataset.eightBitFont = String($likesEightBitFont)
-
-    // if (browser) window.localStorage.clear()
 </script>
 
 <svelte:head>
@@ -83,8 +81,6 @@
     bind:paused={$dialUpAudioPaused}
     bind:currentTime={$dialUpAudioCurrentTime}
     src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
-
-<StarfieldBackground />
 
 <NavigationWrapper bind:navigationActive>
     <CoachSection slot="coach" />
