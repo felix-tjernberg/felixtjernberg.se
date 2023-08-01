@@ -9,7 +9,6 @@
     import ComputerSection from "$compositions/ComputerSection/ComputerSection.svelte"
     import ContactSection from "$compositions/ContactSection/ContactSection.svelte"
     import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
-    import WelcomeSection from "$compositions/WelcomeSection/WelcomeSection.svelte"
 
     import { activeSection, activeSectionKey, SectionsSchema } from "$stores/states/activeSection"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
@@ -87,7 +86,6 @@
     <ComputerSection slot="computer" />
     <ContactSection slot="contact" />
     <PhoneSection slot="phone" />
-    <WelcomeSection slot="welcome" />
 </NavigationWrapper>
 
 {#if !navigationActive}
