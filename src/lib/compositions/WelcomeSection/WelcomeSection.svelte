@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { firstVisit, firstVisitNotification } from "$stores/states/firstVisit"
+    import { firstVisit, firstVisitNotification, firstVisitNotificationKey } from "$stores/states/firstVisit"
 
     import Notification from "$components/Notification/Notification.svelte"
 
@@ -8,7 +8,7 @@
 </script>
 
 {#if $firstVisitNotification}
-    <Notification active={$firstVisitNotification}>
+    <Notification bind:active={$firstVisitNotification} formName={firstVisitNotificationKey}>
         <p class="font-size-200">
             If you change your mind about any settings click the cogwheel icon in the top right of the screen
         </p>

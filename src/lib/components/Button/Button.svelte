@@ -12,9 +12,11 @@
     export let hoverOverlay: boolean = true
     export let href: string | undefined = undefined
     export let id: string | undefined = undefined
+    export let name: string | undefined = undefined
     export let style: string | undefined = undefined
     export let testid: string | undefined = undefined
     export let underlined: boolean = false
+    export let value: string | undefined = undefined
 
     const elementType: "a" | "button" = href ? "a" : "button"
 
@@ -70,7 +72,9 @@
     {id}
     on:click
     on:mouseup={handeMouseUp}
+    {name}
     {style}
+    {value}
     tabindex="-1">
     {#if hoverOverlay}
         <div aria-hidden="true" class="absolute hover-overlay" class:opacity-flashing={flashing} />

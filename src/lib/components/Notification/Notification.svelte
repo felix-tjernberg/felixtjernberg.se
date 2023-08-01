@@ -1,8 +1,14 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
     import Button from "$components/Button/Button.svelte"
+
+    import { enhance } from "$app/forms"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { fade } from "svelte/transition"
+    import { formNameKey, valueKey } from "$utilities/globalKeys"
+
     export let active = false
     export let closeButton = true
+    export let formName: string | undefined = undefined
     export let testid: string | undefined = undefined
 </script>
 
@@ -12,8 +18,19 @@
         transition:fade
         data-testid={testid}>
         <slot />
+        <!-- TODO: change close button to be a toggle instead -->
         {#if closeButton}
-            <Button label="close notification" underlined={true} on:click={() => (active = false)} />
+            <form
+                action="?/toggleBoolean"
+                method="POST"
+                use:enhance={({ cancel }) => {
+                    cancel()
+                    active = false
+                    if ($cookiesAllowed) document.cookie = `${formName}=true;sameSite:lax;}`
+                }}>
+                <input type="hidden" name={formNameKey} value={formName} />
+                <Button label="close notification" underlined={true} name={valueKey} value="true" />
+            </form>
         {/if}
     </aside>
 {/if}

@@ -1,7 +1,9 @@
+import { type Actions, fail, redirect } from "@sveltejs/kit"
 import { activeSectionKey, type Sections, SectionsSchema } from "$stores/states/activeSection"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import { firstVisitKey, firstVisitNotificationKey } from "$stores/states/firstVisit"
+import { formNameKey, valueKey } from "$utilities/globalKeys"
 import { computerScreenIndexKey } from "$stores/states/computer"
 import { cookiesAllowedKey } from "$stores/settings/cookiesAllowed"
 import { darkModeKey } from "$stores/settings/darkMode"
@@ -45,7 +47,7 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
 
 export const load = (({ cookies }) => {
     // Return data state based on cookies
-    const cookiesAllowed = cookies.get("cookiesAllowed") === "true"
+    const cookiesAllowed = cookies.get(cookiesAllowedKey) === "true"
     if (cookiesAllowed) {
         return {
             [activeSectionKey]: getState<Sections>(
@@ -59,7 +61,7 @@ export const load = (({ cookies }) => {
             [darkModeKey]: cookies.get(darkModeKey) === "true",
             email: EMAIL,
             [firstVisitKey]: cookies.get(firstVisitKey) === "true",
-            [firstVisitNotificationKey]: cookies.get(firstVisitNotificationKey) === "true",
+            [firstVisitNotificationKey]: !(cookies.get(firstVisitNotificationKey) === "true"),
             [likesEightBitFontKey]: cookies.get(likesEightBitFontKey) === "true",
             phoneNumber: PHONE_NUMBER,
             [scavengerHuntDoneKey]: cookies.get(scavengerHuntDoneKey) === "true",
@@ -79,3 +81,30 @@ export const load = (({ cookies }) => {
         [scavengerHuntDoneKey]: false,
     } as DataBasedOnDefaults
 }) satisfies PageServerLoad
+
+export const actions = {
+    allowCookies: async ({ cookies }) => {
+        cookies.set(cookiesAllowedKey, "true")
+        throw redirect(302, "/")
+    },
+    removeCookies: async ({ cookies }) => {
+        cookies.getAll().forEach((cookie) => cookies.delete(cookie.name))
+        throw redirect(302, "/")
+    },
+    toggleBoolean: async ({ cookies, request }) => {
+        if (cookies.get(cookiesAllowedKey) === "true") {
+            const formData = await request.formData()
+
+            const key = formData.get(formNameKey)
+            const boolean = formData.get(valueKey) === "true"
+
+            if (key === null) return fail(400, { error: "No formName key supplied" })
+
+            cookies.set(String(key), String(boolean), { httpOnly: false })
+
+            throw redirect(302, "/")
+        }
+
+        return fail(400, { error: "Cookies not allowed" })
+    },
+} satisfies Actions
