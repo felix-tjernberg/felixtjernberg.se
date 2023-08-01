@@ -1,9 +1,9 @@
 <script lang="ts">
     import NavigationWrapper from "./NavigationWrapper.svelte"
-    import { SectionsSchema, type Sections } from "$stores/states/activeSection"
+    import { activeSection, SectionsSchema, type Sections } from "$stores/states/activeSection"
 
     let navigationActive: boolean
-    let activeSection: Sections = SectionsSchema.enum.none
+    $activeSection = SectionsSchema.enum.none
 </script>
 
 <div id="navigation-wrapper-story" class="relative">
@@ -11,11 +11,11 @@
         <section slot="phone">
             <p>phone</p>
         </section>
+        <section slot="blog">
+            <p>blog</p>
+        </section>
         <section slot="computer">
             <p>computer</p>
-        </section>
-        <section slot="welcome">
-            <p>welcome</p>
         </section>
         <section slot="coach">
             <p>coach</p>
@@ -28,12 +28,12 @@
         class="absolute"
         class:visually-hidden={navigationActive}
         on:click={() => {
-            activeSection = SectionsSchema.enum.none
+            $activeSection = SectionsSchema.enum.none
         }}
         data-testid="toggle-navigation">open navigation</button>
     <button
         class="absolute visually-hidden"
-        on:click={() => (activeSection = SectionsSchema.enum.coach)}
+        on:click={() => ($activeSection = SectionsSchema.enum.coach)}
         data-testid="switch-section">switch section programmatically</button>
 </div>
 
@@ -43,14 +43,13 @@
         width: 33%;
         margin: auto;
     }
+    #navigation-wrapper-story {
+        height: 100%;
+    }
     button {
         top: 0;
         left: 50%;
         translate: -50%;
-    }
-    div {
-        overflow: hidden;
-        max-height: 100vh;
     }
     section {
         height: 100%;

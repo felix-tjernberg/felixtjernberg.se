@@ -1,0 +1,11 @@
+html,
+body.sb-main-fullscreen.sb-show-main,
+#storybook-root,
+div[data-testid="storybook-wrapper"],
+div[data-testid="storybook-wrapper"] > div {
+    height: 100%;
+}
+
+div[data-testid="storybook-wrapper"] > div {
+    width: 100%;
+}

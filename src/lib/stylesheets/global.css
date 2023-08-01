@@ -2,6 +2,19 @@ html {
     background-color: #000;
     overflow: hidden;
 }
+html,
+body,
+body > div {
+    height: 100%;
+}
+body > div {
+    font-family: var(--font-family-primary-thin);
+    font-size: var(--static-scale-200);
+    text-align: center;
+}
+body {
+    overflow: hidden;
+}
 
 details,
 a,
@@ -18,14 +31,6 @@ h4,
 h5,
 h6 {
     color: var(--gray-900);
-}
-body > div {
-    display: grid;
-    font-family: var(--font-family-primary-thin);
-    font-size: var(--static-scale-200);
-    place-content: center;
-    position: relative;
-    text-align: center;
 }
 
 h1,
