@@ -1,9 +1,10 @@
 <script lang="ts">
     import NavigationWrapper from "./NavigationWrapper.svelte"
-    import { activeSection, SectionsSchema, type Sections } from "$stores/states/activeSection"
+    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
 
     let navigationActive: boolean
-    $activeSection = SectionsSchema.enum.none
+
+    $activeSection = SectionsSchema.enum.navigation
 </script>
 
 <div id="navigation-wrapper-story" class="relative">
@@ -27,9 +28,7 @@
     <button
         class="absolute"
         class:visually-hidden={navigationActive}
-        on:click={() => {
-            $activeSection = SectionsSchema.enum.none
-        }}
+        on:click={() => ($activeSection = SectionsSchema.enum.navigation)}
         data-testid="toggle-navigation">open navigation</button>
     <button
         class="absolute visually-hidden"
@@ -67,7 +66,7 @@
     section[slot="computer"] {
         background-color: rgba(0, 255, 0, 0.238);
     }
-    section[slot="welcome"] {
+    section[slot="blog"] {
         background-color: rgba(0, 0, 255, 0.238);
     }
     section[slot="coach"] {

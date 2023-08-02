@@ -53,18 +53,17 @@
     #coach-section-wrapper {
         display: grid;
         height: 100%;
-        overflow: hidden;
         place-content: center;
-        width: 100%;
+        overflow: hidden;
     }
     :global(#coach-section-wrapper > svg) {
-        height: auto;
+        height: 175%;
         left: 50%;
         opacity: 50%;
         position: absolute;
         top: 50%;
         translate: -50% -50%;
-        width: auto;
+        width: 175%;
     }
     #coach-section-box-wrapper {
         --background-blur-amount: 5px;

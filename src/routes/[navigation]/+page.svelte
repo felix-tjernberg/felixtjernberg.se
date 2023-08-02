@@ -47,18 +47,16 @@
     $likesEightBitFont = data[likesEightBitFontKey]
     $scavengerHuntDone = data[scavengerHuntDoneKey]
 
+    let navigationActive: boolean
     let settingsOverlay: HTMLDialogElement
 
     let elevatorMusicAudioElement: HTMLAudioElement
     let elevatorMusicPaused: boolean = true
-
-    let navigationActive: boolean
-
     $: if (elevatorMusicAudioElement) elevatorMusicAudioElement.volume = $audioVolume
 
     $: if (browser) document.documentElement.lang = $locale
 
-    $: if (browser) window.document.body.dataset.darkMode = String($darkMode)
+    $: if (browser) window.document.body.dataset.darkMode = String(!$darkMode)
     $: if (browser) window.document.body.dataset.eightBitFont = String($likesEightBitFont)
 </script>
 
@@ -94,10 +92,10 @@
         id="navigation-button"
         href="/navigation"
         label="Open navigation"
-        on:click={(event) => {
+        on:click={() => {
             if ($firstVisit) $firstVisit = false
-            event.preventDefault()
-            $activeSection = SectionsSchema.enum.none
+            if ($cookiesAllowed) document.cookie = `${firstVisitKey}=false;sameSite:lax;}`
+            $activeSection = SectionsSchema.enum.navigation
         }}>
         <NavigationIcon slot="icon" />
     </Button>

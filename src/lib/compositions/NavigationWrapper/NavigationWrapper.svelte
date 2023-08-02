@@ -10,7 +10,7 @@
 
     export let navigationActive: boolean = true
 
-    $: $activeSection === SectionsSchema.enum.none ? (navigationActive = true) : (navigationActive = false)
+    $: $activeSection === SectionsSchema.enum.navigation ? (navigationActive = true) : (navigationActive = false)
 </script>
 
 <div class="grid-stack" data-testid="navigation-wrapper" id="navigation" data-active-section={$activeSection}>
@@ -20,10 +20,7 @@
     {/if}
     <div id="navigation-item-coach">
         {#if navigationActive}
-            <a
-                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.coach)}
-                transition:fade
-                href={"/coach"}>
+            <a on:click={() => ($activeSection = SectionsSchema.enum.coach)} transition:fade href={"/coach"}>
                 <span class="visually-hidden">coach</span>
                 <Coach />
             </a>
@@ -34,7 +31,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.blog)}
+                on:click={() => ($activeSection = SectionsSchema.enum.blog)}
                 transition:fade
                 href={"/blog"}>
                 <span class="visually-hidden">blog</span>
@@ -47,7 +44,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}
+                on:click={() => ($activeSection = SectionsSchema.enum.computer)}
                 transition:fade
                 href={"/computer"}>
                 <span class="visually-hidden">computer</span>
@@ -60,7 +57,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}
+                on:click={() => ($activeSection = SectionsSchema.enum.phone)}
                 transition:fade
                 href={"/phone"}>
                 <span class="visually-hidden">phone</span>
@@ -73,7 +70,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.contact)}
+                on:click={() => ($activeSection = SectionsSchema.enum.contact)}
                 transition:fade
                 href={"/contact"}>
                 <span class="visually-hidden">contact</span>
@@ -155,7 +152,7 @@
     #navigation[data-active-section="contact"] {
         translate: -100% -100%;
     }
-    #navigation[data-active-section="none"] {
+    #navigation[data-active-section="navigation"] {
         scale: 0.3;
     }
     :global([data-dark-mode="false"] #navigation-item-settings) {
