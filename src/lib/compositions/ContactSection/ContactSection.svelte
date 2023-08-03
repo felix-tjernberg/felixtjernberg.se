@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
     import { page } from "$app/stores"
 
@@ -35,7 +35,7 @@
             <a
                 tabindex="-1"
                 href="/coach"
-                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}>
+                on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.computer)}>
                 Go to scavenger hunt
             </a>
         {/if}

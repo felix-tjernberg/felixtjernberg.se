@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
     import Blog from "$assets/svgs/Welcome.svelte"
     import Phone from "$assets/svgs/Phone.svelte"
     import Computer from "$assets/svgs/Computer.svelte"
@@ -10,17 +10,17 @@
 
     export let navigationActive: boolean = true
 
-    $: $activeSection === SectionsSchema.enum.navigation ? (navigationActive = true) : (navigationActive = false)
+    $: $navigationState === NavigationSchema.enum.navigation ? (navigationActive = true) : (navigationActive = false)
 </script>
 
-<div class="grid-stack" data-testid="navigation-wrapper" id="navigation" data-active-section={$activeSection}>
+<div class="grid-stack" data-testid="navigation-wrapper" id="navigation" data-navigation-state={$navigationState}>
     {#if navigationActive}
         <Logo />
         <Logo />
     {/if}
     <div id="navigation-item-coach">
         {#if navigationActive}
-            <a on:click={() => ($activeSection = SectionsSchema.enum.coach)} transition:fade href={"/coach"}>
+            <a on:click={() => ($navigationState = NavigationSchema.enum.coach)} transition:fade href={"/coach"}>
                 <span class="visually-hidden">coach</span>
                 <Coach />
             </a>
@@ -31,7 +31,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click={() => ($activeSection = SectionsSchema.enum.blog)}
+                on:click={() => ($navigationState = NavigationSchema.enum.blog)}
                 transition:fade
                 href={"/blog"}>
                 <span class="visually-hidden">blog</span>
@@ -44,7 +44,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click={() => ($activeSection = SectionsSchema.enum.computer)}
+                on:click={() => ($navigationState = NavigationSchema.enum.computer)}
                 transition:fade
                 href={"/computer"}>
                 <span class="visually-hidden">computer</span>
@@ -57,7 +57,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click={() => ($activeSection = SectionsSchema.enum.phone)}
+                on:click={() => ($navigationState = NavigationSchema.enum.phone)}
                 transition:fade
                 href={"/phone"}>
                 <span class="visually-hidden">phone</span>
@@ -70,7 +70,7 @@
         {#if navigationActive}
             <a
                 tabindex="-1"
-                on:click={() => ($activeSection = SectionsSchema.enum.contact)}
+                on:click={() => ($navigationState = NavigationSchema.enum.contact)}
                 transition:fade
                 href={"/contact"}>
                 <span class="visually-hidden">contact</span>
@@ -133,26 +133,26 @@
     #navigation-item-contact {
         translate: 100% 100%;
     }
-    #navigation[data-active-section="phone"],
-    #navigation[data-active-section="computer"],
-    #navigation[data-active-section="blog"],
-    #navigation[data-active-section="coach"],
-    #navigation[data-active-section="contact"] {
+    #navigation[data-navigation-state="phone"],
+    #navigation[data-navigation-state="computer"],
+    #navigation[data-navigation-state="blog"],
+    #navigation[data-navigation-state="coach"],
+    #navigation[data-navigation-state="contact"] {
         scale: 1;
     }
-    #navigation[data-active-section="coach"] {
+    #navigation[data-navigation-state="coach"] {
         translate: 100% 100%;
     }
-    #navigation[data-active-section="blog"] {
+    #navigation[data-navigation-state="blog"] {
         translate: -100% 100%;
     }
-    #navigation[data-active-section="phone"] {
+    #navigation[data-navigation-state="phone"] {
         translate: 100% -100%;
     }
-    #navigation[data-active-section="contact"] {
+    #navigation[data-navigation-state="contact"] {
         translate: -100% -100%;
     }
-    #navigation[data-active-section="navigation"] {
+    #navigation[data-navigation-state="navigation"] {
         scale: 0.3;
     }
     :global([data-dark-mode="false"] #navigation-item-settings) {

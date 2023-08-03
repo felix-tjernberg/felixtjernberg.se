@@ -10,7 +10,7 @@
     import ContactSection from "$compositions/ContactSection/ContactSection.svelte"
     import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
 
-    import { activeSection, activeSectionKey, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigationState"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { browser } from "$app/environment"
     import { cookiesAllowed, cookiesAllowedKey } from "$stores/settings/cookiesAllowed"
@@ -37,7 +37,7 @@
     export let data: DataBasedOnCookies | DataBasedOnDefaults
 
     // Initialize website state
-    $activeSection = data[activeSectionKey]
+    $navigationState = data[navigationStateKey]
     $audioVolume = data[audioVolumeKey]
     $computerScreenIndex = data[computerScreenIndexKey]
     $cookiesAllowed = data[cookiesAllowedKey]
@@ -95,7 +95,7 @@
         on:click={() => {
             if ($firstVisit) $firstVisit = false
             if ($cookiesAllowed) document.cookie = `${firstVisitKey}=false;sameSite:lax;}`
-            $activeSection = SectionsSchema.enum.navigation
+            $navigationState = NavigationSchema.enum.navigation
         }}>
         <NavigationIcon slot="icon" />
     </Button>
@@ -129,7 +129,7 @@
         right: 1em;
     }
     @media (max-width: 666px) {
-        :global([data-active-section="none"] + #settings-button) {
+        :global([data-navigation-state="none"] + #settings-button) {
             left: 50%;
             translate: -50%;
         }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
 
     $scavengerHuntDone = true
@@ -12,7 +12,7 @@
         <a
             tabindex="-1"
             href="/contact"
-            on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.contact)}
+            on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.contact)}
             data-testid="contact-section-link">
             contact section
         </a>

@@ -1,10 +1,10 @@
 <script lang="ts">
     import NavigationWrapper from "./NavigationWrapper.svelte"
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
 
     let navigationActive: boolean
 
-    $activeSection = SectionsSchema.enum.navigation
+    $navigationState = NavigationSchema.enum.navigation
 </script>
 
 <div id="navigation-wrapper-story" class="relative">
@@ -28,11 +28,11 @@
     <button
         class="absolute"
         class:visually-hidden={navigationActive}
-        on:click={() => ($activeSection = SectionsSchema.enum.navigation)}
+        on:click={() => ($navigationState = NavigationSchema.enum.navigation)}
         data-testid="toggle-navigation">open navigation</button>
     <button
         class="absolute visually-hidden"
-        on:click={() => ($activeSection = SectionsSchema.enum.coach)}
+        on:click={() => ($navigationState = NavigationSchema.enum.coach)}
         data-testid="switch-section">switch section programmatically</button>
 </div>
 

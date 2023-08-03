@@ -9,7 +9,7 @@
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
     import Notification from "$components/Notification/Notification.svelte"
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
     import { answeredCall } from "$stores/states/phone"
     import { computerScreenIndex } from "$stores/states/computer"
 
@@ -36,7 +36,7 @@
                     <a
                         tabindex="-1"
                         href="/phone"
-                        on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}>
+                        on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.phone)}>
                         go answer the phone!
                     </a>
                 </p>

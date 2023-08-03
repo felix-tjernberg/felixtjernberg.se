@@ -3,7 +3,7 @@
     import { onMount } from "svelte"
     import { browser } from "$app/environment"
 
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
     import { audioVolume } from "$stores/settings/audioVolume"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { darkMode } from "$stores/settings/darkMode"

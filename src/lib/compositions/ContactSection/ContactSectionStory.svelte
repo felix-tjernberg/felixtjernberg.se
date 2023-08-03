@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { SectionsSchema, type Sections } from "$stores/states/activeSection"
+    import { NavigationSchema, type NavigationStates } from "$stores/states/navigationState"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
     import ContactSection from "./ContactSection.svelte"
 
-    let activeSection: Sections = SectionsSchema.enum.contact
+    let navigationState: NavigationStates = NavigationSchema.enum.contact
 
     $scavengerHuntDone = false
 
@@ -11,7 +11,7 @@
 </script>
 
 <div>
-    <p class="visually-hidden" data-testid="navigation-indicator">{activeSection}</p>
+    <p class="visually-hidden" data-testid="navigation-indicator">{navigationState}</p>
     <button class="visually-hidden" data-testid="scavenger-hunt-button" on:click={() => ($scavengerHuntDone = true)}>
         scavenger-hunt-button</button>
     <ContactSection {data} />

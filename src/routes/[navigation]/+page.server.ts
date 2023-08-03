@@ -1,5 +1,5 @@
 import { type Actions, fail, redirect } from "@sveltejs/kit"
-import { activeSectionKey, type Sections, SectionsSchema } from "$stores/states/activeSection"
+import { navigationStateKey, type NavigationStates, NavigationSchema } from "$stores/states/navigationState"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import { firstVisitKey, firstVisitNotificationKey } from "$stores/states/firstVisit"
@@ -19,7 +19,7 @@ type SettingsData = {
 }
 
 type StatesData = {
-    [activeSectionKey]: Sections
+    [navigationStateKey]: NavigationStates
     [computerScreenIndexKey]: number
     [firstVisitKey]: boolean
     [firstVisitNotificationKey]: boolean
@@ -46,7 +46,7 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
 }
 
 export const load = (async ({ cookies, params }) => {
-    const route = SectionsSchema.safeParse(params.navigation)
+    const route = NavigationSchema.safeParse(params.navigation)
     if (!route.success) throw fail(404, { error: "Page not found" })
 
     cookies.set(cookiesAllowedKey, "true")
@@ -55,9 +55,9 @@ export const load = (async ({ cookies, params }) => {
     // Return data state based on cookies
     const cookiesAllowed = cookies.get(cookiesAllowedKey) === "true"
     if (cookiesAllowed) {
-        cookies.set(activeSectionKey, String(route.data), { httpOnly: false })
+        cookies.set(navigationStateKey, String(route.data), { httpOnly: false })
         return {
-            [activeSectionKey]: route.data,
+            [navigationStateKey]: route.data,
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, cookies.get(audioVolumeKey), 0.1),
             [computerScreenIndexKey]: getState<number>(audioVolumeSchema, cookies.get(computerScreenIndexKey), 0),
             [cookiesAllowedKey]: true,
@@ -73,7 +73,7 @@ export const load = (async ({ cookies, params }) => {
 
     // Default data state of the application
     return {
-        [activeSectionKey]: SectionsSchema.enum.computer,
+        [navigationStateKey]: NavigationSchema.enum.computer,
         [audioVolumeKey]: 0.1,
         [computerScreenIndexKey]: 0,
         [cookiesAllowedKey]: false,

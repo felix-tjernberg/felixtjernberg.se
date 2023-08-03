@@ -1,7 +1,7 @@
 <script lang="ts">
     import ComputerSection from "./ComputerSection.svelte"
     import { audioVolume } from "$stores/settings/audioVolume"
-    import { activeSection, SectionsSchema } from "$stores/states/activeSection"
+    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
     import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/computer"
     import { phoneRingtonePaused } from "$stores/states/phone"
     import { onDestroy } from "svelte"
@@ -10,7 +10,7 @@
 
     let phoneRingtoneTimeout: ReturnType<typeof setTimeout>
 
-    $activeSection = SectionsSchema.enum.computer
+    $navigationState = NavigationSchema.enum.computer
 
     $: if (!$phoneRingtonePaused) phoneRingtoneTimeout = setTimeout(() => ($phoneRingtonePaused = true), 5000)
     onDestroy(() => clearTimeout(phoneRingtoneTimeout))
@@ -19,7 +19,9 @@
 <div class="wrapper">
     <button class="visually-hidden" data-testid="skip-init-screen" on:click={() => (computerScreenIndex = 2)}
         >skip init screen</button>
-    <p class="visually-hidden" data-testid="active-section-indicator">activeSection indicator: {$activeSection}</p>
+    <p class="visually-hidden" data-testid="navigation-state-indicator">
+        navigationState indicator: {$navigationState}
+    </p>
     <p class="visually-hidden" data-testid="initialize-noise-playing-indicator">
         initialize noise playing: {$dialUpAudioPaused}
     </p>

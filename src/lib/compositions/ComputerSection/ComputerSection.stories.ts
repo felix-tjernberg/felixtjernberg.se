@@ -92,7 +92,7 @@ StoryScavengerHunt.play = async ({ canvasElement }) => {
     //TODO add remaining questions tests (they are not known yet)
 
     const momCallingNotification = await canvas.getByTestId("mom-calling-notification")
-    const sectionIndicator = await canvas.getByTestId("active-section-indicator")
+    const sectionIndicator = await canvas.getByTestId("navigation-state-indicator")
     const mgMomNeedsInput = await canvas.getByTestId("mg-mom-needs-input")
     await expect(sectionIndicator.textContent).toContain("computer")
     await userEvent.click(within(momCallingNotification).getByRole("link"))
