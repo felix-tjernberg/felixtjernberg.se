@@ -1,15 +1,4 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte"
-    import { onMount } from "svelte"
-    import { browser } from "$app/environment"
-
-    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
-    import { audioVolume } from "$stores/settings/audioVolume"
-    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
-    import { darkMode } from "$stores/settings/darkMode"
-    import { firstVisit, firstVisitNotification } from "$stores/states/firstVisit"
-    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
-
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
     import DetailsContent from "./DetailsContent.svelte"
@@ -17,82 +6,101 @@
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
 
+    import { createEventDispatcher } from "svelte"
+    import { enhance } from "$app/forms"
+    import { scale } from "svelte/transition"
+
+    import { audioVolume } from "$stores/settings/audioVolume"
+    import { cookiesAllowed, decidedOnCookies } from "$stores/settings/cookiesAllowed"
+    import { darkMode } from "$stores/settings/darkMode"
+    import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
+    import { setJSCookie } from "$utilities/setJSCookie"
+
     const dispatch = createEventDispatcher()
 
-    let dialog: HTMLDialogElement
     let details: HTMLDetailsElement
 
-    let decidingAboutCookies: boolean = true
     let detailsOpen: boolean = false
 </script>
 
-<dialog open={$firstVisit} id="first-time-visit-dialog" class="relative background-blur">
-    <h2 class="visually-hidden">First Time Visit Dialog</h2>
-    <div id="first-time-visit-box" class="background-blur margin-vertical-flow margin glow">
-        {#if decidingAboutCookies}
-            <details class="margin-vertical-flow flex-column-center" bind:open={detailsOpen} bind:this={details}>
-                <summary tabindex="-1" class="font-family-primary-fat text-align-center">
-                    Are you ok with me saving some things about you between page visits?
-                    <br />
-                    <span class="font-family-primary-thin font-size-100 text-decoration-underline">
-                        Click here to read how cookies are managed
-                    </span>
-                </summary>
-                {#if detailsOpen}
-                    <DetailsContent {details} {detailsOpen} />
-                {/if}
-            </details>
-            <div class="flex-center font-size-000 gap">
-                <Button
-                    label="Decline cookies"
-                    on:click={() => {
-                        dispatch("startElevatorMusic")
-                        decidingAboutCookies = false
-                        $firstVisitNotification = true
-                        $cookiesAllowed = false
-                    }} />
-                <Button
-                    label="Allow essential cookies"
-                    on:click={async () => {
-                        decidingAboutCookies = false
-                        $firstVisitNotification = true
-                        dispatch("startElevatorMusic")
-                        if (browser) {
-                            $cookiesAllowed = true
-                        }
-                    }} />
-            </div>
-        {:else}
-            <p class="font-family-primary-fat text-align-center">
-                Before you explore my page here I would like you to set some preferences
-            </p>
-            <Slider
-                description="Set the elevator music volume to a comfortable level please :)"
-                label="Elevator music volume"
-                bind:value={$audioVolume} />
-            <BooleanButton
-                description="Do you like reading the 8bit font?"
-                labels={["yes", "no"]}
-                bind:boolean={$likesEightBitFont} />
-            <BooleanButton
-                description="If you need higher contrast or like light theme click the sun"
-                labels={["dark", "light"]}
-                testid="dark-mode"
-                bind:boolean={$darkMode}>
-                <Moon slot="firstIcon" />
-                <Sun slot="secondIcon" />
-            </BooleanButton>
-            <Button
-                id="close-first-time-visit-dialog"
-                label="I'm ready to explore!"
-                testid="close-first-time-visit-dialog"
-                on:click={() => {
-                    dialog.close()
-                    dispatch("stopElevatorMusic")
-                }} />
-        {/if}
-    </div>
-</dialog>
+{#if $firstVisit}
+    <dialog open={true} id="first-time-visit-dialog" class="relative background-blur" transition:scale>
+        <h2 class="visually-hidden">First Time Visit Dialog</h2>
+        <div id="first-time-visit-box" class="background-blur margin-vertical-flow margin glow">
+            {#if !$decidedOnCookies}
+                <details class="margin-vertical-flow flex-column-center" bind:open={detailsOpen} bind:this={details}>
+                    <summary tabindex="-1" class="font-family-primary-fat text-align-center">
+                        Are you ok with me saving some things about you between page visits?
+                        <br />
+                        <span class="font-family-primary-thin font-size-100 text-decoration-underline">
+                            Click here to read how cookies are managed
+                        </span>
+                    </summary>
+                    {#if detailsOpen}
+                        <DetailsContent {details} {detailsOpen} />
+                    {/if}
+                </details>
+                <div class="flex-center font-size-000 gap">
+                    <!-- TODO: add parameters behavior, noJS active and no cookies allowed -->
+                    <Button
+                        label="Decline cookies"
+                        on:click={() => {
+                            dispatch("startElevatorMusic")
+                            $decidedOnCookies = true
+                            $cookiesAllowed = false
+                        }} />
+                    <form
+                        action="?/allowCookies"
+                        method="POST"
+                        use:enhance={() => {
+                            return async () => {
+                                dispatch("startElevatorMusic")
+                                $cookiesAllowed = true
+                                $decidedOnCookies = true
+                            }
+                        }}>
+                        <Button label="Allow essential cookies" />
+                    </form>
+                </div>
+            {:else}
+                <p class="font-family-primary-fat text-align-center">
+                    Before you explore my page here I would like you to set some preferences
+                </p>
+                <Slider
+                    description="Set the elevator music volume to a comfortable level please :)"
+                    label="Elevator music volume"
+                    bind:value={$audioVolume} />
+                <BooleanButton
+                    description="Do you like reading the 8bit font?"
+                    labels={["yes", "no"]}
+                    bind:boolean={$likesEightBitFont} />
+                <BooleanButton
+                    description="If you need higher contrast or like light theme click the sun"
+                    labels={["dark", "light"]}
+                    testid="dark-mode"
+                    bind:boolean={$darkMode}>
+                    <Moon slot="firstIcon" />
+                    <Sun slot="secondIcon" />
+                </BooleanButton>
+                <form
+                    action="?/closeFirstTimeOverlay"
+                    method="POST"
+                    use:enhance={({ cancel }) => {
+                        cancel()
+                        if ($cookiesAllowed) setJSCookie(firstVisitKey, "false")
+                        dispatch("stopElevatorMusic")
+                        $firstVisit = false
+                    }}>
+                    <Button
+                        id="close-first-time-visit-dialog"
+                        label="I'm ready to explore!"
+                        testid="close-first-time-visit-dialog" />
+                </form>
+            {/if}
+        </div>
+    </dialog>
+{/if}
 
 <style>
     details {

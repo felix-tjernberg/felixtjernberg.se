@@ -13,7 +13,12 @@
     import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigationState"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { browser } from "$app/environment"
-    import { cookiesAllowed, cookiesAllowedKey } from "$stores/settings/cookiesAllowed"
+    import {
+        cookiesAllowed,
+        cookiesAllowedKey,
+        decidedOnCookies,
+        decidedOnCookiesKey,
+    } from "$stores/settings/cookiesAllowed"
     import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
     import {
         computerScreenIndex,
@@ -38,14 +43,15 @@
     export let data: DataBasedOnCookies | DataBasedOnDefaults
 
     // Initialize website state
-    $navigationState = data[navigationStateKey]
     $audioVolume = data[audioVolumeKey]
     $computerScreenIndex = data[computerScreenIndexKey]
     $cookiesAllowed = data[cookiesAllowedKey]
     $darkMode = data[darkModeKey]
+    $decidedOnCookies = data[decidedOnCookiesKey]
     $firstVisit = data[firstVisitKey]
     $firstVisitNotification = data[firstVisitNotificationKey]
     $likesEightBitFont = data[likesEightBitFontKey]
+    $navigationState = data[navigationStateKey]
     $scavengerHuntDone = data[scavengerHuntDoneKey]
 
     let navigationActive: boolean
@@ -57,7 +63,7 @@
 
     $: if (browser) document.documentElement.lang = $locale
 
-    $: if (browser) window.document.body.dataset.darkMode = String(!$darkMode)
+    $: if (browser) window.document.body.dataset.darkMode = String($darkMode)
     $: if (browser) window.document.body.dataset.eightBitFont = String($likesEightBitFont)
 </script>
 
@@ -95,7 +101,7 @@
         label="Open navigation"
         on:click={() => {
             if ($firstVisit) $firstVisit = false
-            if ($cookiesAllowed) setJSCookie(firstVisitKey, "true")
+            if ($cookiesAllowed) setJSCookie(firstVisitNotificationKey, "true")
             $navigationState = NavigationSchema.enum.navigation
         }}>
         <NavigationIcon slot="icon" />

@@ -10,6 +10,7 @@
 
     export let navigationActive: boolean = true
 
+    $navigationState === NavigationSchema.enum.navigation ? (navigationActive = true) : (navigationActive = false)
     $: $navigationState === NavigationSchema.enum.navigation ? (navigationActive = true) : (navigationActive = false)
 </script>
 

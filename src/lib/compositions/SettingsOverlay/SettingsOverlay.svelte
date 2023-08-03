@@ -15,6 +15,7 @@
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
     import { onMount } from "svelte"
+    import { enhance } from "$app/forms"
 
     export let dialog: HTMLDialogElement
 </script>
@@ -40,16 +41,14 @@
         <div class="flex-column-center">
             {#if $cookiesAllowed}
                 <h3>Changed your mind about cookies?</h3>
-                <Button
-                    label="Yes delete cookies!"
-                    on:click={() => ($cookiesAllowed = false)}
-                    testid="cookies-allowed-false" />
+                <form action="?/removeCookies" method="POST">
+                    <Button label="Yes delete cookies!" testid="cookies-allowed-false" />
+                </form>
             {:else}
                 <h3>Changed your mind about cookies?</h3>
-                <Button
-                    label="Yes allow essential cookies"
-                    on:click={() => ($cookiesAllowed = true)}
-                    testid="cookies-allowed-true" />
+                <form action="?/allowCookies" method="POST">
+                    <Button label="Yes allow essential cookies" testid="cookies-allowed-true" />
+                </form>
             {/if}
         </div>
         {#if $scavengerHuntDone}
