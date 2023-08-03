@@ -33,6 +33,7 @@
     import { phoneRingtonePaused } from "$stores/states/phone"
     import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
     import { t } from "svelte-intl-precompile"
+    import { setJSCookie } from "$utilities/setJSCookie"
 
     export let data: DataBasedOnCookies | DataBasedOnDefaults
 
@@ -94,7 +95,7 @@
         label="Open navigation"
         on:click={() => {
             if ($firstVisit) $firstVisit = false
-            if ($cookiesAllowed) document.cookie = `${firstVisitKey}=false;sameSite:lax;}`
+            if ($cookiesAllowed) setJSCookie(firstVisitKey, "true")
             $navigationState = NavigationSchema.enum.navigation
         }}>
         <NavigationIcon slot="icon" />

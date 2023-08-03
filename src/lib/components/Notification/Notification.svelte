@@ -5,6 +5,7 @@
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { fade } from "svelte/transition"
     import { formNameKey, valueKey } from "$utilities/globalKeys"
+    import { setJSCookie } from "$utilities/setJSCookie"
 
     export let active = false
     export let closeButton = true
@@ -26,7 +27,7 @@
                 use:enhance={({ cancel }) => {
                     cancel()
                     active = false
-                    if ($cookiesAllowed) document.cookie = `${formName}=true;sameSite:lax;}`
+                    if ($cookiesAllowed && formName) setJSCookie(formName, "true")
                 }}>
                 <input type="hidden" name={formNameKey} value={formName} />
                 <Button label="close notification" underlined={true} name={valueKey} value="true" />
