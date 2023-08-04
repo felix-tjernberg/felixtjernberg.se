@@ -96,7 +96,7 @@
     src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
 {#if !$firstVisit && $navigationExplainer && $navigationState !== NavigationSchema.enum.navigation}
-    <Notification active={$navigationExplainer} formName={navigationExplainerKey} formValue="false">
+    <Notification bind:active={$navigationExplainer} booleanName={navigationExplainerKey} booleanValue="false">
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing <NavigationIcon /> icon opens navigation
         </span>
@@ -107,7 +107,7 @@
     </Notification>
 {/if}
 {#if !$firstVisit && $navigationExplainer2 && $navigationState === NavigationSchema.enum.navigation}
-    <Notification active={$navigationExplainer2} formName={navigationExplainer2Key} formValue="false">
+    <Notification bind:active={$navigationExplainer2} booleanName={navigationExplainer2Key} booleanValue="false">
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing one of the sections navigates to them
         </span>

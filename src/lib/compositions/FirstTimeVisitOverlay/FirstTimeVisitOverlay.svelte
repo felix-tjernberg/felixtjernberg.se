@@ -2,6 +2,7 @@
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
     import DetailsContent from "./DetailsContent.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
     import Moon from "$assets/svgs/Moon.svelte"
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
@@ -10,12 +11,23 @@
     import { scale } from "svelte/transition"
 
     import { audioVolume } from "$stores/settings/audioVolume"
-    import { cookiesAllowed, decidedOnCookies } from "$stores/settings/cookiesAllowed"
+    import {
+        cookiesAllowed,
+        cookiesAllowedKey,
+        decidedOnCookies,
+        decidedOnCookiesKey,
+    } from "$stores/settings/cookiesAllowed"
     import { darkMode } from "$stores/settings/darkMode"
     import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
     import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
     import { setJSCookie } from "$utilities/setJSCookie"
-    import { navigationExplainer, navigationExplainer2 } from "$stores/states/navigation"
+    import {
+        navigationExplainer,
+        navigationExplainer2,
+        navigationExplainer2Key,
+        navigationExplainerKey,
+    } from "$stores/states/navigation"
+    import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 
     let details: HTMLDetailsElement
 
@@ -42,12 +54,15 @@
                 </details>
                 <div class="flex-center font-size-000 gap">
                     <!-- TODO: add parameters behavior, noJS active and no cookies allowed -->
-                    <Button
-                        label="Decline cookies"
-                        on:click={() => {
-                            $decidedOnCookies = true
+                    <form
+                        on:submit={() => {
                             $cookiesAllowed = false
-                        }} />
+                            $decidedOnCookies = true
+                        }}>
+                        <HiddenInputs excludeStates={[cookiesAllowedKey, decidedOnCookiesKey]} />
+                        <input type="hidden" name={decidedOnCookiesKey} value="true" />
+                        <Button label="Decline cookies" name={cookiesAllowedKey} value="false" />
+                    </form>
                     <form
                         action="?/allowCookies"
                         method="POST"
@@ -92,21 +107,44 @@
                     <Moon slot="firstIcon" />
                     <Sun slot="secondIcon" />
                 </BooleanButton>
-                <form
-                    action="?/closeFirstTimeOverlay"
-                    method="POST"
-                    use:enhance={({ cancel }) => {
-                        cancel()
-                        $navigationExplainer = true
-                        $navigationExplainer2 = true
-                        if ($cookiesAllowed) setJSCookie(firstVisitKey, "false")
-                        $firstVisit = false
-                    }}>
-                    <Button
-                        id="close-first-time-visit-dialog"
-                        label="I'm ready to explore!"
-                        testid="close-first-time-visit-dialog" />
-                </form>
+                {#if $cookiesAllowed}
+                    <form
+                        action="?/toggleBoolean"
+                        method="POST"
+                        use:enhance={({ cancel }) => {
+                            cancel()
+                            $navigationExplainer = true
+                            $navigationExplainer2 = true
+                            if ($cookiesAllowed) setJSCookie(firstVisitKey, "false")
+                            $firstVisit = false
+                        }}>
+                        <input type="hidden" name={booleanNameKey} value={firstVisitKey} />
+                        <Button
+                            name={valueKey}
+                            value="false"
+                            id="close-first-time-visit-dialog"
+                            label="I'm ready to explore!"
+                            testid="close-first-time-visit-dialog" />
+                    </form>
+                {:else}
+                    <form
+                        on:submit={() => {
+                            $navigationExplainer = true
+                            $navigationExplainer2 = true
+                            $firstVisit = false
+                        }}>
+                        <HiddenInputs
+                            excludeStates={[firstVisitKey, navigationExplainerKey, navigationExplainer2Key]} />
+                        <input type="hidden" name={navigationExplainerKey} value="true" />
+                        <input type="hidden" name={navigationExplainer2Key} value="true" />
+                        <Button
+                            name={firstVisitKey}
+                            value="false"
+                            id="close-first-time-visit-dialog"
+                            label="I'm ready to explore!"
+                            testid="close-first-time-visit-dialog" />
+                    </form>
+                {/if}
             {/if}
         </div>
     </dialog>

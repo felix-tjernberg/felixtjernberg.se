@@ -1,8 +1,9 @@
 import { type Actions, fail, redirect } from "@sveltejs/kit"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
+import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
+import { type ComputerScreenIndex, computerScreenIndexKey, computerScreenIndexSchema } from "$stores/states/computer"
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
 import { EMAIL, PHONE_NUMBER } from "$env/static/private"
-import { formNameKey, valueKey } from "$utilities/globalKeys"
 import {
     navigationExplainer2Key,
     navigationExplainerKey,
@@ -10,7 +11,6 @@ import {
     navigationStateKey,
     type NavigationStates,
 } from "$stores/states/navigation"
-import { computerScreenIndexKey } from "$stores/states/computer"
 import { darkModeKey } from "$stores/settings/darkMode"
 import { firstVisitKey } from "$stores/states/firstVisit"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
@@ -45,6 +45,7 @@ type CookieStateFalse = {
 type ScavangerHuntRewardData = { email: string; phoneNumber: string }
 
 export type DataBasedOnCookies = CookieStateTrue & SettingsData & StatesData & ScavangerHuntRewardData
+export type DataBasedOnParameters = CookieStateFalse & SettingsData & StatesData & ScavangerHuntRewardData
 export type DataBasedOnDefaults = CookieStateFalse & SettingsData & StatesData
 
 function getState<StateType>(schema: ZodSchema, state: string | undefined | null, fallbackState: StateType): StateType {
@@ -53,7 +54,7 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
     return exctractedState.success ? exctractedState.data : fallbackState
 }
 
-export const load = (async ({ cookies, params }) => {
+export const load = (async ({ cookies, params, url: { searchParams } }) => {
     const route = NavigationSchema.safeParse(params.navigation)
     if (!route.success) throw fail(404, { error: "Page not found" })
 
@@ -63,7 +64,11 @@ export const load = (async ({ cookies, params }) => {
         cookies.set(navigationStateKey, String(route.data), { httpOnly: false })
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, cookies.get(audioVolumeKey), 0.1),
-            [computerScreenIndexKey]: getState<number>(audioVolumeSchema, cookies.get(computerScreenIndexKey), 0),
+            [computerScreenIndexKey]: getState<ComputerScreenIndex>(
+                computerScreenIndexSchema,
+                cookies.get(computerScreenIndexKey),
+                0,
+            ),
             [cookiesAllowedKey]: true,
             [darkModeKey]: !(cookies.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: cookies.get(decidedOnCookiesKey) === "true",
@@ -76,6 +81,28 @@ export const load = (async ({ cookies, params }) => {
             phoneNumber: PHONE_NUMBER,
             [scavengerHuntDoneKey]: cookies.get(scavengerHuntDoneKey) === "true",
         } satisfies DataBasedOnCookies
+    }
+
+    if (searchParams.get(cookiesAllowedKey) === "false") {
+        return {
+            [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
+            [computerScreenIndexKey]: getState<ComputerScreenIndex>(
+                computerScreenIndexSchema,
+                searchParams.get(computerScreenIndexKey),
+                0,
+            ),
+            [cookiesAllowedKey]: false,
+            [darkModeKey]: !(searchParams.get(darkModeKey) === "false"),
+            [decidedOnCookiesKey]: searchParams.get(decidedOnCookiesKey) === "true",
+            email: EMAIL,
+            [firstVisitKey]: !(searchParams.get(firstVisitKey) === "false"),
+            [likesEightBitFontKey]: !(searchParams.get(likesEightBitFontKey) === "false"),
+            [navigationExplainer2Key]: !(searchParams.get(navigationExplainer2Key) === "false"),
+            [navigationExplainerKey]: !(searchParams.get(navigationExplainerKey) === "false"),
+            [navigationStateKey]: route.data,
+            phoneNumber: PHONE_NUMBER,
+            [scavengerHuntDoneKey]: searchParams.get(scavengerHuntDoneKey) === "true",
+        } satisfies DataBasedOnParameters
     }
 
     // Default data state of the application
@@ -100,10 +127,6 @@ export const actions = {
         cookies.set(decidedOnCookiesKey, "true")
         throw redirect(302, "/")
     },
-    closeFirstTimeOverlay: async ({ cookies }) => {
-        cookies.set(firstVisitKey, "false", { httpOnly: false })
-        throw redirect(302, "/")
-    },
     removeCookies: async ({ cookies }) => {
         cookies.getAll().forEach((cookie) => cookies.delete(cookie.name))
         throw redirect(302, "/")
@@ -112,12 +135,13 @@ export const actions = {
         if (cookies.get(cookiesAllowedKey) === "true") {
             const formData = await request.formData()
 
-            const key = formData.get(formNameKey)
+            const key = formData.get(booleanNameKey)
+            const value = formData.get(valueKey)
 
             let boolean
-            if (formData.get(valueKey) === "true") {
+            if (value === "true") {
                 boolean = "true"
-            } else if (formData.get(valueKey) === "false") {
+            } else if (value === "false") {
                 boolean = "false"
             } else {
                 return fail(400, { error: "Incorrect value supplied" })

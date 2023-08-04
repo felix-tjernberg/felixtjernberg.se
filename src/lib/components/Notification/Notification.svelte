@@ -1,16 +1,17 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
 
     import { enhance } from "$app/forms"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { fade } from "svelte/transition"
-    import { formNameKey, valueKey } from "$utilities/globalKeys"
+    import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
     import { setJSCookie } from "$utilities/setJSCookie"
 
     export let active = false
     export let closeButton = true
-    export let formName: string | undefined = undefined
-    export let formValue: string = "true"
+    export let booleanName: string
+    export let booleanValue: "true" | "false" = "true"
     export let testid: string | undefined = undefined
 </script>
 
@@ -22,17 +23,24 @@
         <slot />
         <!-- TODO: change close button to be a toggle instead -->
         {#if closeButton}
-            <form
-                action="?/toggleBoolean"
-                method="POST"
-                use:enhance={({ cancel }) => {
-                    cancel()
-                    active = false
-                    if ($cookiesAllowed && formName) setJSCookie(formName, formValue)
-                }}>
-                <input type="hidden" name={formNameKey} value={formName} />
-                <Button label="close notification" underlined={true} name={valueKey} value={formValue} />
-            </form>
+            {#if $cookiesAllowed}
+                <form
+                    action="?/toggleBoolean"
+                    method="POST"
+                    use:enhance={({ cancel }) => {
+                        cancel()
+                        active = false
+                        if ($cookiesAllowed) setJSCookie(booleanName, booleanValue)
+                    }}>
+                    <input type="hidden" name={booleanNameKey} value={booleanName} />
+                    <Button label="close notification" underlined={true} name={valueKey} value={booleanValue} />
+                </form>
+            {:else}
+                <form on:submit={() => (active = false)}>
+                    <HiddenInputs excludeStates={[booleanName]} />
+                    <Button label="close notification" underlined={true} name={booleanName} value={booleanValue} />
+                </form>
+            {/if}
         {/if}
     </aside>
 {/if}
