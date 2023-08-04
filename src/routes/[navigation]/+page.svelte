@@ -57,10 +57,6 @@
     let navigationActive: boolean
     let settingsOverlay: HTMLDialogElement
 
-    let elevatorMusicAudioElement: HTMLAudioElement
-    let elevatorMusicPaused: boolean = true
-    $: if (elevatorMusicAudioElement) elevatorMusicAudioElement.volume = $audioVolume
-
     $: if (browser) document.documentElement.lang = $locale
 
     $: if (browser) window.document.body.dataset.darkMode = String($darkMode)
@@ -68,22 +64,33 @@
 </script>
 
 <svelte:head>
-    <title>Felix Tjernberg</title>
+    <title>Felix Tjernberg's spot on the interconnected highway for bits</title>
     <meta name="description" content={$t("description")} />
+    <link
+        as="audio"
+        href="https://cdn.pixabay.com/download/audio/2021/08/09/audio_a4637e27f0.mp3?filename=smartphone_vibrating_alarm_silent-7040.mp3"
+        rel="preload"
+        type="audio/mpeg" />
+    <link
+        as="audio"
+        href="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast.mp3"
+        rel="preload"
+        type="audio/mpeg" />
+    <link
+        as="audio"
+        href="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3"
+        rel="preload"
+        type="audio/mpeg" />
 </svelte:head>
 
 <audio
-    bind:this={elevatorMusicAudioElement}
-    bind:paused={elevatorMusicPaused}
-    src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast.mp3" />
-<audio
-    bind:volume={$audioVolume}
     bind:paused={$phoneRingtonePaused}
+    bind:volume={$audioVolume}
     src="https://cdn.pixabay.com/download/audio/2021/08/09/audio_a4637e27f0.mp3?filename=smartphone_vibrating_alarm_silent-7040.mp3" />
 <audio
-    bind:volume={$audioVolume}
-    bind:paused={$dialUpAudioPaused}
     bind:currentTime={$dialUpAudioCurrentTime}
+    bind:paused={$dialUpAudioPaused}
+    bind:volume={$audioVolume}
     src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
 <NavigationWrapper bind:navigationActive>
@@ -118,9 +125,7 @@
     <SettingsIcon slot="icon" />
 </Button>
 
-<FirstTimeVisitOverlay
-    on:startElevatorMusic={() => (elevatorMusicPaused = false)}
-    on:stopElevatorMusic={() => (elevatorMusicPaused = true)} />
+<FirstTimeVisitOverlay />
 <SettingsOverlay bind:dialog={settingsOverlay} />
 
 <style>

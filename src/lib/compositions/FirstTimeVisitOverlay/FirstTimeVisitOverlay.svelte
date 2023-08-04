@@ -6,7 +6,6 @@
     import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
 
-    import { createEventDispatcher } from "svelte"
     import { enhance } from "$app/forms"
     import { scale } from "svelte/transition"
 
@@ -17,11 +16,10 @@
     import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
     import { setJSCookie } from "$utilities/setJSCookie"
 
-    const dispatch = createEventDispatcher()
-
     let details: HTMLDetailsElement
 
     let detailsOpen: boolean = false
+    let elevatorMusicPaused = true
 </script>
 
 {#if $firstVisit}
@@ -46,7 +44,6 @@
                     <Button
                         label="Decline cookies"
                         on:click={() => {
-                            dispatch("startElevatorMusic")
                             $decidedOnCookies = true
                             $cookiesAllowed = false
                         }} />
@@ -55,7 +52,6 @@
                         method="POST"
                         use:enhance={() => {
                             return async () => {
-                                dispatch("startElevatorMusic")
                                 $cookiesAllowed = true
                                 $decidedOnCookies = true
                             }
@@ -67,10 +63,22 @@
                 <p class="font-family-primary-fat text-align-center">
                     Before you explore my page here I would like you to set some preferences
                 </p>
-                <Slider
-                    description="Set the elevator music volume to a comfortable level please :)"
-                    label="Elevator music volume"
-                    bind:value={$audioVolume} />
+                <div class="flex-column-center">
+                    <Slider
+                        bind:value={$audioVolume}
+                        description="Set the elevator music volume to a comfortable level please :)"
+                        label="Elevator music volume" />
+                    <details class="flex-column-center">
+                        <summary class="text-decoration-underline"> Show elevator music audio player</summary>
+                        <audio
+                            bind:paused={elevatorMusicPaused}
+                            bind:volume={$audioVolume}
+                            on:canplay={() => (elevatorMusicPaused = $firstVisit && $decidedOnCookies ? false : true)}
+                            class="margin-auto"
+                            controls
+                            src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast.mp3" />
+                    </details>
+                </div>
                 <BooleanButton
                     description="Do you like reading the 8bit font?"
                     labels={["yes", "no"]}
@@ -89,7 +97,6 @@
                     use:enhance={({ cancel }) => {
                         cancel()
                         if ($cookiesAllowed) setJSCookie(firstVisitKey, "false")
-                        dispatch("stopElevatorMusic")
                         $firstVisit = false
                     }}>
                     <Button
