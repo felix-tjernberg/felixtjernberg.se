@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
     import Blog from "$assets/svgs/Welcome.svelte"
     import Phone from "$assets/svgs/Phone.svelte"
     import Computer from "$assets/svgs/Computer.svelte"

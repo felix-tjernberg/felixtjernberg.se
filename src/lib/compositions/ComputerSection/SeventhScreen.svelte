@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
 
     $scavengerHuntDone = true

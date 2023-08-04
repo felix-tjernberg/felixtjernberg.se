@@ -5,13 +5,14 @@
     import ThirdScreen from "./ThirdScreen.svelte"
     import FourthScreen from "./FourthScreen.svelte"
     import FifthScreen from "./FifthScreen.svelte"
+    import Notification from "$components/Notification/Notification.svelte"
     import SixthScreen from "./SixthScreen.svelte"
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
-    import Notification from "$components/Notification/Notification.svelte"
-    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
+
     import { answeredCall } from "$stores/states/phone"
     import { computerScreenIndex } from "$stores/states/computer"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
 

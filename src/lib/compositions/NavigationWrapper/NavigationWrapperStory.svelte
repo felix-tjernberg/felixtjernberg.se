@@ -1,6 +1,6 @@
 <script lang="ts">
     import NavigationWrapper from "./NavigationWrapper.svelte"
-    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
 
     let navigationActive: boolean
 

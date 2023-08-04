@@ -3,12 +3,17 @@ import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/set
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
 import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import { formNameKey, valueKey } from "$utilities/globalKeys"
-import { NavigationSchema, navigationStateKey, type NavigationStates } from "$stores/states/navigationState"
+import {
+    navigationExplainer2Key,
+    navigationExplainerKey,
+    NavigationSchema,
+    navigationStateKey,
+    type NavigationStates,
+} from "$stores/states/navigation"
 import { computerScreenIndexKey } from "$stores/states/computer"
 import { darkModeKey } from "$stores/settings/darkMode"
 import { firstVisitKey } from "$stores/states/firstVisit"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
-import { navigationExplainerKey } from "$stores/states/navigationExplainer"
 import type { PageServerLoad } from "./$types"
 import { scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
 import type { ZodSchema } from "zod"
@@ -25,6 +30,7 @@ type StatesData = {
     [firstVisitKey]: boolean
     [navigationStateKey]: NavigationStates
     [scavengerHuntDoneKey]: boolean
+    [navigationExplainer2Key]: boolean
     [navigationExplainerKey]: boolean
 }
 
@@ -64,6 +70,7 @@ export const load = (async ({ cookies, params }) => {
             email: EMAIL,
             [firstVisitKey]: !(cookies.get(firstVisitKey) === "false"),
             [likesEightBitFontKey]: !(cookies.get(likesEightBitFontKey) === "false"),
+            [navigationExplainer2Key]: !(cookies.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: route.data,
             phoneNumber: PHONE_NUMBER,
@@ -80,6 +87,7 @@ export const load = (async ({ cookies, params }) => {
         [decidedOnCookiesKey]: false,
         [firstVisitKey]: true,
         [likesEightBitFontKey]: true,
+        [navigationExplainer2Key]: false,
         [navigationExplainerKey]: false,
         [navigationStateKey]: NavigationSchema.enum.computer,
         [scavengerHuntDoneKey]: false,

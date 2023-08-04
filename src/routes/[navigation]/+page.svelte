@@ -11,7 +11,7 @@
     import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
     import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
 
-    import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigationState"
+    import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigation"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { browser } from "$app/environment"
     import {
@@ -20,7 +20,12 @@
         decidedOnCookies,
         decidedOnCookiesKey,
     } from "$stores/settings/cookiesAllowed"
-    import { navigationExplainer, navigationExplainerKey } from "$stores/states/navigationExplainer"
+    import {
+        navigationExplainer,
+        navigationExplainer2,
+        navigationExplainerKey,
+        navigationExplainer2Key,
+    } from "$stores/states/navigation"
     import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
     import {
         computerScreenIndex,
@@ -35,7 +40,6 @@
     import { phoneRingtonePaused } from "$stores/states/phone"
     import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
     import { t } from "svelte-intl-precompile"
-    import { setJSCookie } from "$utilities/setJSCookie"
 
     export let data: DataBasedOnCookies | DataBasedOnDefaults
 
@@ -48,6 +52,7 @@
     $firstVisit = data[firstVisitKey]
     $likesEightBitFont = data[likesEightBitFontKey]
     $navigationExplainer = data[navigationExplainerKey]
+    $navigationExplainer2 = data[navigationExplainer2Key]
     $navigationState = data[navigationStateKey]
     $scavengerHuntDone = data[scavengerHuntDoneKey]
 
@@ -90,13 +95,21 @@
     bind:volume={$audioVolume}
     src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
-{#if !$firstVisit && $navigationExplainer}
+{#if !$firstVisit && $navigationExplainer && $navigationState !== NavigationSchema.enum.navigation}
     <Notification active={$navigationExplainer} formName={navigationExplainerKey} formValue="false">
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing <NavigationIcon /> icon opens navigation
         </span>
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing <SettingsIcon /> icon opens settings
+        </span>
+        <span class="text-decoration-underline">Press these notifications to close/hide them</span>
+    </Notification>
+{/if}
+{#if !$firstVisit && $navigationExplainer2 && $navigationState === NavigationSchema.enum.navigation}
+    <Notification active={$navigationExplainer2} formName={navigationExplainer2Key} formValue="false">
+        <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
+            Pressing one of the sections navigates to them
         </span>
         <span class="text-decoration-underline">Press these notifications to close/hide them</span>
     </Notification>

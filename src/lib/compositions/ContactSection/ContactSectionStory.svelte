@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { NavigationSchema, type NavigationStates } from "$stores/states/navigationState"
+    import { NavigationSchema, type NavigationStates } from "$stores/states/navigation"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
     import ContactSection from "./ContactSection.svelte"
 

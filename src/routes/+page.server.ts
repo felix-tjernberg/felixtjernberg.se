@@ -1,4 +1,4 @@
-import { NavigationSchema, navigationStateKey } from "$stores/states/navigationState"
+import { NavigationSchema, navigationStateKey } from "$stores/states/navigation"
 import { cookiesAllowedKey } from "$stores/settings/cookiesAllowed"
 import type { PageServerLoad } from "./$types"
 import { redirect } from "@sveltejs/kit"

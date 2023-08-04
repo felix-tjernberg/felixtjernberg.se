@@ -1,7 +1,7 @@
 <script lang="ts">
     import ComputerSection from "./ComputerSection.svelte"
     import { audioVolume } from "$stores/settings/audioVolume"
-    import { navigationState, NavigationSchema } from "$stores/states/navigationState"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
     import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/computer"
     import { phoneRingtonePaused } from "$stores/states/phone"
     import { onDestroy } from "svelte"
