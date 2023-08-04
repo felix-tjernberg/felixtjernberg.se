@@ -10,6 +10,7 @@
     export let active = false
     export let closeButton = true
     export let formName: string | undefined = undefined
+    export let formValue: string = "true"
     export let testid: string | undefined = undefined
 </script>
 
@@ -27,10 +28,10 @@
                 use:enhance={({ cancel }) => {
                     cancel()
                     active = false
-                    if ($cookiesAllowed && formName) setJSCookie(formName, "true")
+                    if ($cookiesAllowed && formName) setJSCookie(formName, formValue)
                 }}>
                 <input type="hidden" name={formNameKey} value={formName} />
-                <Button label="close notification" underlined={true} name={valueKey} value="true" />
+                <Button label="close notification" underlined={true} name={valueKey} value={formValue} />
             </form>
         {/if}
     </aside>

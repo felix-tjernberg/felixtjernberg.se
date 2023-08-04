@@ -15,6 +15,7 @@
     import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
     import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
     import { setJSCookie } from "$utilities/setJSCookie"
+    import { navigationExplainer } from "$stores/states/navigationExplainer"
 
     let details: HTMLDetailsElement
 
@@ -96,6 +97,7 @@
                     method="POST"
                     use:enhance={({ cancel }) => {
                         cancel()
+                        $navigationExplainer = true
                         if ($cookiesAllowed) setJSCookie(firstVisitKey, "false")
                         $firstVisit = false
                     }}>

@@ -1,14 +1,15 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
-    import FirstTimeVisitOverlay from "$compositions/FirstTimeVisitOverlay/FirstTimeVisitOverlay.svelte"
-    import NavigationIcon from "$assets/svgs/NavigationIcon.svelte"
-    import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
-    import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
-    import NavigationWrapper from "$compositions/NavigationWrapper/NavigationWrapper.svelte"
     import CoachSection from "$compositions/CoachSection/CoachSection.svelte"
     import ComputerSection from "$compositions/ComputerSection/ComputerSection.svelte"
     import ContactSection from "$compositions/ContactSection/ContactSection.svelte"
+    import FirstTimeVisitOverlay from "$compositions/FirstTimeVisitOverlay/FirstTimeVisitOverlay.svelte"
+    import NavigationIcon from "$assets/svgs/NavigationIcon.svelte"
+    import NavigationWrapper from "$compositions/NavigationWrapper/NavigationWrapper.svelte"
+    import Notification from "$components/Notification/Notification.svelte"
     import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
+    import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
+    import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
 
     import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigationState"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
@@ -19,6 +20,7 @@
         decidedOnCookies,
         decidedOnCookiesKey,
     } from "$stores/settings/cookiesAllowed"
+    import { navigationExplainer, navigationExplainerKey } from "$stores/states/navigationExplainer"
     import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
     import {
         computerScreenIndex,
@@ -26,12 +28,7 @@
         dialUpAudioCurrentTime,
         dialUpAudioPaused,
     } from "$stores/states/computer"
-    import {
-        firstVisit,
-        firstVisitKey,
-        firstVisitNotification,
-        firstVisitNotificationKey,
-    } from "$stores/states/firstVisit"
+    import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
     import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { locale } from "svelte-intl-precompile"
@@ -49,8 +46,8 @@
     $darkMode = data[darkModeKey]
     $decidedOnCookies = data[decidedOnCookiesKey]
     $firstVisit = data[firstVisitKey]
-    $firstVisitNotification = data[firstVisitNotificationKey]
     $likesEightBitFont = data[likesEightBitFontKey]
+    $navigationExplainer = data[navigationExplainerKey]
     $navigationState = data[navigationStateKey]
     $scavengerHuntDone = data[scavengerHuntDoneKey]
 
@@ -93,6 +90,18 @@
     bind:volume={$audioVolume}
     src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
+{#if !$firstVisit && $navigationExplainer}
+    <Notification active={$navigationExplainer} formName={navigationExplainerKey} formValue="false">
+        <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
+            Pressing <NavigationIcon /> icon opens navigation
+        </span>
+        <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
+            Pressing <SettingsIcon /> icon opens settings
+        </span>
+        <span class="text-decoration-underline">Press these notifications to close/hide them</span>
+    </Notification>
+{/if}
+
 <NavigationWrapper bind:navigationActive>
     <CoachSection slot="coach" />
     <ComputerSection slot="computer" />
@@ -102,15 +111,10 @@
 
 {#if !navigationActive}
     <Button
-        flashing={$firstVisit}
         id="navigation-button"
         href="/navigation"
         label="Open navigation"
-        on:click={() => {
-            if ($firstVisit) $firstVisit = false
-            if ($cookiesAllowed) setJSCookie(firstVisitNotificationKey, "true")
-            $navigationState = NavigationSchema.enum.navigation
-        }}>
+        on:click={() => ($navigationState = NavigationSchema.enum.navigation)}>
         <NavigationIcon slot="icon" />
     </Button>
 {/if}

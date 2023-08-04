@@ -2,12 +2,13 @@ import { type Actions, fail, redirect } from "@sveltejs/kit"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
 import { EMAIL, PHONE_NUMBER } from "$env/static/private"
-import { firstVisitKey, firstVisitNotificationKey } from "$stores/states/firstVisit"
 import { formNameKey, valueKey } from "$utilities/globalKeys"
 import { NavigationSchema, navigationStateKey, type NavigationStates } from "$stores/states/navigationState"
 import { computerScreenIndexKey } from "$stores/states/computer"
 import { darkModeKey } from "$stores/settings/darkMode"
+import { firstVisitKey } from "$stores/states/firstVisit"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
+import { navigationExplainerKey } from "$stores/states/navigationExplainer"
 import type { PageServerLoad } from "./$types"
 import { scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
 import type { ZodSchema } from "zod"
@@ -22,9 +23,9 @@ type StatesData = {
     [computerScreenIndexKey]: number
     [decidedOnCookiesKey]: boolean
     [firstVisitKey]: boolean
-    [firstVisitNotificationKey]: boolean
     [navigationStateKey]: NavigationStates
     [scavengerHuntDoneKey]: boolean
+    [navigationExplainerKey]: boolean
 }
 
 type CookieStateTrue = {
@@ -62,8 +63,8 @@ export const load = (async ({ cookies, params }) => {
             [decidedOnCookiesKey]: cookies.get(decidedOnCookiesKey) === "true",
             email: EMAIL,
             [firstVisitKey]: !(cookies.get(firstVisitKey) === "false"),
-            [firstVisitNotificationKey]: !(cookies.get(firstVisitNotificationKey) === "true"),
             [likesEightBitFontKey]: !(cookies.get(likesEightBitFontKey) === "false"),
+            [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: route.data,
             phoneNumber: PHONE_NUMBER,
             [scavengerHuntDoneKey]: cookies.get(scavengerHuntDoneKey) === "true",
@@ -78,8 +79,8 @@ export const load = (async ({ cookies, params }) => {
         [darkModeKey]: true,
         [decidedOnCookiesKey]: false,
         [firstVisitKey]: true,
-        [firstVisitNotificationKey]: true,
         [likesEightBitFontKey]: true,
+        [navigationExplainerKey]: false,
         [navigationStateKey]: NavigationSchema.enum.computer,
         [scavengerHuntDoneKey]: false,
     } satisfies DataBasedOnDefaults
@@ -104,7 +105,15 @@ export const actions = {
             const formData = await request.formData()
 
             const key = formData.get(formNameKey)
-            const boolean = formData.get(valueKey) === "true"
+
+            let boolean
+            if (formData.get(valueKey) === "true") {
+                boolean = "true"
+            } else if (formData.get(valueKey) === "false") {
+                boolean = "false"
+            } else {
+                return fail(400, { error: "Incorrect value supplied" })
+            }
 
             if (key === null) return fail(400, { error: "No formName key supplied" })
 
