@@ -139,13 +139,9 @@ export const actions = {
             const value = formData.get(valueKey)
 
             let boolean
-            if (value === "true") {
-                boolean = "true"
-            } else if (value === "false") {
-                boolean = "false"
-            } else {
-                return fail(400, { error: "Incorrect value supplied" })
-            }
+            if (value === "true") boolean = "true"
+            else if (value === "false") boolean = "false"
+            else return fail(400, { error: "Incorrect value supplied" })
 
             if (key === null) return fail(400, { error: "No formName key supplied" })
 

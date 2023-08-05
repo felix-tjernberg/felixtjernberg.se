@@ -17,9 +17,9 @@
         decidedOnCookies,
         decidedOnCookiesKey,
     } from "$stores/settings/cookiesAllowed"
-    import { darkMode } from "$stores/settings/darkMode"
+    import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
-    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
+    import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { setJSCookie } from "$utilities/setJSCookie"
     import {
         navigationExplainer,
@@ -98,10 +98,12 @@
                     </details>
                 </div>
                 <BooleanButton
+                    booleanName={likesEightBitFontKey}
                     description="Do you like reading the 8bit font?"
                     labels={["yes", "no"]}
                     bind:boolean={$likesEightBitFont} />
                 <BooleanButton
+                    booleanName={darkModeKey}
                     description="If you need higher contrast or like light theme click the sun"
                     labels={["dark", "light"]}
                     testid="dark-mode"
