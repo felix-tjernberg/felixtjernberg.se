@@ -10,7 +10,7 @@
     import { enhance } from "$app/forms"
     import { scale } from "svelte/transition"
 
-    import { audioVolume } from "$stores/settings/audioVolume"
+    import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import {
         cookiesAllowed,
         cookiesAllowedKey,
@@ -82,7 +82,9 @@
                 <div class="flex-column-center">
                     <Slider
                         bind:value={$audioVolume}
+                        name={audioVolumeKey}
                         description="Set the elevator music volume to a comfortable level please :)"
+                        noScriptDescription="This slider sets your default volume, however it this setting only works when JavaScript is enabled"
                         label="Elevator music volume" />
                     <details class="flex-column-center">
                         <summary class="text-decoration-underline"> Show elevator music audio player</summary>

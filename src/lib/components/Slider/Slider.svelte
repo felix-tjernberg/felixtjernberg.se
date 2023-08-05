@@ -1,21 +1,25 @@
 <script lang="ts">
+    import { browser } from "$app/environment"
     import Thumb from "$assets/svgs/Thumb.svelte"
     export let label: string
-    export let description: string | undefined = undefined
+    export let description: string | false = false
+    export let noScriptDescription: string | false = false
+    export let name: string
     export let max: number = 1
     export let min: number = 0
     export let step: number = 0.01
     export let value: number = 0.1337
 </script>
 
-<div class="slider flex-column-center">
-    {#if description}
-        <p>{description}</p>
+<div class="slider flex-column-center" data-js-available={browser}>
+    {#if description || noScriptDescription}
+        <p class="js-available-description">{description}</p>
+        <p class="no-script-description">{noScriptDescription}</p>
     {/if}
     <label>
         <span class="visually-hidden">{label}</span>
         <div class="slider-wrapper relative glow glow-hover" style={`--thumb-position-left: ${value * 100}%`}>
-            <input tabindex="-1" type="range" {max} {min} {step} bind:value />
+            <input type="range" {name} {max} {min} {step} bind:value />
             <Thumb />
         </div>
     </label>
@@ -27,8 +31,6 @@
         max-width: 100%;
         padding-top: 1em;
         rotate: -1.72deg;
-        text-align: left;
-        translate: -1em 0;
         width: auto;
     }
     /* Selectors has to be separate for some reason */
@@ -82,5 +84,24 @@
         translate: -50% -50%;
         width: 1.5em;
         z-index: 1;
+    }
+    .no-script-description {
+        display: none;
+    }
+    .slider[data-js-available="false"] .slider-wrapper > input {
+        appearance: auto;
+        -webkit-appearance: auto;
+        -moz-appearance: auto;
+    }
+    .slider[data-js-available="false"] .js-available-description {
+        display: none;
+    }
+    .slider[data-js-available="false"] .no-script-description {
+        display: block;
+    }
+    .slider[data-js-available="false"] .slider-wrapper::after,
+    .slider[data-js-available="false"] .slider-wrapper::before,
+    :global(.slider[data-js-available="false"] .slider-wrapper > svg.thumb) {
+        display: none;
     }
 </style>
