@@ -30,6 +30,7 @@
     import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 
     let details: HTMLDetailsElement
+    let noScriptVolumeForm: HTMLFormElement
 
     let detailsOpen: boolean = false
     let elevatorMusicPaused = true
@@ -80,12 +81,42 @@
                     Before you explore my page here I would like you to set some preferences
                 </p>
                 <div class="flex-column-center">
-                    <Slider
-                        bind:value={$audioVolume}
-                        name={audioVolumeKey}
-                        description="Set the elevator music volume to a comfortable level please :)"
-                        noScriptDescription="This slider sets your default volume, however it this setting only works when JavaScript is enabled"
-                        label="Elevator music volume" />
+                    {#if $cookiesAllowed}
+                        <form
+                            class="flex-column-center"
+                            action="?/setDefaultAudioVolume"
+                            method="POST"
+                            on:submit|preventDefault>
+                            <Slider
+                                bind:value={$audioVolume}
+                                name={audioVolumeKey}
+                                max={0.5}
+                                description="Set the elevator music volume to a comfortable level please :)"
+                                noScriptDescription="This slider sets your default volume, however this setting only works when JavaScript is enabled"
+                                label="Elevator music volume"
+                                on:change={() =>
+                                    $cookiesAllowed && setJSCookie(audioVolumeKey, String($audioVolume))} />
+                            <!-- TODO parse this before setting cookie, probably needs to for all other setJSCookie invocations -->
+                            <noscript>
+                                <Button label="Set default volume" />
+                            </noscript>
+                        </form>
+                    {:else}
+                        <form class="flex-column-center" bind:this={noScriptVolumeForm}>
+                            <Slider
+                                bind:value={$audioVolume}
+                                name={audioVolumeKey}
+                                max={0.5}
+                                description="Set the elevator music volume to a comfortable level please :)"
+                                noScriptDescription="This slider sets your default volume, however this setting only works when JavaScript is enabled"
+                                label="Elevator music volume"
+                                on:change={() => noScriptVolumeForm.requestSubmit()} />
+                            <HiddenInputs excludeStates={[audioVolumeKey]} />
+                            <noscript>
+                                <Button label="Set default volume" />
+                            </noscript>
+                        </form>
+                    {/if}
                     <details class="flex-column-center">
                         <summary class="text-decoration-underline"> Show elevator music audio player</summary>
                         <audio

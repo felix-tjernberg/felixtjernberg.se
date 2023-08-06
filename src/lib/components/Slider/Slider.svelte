@@ -18,8 +18,10 @@
     {/if}
     <label>
         <span class="visually-hidden">{label}</span>
-        <div class="slider-wrapper relative glow glow-hover" style={`--thumb-position-left: ${value * 100}%`}>
-            <input type="range" {name} {max} {min} {step} bind:value />
+        <div
+            class="slider-wrapper relative glow glow-hover"
+            style={`--thumb-position-left: ${Math.min((value / max) * 100, 100)}%`}>
+            <input type="range" {name} {max} {min} {step} bind:value on:change />
             <Thumb />
         </div>
     </label>

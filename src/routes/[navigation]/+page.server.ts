@@ -127,10 +127,28 @@ export const actions = {
         cookies.set(decidedOnCookiesKey, "true")
         throw redirect(302, "/")
     },
+
     removeCookies: async ({ cookies }) => {
         cookies.getAll().forEach((cookie) => cookies.delete(cookie.name))
         throw redirect(302, "/")
     },
+
+    setDefaultAudioVolume: async ({ cookies, request }) => {
+        if (cookies.get(cookiesAllowedKey) === "true") {
+            const formData = await request.formData()
+
+            const volume = audioVolumeSchema.safeParse(formData.get(audioVolumeKey))
+
+            if (!volume.success) return fail(400, { error: "Incorrect value supplied" })
+
+            cookies.set(audioVolumeKey, String(volume.data), { httpOnly: false })
+
+            throw redirect(302, "/")
+        }
+
+        return fail(400, { error: "Cookies not allowed" })
+    },
+
     toggleBoolean: async ({ cookies, request }) => {
         if (cookies.get(cookiesAllowedKey) === "true") {
             const formData = await request.formData()
