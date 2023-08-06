@@ -40,30 +40,70 @@
             }}>
             <input type="hidden" name={booleanNameKey} value={booleanName} />
             {#if icons}
-                <Button active={boolean ? "yes" : "no"} label={labels[0]} name={valueKey} value="true">
+                <Button
+                    active={boolean ? "yes" : "no"}
+                    label={labels[0]}
+                    name={valueKey}
+                    disabled={boolean}
+                    value="true">
                     <slot name="firstIcon" slot="icon" />
                 </Button>
-                <Button active={!boolean ? "yes" : "no"} label={labels[1]} name={valueKey} value="false">
+                <Button
+                    active={!boolean ? "yes" : "no"}
+                    label={labels[1]}
+                    name={valueKey}
+                    disabled={!boolean}
+                    value="false">
                     <slot name="secondIcon" slot="icon" />
                 </Button>
             {:else}
-                <Button active={boolean ? "yes" : "no"} label={labels[0]} name={valueKey} value="true" />
-                <Button active={!boolean ? "yes" : "no"} label={labels[1]} name={valueKey} value="false" />
+                <Button
+                    active={boolean ? "yes" : "no"}
+                    label={labels[0]}
+                    name={valueKey}
+                    disabled={boolean}
+                    value="true" />
+                <Button
+                    active={!boolean ? "yes" : "no"}
+                    label={labels[1]}
+                    name={valueKey}
+                    disabled={!boolean}
+                    value="false" />
             {/if}
         </form>
     {:else}
         <form class="flex-center" class:icons on:submit={() => (boolean = !boolean)}>
             <HiddenInputs excludeStates={[booleanName]} />
             {#if icons}
-                <Button active={boolean ? "yes" : "no"} label={labels[0]} name={booleanName} value="true">
+                <Button
+                    active={boolean ? "yes" : "no"}
+                    label={labels[0]}
+                    name={booleanName}
+                    disabled={boolean}
+                    value="true">
                     <slot name="firstIcon" slot="icon" />
                 </Button>
-                <Button active={!boolean ? "yes" : "no"} label={labels[1]} name={booleanName} value="false">
+                <Button
+                    active={!boolean ? "yes" : "no"}
+                    label={labels[1]}
+                    name={booleanName}
+                    disabled={!boolean}
+                    value="false">
                     <slot name="secondIcon" slot="icon" />
                 </Button>
             {:else}
-                <Button active={boolean ? "yes" : "no"} label={labels[0]} name={booleanName} value="true" />
-                <Button active={!boolean ? "yes" : "no"} label={labels[1]} name={booleanName} value="false" />
+                <Button
+                    active={boolean ? "yes" : "no"}
+                    label={labels[0]}
+                    name={booleanName}
+                    disabled={boolean}
+                    value="true" />
+                <Button
+                    active={!boolean ? "yes" : "no"}
+                    label={labels[1]}
+                    name={booleanName}
+                    disabled={!boolean}
+                    value="false" />
             {/if}
         </form>
     {/if}

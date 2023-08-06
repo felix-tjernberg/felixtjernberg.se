@@ -7,6 +7,7 @@
     export let ariaHidden: boolean = false
     export let blur: boolean = true
     export let border: boolean = true
+    export let disabled: boolean = false
     export let flashing: boolean = false
     export let glow: boolean = true
     export let hoverOverlay: boolean = true
@@ -68,6 +69,7 @@
     class:underlined
     class:un-active={active === "no"}
     data-testid={testid}
+    {disabled}
     {href}
     {id}
     on:click
