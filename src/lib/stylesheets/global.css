@@ -68,6 +68,10 @@ svg {
     width: 1em;
 }
 
+input {
+    accent-color: black;
+}
+
 input[type="number"] {
     appearance: auto;
     -moz-appearance: textfield;
