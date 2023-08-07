@@ -1,11 +1,7 @@
 <script lang="ts">
-    import AudioVolume from "$components/AudioVolume.svelte"
-    import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
     import DetailsContent from "./DetailsContent.svelte"
     import HiddenInputs from "$components/HiddenInputs.svelte"
-    import Moon from "$assets/svgs/Moon.svelte"
-    import Sun from "$assets/svgs/Sun.svelte"
 
     import { enhance } from "$app/forms"
     import { scale } from "svelte/transition"
@@ -16,9 +12,7 @@
         decidedOnCookies,
         decidedOnCookiesKey,
     } from "$stores/settings/cookiesAllowed"
-    import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
-    import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { setJSCookie } from "$utilities/setJSCookie"
     import {
         navigationExplainer,
@@ -27,6 +21,7 @@
         navigationExplainerKey,
     } from "$stores/states/navigation"
     import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
+    import BaseSettings from "$compositions/BaseSettings/BaseSettings.svelte"
 
     let details: HTMLDetailsElement
 
@@ -76,21 +71,7 @@
                 <p class="font-family-primary-fat text-align-center">
                     Before you explore my page here I would like you to set some preferences
                 </p>
-                <AudioVolume />
-                <BooleanButton
-                    booleanName={likesEightBitFontKey}
-                    description="Do you like reading the 8bit font?"
-                    labels={["yes", "no"]}
-                    bind:boolean={$likesEightBitFont} />
-                <BooleanButton
-                    booleanName={darkModeKey}
-                    description="If you need higher contrast or like light theme click the sun"
-                    labels={["dark", "light"]}
-                    testid="dark-mode"
-                    bind:boolean={$darkMode}>
-                    <Moon slot="firstIcon" />
-                    <Sun slot="secondIcon" />
-                </BooleanButton>
+                <BaseSettings />
                 {#if $cookiesAllowed}
                     <form
                         action="?/toggleBoolean"
