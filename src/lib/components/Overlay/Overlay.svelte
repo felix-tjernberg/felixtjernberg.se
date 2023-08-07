@@ -1,9 +1,16 @@
 <script lang="ts">
     import Close from "$assets/svgs/Close.svelte"
-
     import Button from "$components/Button/Button.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
 
+    import { enhance } from "$app/forms"
     import { scale } from "svelte/transition"
+
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { settingsOpen, settingsOpenKey } from "$stores/states/settingsOpen"
+
+    import { setJSCookie } from "$utilities/setJSCookie"
+    import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 
     export let headerText: string
     export let closeButton: boolean = true
@@ -27,14 +34,30 @@
             </div>
         </section>
         {#if closeButton}
-            <Button
-                class="absolute"
-                id="close-settings"
-                label="close settings"
-                on:click={() => (open = false)}
-                testid="close-settings">
-                <Close slot="icon" />
-            </Button>
+            <!-- TODO this is not general solution, as these forms are to toggle settingsOpen, in the future if I need more overlays I can export a variable with what booleanName should be updated, similar for how I do it in BooleanButton component, also the button should say which overlay is being closed -->
+            {#if $cookiesAllowed}
+                <form
+                    class="absolute"
+                    action="?/toggleBoolean"
+                    method="POST"
+                    use:enhance={({ cancel }) => {
+                        cancel()
+                        if ($cookiesAllowed) setJSCookie(settingsOpenKey, "false")
+                        $settingsOpen = false
+                    }}>
+                    <input type="hidden" name={booleanNameKey} value={settingsOpenKey} />
+                    <Button label="close settings" name={valueKey} testid="close-settings" value="false">
+                        <Close slot="icon" />
+                    </Button>
+                </form>
+            {:else}
+                <form class="absolute" on:submit={() => ($settingsOpen = false)}>
+                    <HiddenInputs excludeStates={[settingsOpenKey]} />
+                    <Button label="close settings" name={settingsOpenKey} testid="close-settings" value="false">
+                        <Close slot="icon" />
+                    </Button>
+                </form>
+            {/if}
         {/if}
     </dialog>
 {/if}
@@ -51,7 +74,7 @@
         max-width: 100%;
         overflow: auto;
     }
-    :global(dialog > button) {
+    form {
         top: 1em;
         right: 1em;
     }

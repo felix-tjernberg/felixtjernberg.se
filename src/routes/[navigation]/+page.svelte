@@ -11,9 +11,12 @@
     import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
     import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
 
-    import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigation"
-    import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { browser } from "$app/environment"
+    import { enhance } from "$app/forms"
+    import { locale } from "svelte-intl-precompile"
+    import { t } from "svelte-intl-precompile"
+
+    import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import {
         cookiesAllowed,
         cookiesAllowedKey,
@@ -36,10 +39,13 @@
     import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
     import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
-    import { locale } from "svelte-intl-precompile"
+    import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigation"
     import { phoneRingtonePaused } from "$stores/states/phone"
     import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
-    import { t } from "svelte-intl-precompile"
+    import { settingsOpen, settingsOpenKey } from "$stores/states/settingsOpen"
+    import { setJSCookie } from "$utilities/setJSCookie"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
+    import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 
     export let data: DataBasedOnCookies | DataBasedOnDefaults
 
@@ -55,9 +61,9 @@
     $navigationExplainer2 = data[navigationExplainer2Key]
     $navigationState = data[navigationStateKey]
     $scavengerHuntDone = data[scavengerHuntDoneKey]
+    $settingsOpen = data[settingsOpenKey]
 
     let navigationActive: boolean
-    let settingsOverlay: HTMLDialogElement
 
     $: if (browser) document.documentElement.lang = $locale
 
@@ -123,44 +129,70 @@
 </NavigationWrapper>
 
 {#if !navigationActive}
-    <Button
-        id="navigation-button"
-        href="/navigation"
-        label="Open navigation"
-        on:click={() => ($navigationState = NavigationSchema.enum.navigation)}>
-        <NavigationIcon slot="icon" />
-    </Button>
+    {#if $cookiesAllowed}
+        <Button
+            id="navigation-button"
+            href="/navigation"
+            label="Open navigation"
+            on:click={() => ($navigationState = NavigationSchema.enum.navigation)}>
+            <NavigationIcon slot="icon" />
+        </Button>
+    {:else}
+        <form id="navigation-form" on:submit={() => ($navigationState = NavigationSchema.enum.navigation)}>
+            <HiddenInputs excludeStates={[navigationStateKey]} />
+            <Button label="Open navigation" name={navigationStateKey} value={NavigationSchema.enum.navigation}>
+                <NavigationIcon slot="icon" />
+            </Button>
+        </form>
+    {/if}
 {/if}
-<Button
-    id="settings-button"
-    href="/settings"
-    label="Open settings"
-    on:click={(event) => {
-        event.preventDefault()
-        settingsOverlay.showModal()
-    }}>
-    <SettingsIcon slot="icon" />
-</Button>
+{#if $cookiesAllowed}
+    <form
+        id="settings-form"
+        action="?/toggleBoolean"
+        method="POST"
+        use:enhance={({ cancel }) => {
+            cancel()
+            if ($cookiesAllowed) setJSCookie(settingsOpenKey, "true")
+            $settingsOpen = true
+        }}>
+        <input type="hidden" name={booleanNameKey} value={settingsOpenKey} />
+        <Button label="Open settings" name={valueKey} value="true">
+            <SettingsIcon slot="icon" />
+        </Button>
+    </form>
+{:else}
+    <form id="settings-form" on:submit={() => ($settingsOpen = true)}>
+        <HiddenInputs excludeStates={[settingsOpenKey]} />
+        <Button label="Open settings" name={settingsOpenKey} value="true">
+            <SettingsIcon slot="icon" />
+        </Button>
+    </form>
+{/if}
 
 <FirstTimeVisitOverlay />
-<SettingsOverlay bind:dialog={settingsOverlay} />
+<SettingsOverlay />
 
 <style>
-    :global(body > div > a) {
-        font-size: var(--static-scale-400) !important;
+    #settings-form,
+    #navigation-form,
+    :global(#navigation-button) {
         position: fixed !important;
         top: 1em;
+        width: max-content;
     }
-    :global(body > div > #navigation-button) {
+    #settings-form,
+    :global(#settings-form svg),
+    #navigation-form,
+    :global(#navigation-form svg),
+    :global(#navigation-button) {
+        font-size: var(--static-scale-400) !important;
+    }
+    :global(#navigation-button),
+    #navigation-form {
         left: 1em;
     }
-    :global(body > div > #settings-button) {
+    #settings-form {
         right: 1em;
-    }
-    @media (max-width: 666px) {
-        :global([data-navigation-state="none"] + #settings-button) {
-            left: 50%;
-            translate: -50%;
-        }
     }
 </style>

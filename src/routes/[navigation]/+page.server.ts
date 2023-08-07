@@ -16,6 +16,7 @@ import { firstVisitKey } from "$stores/states/firstVisit"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
 import type { PageServerLoad } from "./$types"
 import { scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
+import { settingsOpenKey } from "$stores/states/settingsOpen"
 import type { ZodSchema } from "zod"
 
 type SettingsData = {
@@ -32,6 +33,7 @@ type StatesData = {
     [scavengerHuntDoneKey]: boolean
     [navigationExplainer2Key]: boolean
     [navigationExplainerKey]: boolean
+    [settingsOpenKey]: boolean
 }
 
 type CookieStateTrue = {
@@ -55,13 +57,13 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
 }
 
 export const load = (async ({ cookies, params, url: { searchParams } }) => {
-    const route = NavigationSchema.safeParse(params.navigation)
-    if (!route.success) throw fail(404, { error: "Page not found" })
+    const paramsRoute = NavigationSchema.safeParse(params.navigation)
+    if (!paramsRoute.success) throw fail(404, { error: "Page not found" })
 
     // Return data state based on cookies
     const cookiesAllowed = cookies.get(cookiesAllowedKey) === "true"
     if (cookiesAllowed) {
-        cookies.set(navigationStateKey, String(route.data), { httpOnly: false })
+        cookies.set(navigationStateKey, String(paramsRoute.data), { httpOnly: false })
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, cookies.get(audioVolumeKey), 0.1),
             [computerScreenIndexKey]: getState<ComputerScreenIndex>(
@@ -77,11 +79,19 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             [likesEightBitFontKey]: !(cookies.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(cookies.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
-            [navigationStateKey]: route.data,
+            [navigationStateKey]: paramsRoute.data,
             phoneNumber: PHONE_NUMBER,
             [scavengerHuntDoneKey]: cookies.get(scavengerHuntDoneKey) === "true",
+            [settingsOpenKey]: cookies.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnCookies
     }
+
+    const searchParamsRoute = NavigationSchema.safeParse(searchParams.get(navigationStateKey))
+    let searchParamsString = "?"
+    searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
+
+    if (searchParamsRoute.success && searchParamsRoute.data !== paramsRoute.data)
+        throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
 
     if (searchParams.get(cookiesAllowedKey) === "false") {
         return {
@@ -99,9 +109,10 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             [likesEightBitFontKey]: !(searchParams.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(searchParams.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(searchParams.get(navigationExplainerKey) === "false"),
-            [navigationStateKey]: route.data,
+            [navigationStateKey]: paramsRoute.data,
             phoneNumber: PHONE_NUMBER,
             [scavengerHuntDoneKey]: searchParams.get(scavengerHuntDoneKey) === "true",
+            [settingsOpenKey]: searchParams.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnParameters
     }
 
@@ -118,6 +129,7 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
         [navigationExplainerKey]: false,
         [navigationStateKey]: NavigationSchema.enum.computer,
         [scavengerHuntDoneKey]: false,
+        [settingsOpenKey]: false,
     } satisfies DataBasedOnDefaults
 }) satisfies PageServerLoad
 
