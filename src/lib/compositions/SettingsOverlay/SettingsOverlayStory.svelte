@@ -1,10 +1,10 @@
 <script lang="ts">
     import SettingsOverlay from "./SettingsOverlay.svelte"
-    // import { audioVolume } from "$stores/settings/audioVolume"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { darkMode } from "$stores/settings/darkMode"
     import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
     import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
+    import { onMount } from "svelte"
 
     let dialog: HTMLDialogElement
 
@@ -12,7 +12,10 @@
     $cookiesAllowed = true
     $darkMode = true
     $likesEightBitFont = true
-    // $audioVolume = 0.5
+
+    onMount(() => {
+        dialog.showModal()
+    })
 </script>
 
 <div>

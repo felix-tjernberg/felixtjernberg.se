@@ -5,6 +5,9 @@ div[data-testid="storybook-wrapper"],
 div[data-testid="storybook-wrapper"] > div {
     height: 100%;
 }
+#storybook-root {
+    padding: 0 !important;
+}
 
 div[data-testid="storybook-wrapper"] > div {
     width: 100%;

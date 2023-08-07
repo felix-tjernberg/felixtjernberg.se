@@ -12,7 +12,7 @@
     export let dialog: HTMLDialogElement
 </script>
 
-<dialog bind:this={dialog} id="settings-dialog" class="relative background-blur" data-testid="settings-dialog">
+<dialog bind:this={dialog} id="settings-dialog" class="background-blur" data-testid="settings-dialog">
     <h2>
         <SettingsText />
         <span class="visually-hidden">settings</span>
