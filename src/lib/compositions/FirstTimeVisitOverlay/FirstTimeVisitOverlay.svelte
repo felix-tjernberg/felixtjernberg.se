@@ -1,16 +1,15 @@
 <script lang="ts">
+    import AudioVolume from "$components/AudioVolume.svelte"
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import Button from "$components/Button/Button.svelte"
     import DetailsContent from "./DetailsContent.svelte"
     import HiddenInputs from "$components/HiddenInputs.svelte"
     import Moon from "$assets/svgs/Moon.svelte"
-    import Slider from "$components/Slider/Slider.svelte"
     import Sun from "$assets/svgs/Sun.svelte"
 
     import { enhance } from "$app/forms"
     import { scale } from "svelte/transition"
 
-    import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import {
         cookiesAllowed,
         cookiesAllowedKey,
@@ -30,10 +29,8 @@
     import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 
     let details: HTMLDetailsElement
-    let noScriptVolumeForm: HTMLFormElement
 
     let detailsOpen: boolean = false
-    let elevatorMusicPaused = true
 </script>
 
 {#if $firstVisit}
@@ -54,7 +51,6 @@
                     {/if}
                 </details>
                 <div class="flex-center font-size-000 gap">
-                    <!-- TODO: add parameters behavior, noJS active and no cookies allowed -->
                     <form
                         on:submit={() => {
                             $cookiesAllowed = false
@@ -80,54 +76,7 @@
                 <p class="font-family-primary-fat text-align-center">
                     Before you explore my page here I would like you to set some preferences
                 </p>
-                <div class="flex-column-center">
-                    {#if $cookiesAllowed}
-                        <form
-                            class="flex-column-center"
-                            action="?/setDefaultAudioVolume"
-                            method="POST"
-                            on:submit|preventDefault>
-                            <Slider
-                                bind:value={$audioVolume}
-                                name={audioVolumeKey}
-                                max={0.5}
-                                description="Set the elevator music volume to a comfortable level please :)"
-                                noScriptDescription="This slider sets your default volume, however this setting only works when JavaScript is enabled"
-                                label="Elevator music volume"
-                                on:change={() =>
-                                    $cookiesAllowed && setJSCookie(audioVolumeKey, String($audioVolume))} />
-                            <!-- TODO parse this before setting cookie, probably needs to for all other setJSCookie invocations -->
-                            <noscript>
-                                <Button label="Set default volume" />
-                            </noscript>
-                        </form>
-                    {:else}
-                        <form class="flex-column-center" bind:this={noScriptVolumeForm}>
-                            <Slider
-                                bind:value={$audioVolume}
-                                name={audioVolumeKey}
-                                max={0.5}
-                                description="Set the elevator music volume to a comfortable level please :)"
-                                noScriptDescription="This slider sets your default volume, however this setting only works when JavaScript is enabled"
-                                label="Elevator music volume"
-                                on:change={() => noScriptVolumeForm.requestSubmit()} />
-                            <HiddenInputs excludeStates={[audioVolumeKey]} />
-                            <noscript>
-                                <Button label="Set default volume" />
-                            </noscript>
-                        </form>
-                    {/if}
-                    <details class="flex-column-center">
-                        <summary class="text-decoration-underline"> Show elevator music audio player</summary>
-                        <audio
-                            bind:paused={elevatorMusicPaused}
-                            bind:volume={$audioVolume}
-                            on:canplay={() => (elevatorMusicPaused = $firstVisit && $decidedOnCookies ? false : true)}
-                            class="margin-auto"
-                            controls
-                            src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast.mp3" />
-                    </details>
-                </div>
+                <AudioVolume />
                 <BooleanButton
                     booleanName={likesEightBitFontKey}
                     description="Do you like reading the 8bit font?"
