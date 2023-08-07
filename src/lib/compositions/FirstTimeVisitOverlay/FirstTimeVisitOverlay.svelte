@@ -31,7 +31,9 @@
 {#if $firstVisit}
     <dialog open={true} id="first-time-visit-dialog" class="relative background-blur" transition:scale>
         <h2 class="visually-hidden">First Time Visit Dialog</h2>
-        <div id="first-time-visit-box" class="background-blur margin-vertical-flow margin glow">
+        <div
+            id="first-time-visit-box"
+            class="background-blur margin-auto margin-vertical-flow margin glow flex-column-center">
             {#if !$decidedOnCookies}
                 <details class="margin-vertical-flow flex-column-center" bind:open={detailsOpen} bind:this={details}>
                     <summary tabindex="-1" class="font-family-primary-fat text-align-center">
@@ -125,12 +127,7 @@
     #first-time-visit-dialog {
         background-color: transparent;
         background-image: var(--gradient-90-percent);
-        height: auto;
         max-height: 100%;
-        max-width: 100%;
-        overflow: hidden;
-        place-content: center;
-        width: auto;
     }
     #first-time-visit-dialog[open] {
         display: grid;
@@ -143,6 +140,8 @@
         --background-blur-amount: 7px;
     }
     #first-time-visit-box {
+        max-width: 1000px;
+        height: max-content;
         --glow-color: var(--gray-100);
         --margin-vertical-flow-amount: var(--relative-scale-400);
         border: var(--stroke-300) solid var(--gray-100);
@@ -152,13 +151,5 @@
     }
     :global([data-dark-mode="false"] #first-time-visit-box) {
         background-color: var(--white-50-percent);
-    }
-    :global(#first-time-visit-box .slider) {
-        --margin-vertical-flow-amount: var(--relative-scale-000) !important;
-    }
-    :global(#close-first-time-visit-dialog) {
-        --margin-vertical-flow-amount: var(--static-scale-300);
-        margin-left: auto;
-        margin-right: auto;
     }
 </style>

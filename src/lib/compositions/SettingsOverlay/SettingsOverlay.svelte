@@ -1,43 +1,24 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
-    import { audioVolume } from "$stores/settings/audioVolume"
-    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
-    import { darkMode } from "$stores/settings/darkMode"
-    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
-    import { computerScreenIndex } from "$stores/states/computer"
-    import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
-
-    import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
+    import BaseSettings from "$compositions/BaseSettings/BaseSettings.svelte"
     import Button from "$components/Button/Button.svelte"
     import Close from "$assets/svgs/Close.svelte"
-    import Moon from "$assets/svgs/Moon.svelte"
     import SettingsText from "$assets/svgs/SettingsText.svelte"
-    import Slider from "$components/Slider/Slider.svelte"
-    import Sun from "$assets/svgs/Sun.svelte"
-    import { onMount } from "svelte"
-    import { enhance } from "$app/forms"
+
+    import { fade } from "svelte/transition"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { computerScreenIndex } from "$stores/states/computer"
+    import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
 
     export let dialog: HTMLDialogElement
 </script>
 
 <dialog bind:this={dialog} id="settings-dialog" class="relative background-blur" data-testid="settings-dialog">
-    <h2><span class="visually-hidden">settings</span><SettingsText /></h2>
-    <div id="settings-box" class="flex flex-center background-blur">
-        <div class="flex-column-center">
-            <h3>Do you like reading 8bit font?</h3>
-            <BooleanButton labels={["yes", "no"]} bind:boolean={$likesEightBitFont} testid="likes-eight-bit-font" />
-        </div>
-        <div class="flex-column-center">
-            <h3>Volume</h3>
-            <Slider label="Volume" bind:value={$audioVolume} />
-        </div>
-        <div id="dark-mode">
-            <h3>Dark/Light mode</h3>
-            <BooleanButton labels={["dark", "light"]} bind:boolean={$darkMode} testid="dark-mode">
-                <Moon slot="firstIcon" />
-                <Sun slot="secondIcon" />
-            </BooleanButton>
-        </div>
+    <h2>
+        <SettingsText />
+        <span class="visually-hidden">settings</span>
+    </h2>
+    <div id="settings-box" class="flex-center background-blur margin-vertical-flow">
+        <BaseSettings />
         <div class="flex-column-center">
             {#if $cookiesAllowed}
                 <h3>Changed your mind about cookies?</h3>
@@ -70,15 +51,16 @@
 </dialog>
 
 <style>
+    :global(#settings-dialog .icon) {
+        font-size: var(--relative-scale-300);
+    }
     #settings-dialog {
         background-color: transparent;
         background-image: var(--gradient-90-percent);
         grid-template-rows: 33% 1fr;
-        height: auto;
         max-height: 100%;
         max-width: 100%;
         overflow: hidden;
-        width: auto;
     }
     #settings-dialog[open] {
         display: grid;

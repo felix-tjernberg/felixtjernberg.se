@@ -114,7 +114,7 @@
         color: var(--white);
         max-width: 100%;
         rotate: -1.72deg;
-        text-align: left;
+        text-align: center;
         translate: -1em -0.5em;
         width: auto;
     }

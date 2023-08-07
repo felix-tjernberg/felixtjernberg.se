@@ -68,6 +68,11 @@ svg {
     width: 1em;
 }
 
+dialog {
+    height: auto;
+    width: auto;
+}
+
 input {
     accent-color: black;
 }
