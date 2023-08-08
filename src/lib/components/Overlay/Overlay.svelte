@@ -20,7 +20,7 @@
 {#if open}
     <dialog open={true} class="background-blur height-100percent padding" transition:scale>
         <section class="margin-horizontal-auto height-100percent">
-            <h2>
+            <h2 class="width-100percent">
                 <slot name="headerTextSVG" />
                 <span class="visually-hidden">{headerText}</span>
             </h2>
@@ -89,6 +89,7 @@
     section {
         display: grid;
         grid-template-rows: 33% auto;
+        max-width: 720px;
     }
     h2 {
         height: max-content;
@@ -101,11 +102,6 @@
     }
     .spacer {
         height: 1em;
-    }
-    @media (min-width: 696px) {
-        section {
-            width: max-content;
-        }
     }
     @media (max-width: 400px) {
         dialog {
