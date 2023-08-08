@@ -7,22 +7,23 @@
     import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { setJSCookie } from "$utilities/setJSCookie"
+    import Description from "$components/Description.svelte"
+
+    export let booleanName: string
+    export let labels: string[]
 
     export let boolean: boolean = true
-    export let booleanName: string
-    export let description: string | undefined = undefined
-    export let labels: string[]
+    export let description: string
+    export let noScriptDescription: string | false = false
     export let testid: string | undefined = undefined
 
     let icons = Boolean($$slots.firstIcon && $$slots.secondIcon)
 </script>
 
-<div class="flex-column-center" data-testid={testid}>
-    {#if description}
-        <p>{description}</p>
-    {/if}
+<Description {description} noScriptDescription={noScriptDescription ? noScriptDescription : description}>
     {#if $cookiesAllowed}
         <form
+            data-testid={testid}
             class="flex-center"
             class:icons
             action="?/toggleBoolean"
@@ -72,7 +73,7 @@
             {/if}
         </form>
     {:else}
-        <form class="flex-center" class:icons on:submit={() => (boolean = !boolean)}>
+        <form class="flex-center" class:icons on:submit={() => (boolean = !boolean)} data-testid={testid}>
             <HiddenInputs excludeStates={[booleanName]} />
             {#if icons}
                 <Button
@@ -107,17 +108,9 @@
             {/if}
         </form>
     {/if}
-</div>
+</Description>
 
 <style>
-    p {
-        color: var(--white);
-        max-width: 100%;
-        rotate: -1.72deg;
-        text-align: center;
-        translate: -1em -0.5em;
-        width: auto;
-    }
     .icons {
         gap: 1em;
     }
