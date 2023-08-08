@@ -89,7 +89,7 @@
     section {
         display: grid;
         grid-template-rows: 33% auto;
-        max-width: 720px;
+        max-width: 70ch;
     }
     h2 {
         height: max-content;
