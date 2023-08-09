@@ -11,6 +11,9 @@
 .relative {
     position: relative !important;
 }
+.fixed {
+    position: fixed !important;
+}
 
 .background-blur {
     --background-blur-amount: var(--blur-000);

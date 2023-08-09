@@ -1,12 +1,14 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
-    import { navigationState, NavigationSchema } from "$stores/states/navigation"
-    import Blog from "$assets/svgs/Welcome.svelte"
-    import Phone from "$assets/svgs/Phone.svelte"
-    import Computer from "$assets/svgs/Computer.svelte"
-    import Coach from "$assets/svgs/Coach.svelte"
-    import Contact from "$assets/svgs/Contact.svelte"
+    import BlogText from "$assets/svgs/BlogText.svelte"
+    import ComputerText from "$assets/svgs/ComputerText.svelte"
+    import CoachText from "$assets/svgs/CoachText.svelte"
+    import ContactText from "$assets/svgs/ContactText.svelte"
     import Logo from "$assets/svgs/Logo.svelte"
+    import PhoneText from "$assets/svgs/PhoneText.svelte"
+
+    import NavigationLink from "./NavigationLink.svelte"
+
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
 
     export let navigationActive: boolean = true
 
@@ -19,66 +21,35 @@
         <Logo />
         <Logo />
     {/if}
-    <div id="navigation-item-coach">
-        {#if navigationActive}
-            <a on:click={() => ($navigationState = NavigationSchema.enum.coach)} transition:fade href={"/coach"}>
-                <span class="visually-hidden">coach</span>
-                <Coach />
-            </a>
-        {/if}
-        <slot name="coach" />
-    </div>
-    <div id="navigation-item-blog">
-        {#if navigationActive}
-            <a
-                tabindex="-1"
-                on:click={() => ($navigationState = NavigationSchema.enum.blog)}
-                transition:fade
-                href={"/blog"}>
-                <span class="visually-hidden">blog</span>
-                <Blog />
-            </a>
-        {/if}
-        <slot name="blog" />
-    </div>
-    <div id="navigation-item-computer">
-        {#if navigationActive}
-            <a
-                tabindex="-1"
-                on:click={() => ($navigationState = NavigationSchema.enum.computer)}
-                transition:fade
-                href={"/computer"}>
-                <span class="visually-hidden">computer</span>
-                <Computer />
-            </a>
-        {/if}
+    <div class="relative" id="navigation-item-computer">
+        <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.computer}>
+            <ComputerText slot="textSVG" />
+        </NavigationLink>
         <slot name="computer" />
     </div>
-    <div id="navigation-item-phone">
-        {#if navigationActive}
-            <a
-                tabindex="-1"
-                on:click={() => ($navigationState = NavigationSchema.enum.phone)}
-                transition:fade
-                href={"/phone"}>
-                <span class="visually-hidden">phone</span>
-                <Phone />
-            </a>
-        {/if}
+    <div class="relative" id="navigation-item-coach">
+        <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.coach}>
+            <CoachText slot="textSVG" />
+        </NavigationLink>
+        <slot name="coach" />
+    </div>
+    <div class="relative" id="navigation-item-phone">
+        <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.phone}>
+            <PhoneText slot="textSVG" />
+        </NavigationLink>
         <slot name="phone" />
     </div>
-    <div id="navigation-item-contact">
-        {#if navigationActive}
-            <a
-                tabindex="-1"
-                on:click={() => ($navigationState = NavigationSchema.enum.contact)}
-                transition:fade
-                href={"/contact"}>
-                <span class="visually-hidden">contact</span>
-                <Contact />
-            </a>
-        {/if}
+    <div class="relative" id="navigation-item-contact">
+        <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.contact}>
+            <ContactText slot="textSVG" />
+        </NavigationLink>
         <slot name="contact" />
+    </div>
+    <div class="relative" id="navigation-item-blog">
+        <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.blog}>
+            <BlogText slot="textSVG" />
+        </NavigationLink>
+        <slot name="blog" />
     </div>
 </div>
 
@@ -86,28 +57,6 @@
     #navigation {
         height: 100%;
         transition: all ease-in-out 0.5s;
-    }
-    #navigation > div {
-        position: relative;
-    }
-    #navigation > div > a {
-        inset: 0;
-        max-width: none;
-        max-width: none;
-        position: absolute;
-        z-index: 9999;
-    }
-    #navigation > div > a,
-    #navigation > div:nth-of-type(6) {
-        align-items: center;
-        backdrop-filter: blur(4px) saturate(90%);
-        display: flex;
-        place-content: center;
-        padding: 1em;
-    }
-    :global(#navigation > div > a > svg) {
-        height: 75%;
-        width: 75%;
     }
     :global(#navigation > svg) {
         height: 175%;
@@ -134,13 +83,6 @@
     #navigation-item-contact {
         translate: 100% 100%;
     }
-    #navigation[data-navigation-state="phone"],
-    #navigation[data-navigation-state="computer"],
-    #navigation[data-navigation-state="blog"],
-    #navigation[data-navigation-state="coach"],
-    #navigation[data-navigation-state="contact"] {
-        scale: 1;
-    }
     #navigation[data-navigation-state="coach"] {
         translate: 100% 100%;
     }
@@ -153,10 +95,14 @@
     #navigation[data-navigation-state="contact"] {
         translate: -100% -100%;
     }
+    #navigation[data-navigation-state="phone"],
+    #navigation[data-navigation-state="computer"],
+    #navigation[data-navigation-state="blog"],
+    #navigation[data-navigation-state="coach"],
+    #navigation[data-navigation-state="contact"] {
+        scale: 1;
+    }
     #navigation[data-navigation-state="navigation"] {
         scale: 0.3;
-    }
-    :global([data-dark-mode="false"] #navigation-item-settings) {
-        background-color: var(--white-50-percent);
     }
 </style>
