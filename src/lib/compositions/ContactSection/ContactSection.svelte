@@ -1,6 +1,6 @@
 <script lang="ts">
     import { navigationState, NavigationSchema } from "$stores/states/navigation"
-    import { scavengerHuntDone } from "$stores/states/scavengerHuntDone"
+    import { scavengerHuntState } from "$stores/states/scavengerHuntState"
     import { page } from "$app/stores"
 
     import LinkedIn from "$assets/svgs/LinkedIn.svelte"
@@ -22,7 +22,7 @@
     </div>
     <div class="border background-blur margin-vertical-flow glow flex-column-center" id="text-wrapper">
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
-        {#if $scavengerHuntDone}
+        {#if $scavengerHuntState}
             <p class="font-size-300" data-testid="email-and-phone-paragraph">
                 Email Adress: <br class="br-small-screen" />{$page.data.email}
                 <br />

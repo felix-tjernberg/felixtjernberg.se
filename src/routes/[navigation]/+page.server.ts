@@ -15,7 +15,7 @@ import { darkModeKey } from "$stores/settings/darkMode"
 import { firstVisitKey } from "$stores/states/firstVisit"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
 import type { PageServerLoad } from "./$types"
-import { scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
+import { scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
 import { settingsOpenKey } from "$stores/states/settingsOpen"
 import type { ZodSchema } from "zod"
 
@@ -30,7 +30,7 @@ type StatesData = {
     [decidedOnCookiesKey]: boolean
     [firstVisitKey]: boolean
     [navigationStateKey]: NavigationStates
-    [scavengerHuntDoneKey]: boolean
+    [scavengerHuntStateKey]: boolean
     [navigationExplainer2Key]: boolean
     [navigationExplainerKey]: boolean
     [settingsOpenKey]: boolean
@@ -43,7 +43,7 @@ type CookieStateFalse = {
     [cookiesAllowedKey]: false
 }
 
-//TODO not sure how to deal with this yet, point is to only send whis when user has finished scavenger hunt
+//TODO not sure how to deal with this yet, point is to only send this when user has finished scavenger hunt
 type ScavangerHuntRewardData = { email: string; phoneNumber: string }
 
 export type DataBasedOnCookies = CookieStateTrue & SettingsData & StatesData & ScavangerHuntRewardData
@@ -81,7 +81,7 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
             phoneNumber: PHONE_NUMBER,
-            [scavengerHuntDoneKey]: cookies.get(scavengerHuntDoneKey) === "true",
+            [scavengerHuntStateKey]: cookies.get(scavengerHuntStateKey) === "true",
             [settingsOpenKey]: cookies.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnCookies
     }
@@ -111,7 +111,7 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             [navigationExplainerKey]: !(searchParams.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
             phoneNumber: PHONE_NUMBER,
-            [scavengerHuntDoneKey]: searchParams.get(scavengerHuntDoneKey) === "true",
+            [scavengerHuntStateKey]: searchParams.get(scavengerHuntStateKey) === "true",
             [settingsOpenKey]: searchParams.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnParameters
     }
@@ -128,7 +128,7 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
         [navigationExplainer2Key]: false,
         [navigationExplainerKey]: false,
         [navigationStateKey]: NavigationSchema.enum.computer,
-        [scavengerHuntDoneKey]: false,
+        [scavengerHuntStateKey]: false,
         [settingsOpenKey]: false,
     } satisfies DataBasedOnDefaults
 }) satisfies PageServerLoad

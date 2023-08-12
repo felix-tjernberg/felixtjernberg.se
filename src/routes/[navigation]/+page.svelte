@@ -41,7 +41,7 @@
     import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigation"
     import { phoneRingtonePaused } from "$stores/states/phone"
-    import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
+    import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
     import { settingsOpen, settingsOpenKey } from "$stores/states/settingsOpen"
     import { setJSCookie } from "$utilities/setJSCookie"
     import HiddenInputs from "$components/HiddenInputs.svelte"
@@ -60,7 +60,7 @@
     $navigationExplainer = data[navigationExplainerKey]
     $navigationExplainer2 = data[navigationExplainer2Key]
     $navigationState = data[navigationStateKey]
-    $scavengerHuntDone = data[scavengerHuntDoneKey]
+    $scavengerHuntState = data[scavengerHuntStateKey]
     $settingsOpen = data[settingsOpenKey]
 
     let navigationActive: boolean

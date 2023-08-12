@@ -11,7 +11,7 @@
 
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { settingsOpen } from "$stores/states/settingsOpen"
-    import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
+    import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
     import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
     import { setJSCookie } from "$utilities/setJSCookie"
 </script>
@@ -34,7 +34,7 @@
             {/if}
         </Description>
     </div>
-    {#if $scavengerHuntDone}
+    {#if $scavengerHuntState}
         <div class="flex-column-center" transition:fade={{ duration: 1337 }}>
             <Description description="Want to do the scavenger hunt again?">
                 {#if $cookiesAllowed}
@@ -42,10 +42,10 @@
                         action="?/toggleBoolean"
                         method="POST"
                         use:enhance={() => {
-                            $scavengerHuntDone = false
-                            if ($cookiesAllowed) setJSCookie(scavengerHuntDoneKey, "false")
+                            $scavengerHuntState = false
+                            if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, "false")
                         }}>
-                        <input type="hidden" name={booleanNameKey} value={scavengerHuntDoneKey} />
+                        <input type="hidden" name={booleanNameKey} value={scavengerHuntStateKey} />
                         <Button
                             label="yes restart scavenger hunt!"
                             name={valueKey}
@@ -54,12 +54,12 @@
                         <Button label="yes restart scavenger hunt!" testid="reset-scavenger-hunt" />
                     </form>
                 {:else}
-                    <form on:submit={() => ($scavengerHuntDone = false)}>
-                        <HiddenInputs excludeStates={[scavengerHuntDoneKey]} />
+                    <form on:submit={() => ($scavengerHuntState = false)}>
+                        <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
                         <Button
                             label="yes restart scavenger hunt!"
                             testid="reset-scavenger-hunt"
-                            name={scavengerHuntDoneKey}
+                            name={scavengerHuntStateKey}
                             value="false" />
                     </form>
                 {/if}

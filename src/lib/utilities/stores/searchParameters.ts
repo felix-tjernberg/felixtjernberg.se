@@ -17,7 +17,7 @@ import {
     navigationState,
     navigationStateKey,
 } from "$stores/states/navigation"
-import { scavengerHuntDone, scavengerHuntDoneKey } from "$stores/states/scavengerHuntDone"
+import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
 
 import { derived } from "svelte/store"
 
@@ -33,7 +33,7 @@ export const searchParameters = derived<
         | typeof navigationExplainer
         | typeof navigationExplainer2
         | typeof navigationState
-        | typeof scavengerHuntDone
+        | typeof scavengerHuntState
     )[],
     { name: string; value: unknown }[]
 >(
@@ -48,7 +48,7 @@ export const searchParameters = derived<
         navigationExplainer,
         navigationExplainer2,
         navigationState,
-        scavengerHuntDone,
+        scavengerHuntState,
     ],
     ([
         $audioVolume,
@@ -61,7 +61,7 @@ export const searchParameters = derived<
         $navigationExplainer,
         $navigationExplainer2,
         $navigationState,
-        $scavengerHuntDone,
+        $scavengerHuntState,
     ]) => [
         { name: audioVolumeKey, value: $audioVolume },
         { name: computerScreenIndexKey, value: $computerScreenIndex },
@@ -73,6 +73,6 @@ export const searchParameters = derived<
         { name: navigationExplainerKey, value: $navigationExplainer },
         { name: navigationExplainer2Key, value: $navigationExplainer2 },
         { name: navigationStateKey, value: $navigationState },
-        { name: scavengerHuntDoneKey, value: $scavengerHuntDone },
+        { name: scavengerHuntStateKey, value: $scavengerHuntState },
     ],
 )
