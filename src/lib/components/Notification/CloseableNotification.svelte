@@ -16,7 +16,7 @@
 </script>
 
 {#if active}
-    <aside class="notification background-blur glow absolute border-horizontal" transition:fade data-testid={testid}>
+    <aside class="notification absolute background-blur border-horizontal glow" transition:fade data-testid={testid}>
         <slot />
         {#if $cookiesAllowed}
             <form
@@ -38,46 +38,3 @@
         {/if}
     </aside>
 {/if}
-
-<style>
-    .notification {
-        z-index: 9001;
-        --background-blur-amount: 7px;
-        --stroke-width: var(--stroke-200);
-        color: var(--gray-900);
-        left: 50%;
-        padding: 0.5em 1em;
-        top: 1em;
-        translate: -50%;
-        max-width: max-content;
-        max-height: calc(100vh - 2em);
-        overflow-y: auto;
-        width: 90%;
-    }
-    :global(.notification p) {
-        max-width: 100%;
-    }
-    :global([data-dark-mode="false"] .notification) {
-        --glow-color: var(--white);
-        --stroke-width: var(--stroke-400);
-        --stroke-color: var(--gray-000);
-    }
-    :global(.notification button) {
-        background-color: var(--gray-000) !important;
-        font-family: var(--font-family-primary-thin) !important;
-        inset: 0;
-        max-width: 100%;
-        opacity: 0;
-        position: absolute !important;
-        transition: opacity 420ms ease-in-out;
-    }
-    :global(.notification:hover button),
-    :global(.notification button:focus) {
-        opacity: 1;
-    }
-    @media (max-width: 500px) {
-        :global(.notification p.font-size-200) {
-            font-size: var(--static-scale-100) !important;
-        }
-    }
-</style>
