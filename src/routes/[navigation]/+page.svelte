@@ -6,7 +6,7 @@
     import FirstTimeVisitOverlay from "$compositions/FirstTimeVisitOverlay/FirstTimeVisitOverlay.svelte"
     import NavigationIcon from "$assets/svgs/NavigationIcon.svelte"
     import NavigationWrapper from "$compositions/NavigationWrapper/NavigationWrapper.svelte"
-    import Notification from "$components/Notification/Notification.svelte"
+    import CloseableNotification from "$components/Notification/CloseableNotification.svelte"
     import PhoneSection from "$compositions/PhoneSection/PhoneSection.svelte"
     import SettingsIcon from "$assets/svgs/SettingsIcon.svelte"
     import SettingsOverlay from "$compositions/SettingsOverlay/SettingsOverlay.svelte"
@@ -102,7 +102,7 @@
     src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
 {#if !$firstVisit && $navigationExplainer && $navigationState !== NavigationSchema.enum.navigation}
-    <Notification bind:active={$navigationExplainer} booleanName={navigationExplainerKey} booleanValue="false">
+    <CloseableNotification bind:active={$navigationExplainer} booleanName={navigationExplainerKey} booleanValue="false">
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing <NavigationIcon /> icon opens navigation
         </span>
@@ -110,15 +110,18 @@
             Pressing <SettingsIcon /> icon opens settings
         </span>
         <span class="text-decoration-underline">Press these notifications to close/hide them</span>
-    </Notification>
+    </CloseableNotification>
 {/if}
 {#if !$firstVisit && $navigationExplainer2 && $navigationState === NavigationSchema.enum.navigation}
-    <Notification bind:active={$navigationExplainer2} booleanName={navigationExplainer2Key} booleanValue="false">
+    <CloseableNotification
+        bind:active={$navigationExplainer2}
+        booleanName={navigationExplainer2Key}
+        booleanValue="false">
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing one of the sections navigates to them
         </span>
         <span class="text-decoration-underline">Press these notifications to close/hide them</span>
-    </Notification>
+    </CloseableNotification>
 {/if}
 
 <NavigationWrapper bind:navigationActive>

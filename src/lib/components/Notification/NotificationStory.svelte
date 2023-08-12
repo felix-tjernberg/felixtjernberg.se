@@ -1,19 +1,18 @@
 <script lang="ts">
-    import Notification from "./Notification.svelte"
+    import CloseableNotification from "./CloseableNotification.svelte"
 
     export let active: boolean | undefined
-    export let closeButton: boolean | undefined
 
     // Testing property
     export let sampleText: string | undefined
 </script>
 
 <div data-testid="notification">
-    <Notification {active} {closeButton}>
+    <CloseableNotification {active}>
         {#if sampleText}
             <p>{sampleText}</p>
         {/if}
-    </Notification>
+    </CloseableNotification>
 </div>
 
 <style>
