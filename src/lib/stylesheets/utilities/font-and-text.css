@@ -1,4 +1,7 @@
-text-align-left {
+.line-height-1 {
+    line-height: 1;
+}
+.text-align-left {
     text-align: left;
 }
 .text-align-center {

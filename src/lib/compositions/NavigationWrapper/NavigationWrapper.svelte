@@ -16,36 +16,40 @@
     $: $navigationState === NavigationSchema.enum.navigation ? (navigationActive = true) : (navigationActive = false)
 </script>
 
-<div class="grid-stack" data-testid="navigation-wrapper" id="navigation" data-navigation-state={$navigationState}>
+<div
+    class="grid-stack height-100percent"
+    data-testid="navigation-wrapper"
+    id="navigation"
+    data-navigation-state={$navigationState}>
     {#if navigationActive}
         <Logo />
         <Logo />
     {/if}
-    <div class="relative" id="navigation-item-computer">
+    <div class="height-100percent relative" id="navigation-item-computer">
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.computer}>
             <ComputerText slot="textSVG" />
         </NavigationLink>
         <slot name="computer" />
     </div>
-    <div class="relative" id="navigation-item-coach">
+    <div class="height-100percent relative" id="navigation-item-coach">
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.coach}>
             <CoachText slot="textSVG" />
         </NavigationLink>
         <slot name="coach" />
     </div>
-    <div class="relative" id="navigation-item-phone">
+    <div class="height-100percent relative" id="navigation-item-phone">
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.phone}>
             <PhoneText slot="textSVG" />
         </NavigationLink>
         <slot name="phone" />
     </div>
-    <div class="relative" id="navigation-item-contact">
+    <div class="height-100percent relative" id="navigation-item-contact">
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.contact}>
             <ContactText slot="textSVG" />
         </NavigationLink>
         <slot name="contact" />
     </div>
-    <div class="relative" id="navigation-item-blog">
+    <div class="height-100percent relative" id="navigation-item-blog">
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.blog}>
             <BlogText slot="textSVG" />
         </NavigationLink>
@@ -55,8 +59,10 @@
 
 <style>
     #navigation {
-        height: 100%;
         transition: all ease-in-out 0.5s;
+    }
+    #navigation > div {
+        max-height: 100vh;
     }
     :global(#navigation > svg) {
         height: 175%;

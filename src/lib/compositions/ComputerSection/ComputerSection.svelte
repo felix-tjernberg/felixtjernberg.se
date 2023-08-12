@@ -9,28 +9,27 @@
     import SixthScreen from "./SixthScreen.svelte"
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
+    import CrtOverlay from "./CRTOverlay.svelte"
 
-    import { answeredCall } from "$stores/states/phone"
     import { computerScreenIndex } from "$stores/states/computer"
-    import { navigationState, NavigationSchema } from "$stores/states/navigation"
 
     const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
 
     let clueNotificationActive: boolean
 </script>
 
-<section id="computer-section" class="flex-column-center relative">
+<section id="computer-section" class="height-100percent grid-stack">
     <h2 class="visually-hidden absolute">computer</h2>
-    {#if $computerScreenIndex == 0}
-        <Notification bind:active={clueNotificationActive} testid="clue-notification">
+    <!-- {#if $computerScreenIndex == 0}
+        <Notification>
             <p>
                 PIN CODE:<br />
                 Is the sum of the 4 numbers in the corners
             </p>
         </Notification>
-    {/if}
-    {#if $computerScreenIndex == 5}
-        <Notification active={true} closeButton={false} testid="mom-calling-notification">
+    {/if} -->
+    <!-- {#if $computerScreenIndex == 5}
+        <Notification>
             {#if !$answeredCall}
                 <p>
                     Mom is calling
@@ -45,84 +44,28 @@
                 <p>Did mom mention anything about her dosage?</p>
             {/if}
         </Notification>
-    {/if}
-    {#if $computerScreenIndex == 6}
+    {/if} -->
+    <!-- {#if $computerScreenIndex == 6}
         <Notification active={true} testid="hunt-done-notification">
             <p>Scavenger hunt is now done and can be reset in the settings menu</p>
         </Notification>
-    {/if}
-    <div id="computer" class="flex-column-center relative">
-        <svelte:component this={SCREENS[$computerScreenIndex]} />
-        <div id="computer-crt-effect" class="absolute" />
+    {/if} -->
+    <div id="computer" class="relative margin-auto grid-stack">
         {#if $computerScreenIndex == 0}
             <FirstScreenStickyNotes bind:clueNotificationActive />
         {/if}
-        {#if $computerScreenIndex == 6}
+        <CrtOverlay>
+            <svelte:component this={SCREENS[$computerScreenIndex]} />
+        </CrtOverlay>
+        <!--{#if $computerScreenIndex == 6}
             <SeventhScreenStickyNotes />
-        {/if}
+        {/if} -->
     </div>
 </section>
 
 <style>
-    #computer-section {
-        height: 100%;
-        width: 100%;
-    }
     #computer {
-        width: 500px;
-        aspect-ratio: 1 / 1;
-        max-height: 500px;
-    }
-    :global(#computer > :nth-child(1)) {
-        z-index: 1;
-    }
-    #computer-crt-effect {
-        inset: 0;
-        overflow: hidden;
-        background: radial-gradient(transparent, black), green;
-    }
-    :global([data-dark-mode="false"] #computer-crt-effect) {
-        background: radial-gradient(transparent, #888888), #ffffff;
-    }
-    #computer-crt-effect::before {
-        content: " ";
-        display: block;
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-            linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-        background-size: 100% 6.66px, 6.66px 100%;
-        pointer-events: none;
-        z-index: 1;
-    }
-    #computer-crt-effect::before,
-    #computer-crt-effect::after {
-        pointer-events: none;
-    }
-    #computer-crt-effect::after {
-        animation: scan-line 5s linear infinite;
-        content: "";
-        display: block;
-        width: 100%;
-        height: 50px;
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
-        position: absolute;
-        bottom: 100%;
-        z-index: 2;
-    }
-    @keyframes scan-line {
-        0% {
-            bottom: 100%;
-        }
-        100% {
-            opacity: 0.1;
-            bottom: -50px;
-        }
-    }
-    @media (max-width: 720px) {
-        #computer {
-            width: 100%;
-            height: 100%;
-        }
+        height: min(100%, 500px);
+        width: min(100%, 500px);
     }
 </style>
