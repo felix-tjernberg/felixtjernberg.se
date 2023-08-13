@@ -1,5 +1,4 @@
 import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
-import { computerScreenIndex, computerScreenIndexKey } from "$stores/states/computer"
 import {
     cookiesAllowed,
     cookiesAllowedKey,
@@ -24,7 +23,6 @@ import { derived } from "svelte/store"
 export const searchParameters = derived<
     (
         | typeof audioVolume
-        | typeof computerScreenIndex
         | typeof cookiesAllowed
         | typeof darkMode
         | typeof decidedOnCookies
@@ -39,7 +37,6 @@ export const searchParameters = derived<
 >(
     [
         audioVolume,
-        computerScreenIndex,
         cookiesAllowed,
         darkMode,
         decidedOnCookies,
@@ -52,7 +49,6 @@ export const searchParameters = derived<
     ],
     ([
         $audioVolume,
-        $computerScreenIndex,
         $cookiesAllowed,
         $darkMode,
         $decidedOnCookies,
@@ -64,7 +60,6 @@ export const searchParameters = derived<
         $scavengerHuntState,
     ]) => [
         { name: audioVolumeKey, value: $audioVolume },
-        { name: computerScreenIndexKey, value: $computerScreenIndex },
         { name: cookiesAllowedKey, value: $cookiesAllowed },
         { name: darkModeKey, value: $darkMode },
         { name: decidedOnCookiesKey, value: $decidedOnCookies },

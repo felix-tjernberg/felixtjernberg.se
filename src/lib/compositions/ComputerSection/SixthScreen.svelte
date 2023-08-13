@@ -1,14 +1,15 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
     import { answeredCall, momCalling, phoneRingtonePaused } from "$stores/states/phone"
-    import { computerScreenIndex } from "$stores/states/computer"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
     import { onMount } from "svelte"
 
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 200) $computerScreenIndex = 6
+    $: if (value === 200) {
+        //TODO
+    }
 
     onMount(() => {
         // input.focus()

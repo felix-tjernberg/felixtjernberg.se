@@ -2,14 +2,11 @@
     import Coach from "$components/Coach/Coach.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
     import { fade } from "svelte/transition"
-    import { computerScreenIndex } from "$stores/states/computer"
-    import { onMount } from "svelte"
 
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 3) $computerScreenIndex = 5
-    // onMount(() => input.focus())
+    //TODO $: if (value === 3)
 </script>
 
 <div id="fifth-screen" class="flex-column-center relative" in:fade>

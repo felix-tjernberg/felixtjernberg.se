@@ -1,25 +1,18 @@
 <script lang="ts">
-    import { onMount } from "svelte"
     import { fade } from "svelte/transition"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/computer"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/dialUpAudio"
     import { audioVolume } from "$stores/settings/audioVolume"
     import Slider from "$components/Slider/Slider.svelte"
-    import { computerScreenIndex } from "$stores/states/computer"
 
-    let jsLoaded = false
     $dialUpAudioPaused = true
     $dialUpAudioCurrentTime = 0
 
-    $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) $computerScreenIndex = 2
-
-    onMount(() => {
-        $dialUpAudioPaused = false
-        jsLoaded = true
-    })
+    // $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) $computerScreenIndex = 2
 </script>
 
 <div id="second-screen" class="relative" in:fade>
     <p class="font-family-primary-fat">Initia<wbr />lizing<span>.</span><span>.</span><span>.</span></p>
+    <!-- TODO put in form -->
     <Slider label="volume slider" description="audio volume" bind:value={$audioVolume} />
 </div>
 

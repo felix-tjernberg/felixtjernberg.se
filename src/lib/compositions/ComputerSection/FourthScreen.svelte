@@ -1,15 +1,11 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
-    import { onMount } from "svelte"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
-    import { computerScreenIndex } from "$stores/states/computer"
 
     let value: number
     let input: HTMLInputElement
 
-    $: if (value === 188 || value === 189) $computerScreenIndex = 4
-
-    // onMount(() => input.focus())
+    // TODO $: if (value === 188 || value === 189) $computerScreenIndex = 4
 </script>
 
 <div class="flex-column-center gap" in:fade>

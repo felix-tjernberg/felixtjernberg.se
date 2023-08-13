@@ -1,14 +1,11 @@
 <script lang="ts">
     import TextInput from "$components/TextInput/TextInput.svelte"
-    import { onMount } from "svelte"
     import { fade } from "svelte/transition"
-    import { computerScreenIndex } from "$stores/states/computer"
 
     let input: HTMLInputElement
     let value: string
 
-    $: if (String(value).toLowerCase() === "yes") $computerScreenIndex = 3
-    // onMount(() => { input.focus()})
+    // TODO $: if (String(value).toLowerCase() === "yes") $computerScreenIndex = 3
 </script>
 
 <div class="flex-column-center gap" in:fade>

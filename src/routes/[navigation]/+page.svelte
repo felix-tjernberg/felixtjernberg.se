@@ -30,12 +30,7 @@
         navigationExplainer2Key,
     } from "$stores/states/navigation"
     import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
-    import {
-        computerScreenIndex,
-        computerScreenIndexKey,
-        dialUpAudioCurrentTime,
-        dialUpAudioPaused,
-    } from "$stores/states/computer"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/dialUpAudio"
     import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
     import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
@@ -51,7 +46,6 @@
 
     // Initialize website state
     $audioVolume = data[audioVolumeKey]
-    $computerScreenIndex = data[computerScreenIndexKey]
     $cookiesAllowed = data[cookiesAllowedKey]
     $darkMode = data[darkModeKey]
     $decidedOnCookies = data[decidedOnCookiesKey]

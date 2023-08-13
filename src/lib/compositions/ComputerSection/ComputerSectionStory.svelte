@@ -2,7 +2,7 @@
     import ComputerSection from "./ComputerSection.svelte"
     import { audioVolume } from "$stores/settings/audioVolume"
     import { navigationState, NavigationSchema } from "$stores/states/navigation"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/computer"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/dialUpAudio"
     import { phoneRingtonePaused } from "$stores/states/phone"
     import { onDestroy } from "svelte"
 
@@ -25,6 +25,7 @@
     <p class="visually-hidden" data-testid="initialize-noise-playing-indicator">
         initialize noise playing: {$dialUpAudioPaused}
     </p>
+    <!-- TODO: move these into a details element and to their respective screens -->
     <audio
         bind:volume={$audioVolume}
         bind:paused={$phoneRingtonePaused}

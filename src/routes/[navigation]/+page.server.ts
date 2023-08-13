@@ -1,7 +1,12 @@
 import { type Actions, fail, redirect } from "@sveltejs/kit"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
-import { type ComputerScreenIndex, computerScreenIndexKey, computerScreenIndexSchema } from "$stores/states/computer"
+import {
+    booleanStateSchema,
+    scavengerHuntDefaultState,
+    scavengerHuntStateKey,
+    type ScavengerHuntStates,
+} from "$stores/states/scavengerHuntState"
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
 import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import {
@@ -15,7 +20,6 @@ import { darkModeKey } from "$stores/settings/darkMode"
 import { firstVisitKey } from "$stores/states/firstVisit"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
 import type { PageServerLoad } from "./$types"
-import { scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
 import { settingsOpenKey } from "$stores/states/settingsOpen"
 import type { ZodSchema } from "zod"
 
@@ -26,11 +30,10 @@ type SettingsData = {
 }
 
 type StatesData = {
-    [computerScreenIndexKey]: number
     [decidedOnCookiesKey]: boolean
     [firstVisitKey]: boolean
     [navigationStateKey]: NavigationStates
-    [scavengerHuntStateKey]: boolean
+    [scavengerHuntStateKey]: ScavengerHuntStates
     [navigationExplainer2Key]: boolean
     [navigationExplainerKey]: boolean
     [settingsOpenKey]: boolean
@@ -56,6 +59,25 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
     return exctractedState.success ? exctractedState.data : fallbackState
 }
 
+function getScavengerHuntState(string: string | undefined | null): ScavengerHuntStates {
+    if (string === undefined || string === null) return scavengerHuntDefaultState
+
+    if (string.length !== 6) return scavengerHuntDefaultState
+
+    //TODO check if string is 1-7
+    if (!(string.slice(0, 2) === "S1")) return scavengerHuntDefaultState
+
+    if (
+        string
+            .slice(1)
+            .split("")
+            .every((charater) => charater === booleanStateSchema.enum.T || charater === booleanStateSchema.enum.F)
+    )
+        return scavengerHuntDefaultState
+
+    return string as ScavengerHuntStates
+}
+
 export const load = (async ({ cookies, params, url: { searchParams } }) => {
     const paramsRoute = NavigationSchema.safeParse(params.navigation)
     if (!paramsRoute.success) throw fail(404, { error: "Page not found" })
@@ -64,13 +86,9 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
     const cookiesAllowed = cookies.get(cookiesAllowedKey) === "true"
     if (cookiesAllowed) {
         cookies.set(navigationStateKey, String(paramsRoute.data), { httpOnly: false })
+
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, cookies.get(audioVolumeKey), 0.1),
-            [computerScreenIndexKey]: getState<ComputerScreenIndex>(
-                computerScreenIndexSchema,
-                cookies.get(computerScreenIndexKey),
-                0,
-            ),
             [cookiesAllowedKey]: true,
             [darkModeKey]: !(cookies.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: cookies.get(decidedOnCookiesKey) === "true",
@@ -81,26 +99,22 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
             phoneNumber: PHONE_NUMBER,
-            [scavengerHuntStateKey]: cookies.get(scavengerHuntStateKey) === "true",
+            [scavengerHuntStateKey]: getScavengerHuntState(cookies.get(scavengerHuntStateKey)),
             [settingsOpenKey]: cookies.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnCookies
     }
 
+    // If search parameter does not match route redirect to correct route and keep search parameters
     const searchParamsRoute = NavigationSchema.safeParse(searchParams.get(navigationStateKey))
     let searchParamsString = "?"
     searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
-
     if (searchParamsRoute.success && searchParamsRoute.data !== paramsRoute.data)
         throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
 
+    // Return data state based on search parameters if cookies are not allowed
     if (searchParams.get(cookiesAllowedKey) === "false") {
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
-            [computerScreenIndexKey]: getState<ComputerScreenIndex>(
-                computerScreenIndexSchema,
-                searchParams.get(computerScreenIndexKey),
-                0,
-            ),
             [cookiesAllowedKey]: false,
             [darkModeKey]: !(searchParams.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: searchParams.get(decidedOnCookiesKey) === "true",
@@ -111,15 +125,14 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             [navigationExplainerKey]: !(searchParams.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
             phoneNumber: PHONE_NUMBER,
-            [scavengerHuntStateKey]: searchParams.get(scavengerHuntStateKey) === "true",
+            [scavengerHuntStateKey]: getScavengerHuntState(searchParams.get(scavengerHuntStateKey)),
             [settingsOpenKey]: searchParams.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnParameters
     }
 
-    // Default data state of the application
+    // Return default data state of the application
     return {
         [audioVolumeKey]: 0.1,
-        [computerScreenIndexKey]: 0,
         [cookiesAllowedKey]: false,
         [darkModeKey]: true,
         [decidedOnCookiesKey]: false,
@@ -128,7 +141,7 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
         [navigationExplainer2Key]: false,
         [navigationExplainerKey]: false,
         [navigationStateKey]: NavigationSchema.enum.computer,
-        [scavengerHuntStateKey]: false,
+        [scavengerHuntStateKey]: scavengerHuntDefaultState,
         [settingsOpenKey]: false,
     } satisfies DataBasedOnDefaults
 }) satisfies PageServerLoad
@@ -176,6 +189,21 @@ export const actions = {
             if (key === null) return fail(400, { error: "No formName key supplied" })
 
             cookies.set(String(key), String(boolean), { httpOnly: false })
+
+            throw redirect(302, "/")
+        }
+
+        return fail(400, { error: "Cookies not allowed" })
+    },
+
+    updateScavengerHuntState: async ({ cookies, request }) => {
+        if (cookies.get(cookiesAllowedKey) === "true") {
+            const formData = await request.formData()
+            const scavengerHuntState = formData.get(scavengerHuntStateKey)
+
+            if (scavengerHuntState === null) return fail(400, { error: "No state supplied" })
+
+            cookies.set(scavengerHuntStateKey, getScavengerHuntState(String(scavengerHuntState)), { httpOnly: false })
 
             throw redirect(302, "/")
         }

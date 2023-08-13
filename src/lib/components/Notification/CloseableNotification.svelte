@@ -38,3 +38,19 @@
         {/if}
     </aside>
 {/if}
+
+<style>
+    .notification :global(button) {
+        background-color: var(--gray-000) !important;
+        inset: 0;
+        max-width: 100%;
+        width: 100%;
+        opacity: 0;
+        position: absolute !important;
+        transition: opacity 420ms ease-in-out;
+    }
+    .notification:hover :global(button),
+    .notification :global(button:focus) {
+        opacity: 1;
+    }
+</style>

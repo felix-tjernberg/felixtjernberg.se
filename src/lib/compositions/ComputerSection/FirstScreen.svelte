@@ -2,8 +2,6 @@
     import Button from "$components/Button/Button.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
 
-    import { computerScreenIndex } from "$stores/states/computer"
-
     let pin: string
 
     let pin1: number | "" | undefined = undefined
@@ -11,7 +9,7 @@
     let pin3: number | "" | undefined = undefined
     let pin4: number | "" | undefined = undefined
     $: pin = `${pin1}${pin2}${pin3}${pin4}`
-    $: if (pin === "1234") $computerScreenIndex = 1
+    //TODO $: if (pin === "1234") $computerScreenIndex = 1
 </script>
 
 <div id="first-screen" class="height-100percent flex">

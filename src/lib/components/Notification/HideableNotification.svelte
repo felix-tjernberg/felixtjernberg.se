@@ -1,0 +1,87 @@
+<script lang="ts">
+    import Button from "$components/Button/Button.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
+
+    import { enhance } from "$app/forms"
+    import { fade } from "svelte/transition"
+
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import {
+        type ScavengerHuntStates,
+        scavengerHuntState,
+        scavengerHuntStateKey,
+        booleanStateSchema,
+    } from "$stores/states/scavengerHuntState"
+    import { setJSCookie } from "$utilities/setJSCookie"
+
+    export let state: string
+    export let stateIndex: number
+
+    let shown: boolean = state === booleanStateSchema.enum.T
+
+    $: newTrueState = ($scavengerHuntState.slice(0, stateIndex) +
+        booleanStateSchema.enum.T +
+        $scavengerHuntState.slice(stateIndex + 1)) as ScavengerHuntStates
+    $: newFalseState = ($scavengerHuntState.slice(0, stateIndex) +
+        booleanStateSchema.enum.F +
+        $scavengerHuntState.slice(stateIndex + 1)) as ScavengerHuntStates
+</script>
+
+{#if shown}
+    <aside class="notification absolute background-blur border-horizontal glow" transition:fade>
+        {#if $cookiesAllowed}
+            <form
+                action="?/updateScavengerHuntState"
+                method="POST"
+                use:enhance={({ cancel }) => {
+                    cancel()
+                    shown = false
+                    $scavengerHuntState = newFalseState
+                    if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, newFalseState)
+                }}>
+                <Button
+                    class="margin-horizontal-auto"
+                    label="Hide notification"
+                    underlined={true}
+                    name={scavengerHuntStateKey}
+                    value={newFalseState} />
+            </form>
+        {:else}
+            <form on:submit={() => (shown = false)}>
+                <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
+                <Button
+                    class="margin-horizontal-auto"
+                    label="Hide notification"
+                    underlined={true}
+                    name={scavengerHuntStateKey}
+                    value={newFalseState} />
+            </form>
+        {/if}
+        <slot />
+    </aside>
+{:else if $cookiesAllowed}
+    <form
+        action="?/updateScavengerHuntState"
+        method="POST"
+        use:enhance={({ cancel }) => {
+            cancel()
+            shown = true
+            $scavengerHuntState = newTrueState
+            if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, newTrueState)
+        }}>
+        <Button label="show notification" underlined={true} name={scavengerHuntStateKey} value={newTrueState} />
+    </form>
+{:else}
+    <form on:submit={() => (shown = true)}>
+        <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
+        <button class="absolute" name={scavengerHuntStateKey} value={newTrueState}>hellow</button>
+    </form>
+{/if}
+
+<style>
+    @media (min-width: 450px) {
+        aside {
+            max-width: calc(100vw - 2em - (var(--static-scale-400) * 4));
+        }
+    }
+</style>
