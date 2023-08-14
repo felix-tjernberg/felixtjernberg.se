@@ -88,3 +88,18 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+#settings-form,
+#navigation-form,
+#navigation-button,
+.show-notification-form {
+    top: var(--static-scale-300);
+}
+
+#navigation-button,
+#navigation-form {
+    left: var(--static-scale-300);
+}
+#settings-form {
+    right: var(--static-scale-300);
+}

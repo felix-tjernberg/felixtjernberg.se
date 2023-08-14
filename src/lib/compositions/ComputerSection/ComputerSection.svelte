@@ -31,14 +31,6 @@
                 </p>
             </HideableNotification>
         {/if}
-        {#if $scavengerHuntState[3] !== deactivatedStateSchema.value}
-            <HideableNotification stateIndex={3} state={$scavengerHuntState[3]}>
-                <p>
-                    PIN CODE:<br />
-                    Is the sum of the 4 numbers in the corners
-                </p>
-            </HideableNotification>
-        {/if}
         <Computer>
             <!-- TODO: move clueNotificationActive into store? -->
             <FirstScreenStickyNotes bind:clueNotificationActive slot="stickyNotes" />

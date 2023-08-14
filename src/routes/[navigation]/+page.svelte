@@ -174,8 +174,7 @@
     #settings-form,
     #navigation-form,
     :global(#navigation-button) {
-        position: fixed !important;
-        top: 1em;
+        position: absolute;
         width: max-content;
     }
     #settings-form,
@@ -184,12 +183,5 @@
     :global(#navigation-form svg),
     :global(#navigation-button) {
         font-size: var(--static-scale-400) !important;
-    }
-    :global(#navigation-button),
-    #navigation-form {
-        left: 1em;
-    }
-    #settings-form {
-        right: 1em;
     }
 </style>

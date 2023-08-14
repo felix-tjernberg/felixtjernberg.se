@@ -1,16 +1,18 @@
-.notification {
+.notification,
+.show-notification-form {
     z-index: 9001;
+}
+
+.notification {
     --background-blur-amount: 7px;
     --stroke-width: var(--stroke-200);
     color: var(--gray-900);
-    left: 50%;
+    margin-top: 1em;
     padding: 0.5em 1em;
-    top: 1em;
-    translate: -50%;
-    width: max-content;
     max-height: calc(100vh - 2em);
-    overflow-y: auto;
     max-width: 90%;
+    overflow-y: auto;
+    width: max-content;
 }
 .notification button {
     font-family: var(--font-family-primary-thin) !important;

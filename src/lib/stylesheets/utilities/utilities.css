@@ -17,6 +17,10 @@
 .inset {
     inset: 0;
 }
+.position-horizontal-middle {
+    left: 50%;
+    translate: -50%;
+}
 
 .grid {
     display: grid;

@@ -16,7 +16,10 @@
 </script>
 
 {#if active}
-    <aside class="notification absolute background-blur border-horizontal glow" transition:fade data-testid={testid}>
+    <aside
+        class="notification absolute position-horizontal-middle background-blur border-horizontal glow"
+        transition:fade
+        data-testid={testid}>
         <slot />
         {#if $cookiesAllowed}
             <form

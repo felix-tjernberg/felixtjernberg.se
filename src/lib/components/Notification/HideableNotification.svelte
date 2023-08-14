@@ -1,6 +1,7 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
     import HiddenInputs from "$components/HiddenInputs.svelte"
+    import Notification from "$assets/svgs/Notification.svelte"
 
     import { enhance } from "$app/forms"
     import { fade } from "svelte/transition"
@@ -28,7 +29,9 @@
 </script>
 
 {#if shown}
-    <aside class="notification absolute background-blur border-horizontal glow" transition:fade>
+    <aside
+        class="notification absolute position-horizontal-middle background-blur border-horizontal glow"
+        transition:fade>
         {#if $cookiesAllowed}
             <form
                 action="?/updateScavengerHuntState"
@@ -62,6 +65,7 @@
 {:else if $cookiesAllowed}
     <form
         action="?/updateScavengerHuntState"
+        class="show-notification-form absolute position-horizontal-middle"
         method="POST"
         use:enhance={({ cancel }) => {
             cancel()
@@ -69,16 +73,23 @@
             $scavengerHuntState = newTrueState
             if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, newTrueState)
         }}>
-        <Button label="show notification" underlined={true} name={scavengerHuntStateKey} value={newTrueState} />
+        <Button label="show notification" name={scavengerHuntStateKey} value={newTrueState}>
+            <Notification slot="icon" />
+        </Button>
     </form>
 {:else}
-    <form on:submit={() => (shown = true)}>
+    <form class="show-notification-form absolute position-horizontal-middle" on:submit={() => (shown = true)}>
         <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
-        <button class="absolute" name={scavengerHuntStateKey} value={newTrueState}>hellow</button>
+        <Button label="show notification" name={scavengerHuntStateKey} value={newTrueState}>
+            <Notification slot="icon" />
+        </Button>
     </form>
 {/if}
 
 <style>
+    .show-notification-form :global(button) {
+        font-size: var(--static-scale-400) !important;
+    }
     @media (min-width: 450px) {
         aside {
             max-width: calc(100vw - 2em - (var(--static-scale-400) * 4));
