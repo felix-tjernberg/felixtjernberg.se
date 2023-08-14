@@ -1,21 +1,35 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
-    import StickyNote from "$components/StickyNote/StickyNote.svelte"
     import rickRoll from "$assets/images/rick-roll.png"
+    import StickyNote from "$components/StickyNote/StickyNote.svelte"
+    import { booleanStateSchema, scavengerHuntState, type ScavengerHuntStates } from "$stores/states/scavengerHuntState"
 
-    export let clueNotificationActive = false
+    import { fade } from "svelte/transition"
 
-    let clueActive: boolean = true
-    let clueNotificationTimeout: ReturnType<typeof setTimeout>
-    $: if (!clueActive) clueNotificationTimeout = setTimeout(() => (clueNotificationActive = true), 5000)
+    $: newStickyNoteOneState = ($scavengerHuntState.slice(0, 2) +
+        booleanStateSchema.enum.F +
+        $scavengerHuntState.slice(3)) as ScavengerHuntStates
+    $: newStickyNoteTwoState = ($scavengerHuntState.slice(0, 3) +
+        booleanStateSchema.enum.F +
+        $scavengerHuntState.slice(4, $scavengerHuntState.length - 1) +
+        booleanStateSchema.enum.T) as ScavengerHuntStates
+    $: newStickyNoteThreeState = ($scavengerHuntState.slice(0, 4) +
+        booleanStateSchema.enum.F +
+        $scavengerHuntState.slice(5)) as ScavengerHuntStates
 </script>
 
 <div id="first-screen-notes" class="grid" transition:fade>
     <div id="first-screen-notes-top-right" class="flex-center relative">
-        <StickyNote flyToRight={false}><p>Press the notes to remove them</p></StickyNote>
+        <StickyNote
+            active={$scavengerHuntState[2] === booleanStateSchema.enum.T}
+            newScavengerHuntState={newStickyNoteOneState}
+            flyToRight={false}>
+            <p>Press the notes to remove them</p>
+        </StickyNote>
     </div>
     <div id="first-screen-notes-bottom-left" class="flex-center relative">
-        <StickyNote bind:active={clueActive} testid="clue-note">
+        <StickyNote
+            active={$scavengerHuntState[3] === booleanStateSchema.enum.T}
+            newScavengerHuntState={newStickyNoteTwoState}>
             <p class="font-size-000">
                 PIN CODE:<br />
                 sum of the 4 corner numbers
@@ -23,7 +37,10 @@
         </StickyNote>
     </div>
     <div id="first-screen-notes-bottom-right" class="flex-center relative">
-        <StickyNote flyToRight={false}>
+        <StickyNote
+            active={$scavengerHuntState[4] === booleanStateSchema.enum.T}
+            newScavengerHuntState={newStickyNoteThreeState}
+            flyToRight={false}>
             <picture><img src={rickRoll} alt="a qr code" /></picture>
         </StickyNote>
     </div>

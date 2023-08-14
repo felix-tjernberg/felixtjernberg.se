@@ -7,12 +7,7 @@
 
 <div id="sticky-note-wrapper" class="relative">
     {#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as _, index}
-        <StickyNote
-            active={notesActive[index]}
-            flyToRight={index % 2 === 0}
-            on:removedNote={() => {
-                if (index === 0) showResetNotesButton = true
-            }} />
+        <StickyNote active={notesActive[index]} flyToRight={index % 2 === 0} />
     {/each}
     {#if showResetNotesButton}
         <Button

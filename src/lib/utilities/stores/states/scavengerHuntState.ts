@@ -16,7 +16,7 @@ type S1States = `${S1}${S1NoteStates}${S1HintState}`
 
 export type ScavengerHuntStates = S1States
 
-export const scavengerHuntDefaultState: ScavengerHuntStates = "S1TTTF" as const
+export const scavengerHuntDefaultState: ScavengerHuntStates = "S1TTTD" as const
 export const scavengerHuntState = writable<ScavengerHuntStates>(scavengerHuntDefaultState)
 export const scavengerHuntStateKey = "scavengerHuntState" as const
 export const stateIndexKey = "stateIndex" as const

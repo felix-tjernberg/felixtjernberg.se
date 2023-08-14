@@ -14,17 +14,14 @@
 
     import { deactivatedStateSchema, scavengerHuntState } from "$stores/states/scavengerHuntState"
 
-    let clueNotificationActive: boolean
-
     $: screenState = $scavengerHuntState[1]
 </script>
 
 <section id="computer-section" class="height-100percent grid-stack">
     <h2 class="visually-hidden absolute">computer</h2>
-
     {#if screenState === "1"}
-        {#if $scavengerHuntState[2] !== deactivatedStateSchema.value}
-            <HideableNotification stateIndex={2} state={$scavengerHuntState[2]}>
+        {#if $scavengerHuntState[5] !== deactivatedStateSchema.value}
+            <HideableNotification stateIndex={5} state={$scavengerHuntState[5]}>
                 <p>
                     PIN CODE:<br />
                     Is the sum of the 4 numbers in the corners
@@ -32,8 +29,7 @@
             </HideableNotification>
         {/if}
         <Computer>
-            <!-- TODO: move clueNotificationActive into store? -->
-            <FirstScreenStickyNotes bind:clueNotificationActive slot="stickyNotes" />
+            <FirstScreenStickyNotes slot="stickyNotes" />
             <FirstScreen slot="screen" />
         </Computer>
     {/if}
