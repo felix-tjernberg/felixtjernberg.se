@@ -91,9 +91,9 @@ input::-webkit-inner-spin-button {
 
 #settings-form,
 #navigation-form,
-#navigation-button,
 .show-notification-form {
-    top: var(--static-scale-300);
+    position: absolute;
+    width: max-content;
 }
 
 #navigation-button,
@@ -102,4 +102,44 @@ input::-webkit-inner-spin-button {
 }
 #settings-form {
     right: var(--static-scale-300);
+}
+#settings-form button,
+#navigation-form button,
+#navigation-button,
+.show-notification-form button {
+    top: var(--static-scale-300);
+    font-size: var(--static-scale-400) !important;
+}
+
+@media (max-height: 666px) {
+    #settings-form button,
+    #navigation-form button,
+    #navigation-button,
+    .show-notification-form button {
+        font-size: var(--static-scale-300) !important;
+        top: 2px;
+    }
+    #settings-form {
+        right: 2px;
+    }
+    #navigation-form,
+    #navigation-button {
+        left: 2px;
+    }
+}
+@media (max-width: 300px) {
+    #settings-form button,
+    #navigation-form button,
+    #navigation-button,
+    .show-notification-form button {
+        font-size: var(--static-scale-300) !important;
+        top: 2px;
+    }
+    #settings-form {
+        right: 2px;
+    }
+    #navigation-form,
+    #navigation-button {
+        left: 2px;
+    }
 }

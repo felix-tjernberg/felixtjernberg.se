@@ -87,9 +87,6 @@
 {/if}
 
 <style>
-    .show-notification-form :global(button) {
-        font-size: var(--static-scale-400) !important;
-    }
     @media (min-width: 450px) {
         aside {
             max-width: calc(100vw - 2em - (var(--static-scale-400) * 4));

@@ -169,19 +169,3 @@
 
 <FirstTimeVisitOverlay />
 <SettingsOverlay />
-
-<style>
-    #settings-form,
-    #navigation-form,
-    :global(#navigation-button) {
-        position: absolute;
-        width: max-content;
-    }
-    #settings-form,
-    :global(#settings-form svg),
-    #navigation-form,
-    :global(#navigation-form svg),
-    :global(#navigation-button) {
-        font-size: var(--static-scale-400) !important;
-    }
-</style>
