@@ -104,15 +104,15 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
         } satisfies DataBasedOnCookies
     }
 
-    // If search parameter does not match route redirect to correct route and keep search parameters
-    const searchParamsRoute = NavigationSchema.safeParse(searchParams.get(navigationStateKey))
-    let searchParamsString = "?"
-    searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
-    if (searchParamsRoute.success && searchParamsRoute.data !== paramsRoute.data)
-        throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
-
     // Return data state based on search parameters if cookies are not allowed
     if (searchParams.get(cookiesAllowedKey) === "false") {
+        // If navigationState search parameter does not match route redirect to correct route and keep search parameters
+        const searchParamsRoute = NavigationSchema.safeParse(searchParams.get(navigationStateKey))
+        let searchParamsString = "?"
+        searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
+        if (searchParamsRoute.success && searchParamsRoute.data !== paramsRoute.data)
+            throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
+
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: false,
