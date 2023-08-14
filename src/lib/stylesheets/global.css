@@ -96,6 +96,11 @@ input::-webkit-inner-spin-button {
     width: max-content;
 }
 
+#navigation-button {
+    height: max-content;
+    width: max-content;
+}
+
 #navigation-button,
 #navigation-form {
     left: var(--static-scale-300);
