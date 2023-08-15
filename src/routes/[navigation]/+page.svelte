@@ -89,11 +89,6 @@
     bind:paused={$phoneRingtonePaused}
     bind:volume={$audioVolume}
     src="https://cdn.pixabay.com/download/audio/2021/08/09/audio_a4637e27f0.mp3?filename=smartphone_vibrating_alarm_silent-7040.mp3" />
-<audio
-    bind:currentTime={$dialUpAudioCurrentTime}
-    bind:paused={$dialUpAudioPaused}
-    bind:volume={$audioVolume}
-    src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
 
 {#if !$firstVisit && $navigationExplainer && $navigationState !== NavigationSchema.enum.navigation}
     <CloseableNotification bind:active={$navigationExplainer} booleanName={navigationExplainerKey} booleanValue="false">

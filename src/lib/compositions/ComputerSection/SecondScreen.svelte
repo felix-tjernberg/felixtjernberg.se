@@ -1,42 +1,67 @@
 <script lang="ts">
     import { fade } from "svelte/transition"
     import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/dialUpAudio"
-    import { audioVolume } from "$stores/settings/audioVolume"
+    import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import Slider from "$components/Slider/Slider.svelte"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { setJSCookie } from "$utilities/setJSCookie"
 
-    $dialUpAudioPaused = true
     $dialUpAudioCurrentTime = 0
-
-    // $: if ($dialUpAudioCurrentTime > 25 && jsLoaded) $computerScreenIndex = 2
 </script>
 
-<div id="second-screen" class="relative" in:fade>
-    <p class="font-family-primary-fat">Initia<wbr />lizing<span>.</span><span>.</span><span>.</span></p>
-    <!-- TODO put in form -->
-    <Slider label="volume slider" description="audio volume" bind:value={$audioVolume} />
+<div id="second-screen" class="flex-column height-100percent" in:fade>
+    <div class="margin-vertical-auto margin-vertical-flow padding-vertical">
+        <p class="font-family-primary-fat">
+            <span aria-hidden="true">.</span><span aria-hidden="true">.</span><span aria-hidden="true">.</span
+            >Initia<wbr />lizing<span class="loading-dot">.</span><span class="loading-dot">.</span><span
+                class="loading-dot">.</span>
+        </p>
+        <details>
+            <summary>dial up audio audio player</summary>
+            <audio
+                controls
+                class="margin-auto"
+                src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3"
+                bind:paused={$dialUpAudioPaused}
+                bind:volume={$audioVolume}
+                on:canplay={() => ($dialUpAudioPaused = false)} />
+        </details>
+        <Slider
+            bind:value={$audioVolume}
+            name={audioVolumeKey}
+            max={0.5}
+            description="audio volume"
+            label="dial up music volume"
+            on:change={() => $cookiesAllowed && setJSCookie(audioVolumeKey, String($audioVolume))} />
+    </div>
 </div>
 
 <style>
     #second-screen {
-        display: grid;
-        place-content: center;
-        height: 100%;
-        width: 100%;
+        max-height: 100vh;
+        overflow-y: auto;
     }
-    :global(#second-screen .slider) {
-        position: absolute;
-        bottom: 1em;
-        left: 50%;
-        translate: -50%;
+    @media (min-height: 500px) {
+        #second-screen > div {
+            margin-top: calc(50% - 2em);
+        }
     }
-    span:nth-of-type(1) {
-        animation: dot1 1.337s infinite;
+    [aria-hidden="true"] {
+        opacity: 0;
     }
-    span:nth-of-type(2) {
+    @media (max-width: 500px) {
+        [aria-hidden="true"] {
+            display: none;
+        }
+    }
+    .loading-dot:nth-last-of-type(1) {
+        animation: dot3 1.337s infinite;
+    }
+    .loading-dot:nth-last-of-type(2) {
         animation: dot2 1.337s infinite;
     }
-    span:nth-of-type(3) {
-        animation: dot3 1.337s infinite;
+    .loading-dot:nth-last-of-type(3) {
+        animation: dot1 1.337s infinite;
     }
     @keyframes dot1 {
         0% {
