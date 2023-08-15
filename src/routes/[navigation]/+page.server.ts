@@ -1,8 +1,10 @@
+/* eslint-disable no-fallthrough */
 import { type Actions, fail, redirect } from "@sveltejs/kit"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 import {
     booleanStateSchema,
+    S2DefaultState,
     scavengerHuntDefaultState,
     scavengerHuntStateKey,
     type ScavengerHuntStates,
@@ -16,8 +18,10 @@ import {
     navigationStateKey,
     type NavigationStates,
 } from "$stores/states/navigation"
+import { pin1Key, pin2Key, pin3Key, pin4Key, pinFormKey } from "$compositions/ComputerSection/formKeys"
 import { darkModeKey } from "$stores/settings/darkMode"
 import { firstVisitKey } from "$stores/states/firstVisit"
+import { JSActiveKey } from "$utilities/JSActiveKey"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
 import type { PageServerLoad } from "./$types"
 import { settingsOpenKey } from "$stores/states/settingsOpen"
@@ -62,20 +66,27 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
 function getScavengerHuntState(string: string | undefined | null): ScavengerHuntStates {
     if (string === undefined || string === null) return scavengerHuntDefaultState
 
-    if (string.length !== 6) return scavengerHuntDefaultState
-
     //TODO check if string is 1-7
-    if (!(string.slice(0, 2) === "S1")) return scavengerHuntDefaultState
+    if (!(string[0] === "1" || string[0] === "2")) return scavengerHuntDefaultState
 
-    if (
-        string
-            .slice(1)
-            .split("")
-            .every((charater) => charater === booleanStateSchema.enum.T || charater === booleanStateSchema.enum.F)
-    )
-        return scavengerHuntDefaultState
-
-    return string as ScavengerHuntStates
+    switch (string[0]) {
+        case "1":
+            if (string.length !== 6) return scavengerHuntDefaultState
+            if (
+                string
+                    .slice(1)
+                    .split("")
+                    .every(
+                        (charater) => charater === booleanStateSchema.enum.T || charater === booleanStateSchema.enum.F,
+                    )
+            )
+                return scavengerHuntDefaultState
+            else return string as ScavengerHuntStates
+        case "2":
+            return S2DefaultState
+        default:
+            return scavengerHuntDefaultState
+    }
 }
 
 export const load = (async ({ cookies, params, url: { searchParams } }) => {
@@ -108,10 +119,11 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
     if (searchParams.get(cookiesAllowedKey) === "false") {
         // If navigationState search parameter does not match route redirect to correct route and keep search parameters
         const searchParamsRoute = NavigationSchema.safeParse(searchParams.get(navigationStateKey))
-        let searchParamsString = "?"
-        searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
-        if (searchParamsRoute.success && searchParamsRoute.data !== paramsRoute.data)
+        if (searchParamsRoute.success && searchParamsRoute.data !== paramsRoute.data) {
+            let searchParamsString = "?"
+            searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
             throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
+        }
 
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
@@ -209,5 +221,41 @@ export const actions = {
         }
 
         return fail(400, { error: "Cookies not allowed" })
+    },
+
+    validateScreenOneAnswer: async ({ cookies, request }) => {
+        const formData = await request.formData()
+
+        const pin1 = formData.get(pin1Key)
+        const pin2 = formData.get(pin2Key)
+        const pin3 = formData.get(pin3Key)
+        const pin4 = formData.get(pin4Key)
+
+        if (pin1 === null || pin2 === null || pin3 === null || pin4 === null)
+            return fail(400, { error: "Incorrect values supplied" })
+
+        if (pin1 !== "1" && pin2 !== "2" && pin3 !== "3" && pin4 !== "4")
+            //TODO check if each pin is number between 0-9, if so return the pin inputs to client, so they can be prefilled
+            return fail(400, { error: "Invalid pin code", formName: pinFormKey })
+
+        if (cookies.get(cookiesAllowedKey) === "true") {
+            cookies.set(scavengerHuntStateKey, S2DefaultState, { httpOnly: false })
+            if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
+            return { newState: S2DefaultState }
+        } else {
+            // in case someone submits the form without cookiesAllowed being false
+            const cookiesAllowed = formData.get(cookiesAllowedKey)
+            if (cookiesAllowed !== "false") throw redirect(302, `/`)
+
+            const audioVolume = formData.get(audioVolumeKey)
+            const darkMode = formData.get(darkModeKey)
+            const likesEightBitFont = formData.get(likesEightBitFontKey)
+            const navigationExplainer2 = formData.get(navigationExplainer2Key)
+            const navigationExplainer = formData.get(navigationExplainerKey)
+            throw redirect(
+                302,
+                `/computer?${cookiesAllowedKey}=false&${audioVolumeKey}=${audioVolume}&${darkModeKey}=${darkMode}&${decidedOnCookiesKey}=true&${firstVisitKey}=false&${likesEightBitFontKey}=${likesEightBitFont}&${navigationExplainer2Key}=${navigationExplainer2}&${navigationExplainerKey}=${navigationExplainer}&${navigationStateKey}=computer&${scavengerHuntStateKey}=${S2DefaultState}`,
+            )
+        }
     },
 } satisfies Actions

@@ -5,22 +5,22 @@
 
     import { fade } from "svelte/transition"
 
-    $: newStickyNoteOneState = ($scavengerHuntState.slice(0, 2) +
+    $: newStickyNoteOneState = ($scavengerHuntState.slice(0, 1) +
         booleanStateSchema.enum.F +
-        $scavengerHuntState.slice(3)) as ScavengerHuntStates
-    $: newStickyNoteTwoState = ($scavengerHuntState.slice(0, 3) +
+        $scavengerHuntState.slice(2)) as ScavengerHuntStates
+    $: newStickyNoteTwoState = ($scavengerHuntState.slice(0, 2) +
         booleanStateSchema.enum.F +
-        $scavengerHuntState.slice(4, $scavengerHuntState.length - 1) +
+        $scavengerHuntState.slice(3, $scavengerHuntState.length - 1) +
         booleanStateSchema.enum.T) as ScavengerHuntStates
-    $: newStickyNoteThreeState = ($scavengerHuntState.slice(0, 4) +
+    $: newStickyNoteThreeState = ($scavengerHuntState.slice(0, 3) +
         booleanStateSchema.enum.F +
-        $scavengerHuntState.slice(5)) as ScavengerHuntStates
+        $scavengerHuntState.slice(4)) as ScavengerHuntStates
 </script>
 
 <div id="first-screen-notes" class="grid" transition:fade>
     <div id="first-screen-notes-top-right" class="flex-center relative">
         <StickyNote
-            active={$scavengerHuntState[2] === booleanStateSchema.enum.T}
+            active={$scavengerHuntState[1] === booleanStateSchema.enum.T}
             newScavengerHuntState={newStickyNoteOneState}
             flyToRight={false}>
             <p>Press the notes to remove them</p>
@@ -28,7 +28,7 @@
     </div>
     <div id="first-screen-notes-bottom-left" class="flex-center relative">
         <StickyNote
-            active={$scavengerHuntState[3] === booleanStateSchema.enum.T}
+            active={$scavengerHuntState[2] === booleanStateSchema.enum.T}
             newScavengerHuntState={newStickyNoteTwoState}>
             <p class="font-size-000">
                 PIN CODE:<br />
@@ -38,7 +38,7 @@
     </div>
     <div id="first-screen-notes-bottom-right" class="flex-center relative">
         <StickyNote
-            active={$scavengerHuntState[4] === booleanStateSchema.enum.T}
+            active={$scavengerHuntState[3] === booleanStateSchema.enum.T}
             newScavengerHuntState={newStickyNoteThreeState}
             flyToRight={false}>
             <picture><img src={rickRoll} alt="a qr code" /></picture>

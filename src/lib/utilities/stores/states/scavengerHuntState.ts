@@ -9,14 +9,19 @@ export type DeactivatedState = z.infer<typeof deactivatedStateSchema>
 
 export type TernaryState = BooleanState | DeactivatedState
 
-type S1 = "S1" // Screen 1
+type S1 = "1" // Screen 1
 type S1NoteStates = `${BooleanState}${BooleanState}${BooleanState}`
 type S1HintState = TernaryState
 type S1States = `${S1}${S1NoteStates}${S1HintState}`
+const S1DefaultState = "1TTTD" as const
 
-export type ScavengerHuntStates = S1States
+type S2 = "2" // Screen 2
+type S2States = S2
+export const S2DefaultState = "2" as const
 
-export const scavengerHuntDefaultState: ScavengerHuntStates = "S1TTTD" as const
+export type ScavengerHuntStates = S1States | S2States
+
+export const scavengerHuntDefaultState: ScavengerHuntStates = S1DefaultState
 export const scavengerHuntState = writable<ScavengerHuntStates>(scavengerHuntDefaultState)
 export const scavengerHuntStateKey = "scavengerHuntState" as const
 export const stateIndexKey = "stateIndex" as const

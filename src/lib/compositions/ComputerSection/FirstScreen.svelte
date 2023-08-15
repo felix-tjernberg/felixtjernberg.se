@@ -1,15 +1,16 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
 
-    let pin: string
+    import { browser } from "$app/environment"
+    import { enhance } from "$app/forms"
+    import { goto } from "$app/navigation"
 
-    let pin1: number | "" | undefined = undefined
-    let pin2: number | "" | undefined = undefined
-    let pin3: number | "" | undefined = undefined
-    let pin4: number | "" | undefined = undefined
-    $: pin = `${pin1}${pin2}${pin3}${pin4}`
-    //TODO $: if (pin === "1234") $computerScreenIndex = 1
+    import { cookiesAllowed, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
+    import { firstVisitKey } from "$stores/states/firstVisit"
+    import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
+    import { JSActiveKey } from "$utilities/JSActiveKey"
 </script>
 
 <div id="first-screen" class="height-100percent flex">
@@ -25,16 +26,39 @@
     <div id="bottom-right" class="absolute">
         <p><span class="visually-hidden">corner number 4: </span>4</p>
     </div>
-    <div id="content" class="margin-vertical-auto margin-horizontal width-100percent padding-vertical">
+    <form
+        action="?/validateScreenOneAnswer"
+        method="POST"
+        id="content"
+        class="margin-vertical-auto margin-horizontal width-100percent padding-vertical"
+        use:enhance={() => {
+            return async (result) => {
+                // TODO handle if newState is undefined, however this is a super rare case when for some reason the packets are lost or damaged in transit
+                // @ts-ignore
+                if (result.result.type === "success") $scavengerHuntState = result?.result?.data?.newState
+
+                if (!$cookiesAllowed && result.result.type === "redirect") {
+                    goto(result.result.location)
+                    const url = new URL(result.result.location, window.location.origin)
+                    // TODO  handle if searchParams[scavengerHuntStateKey] is null, however this is a super rare case when for some reason the packets are lost or damaged in transit
+                    // @ts-ignore
+                    $scavengerHuntState = url.searchParams.get(scavengerHuntStateKey)?.toString()
+                }
+            }
+        }}>
         <p class="font-family-primary-fat line-height-1">enter pin</p>
         <div class="flex-center">
-            <SingleDigitInput label="pin number 1" bind:value={pin1} testid="pin-input" />
-            <SingleDigitInput label="pin number 2" bind:value={pin2} testid="pin-input" />
-            <SingleDigitInput label="pin number 3" bind:value={pin3} testid="pin-input" />
-            <SingleDigitInput label="pin number 4" bind:value={pin4} testid="pin-input" />
+            <SingleDigitInput label="pin number 1" testid="pin-input" name="pin1" value={1} />
+            <SingleDigitInput label="pin number 2" testid="pin-input" name="pin2" value={2} />
+            <SingleDigitInput label="pin number 3" testid="pin-input" name="pin3" value={3} />
+            <SingleDigitInput label="pin number 4" testid="pin-input" name="pin4" value={4} />
         </div>
-        <Button label="log in" class="margin-auto" />
-    </div>
+        {#if !$cookiesAllowed}
+            <HiddenInputs excludeStates={[decidedOnCookiesKey, firstVisitKey, scavengerHuntStateKey]} />
+        {/if}
+        <input type="hidden" name={JSActiveKey} value={browser} />
+        <Button label="log in" class="margin-auto" type="submit" />
+    </form>
 </div>
 
 <style>

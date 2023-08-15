@@ -16,6 +16,7 @@
     export let name: string | undefined = undefined
     export let style: string | undefined = undefined
     export let testid: string | undefined = undefined
+    export let type: string | null = null
     export let underlined: boolean = false
     export let value: string | undefined = undefined
 
@@ -76,6 +77,7 @@
     on:mouseup={handeMouseUp}
     {name}
     {style}
+    {type}
     {value}
     tabindex="-1">
     {#if hoverOverlay}

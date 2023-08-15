@@ -12,6 +12,7 @@
 
     const SingleDigitBetween0and9 = z.coerce.number().int().min(0).max(9)
 
+    export let name: string
     export let value: number | "" = 0
 
     $: if (value === null) value = ""
@@ -58,6 +59,7 @@
         ariaHidden={true}
         label="increase"
         testid="increase-button"
+        type="button"
         on:click={() => {
             if (value === 9) return (value = 0)
             // @ts-ignore
@@ -72,6 +74,7 @@
                 tabindex="-1"
                 class="border"
                 type="number"
+                {name}
                 bind:value
                 placeholder="0"
                 min="0"
@@ -84,6 +87,7 @@
         ariaHidden={true}
         label="decrease"
         testid="decrease-button"
+        type="button"
         on:click={() => {
             if (value === 0) return (value = 9)
             // @ts-ignore

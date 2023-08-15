@@ -14,14 +14,14 @@
 
     import { deactivatedStateSchema, scavengerHuntState } from "$stores/states/scavengerHuntState"
 
-    $: screenState = $scavengerHuntState[1]
+    $: screenState = $scavengerHuntState[0]
 </script>
 
 <section id="computer-section" class="height-100percent grid-stack">
     <h2 class="visually-hidden absolute">computer</h2>
     {#if screenState === "1"}
-        {#if $scavengerHuntState[5] !== deactivatedStateSchema.value}
-            <HideableNotification stateIndex={5} state={$scavengerHuntState[5]}>
+        {#if $scavengerHuntState[4] !== deactivatedStateSchema.value}
+            <HideableNotification stateIndex={4} state={$scavengerHuntState[4]}>
                 <p>
                     PIN CODE:<br />
                     Is the sum of the 4 numbers in the corners
@@ -31,6 +31,11 @@
         <Computer>
             <FirstScreenStickyNotes slot="stickyNotes" />
             <FirstScreen slot="screen" />
+        </Computer>
+    {/if}
+    {#if screenState === "2"}
+        <Computer>
+            <SecondScreen slot="screen" />
         </Computer>
     {/if}
 </section>
