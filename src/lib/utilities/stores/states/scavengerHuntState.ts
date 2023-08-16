@@ -54,6 +54,8 @@ export function getScavengerHuntState(string: string | undefined | null): Scaven
             if (isValidS1State(string)) return string as ScavengerHuntStates
             else return S1DefaultState
         case "2":
+            console.log("string", string)
+
             if (isValidS2State(string)) return string as ScavengerHuntStates
             return S2DefaultState
         default:

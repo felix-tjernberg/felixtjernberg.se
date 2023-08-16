@@ -6,11 +6,15 @@
     import { browser } from "$app/environment"
     import { enhance } from "$app/forms"
     import { goto } from "$app/navigation"
+    import { page } from "$app/stores"
 
     import { cookiesAllowed, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
     import { firstVisitKey } from "$stores/states/firstVisit"
     import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
     import { JSActiveKey } from "$utilities/JSActiveKey"
+    import { pinFormKey } from "./formKeys"
+
+    let error: boolean = false
 </script>
 
 <div id="first-screen" class="height-100percent flex">
@@ -36,6 +40,7 @@
                 // TODO handle if newState is undefined, however this is a super rare case when for some reason the packets are lost or damaged in transit
                 // @ts-ignore
                 if (result.result.type === "success") $scavengerHuntState = result?.result?.data?.newState
+                if (result.result.type === "failure") error = true
 
                 if (!$cookiesAllowed && result.result.type === "redirect") {
                     goto(result.result.location)
@@ -46,7 +51,13 @@
                 }
             }
         }}>
-        <p class="font-family-primary-fat line-height-1">enter pin</p>
+        {#if $page.form?.formName === pinFormKey || error || $page.url.searchParams.get("error")}
+            <p class="font-family-primary-fat line-height-1" style="line-height:1.2">
+                invalid<br /> pin code<br />try again
+            </p>
+        {:else}
+            <p class="font-family-primary-fat line-height-1">enter pin</p>
+        {/if}
         <div class="flex-center">
             <SingleDigitInput label="pin number 1" testid="pin-input" name="pin1" value={1} />
             <SingleDigitInput label="pin number 2" testid="pin-input" name="pin2" value={2} />
@@ -54,7 +65,7 @@
             <SingleDigitInput label="pin number 4" testid="pin-input" name="pin4" value={4} />
         </div>
         {#if !$cookiesAllowed}
-            <HiddenInputs excludeStates={[decidedOnCookiesKey, firstVisitKey, scavengerHuntStateKey]} />
+            <HiddenInputs excludeStates={[decidedOnCookiesKey, firstVisitKey]} />
         {/if}
         <input type="hidden" name={JSActiveKey} value={browser} />
         <Button label="log in" class="margin-auto" type="submit" />

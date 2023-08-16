@@ -99,6 +99,8 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
         }
 
+        console.log(getScavengerHuntState(searchParams.get(scavengerHuntStateKey)))
+
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: false,
@@ -131,6 +133,16 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
         [settingsOpenKey]: false,
     } satisfies DataBasedOnDefaults
 }) satisfies PageServerLoad
+
+function routeFromFormData(formData: FormData, route: NavigationStates) {
+    const audioVolume = formData.get(audioVolumeKey)
+    const darkMode = formData.get(darkModeKey)
+    const likesEightBitFont = formData.get(likesEightBitFontKey)
+    const navigationExplainer2 = formData.get(navigationExplainer2Key)
+    const navigationExplainer = formData.get(navigationExplainerKey)
+
+    return `/${route}?${cookiesAllowedKey}=false&${audioVolumeKey}=${audioVolume}&${darkModeKey}=${darkMode}&${decidedOnCookiesKey}=true&${firstVisitKey}=false&${likesEightBitFontKey}=${likesEightBitFont}&${navigationExplainer2Key}=${navigationExplainer2}&${navigationExplainerKey}=${navigationExplainer}&${navigationStateKey}=${route}`
+}
 
 export const actions = {
     allowCookies: async ({ cookies }) => {
@@ -200,6 +212,7 @@ export const actions = {
     validateScreenOneAnswer: async ({ cookies, request }) => {
         const formData = await request.formData()
 
+        const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
         const pin1 = formData.get(pin1Key)
         const pin2 = formData.get(pin2Key)
         const pin3 = formData.get(pin3Key)
@@ -208,10 +221,18 @@ export const actions = {
         if (pin1 === null || pin2 === null || pin3 === null || pin4 === null)
             return fail(400, { error: "Incorrect values supplied" })
 
-        if (pin1 !== "1" || pin2 !== "2" || pin3 !== "3" || pin4 !== "4")
+        if (pin1 !== "1" || pin2 !== "2" || pin3 !== "3" || pin4 !== "4") {
+            if (cookiesAllowedHiddenInput === "false")
+                throw redirect(
+                    302,
+                    routeFromFormData(formData, NavigationSchema.enum.computer) +
+                        `&${scavengerHuntStateKey}=${getScavengerHuntState(
+                            String(formData.get(scavengerHuntStateKey)),
+                        )}&error=true`,
+                )
             //TODO check if each pin is number between 0-9, if so return the pin inputs to client, so they can be prefilled
-            // TODO handle cookies not allowed redirecting with correct searchParameters and add error message in pin  form
-            return fail(400, { error: "Invalid pin code", formName: pinFormKey })
+            return fail(400, { error: "invalid pin code", formName: pinFormKey })
+        }
 
         if (cookies.get(cookiesAllowedKey) === "true") {
             cookies.set(scavengerHuntStateKey, S2DefaultState, { httpOnly: false })
@@ -219,17 +240,11 @@ export const actions = {
             return { newState: S2DefaultState }
         } else {
             // in case someone submits the form without cookiesAllowed being false
-            const cookiesAllowed = formData.get(cookiesAllowedKey)
-            if (cookiesAllowed !== "false") throw redirect(302, `/`)
-
-            const audioVolume = formData.get(audioVolumeKey)
-            const darkMode = formData.get(darkModeKey)
-            const likesEightBitFont = formData.get(likesEightBitFontKey)
-            const navigationExplainer2 = formData.get(navigationExplainer2Key)
-            const navigationExplainer = formData.get(navigationExplainerKey)
+            if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
             throw redirect(
                 302,
-                `/computer?${cookiesAllowedKey}=false&${audioVolumeKey}=${audioVolume}&${darkModeKey}=${darkMode}&${decidedOnCookiesKey}=true&${firstVisitKey}=false&${likesEightBitFontKey}=${likesEightBitFont}&${navigationExplainer2Key}=${navigationExplainer2}&${navigationExplainerKey}=${navigationExplainer}&${navigationStateKey}=computer&${scavengerHuntStateKey}=${S2DefaultState}`,
+                routeFromFormData(formData, NavigationSchema.enum.computer) +
+                    `&${scavengerHuntStateKey}=${S2DefaultState}`,
             )
         }
     },
