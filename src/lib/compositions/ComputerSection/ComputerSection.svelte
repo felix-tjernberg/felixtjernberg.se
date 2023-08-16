@@ -12,7 +12,7 @@
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
 
-    import { deactivatedStateSchema, scavengerHuntState } from "$stores/states/scavengerHuntState"
+    import { D, scavengerHuntState } from "$stores/states/scavengerHuntState"
 
     $: screenState = $scavengerHuntState[0]
 </script>
@@ -20,7 +20,7 @@
 <section id="computer-section" class="height-100percent grid-stack">
     <h2 class="visually-hidden absolute">computer</h2>
     {#if screenState === "1"}
-        {#if $scavengerHuntState[4] !== deactivatedStateSchema.value}
+        {#if $scavengerHuntState[4] !== D}
             <HideableNotification stateIndex={4} state={$scavengerHuntState[4]}>
                 <p>
                     PIN CODE:<br />
@@ -34,6 +34,9 @@
         </Computer>
     {/if}
     {#if screenState === "2"}
+        <HideableNotification stateIndex={1} state={$scavengerHuntState[1]}>
+            <p>You have to wait until dial up has been completed</p>
+        </HideableNotification>
         <Computer>
             <SecondScreen slot="screen" />
         </Computer>

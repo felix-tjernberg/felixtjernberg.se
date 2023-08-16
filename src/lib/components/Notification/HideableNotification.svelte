@@ -11,20 +11,21 @@
         type ScavengerHuntStates,
         scavengerHuntState,
         scavengerHuntStateKey,
-        booleanStateSchema,
+        T,
+        F,
     } from "$stores/states/scavengerHuntState"
     import { setJSCookie } from "$utilities/setJSCookie"
 
     export let state: string
     export let stateIndex: number
 
-    let shown: boolean = state === booleanStateSchema.enum.T
+    let shown: boolean = state === T
 
     $: newTrueState = ($scavengerHuntState.slice(0, stateIndex) +
-        booleanStateSchema.enum.T +
+        T +
         $scavengerHuntState.slice(stateIndex + 1)) as ScavengerHuntStates
     $: newFalseState = ($scavengerHuntState.slice(0, stateIndex) +
-        booleanStateSchema.enum.F +
+        F +
         $scavengerHuntState.slice(stateIndex + 1)) as ScavengerHuntStates
 </script>
 

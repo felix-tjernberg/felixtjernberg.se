@@ -2,15 +2,15 @@
 import { type Actions, fail, redirect } from "@sveltejs/kit"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
+import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
+import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import {
-    booleanStateSchema,
+    getScavengerHuntState,
     S2DefaultState,
     scavengerHuntDefaultState,
     scavengerHuntStateKey,
     type ScavengerHuntStates,
 } from "$stores/states/scavengerHuntState"
-import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
-import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import {
     navigationExplainer2Key,
     navigationExplainerKey,
@@ -61,32 +61,6 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
     if (state === undefined || state === null) return fallbackState
     const exctractedState = schema.safeParse(state)
     return exctractedState.success ? exctractedState.data : fallbackState
-}
-
-function getScavengerHuntState(string: string | undefined | null): ScavengerHuntStates {
-    if (string === undefined || string === null) return scavengerHuntDefaultState
-
-    //TODO check if string is 1-7
-    if (!(string[0] === "1" || string[0] === "2")) return scavengerHuntDefaultState
-
-    switch (string[0]) {
-        case "1":
-            if (string.length !== 6) return scavengerHuntDefaultState
-            if (
-                string
-                    .slice(1)
-                    .split("")
-                    .every(
-                        (charater) => charater === booleanStateSchema.enum.T || charater === booleanStateSchema.enum.F,
-                    )
-            )
-                return scavengerHuntDefaultState
-            else return string as ScavengerHuntStates
-        case "2":
-            return S2DefaultState
-        default:
-            return scavengerHuntDefaultState
-    }
 }
 
 export const load = (async ({ cookies, params, url: { searchParams } }) => {
@@ -234,8 +208,9 @@ export const actions = {
         if (pin1 === null || pin2 === null || pin3 === null || pin4 === null)
             return fail(400, { error: "Incorrect values supplied" })
 
-        if (pin1 !== "1" && pin2 !== "2" && pin3 !== "3" && pin4 !== "4")
+        if (pin1 !== "1" || pin2 !== "2" || pin3 !== "3" || pin4 !== "4")
             //TODO check if each pin is number between 0-9, if so return the pin inputs to client, so they can be prefilled
+            // TODO handle cookies not allowed redirecting with correct searchParameters and add error message in pin  form
             return fail(400, { error: "Invalid pin code", formName: pinFormKey })
 
         if (cookies.get(cookiesAllowedKey) === "true") {
