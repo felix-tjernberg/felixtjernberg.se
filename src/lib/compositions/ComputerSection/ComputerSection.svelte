@@ -13,6 +13,7 @@
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
 
     import { D, scavengerHuntState } from "$stores/states/scavengerHuntState"
+    import { browser } from "$app/environment"
 
     $: screenState = $scavengerHuntState[0]
 </script>
@@ -35,10 +36,30 @@
     {/if}
     {#if screenState === "2"}
         <HideableNotification stateIndex={1} state={$scavengerHuntState[1]}>
-            <p>You have to wait until dial up has been completed</p>
+            {#if browser}
+                <p>
+                    Next screen will appear when the dial up audio has completed <br /><br />
+                    If it did not start automatically <br /><br />
+                    Press "Show dial up audio player" and play the audio until completion
+                </p>
+            {:else}
+                <p>
+                    Because you do not have JavaScript active you have to <br /><br />
+                    manually click the <br />
+                    "Show dial up audio player" <br /><br />
+                    and then click the <br />
+                    "Go To Next Screen Button" <br /><br />
+                    However i recommend you to play the dial up audio for awesome nostalgic feels
+                </p>
+            {/if}
         </HideableNotification>
         <Computer>
             <SecondScreen slot="screen" />
+        </Computer>
+    {/if}
+    {#if screenState === "3"}
+        <Computer>
+            <ThirdScreen slot="screen" />
         </Computer>
     {/if}
 </section>
