@@ -16,7 +16,7 @@
     })
 </script>
 
-<label>
+<label class="margin-horizontal-auto">
     <span class="visually-hidden">{label}</span>
     <div class="strokes-wrapper glow glow-hover">
         <input
@@ -74,14 +74,14 @@
         width: 1.1ch;
     }
     .strokes-wrapper:focus-within::before {
-        animation: blink 1.72s infinite;
+        animation: blink 1.314s infinite;
     }
     @keyframes blink {
         0% {
             opacity: 1;
         }
         50% {
-            opacity: 0.5;
+            opacity: 0;
         }
         100% {
             opacity: 1;
