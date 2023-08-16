@@ -12,12 +12,12 @@
 <div id="second-screen" class="flex-column height-100percent" in:fade>
     <div class="margin-vertical-auto margin-vertical-flow padding-vertical">
         <p class="font-family-primary-fat">
-            <span aria-hidden="true">.</span><span aria-hidden="true">.</span><span aria-hidden="true">.</span
-            >Initia<wbr />lizing<span class="loading-dot">.</span><span class="loading-dot">.</span><span
-                class="loading-dot">.</span>
+            <span aria-hidden="true">...</span>Initial<wbr />izing<span class="loading-dot">.</span><span
+                class="loading-dot">.</span
+            ><span class="loading-dot">.</span>
         </p>
         <details>
-            <summary>dial up audio audio player</summary>
+            <summary>Show dial up audio player</summary>
             <audio
                 controls
                 class="margin-auto"

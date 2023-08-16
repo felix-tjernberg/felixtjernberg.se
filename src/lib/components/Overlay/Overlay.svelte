@@ -88,7 +88,7 @@
     }
     section {
         display: grid;
-        grid-template-rows: 33% auto;
+        grid-template-rows: 50% auto;
         max-width: 70ch;
     }
     h2 {
