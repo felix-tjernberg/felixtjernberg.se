@@ -1,13 +1,17 @@
 <script lang="ts">
-    import { z } from "zod"
-    import Button from "$components/Button/Button.svelte"
     import DownArrow from "$assets/svgs/DownArrow.svelte"
     import UpArrow from "$assets/svgs/UpArrow.svelte"
+
+    import Button from "$components/Button/Button.svelte"
+    import Description from "$components/Description.svelte"
+
+    import { z } from "zod"
 
     export let label: string
     export let input: HTMLInputElement | undefined = undefined
 
-    export let description: string | undefined = undefined
+    export let description: string
+    export let noScriptDescription: string | undefined = undefined
     export let placeholder: number = 0
     export let max: number = 9999
     export let min: number = -9999
@@ -26,11 +30,8 @@
     }
 </script>
 
-<div class="multi-digit-input flex-column-center relative">
-    {#if description}
-        <p>{description}</p>
-    {/if}
-    <div class="relative flex-center">
+<Description {description} noScriptDescription={noScriptDescription ? noScriptDescription : description}>
+    <div class=" multi-digit-input relative flex-center">
         <label>
             <span class="visually-hidden">{label}</span>
             <input
@@ -92,7 +93,7 @@
                     }
                 }} />
         </label>
-        <div class="flex-column-center absolute">
+        <div class="multi-digit-input-arrows flex-column-center absolute">
             <Button
                 ariaHidden={true}
                 label="increase"
@@ -129,19 +130,9 @@
             </Button>
         </div>
     </div>
-</div>
+</Description>
 
 <style>
-    p {
-        color: var(--gray-900);
-        font-family: var(--font-family-primary-thin);
-        max-width: 100%;
-        padding-top: 0.1em;
-        rotate: -1.72deg;
-        text-align: left;
-        translate: -1em 0;
-        width: 100%;
-    }
     input {
         --total-numbers: 5ch;
         width: calc(var(--total-numbers) + 2ch);
@@ -152,7 +143,7 @@
     .multi-digit-input {
         font-family: var(--font-family-primary-fat);
     }
-    .multi-digit-input .absolute {
+    .multi-digit-input-arrows {
         right: 0;
         translate: 100%;
     }
