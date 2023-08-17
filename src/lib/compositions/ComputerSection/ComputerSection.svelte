@@ -7,13 +7,14 @@
     import SecondScreen from "./SecondScreen.svelte"
     import ThirdScreen from "./ThirdScreen.svelte"
     import FourthScreen from "./FourthScreen.svelte"
+    import FourthScreenHints from "./FourthScreenHints.svelte"
     import FifthScreen from "./FifthScreen.svelte"
     import SixthScreen from "./SixthScreen.svelte"
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
 
-    import { D, scavengerHuntState } from "$stores/states/scavengerHuntState"
     import { browser } from "$app/environment"
+    import { D, scavengerHuntState } from "$stores/states/scavengerHuntState"
 
     $: screenState = $scavengerHuntState[0]
 </script>
@@ -63,6 +64,7 @@
         </Computer>
     {/if}
     {#if screenState === "4"}
+        <FourthScreenHints />
         <Computer>
             <FourthScreen slot="screen" />
         </Computer>

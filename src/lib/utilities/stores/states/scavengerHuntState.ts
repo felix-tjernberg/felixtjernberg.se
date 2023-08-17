@@ -4,14 +4,14 @@ export const T = "T" as const // True
 export const F = "F" as const // False
 export type BooleanState = typeof T | typeof F // Because we are saving scavengerHuntState as a string, we need to use "T" and "F" instead of true and false
 export function isBooleanState(string: string): string is BooleanState {
-    return string === T || string === F
+    return string === F || string === T
 }
 
 export const D = "D"
 export type DeactivatedState = typeof D
 export type TernaryState = BooleanState | DeactivatedState
 function isTernaryState(string: string): string is TernaryState {
-    return isBooleanState(string) || string === D
+    return string === D || isBooleanState(string)
 }
 
 // Screen 1
@@ -50,10 +50,18 @@ function isValidS3State(string: string): string is S3States {
 
 // Screen 4
 type S4 = "4"
-type S4States = `${S4}`
-export const S4DefaultState = "4" as const
+type S4HintState = TernaryState
+type S4States = `${S4}${S4HintState}${S4HintState}${S4HintState}${S4HintState}${S4HintState}${S4HintState}`
+export const S4DefaultState = "4TDDDDD" as const
 function isValidS4State(string: string): string is S4States {
-    return string === "4"
+    if (string.length !== 7) return false
+    if (!isTernaryState(string[1])) return false
+    if (!isTernaryState(string[2])) return false
+    if (!isTernaryState(string[3])) return false
+    if (!isTernaryState(string[4])) return false
+    if (!isTernaryState(string[5])) return false
+    if (!isTernaryState(string[6])) return false
+    return true
 }
 
 export type ScavengerHuntStates = S1States | S2States | S3States | S4States
