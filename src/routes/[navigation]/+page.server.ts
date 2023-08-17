@@ -1,5 +1,14 @@
 /* eslint-disable no-fallthrough */
 import { type Actions, fail, redirect } from "@sveltejs/kit"
+import {
+    answerFormKey,
+    answerKey,
+    pin1Key,
+    pin2Key,
+    pin3Key,
+    pin4Key,
+    pinFormKey,
+} from "$compositions/ComputerSection/formKeys"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
@@ -7,6 +16,7 @@ import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import {
     getScavengerHuntState,
     S2DefaultState,
+    S4DefaultState,
     scavengerHuntDefaultState,
     scavengerHuntStateKey,
     type ScavengerHuntStates,
@@ -18,7 +28,6 @@ import {
     navigationStateKey,
     type NavigationStates,
 } from "$stores/states/navigation"
-import { pin1Key, pin2Key, pin3Key, pin4Key, pinFormKey } from "$compositions/ComputerSection/formKeys"
 import { darkModeKey } from "$stores/settings/darkMode"
 import { firstVisitKey } from "$stores/states/firstVisit"
 import { JSActiveKey } from "$utilities/JSActiveKey"
@@ -245,6 +254,41 @@ export const actions = {
                 302,
                 routeFromFormData(formData, NavigationSchema.enum.computer) +
                     `&${scavengerHuntStateKey}=${S2DefaultState}`,
+            )
+        }
+    },
+
+    validateScreenTwoAnswer: async ({ cookies, request }) => {
+        const formData = await request.formData()
+
+        const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
+        const answer = formData.get(answerKey)
+
+        if (answer === null) return fail(400, { error: "Incorrect values supplied" })
+
+        if (answer.toString().toLowerCase() !== "yes") {
+            if (cookiesAllowedHiddenInput === "false")
+                throw redirect(
+                    302,
+                    routeFromFormData(formData, NavigationSchema.enum.computer) +
+                        `&${scavengerHuntStateKey}=${getScavengerHuntState(
+                            String(formData.get(scavengerHuntStateKey)),
+                        )}&error=true`,
+                )
+            return fail(400, { error: "invalid answer", formName: answerFormKey })
+        }
+
+        if (cookies.get(cookiesAllowedKey) === "true") {
+            cookies.set(scavengerHuntStateKey, S4DefaultState, { httpOnly: false })
+            if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
+            return { newState: S4DefaultState }
+        } else {
+            // in case someone submits the form without cookiesAllowed being false
+            if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
+            throw redirect(
+                302,
+                routeFromFormData(formData, NavigationSchema.enum.computer) +
+                    `&${scavengerHuntStateKey}=${S4DefaultState}`,
             )
         }
     },

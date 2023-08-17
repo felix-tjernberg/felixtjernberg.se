@@ -4,12 +4,13 @@
     const PADDING_OFFSET = 2.674
 
     export let label: string
-    export let value: string
+    export let name: string
+    export let value: string = ""
 
-    export let input: HTMLInputElement
     export let placeholder: string = "Placeholder"
     export let testid: string | undefined = undefined
 
+    let input: HTMLInputElement
     onMount(() => {
         input.style.width = `calc(${PADDING_OFFSET}em + ${placeholder.length}ch)`
         input.style.caretColor = "transparent"
@@ -22,6 +23,7 @@
         <input
             tabindex="-1"
             data-testid={testid}
+            {name}
             bind:value
             bind:this={input}
             type="text"

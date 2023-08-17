@@ -48,7 +48,15 @@ function isValidS3State(string: string): string is S3States {
     return string === "3"
 }
 
-export type ScavengerHuntStates = S1States | S2States | S3States
+// Screen 4
+type S4 = "4"
+type S4States = `${S4}`
+export const S4DefaultState = "4" as const
+function isValidS4State(string: string): string is S4States {
+    return string === "4"
+}
+
+export type ScavengerHuntStates = S1States | S2States | S3States | S4States
 export const scavengerHuntDefaultState: ScavengerHuntStates = S1DefaultState
 export const scavengerHuntState = writable<ScavengerHuntStates>(scavengerHuntDefaultState)
 export const scavengerHuntStateKey = "scavengerHuntState" as const
@@ -67,6 +75,9 @@ export function getScavengerHuntState(string: string | undefined | null): Scaven
         case "3":
             if (isValidS3State(string)) return string as ScavengerHuntStates
             return S3DefaultState
+        case "4":
+            if (isValidS4State(string)) return string as ScavengerHuntStates
+            return S4DefaultState
         default:
             return scavengerHuntDefaultState
     }

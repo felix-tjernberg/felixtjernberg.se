@@ -62,6 +62,11 @@
             <ThirdScreen slot="screen" />
         </Computer>
     {/if}
+    {#if screenState === "4"}
+        <Computer>
+            <FourthScreen slot="screen" />
+        </Computer>
+    {/if}
 </section>
 
 <!-- TODO {#if $computerScreenIndex == 5}
