@@ -31,11 +31,12 @@
         <p><span class="visually-hidden">corner number 4: </span>4</p>
     </div>
     <form
-        action="?/validateScreenOneAnswer"
+        action="?/validateFirstScreenAnswer"
         method="POST"
         id="content"
         class="margin-vertical-auto margin-horizontal width-100percent padding-vertical"
         use:enhance={() => {
+            // TODO move this async function to separate file as it is used in multiple places
             return async (result) => {
                 // TODO handle if newState is undefined, however this is a super rare case when for some reason the packets are lost or damaged in transit
                 // @ts-ignore

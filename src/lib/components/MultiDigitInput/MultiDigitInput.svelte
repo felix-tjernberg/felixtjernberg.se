@@ -8,15 +8,16 @@
     import { z } from "zod"
 
     export let label: string
-    export let input: HTMLInputElement | undefined = undefined
-
     export let description: string
+    export let name: string
+
+    export let input: HTMLInputElement | undefined = undefined
     export let noScriptDescription: string | undefined = undefined
     export let placeholder: number = 0
     export let max: number = 9999
     export let min: number = -9999
     export let testid: string | undefined = undefined
-    export let value: number | "" | "-"
+    export let value: number | "" | "-" = ""
 
     const NumberSchema = z.coerce.number().int().min(min).max(max).finite()
 
@@ -42,6 +43,7 @@
                 placeholder={String(placeholder)}
                 {min}
                 {max}
+                {name}
                 bind:this={input}
                 bind:value
                 on:keydown={(event) => {

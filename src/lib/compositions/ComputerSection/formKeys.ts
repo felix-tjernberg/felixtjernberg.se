@@ -8,3 +8,6 @@ export const pin4Key = "pin4" as const
 // Screen 2
 export const answerKey = "answer" as const
 export const answerFormKey = "answerForm" as const
+
+// Screen 4
+export const numberOfSecondsKey = "numberOfSeconds" as const

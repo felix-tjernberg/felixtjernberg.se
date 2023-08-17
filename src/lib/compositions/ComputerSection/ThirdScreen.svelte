@@ -23,10 +23,11 @@
         Are you ready to start the scavenger hunt?
     </p>
     <form
-        action="?/validateScreenTwoAnswer"
+        action="?/validateThirdScreenAnswer"
         method="POST"
         class="flex-column margin-horizontal-auto"
         use:enhance={() => {
+            // TODO move this async function to separate file as it is used in multiple places
             return async (result) => {
                 // TODO handle if newState is undefined, however this is a super rare case when for some reason the packets are lost or damaged in transit
                 // @ts-ignore

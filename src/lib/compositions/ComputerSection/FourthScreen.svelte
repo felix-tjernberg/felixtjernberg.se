@@ -3,12 +3,22 @@
     import YouTube from "svelte-youtube"
     import Button from "$components/Button/Button.svelte"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
 
+    import { browser } from "$app/environment"
+    import { enhance } from "$app/forms"
     import { fade } from "svelte/transition"
-    import { audioVolume } from "$stores/settings/audioVolume"
+    import { goto } from "$app/navigation"
+    import { page } from "$app/stores"
 
-    let value: number
-    let input: HTMLInputElement
+    import { answerFormKey, numberOfSecondsKey } from "./formKeys"
+    import { audioVolume } from "$stores/settings/audioVolume"
+    import { cookiesAllowed, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
+    import { firstVisitKey } from "$stores/states/firstVisit"
+    import { JSActiveKey } from "$utilities/JSActiveKey"
+    import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
+
+    let error: boolean = false
 
     function ready(event: CustomEvent) {
         event.detail.target.setVolume($audioVolume * 100)
@@ -25,13 +35,41 @@
             How many seconds is my friends song?<br />
             <span class="font-family-primary-thin">(the music animation is my creation)</span>
         </p>
-        <MultiDigitInput
-            label="answer"
-            description="Enter number of seconds"
-            bind:value
-            bind:input
-            testid="song-number-input" />
-        <Button label="Submit answer" class="margin-horizontal-auto" type="submit" />
+        <form
+            action="?/validateFourthScreenAnswer"
+            method="POST"
+            class="flex-column margin-horizontal-auto"
+            use:enhance={() => {
+                // TODO move this async function to separate file as it is used in multiple places
+                return async (result) => {
+                    // TODO handle if newState is undefined, however this is a super rare case when for some reason the packets are lost or damaged in transit
+                    // @ts-ignore
+                    if (result.result.type === "success") $scavengerHuntState = result?.result?.data?.newState
+                    if (result.result.type === "failure") error = true
+
+                    if (!$cookiesAllowed && result.result.type === "redirect") {
+                        goto(result.result.location)
+                        const url = new URL(result.result.location, window.location.origin)
+                        // TODO  handle if searchParams[scavengerHuntStateKey] is null, however this is a super rare case when for some reason the packets are lost or damaged in transit
+                        // @ts-ignore
+                        $scavengerHuntState = url.searchParams.get(scavengerHuntStateKey)?.toString()
+                    }
+                }
+            }}>
+            {#if !$cookiesAllowed}
+                <HiddenInputs excludeStates={[decidedOnCookiesKey, firstVisitKey]} />
+            {/if}
+            <input type="hidden" name={JSActiveKey} value={browser} />
+            {#if $page.form?.formName === answerFormKey || error || $page.url.searchParams.get("error")}
+                <p class="font-primary-fat margin-horizontal-auto">Incorrect number of seconds</p>
+            {/if}
+            <MultiDigitInput
+                label="Number of seconds"
+                description="Enter number of seconds"
+                name={numberOfSecondsKey}
+                testid="song-number-input" />
+            <Button label="Submit answer" class="margin-horizontal-auto" type="submit" />
+        </form>
     </div>
 </div>
 
