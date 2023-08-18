@@ -41,13 +41,13 @@
                 <p>
                     Next screen will appear when the dial up audio has completed <br /><br />
                     If it did not start automatically <br /><br />
-                    Press "Show dial up audio player" and play the audio until completion
+                    Press "show dial up audio player" and play the audio until completion
                 </p>
             {:else}
                 <p>
                     Because you do not have JavaScript active you have to <br /><br />
                     manually click the <br />
-                    "Show dial up audio player" <br /><br />
+                    "show dial up audio player" <br /><br />
                     and then click the <br />
                     "Go To Next Screen Button" <br /><br />
                     However i recommend you to play the dial up audio for awesome nostalgic feels

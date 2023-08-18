@@ -45,7 +45,7 @@
         </form>
     {/if}
     <details class="flex-column-center">
-        <summary class="text-decoration-underline"> Show elevator music audio player</summary>
+        <summary class="text-decoration-underline">show elevator music audio player</summary>
         <audio
             bind:paused={elevatorMusicPaused}
             bind:volume={$audioVolume}

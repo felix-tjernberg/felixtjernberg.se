@@ -25,7 +25,7 @@
             ><span class="loading-dot">.</span>
         </p>
         <details>
-            <summary>Show dial up audio player</summary>
+            <summary>show dial up audio player</summary>
             <audio
                 controls
                 class="margin-auto"
@@ -70,7 +70,7 @@
                 name={audioVolumeKey}
                 max={0.5}
                 description="audio volume"
-                label="dial up music volume"
+                label="dial up audio volume"
                 on:change={() => $cookiesAllowed && setJSCookie(audioVolumeKey, String($audioVolume))} />
         {/if}
     </div>
