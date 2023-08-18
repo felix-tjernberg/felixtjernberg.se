@@ -66,10 +66,12 @@ function isValidS4State(string: string): string is S4States {
 
 // Screen 5
 type S5 = "5"
-type S5States = `${S5}`
-export const S5DefaultState = "5" as const
+type S5States = `${S5}${BooleanState}`
+export const S5DefaultState = "5T" as const
 function isValidS5State(string: string): string is S5States {
-    return string === "5"
+    if (string.length !== 2) return false
+    if (!isBooleanState(string[1])) return false
+    return true
 }
 
 // Screen 6

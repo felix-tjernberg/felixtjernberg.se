@@ -70,6 +70,9 @@
         </Computer>
     {/if}
     {#if screenState === "5"}
+        <HideableNotification stateIndex={1} state={$scavengerHuntState[1]}>
+            <p>you will find the answer in the coach section</p>
+        </HideableNotification>
         <Computer>
             <FifthScreen slot="screen" />
         </Computer>

@@ -59,6 +59,8 @@
 
     let navigationActive: boolean
 
+    $: navigationButtonFlashing = $scavengerHuntState[0] === "5" && $navigationState === NavigationSchema.enum.computer
+
     $: if (browser) document.documentElement.lang = $locale
 
     $: if (browser) window.document.body.dataset.darkMode = String($darkMode)
@@ -121,13 +123,18 @@
             id="navigation-button"
             href="/navigation"
             label="Open navigation"
+            flashing={navigationButtonFlashing}
             on:click={() => ($navigationState = NavigationSchema.enum.navigation)}>
             <NavigationIcon slot="icon" />
         </Button>
     {:else}
         <form id="navigation-form" on:submit={() => ($navigationState = NavigationSchema.enum.navigation)}>
             <HiddenInputs excludeStates={[navigationStateKey]} />
-            <Button label="Open navigation" name={navigationStateKey} value={NavigationSchema.enum.navigation}>
+            <Button
+                flashing={navigationButtonFlashing}
+                label="Open navigation"
+                name={navigationStateKey}
+                value={NavigationSchema.enum.navigation}>
                 <NavigationIcon slot="icon" />
             </Button>
         </form>
