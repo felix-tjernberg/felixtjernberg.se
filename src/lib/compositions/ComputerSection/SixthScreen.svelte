@@ -10,7 +10,8 @@
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { setJSCookie } from "$utilities/setJSCookie"
-    import { phoneRingtonePaused } from "$stores/states/phone"
+    import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
+    import { F, scavengerHuntState } from "$stores/states/scavengerHuntState"
 
     //TODO $: if (value === 200) {
 
@@ -21,6 +22,7 @@
     //     $momCalling = true
     //     $answeredCall = false
     // })
+    $: momCalling = $scavengerHuntState[3] === F
 </script>
 
 <div id="sixth-screen" class="flex-column" in:fade>
@@ -37,7 +39,9 @@
             src="https://cdn.pixabay.com/download/audio/2021/08/09/audio_a4637e27f0.mp3?filename=smartphone_vibrating_alarm_silent-7040.mp3"
             bind:paused={$phoneRingtonePaused}
             bind:volume={$audioVolume}
-            on:canplay={() => ($phoneRingtonePaused = false)} />
+            on:canplay={() => {
+                if (momCalling) $phoneRingtonePaused = false
+            }} />
         {#if browser}
             <Slider
                 bind:value={$audioVolume}

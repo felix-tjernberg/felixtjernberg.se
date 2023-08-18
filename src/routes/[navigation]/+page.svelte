@@ -35,7 +35,7 @@
     import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigation"
-    import { phoneRingtonePaused } from "$stores/states/phone"
+    import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
     import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
     import { settingsOpen, settingsOpenKey } from "$stores/states/settingsOpen"
     import { setJSCookie } from "$utilities/setJSCookie"

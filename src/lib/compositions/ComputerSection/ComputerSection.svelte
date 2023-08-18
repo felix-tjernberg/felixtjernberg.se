@@ -10,6 +10,7 @@
     import FourthScreenHints from "./FourthScreenHints.svelte"
     import FifthScreen from "./FifthScreen.svelte"
     import SixthScreen from "./SixthScreen.svelte"
+    import SixthScreenHints from "./SixthScreenHints.svelte"
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
 
@@ -78,6 +79,7 @@
         </Computer>
     {/if}
     {#if screenState === "6"}
+        <SixthScreenHints />
         <Computer>
             <SixthScreen slot="screen" />
         </Computer>

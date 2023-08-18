@@ -4,7 +4,7 @@
     import TEXT_CONVERSATION from "./textConversation"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
     import typewriter from "$utilities/transitions/typewriter"
-    import { conversationDone } from "$stores/states/phone"
+    import { S6ConversationDoneState, scavengerHuntState, T } from "$stores/states/scavengerHuntState"
 
     let section: HTMLElement
 
@@ -12,15 +12,17 @@
     let messageIndex = -1
     let buttonActive = false
 
-    onMount(() => {
-        messageIndex = 0
-    })
+    // TODO this should probably check if that state is a specific message number instead
+    $: conversationDone = $scavengerHuntState[4] === T
+
+    onMount(() => (messageIndex = 0))
 </script>
 
 <div id="conversation" class="background-blur relative glow border" data-testid="conversation-wrapper">
     <section bind:this={section} class="flex-column margin-vertical-flow">
         {#each TEXT_CONVERSATION as { message, person }, index}
-            {#if index <= messageIndex || JSON.parse($conversationDone)}
+            <!-- TODO look at $scavengerHuntState[5] to see which messageIndex should be shown -->
+            {#if index <= messageIndex || conversationDone}
                 <span
                     class="flex glow"
                     style={`${person === "mom" ? "--glow-color:var(--glow-pink)" : "--glow-color:var(--glow-green)"}`}>
@@ -43,7 +45,7 @@
             label="See next message"
             testid="next-message-button"
             on:click={() => {
-                if (messageIndex + 2 === TEXT_CONVERSATION.length) $conversationDone = true
+                if (messageIndex + 2 === TEXT_CONVERSATION.length) $scavengerHuntState = S6ConversationDoneState
                 if (firstMessage) firstMessage = false
                 messageIndex += 1
                 buttonActive = false
@@ -89,6 +91,7 @@
     }
     p {
         text-align: left;
+        text-wrap: wrap;
     }
     p,
     :global(#conversation button) {

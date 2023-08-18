@@ -66,7 +66,8 @@ function isValidS4State(string: string): string is S4States {
 
 // Screen 5
 type S5 = "5"
-type S5States = `${S5}${BooleanState}`
+type S5HintState = BooleanState
+type S5States = `${S5}${S5HintState}`
 export const S5DefaultState = "5T" as const
 function isValidS5State(string: string): string is S5States {
     if (string.length !== 2) return false
@@ -76,10 +77,21 @@ function isValidS5State(string: string): string is S5States {
 
 // Screen 6
 type S6 = "6"
-type S6States = `${S6}`
-export const S6DefaultState = "6" as const
+type S6MomCallingHint = TernaryState
+type S6AnsweredCallHint = TernaryState
+type S6AnsweredCallState = BooleanState
+type S6ConversationDoneState = BooleanState
+type S6States = `${S6}${S6MomCallingHint}${S6AnsweredCallHint}${S6AnsweredCallState}${S6ConversationDoneState}`
+export const S6DefaultState = "6TDFF" as const
+export const S6AnswerMomState = "6DTTF" as const
+export const S6ConversationDoneState = "6DTTT" as const
 function isValidS6State(string: string): string is S6States {
-    return string === "6"
+    if (string.length !== 2) return false
+    if (!isTernaryState(string[1])) return false
+    if (!isTernaryState(string[2])) return false
+    if (!isBooleanState(string[3])) return false
+    if (!isBooleanState(string[4])) return false
+    return true
 }
 
 export type ScavengerHuntStates = S1States | S2States | S3States | S4States | S5States | S6States

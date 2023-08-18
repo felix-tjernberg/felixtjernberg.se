@@ -1,20 +1,27 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
-    import { answeredCall, conversationDone, momCalling, phoneRingtonePaused } from "$stores/states/phone"
     import phone from "$assets/images/phone.png"
+
     import PhoneCanvas from "./PhoneCanvas.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
+
+    import { fade } from "svelte/transition"
+
+    import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
+    import { F, S6AnswerMomState, scavengerHuntState } from "$stores/states/scavengerHuntState"
+
+    $: screenState = $scavengerHuntState[0]
+    $: momCalling = $scavengerHuntState[3] === F
 </script>
 
 <section id="phone-section" class="gap">
-    {#if !$conversationDone && ($momCalling || $answeredCall)}
+    {#if screenState === "6"}
         <p
             class="background-blur border glow font-family-primary-fat"
             data-testid="answer-instruction"
             id="answer-instruction"
             transition:fade>
-            {#if $momCalling}
+            {#if momCalling}
                 Press <br />
                 "C" <br />
                 button to answer
@@ -25,21 +32,21 @@
             {/if}
         </p>
     {/if}
-    {#if $answeredCall}
+    {#if (screenState === "6" && !momCalling) || screenState === "7"}
         <TextConversation />
     {/if}
     <h2 class="visually-hidden">Phone</h2>
     <div class="relative">
         <PhoneCanvas />
         <picture><img src={phone} alt="nokia 3310 launched 2000" /></picture>
-        {#if $momCalling}
+        {#if momCalling}
             <button
                 data-testid="c-button"
                 class="absolute glow opacity-flashing"
                 on:click={() => {
-                    $answeredCall = true
-                    $momCalling = false
+                    // TODO add updating of cookies and scavengerHuntState search parameter ie form behaviour
                     $phoneRingtonePaused = true
+                    $scavengerHuntState = S6AnswerMomState
                 }}>
                 <span class="visually-hidden">answer call</span>
             </button>
