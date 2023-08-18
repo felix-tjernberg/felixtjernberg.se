@@ -1,33 +1,33 @@
 <script lang="ts">
+    import Button from "$components/Button/Button.svelte"
     import Coach from "$components/Coach/Coach.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
+
     import { fade } from "svelte/transition"
-
-    let value: number
-    let input: HTMLInputElement
-
-    //TODO $: if (value === 3)
+    import { answerKey } from "./formKeys"
 </script>
 
-<div id="fifth-screen" class="flex-column-center relative" in:fade>
+<div id="fifth-screen" class="flex-column relative" in:fade>
     <Coach />
-    <p class="font-family-primary-fat padding text-transform-capitalize">
-        How many years did <br />
-        Felix Tjernberg <br />
-        coach american football?
-    </p>
-    <SingleDigitInput bind:input label="years felix coached" bind:value testid="coach-years-number-input" />
+    <div id="fifth-screen-content" class="margin-vertical-auto">
+        <p class="font-family-primary-fat font-size-100 text-transform-capitalize">
+            How many years did <br />
+            Felix Tjernberg <br />
+            coach american football?
+        </p>
+        <SingleDigitInput name={answerKey} label="years felix coached" testid="coach-years-number-input" />
+        <Button label="Submit answer" class="margin-horizontal-auto" type="submit" />
+    </div>
 </div>
 
 <style>
-    p {
-        margin-top: 3em;
-        z-index: 1;
-        background-color: var(--gray-000-50-percent);
+    #fifth-screen-content {
+        overflow-y: auto;
     }
     #fifth-screen {
+        max-height: calc(100vh - var(--static-scale-300));
+        padding: 1em 0.5em;
         overflow: hidden;
-        height: 100%;
     }
     :global(#fifth-screen > :nth-child(1)) {
         opacity: 0.337;
