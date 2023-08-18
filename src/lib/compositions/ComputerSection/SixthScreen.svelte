@@ -11,13 +11,13 @@
         //TODO
     }
 
-    onMount(() => {
-        // input.focus()
-        if ($answeredCall) return
-        $phoneRingtonePaused = false
-        $momCalling = true
-        $answeredCall = false
-    })
+    //TODO  onMount(() => {
+    //     // input.focus()
+    //     if ($answeredCall) return
+    //     $phoneRingtonePaused = false
+    //     $momCalling = true
+    //     $answeredCall = false
+    // })
 </script>
 
 <div class="flex-column-center gap" in:fade>

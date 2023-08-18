@@ -19,6 +19,7 @@ import {
     S2DefaultState,
     S4DefaultState,
     S5DefaultState,
+    S6DefaultState,
     scavengerHuntDefaultState,
     scavengerHuntStateKey,
     type ScavengerHuntStates,
@@ -328,6 +329,42 @@ export const actions = {
                 302,
                 routeFromFormData(formData, NavigationSchema.enum.computer) +
                     `&${scavengerHuntStateKey}=${S5DefaultState}`,
+            )
+        }
+    },
+
+    // eslint-disable-next-line sort-keys
+    validateFifthScreenAnswer: async ({ cookies, request }) => {
+        const formData = await request.formData()
+
+        const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
+        const answer = formData.get(answerKey)
+
+        if (answer === null) return fail(400, { error: "Incorrect value supplied" })
+
+        if (answer !== "3") {
+            if (cookiesAllowedHiddenInput === "false")
+                throw redirect(
+                    302,
+                    routeFromFormData(formData, NavigationSchema.enum.computer) +
+                        `&${scavengerHuntStateKey}=${getScavengerHuntState(
+                            String(formData.get(scavengerHuntStateKey)),
+                        )}&error=true`,
+                )
+            return fail(400, { error: "invalid answer", formName: answerFormKey })
+        }
+
+        if (cookies.get(cookiesAllowedKey) === "true") {
+            cookies.set(scavengerHuntStateKey, S6DefaultState, { httpOnly: false })
+            if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
+            return { newState: S6DefaultState }
+        } else {
+            // in case someone submits the form without cookiesAllowed being false
+            if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
+            throw redirect(
+                302,
+                routeFromFormData(formData, NavigationSchema.enum.computer) +
+                    `&${scavengerHuntStateKey}=${S6DefaultState}`,
             )
         }
     },
