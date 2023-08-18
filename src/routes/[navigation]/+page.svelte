@@ -95,7 +95,7 @@
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing <SettingsIcon /> icon opens settings
         </span>
-        <span class="text-decoration-underline">Press these notifications to close/hide them</span>
+        <span class="text-decoration-underline">Press these notifications to close them</span>
     </CloseableNotification>
 {/if}
 {#if !$firstVisit && $navigationExplainer2 && $navigationState === NavigationSchema.enum.navigation}
@@ -106,7 +106,7 @@
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing one of the sections navigates to them
         </span>
-        <span class="text-decoration-underline">Press these notifications to close/hide them</span>
+        <span class="text-decoration-underline">Press these notifications to close them</span>
     </CloseableNotification>
 {/if}
 
