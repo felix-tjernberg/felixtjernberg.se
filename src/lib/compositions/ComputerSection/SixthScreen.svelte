@@ -1,12 +1,12 @@
 <script lang="ts">
-    import Button from "$components/Button/Button.svelte"
+    import AnswerForm from "./AnswerForm.svelte"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
     import Slider from "$components/Slider/Slider.svelte"
 
     import { browser } from "$app/environment"
     import { fade } from "svelte/transition"
 
-    import { answerKey } from "./answerFormKeys"
+    import { answerKey, validateS6AnswerKey } from "./answerFormKeys"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { setJSCookie } from "$utilities/setJSCookie"
@@ -18,9 +18,15 @@
 
 <div id="sixth-screen" class="flex-column" in:fade>
     <div class="spacer" />
-    <p class="font-family-primary-fat font-size-100">How many miligrams of anakinra does mom need?</p>
-    <MultiDigitInput description="enter mg of anakinra" label="anakinra" name={answerKey} testid="mg-mom-needs-input" />
-    <Button label="Submit answer" class="margin-horizontal-auto" type="submit" />
+    <p class="font-family-primary-fat font-size-100">How many milligrams of anakinra does mom need?</p>
+    <AnswerForm action={validateS6AnswerKey}>
+        <p slot="errorMessage" class="margin-horizontal-auto">incorrect dosage</p>
+        <MultiDigitInput
+            description="enter mg of anakinra"
+            label="anakinra"
+            name={answerKey}
+            testid="mg-mom-needs-input" />
+    </AnswerForm>
     <details>
         <summary>show phone vibration audio player</summary>
         <audio
@@ -51,15 +57,17 @@
         padding: 1em 0.5em;
         overflow-y: auto;
     }
+    #sixth-screen > :global(form > .button) {
+        margin-top: 1em;
+    }
+    #sixth-screen :global(form) {
+        margin-bottom: auto;
+    }
     .spacer {
         /* the spacer exist to make form centered visually horizontally, as it matches the 1em height of the details element when it's not open */
         height: 1em;
     }
     p {
         margin-top: auto;
-    }
-    #sixth-screen :global(.button) {
-        margin-top: 1em;
-        margin-bottom: auto;
     }
 </style>

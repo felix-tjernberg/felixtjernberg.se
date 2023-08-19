@@ -10,6 +10,7 @@ import {
     validateS3AnswerKey,
     validateS4AnswerKey,
     validateS5AnswerKey,
+    validateS6AnswerKey,
 } from "$compositions/ComputerSection/answerFormKeys"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
@@ -21,6 +22,7 @@ import {
     S4DefaultState,
     S5DefaultState,
     S6DefaultState,
+    S7DefaultState,
     scavengerHuntDefaultState,
     scavengerHuntStateKey,
     type ScavengerHuntStates,
@@ -311,5 +313,15 @@ export const actions = {
         if (answer !== "3") handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
         updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S6DefaultState)
+    },
+
+    [validateS6AnswerKey]: async ({ cookies, request }) => {
+        const { formData, cookiesAllowedHiddenInput, answer } = await getAnswerFormData(request)
+
+        if (answer === null) return fail(400, { error: "Answer value is null" })
+
+        if (answer !== "200") handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
+
+        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S7DefaultState)
     },
 } satisfies Actions

@@ -11,8 +11,6 @@
         scavengerHuntState,
         type ScavengerHuntStates,
         scavengerHuntStateKey,
-        T,
-        D,
     } from "$stores/states/scavengerHuntState"
     import TEXT_CONVERSATION from "./textConversation"
     import typewriter from "$utilities/transitions/typewriter"
@@ -22,7 +20,7 @@
     let buttonActive = true
 
     $: firstMessage = $scavengerHuntState[3] === "0"
-    $: conversationDone = $scavengerHuntState[3] === "9"
+    $: conversationDone = $scavengerHuntState[3] === "9" || $scavengerHuntState[0] === "7"
     $: messageIndex = $scavengerHuntState[0] === "6" ? $scavengerHuntState[3] : "9"
 
     $: newScavengerHuntState = ($scavengerHuntState.slice(0, 3) +

@@ -1,5 +1,6 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
+    import CloseableNotification from "$components/Notification/CloseableNotification.svelte"
     import Computer from "./Computer.svelte"
     import HiddenInputs from "$components/HiddenInputs.svelte"
     import HideableNotification from "$components/Notification/HideableNotification.svelte"
@@ -107,12 +108,18 @@
             <SixthScreen slot="screen" />
         </Computer>
     {/if}
+    {#if screenState === "7"}
+        <CloseableNotification active={true} booleanName="scavengerHuntDone" testid="hunt-done-notification">
+            <p>Scavenger hunt is now done and can be reset in the settings menu</p>
+        </CloseableNotification>
+        <Computer>
+            <!-- <SeventhScreenStickyNotes slot="stickyNotes" /> -->
+            <SeventhScreen slot="screen" />
+        </Computer>
+    {/if}
 </section>
 
 <!-- TODO {#if $computerScreenIndex == 6}
-        <CloseableNotification active={true} testid="hunt-done-notification">
-            <p>Scavenger hunt is now done and can be reset in the settings menu</p>
-        </CloseableNotification>
     {/if} -->
 
 <!-- TODO {#if $computerScreenIndex == 6}

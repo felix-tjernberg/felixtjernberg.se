@@ -1,8 +1,5 @@
 <script lang="ts">
     import { navigationState, NavigationSchema } from "$stores/states/navigation"
-    import { scavengerHuntState } from "$stores/states/scavengerHuntState"
-
-    $scavengerHuntState = true
 </script>
 
 <div class="flex-column-center gap padding-top-400">
