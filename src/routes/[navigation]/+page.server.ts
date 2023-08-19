@@ -63,6 +63,7 @@ type CookieStateFalse = {
 }
 
 //TODO not sure how to deal with this yet, point is to only send this when user has finished scavenger hunt
+//TODO also when dealing with this, check if scavState is 7 to show return them otherwise they should be undefined or null
 type ScavangerHuntRewardData = { email: string; phoneNumber: string }
 
 export type DataBasedOnCookies = CookieStateTrue & SettingsData & StatesData & ScavangerHuntRewardData
@@ -110,8 +111,6 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
             throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
         }
-
-        console.log(getScavengerHuntState(searchParams.get(scavengerHuntStateKey)))
 
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),

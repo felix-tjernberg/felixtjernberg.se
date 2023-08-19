@@ -1,5 +1,7 @@
 <script lang="ts">
+    import Button from "$components/Button/Button.svelte"
     import Computer from "./Computer.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
     import HideableNotification from "$components/Notification/HideableNotification.svelte"
 
     import FirstScreen from "./FirstScreen.svelte"
@@ -10,12 +12,13 @@
     import FourthScreenHints from "./FourthScreenHints.svelte"
     import FifthScreen from "./FifthScreen.svelte"
     import SixthScreen from "./SixthScreen.svelte"
-    import SixthScreenHints from "./SixthScreenHints.svelte"
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
 
     import { browser } from "$app/environment"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { D, scavengerHuntState } from "$stores/states/scavengerHuntState"
+    import { NavigationSchema, navigationState, navigationStateKey } from "$stores/states/navigation"
 
     $: screenState = $scavengerHuntState[0]
 </script>
@@ -79,30 +82,33 @@
         </Computer>
     {/if}
     {#if screenState === "6"}
-        <SixthScreenHints />
+        {#if $scavengerHuntState[1] !== D}
+            <HideableNotification stateIndex={1} state={$scavengerHuntState[1]}>
+                <p>mom is calling</p>
+                {#if $cookiesAllowed}
+                    <Button
+                        href="/phone"
+                        label="Go answer the phone"
+                        underlined={true}
+                        on:click={() => ($navigationState = NavigationSchema.enum.phone)} />
+                {:else}
+                    <form on:submit={() => ($navigationState = NavigationSchema.enum.phone)}>
+                        <HiddenInputs excludeStates={[navigationStateKey]} />
+                        <Button
+                            underlined={true}
+                            label="Go answer the phone"
+                            name={navigationStateKey}
+                            value={NavigationSchema.enum.phone} />
+                    </form>
+                {/if}
+            </HideableNotification>
+        {/if}
         <Computer>
             <SixthScreen slot="screen" />
         </Computer>
     {/if}
 </section>
 
-<!-- TODO {#if $computerScreenIndex == 5}
-        <CloseableNotification>
-            {#if !$answeredCall}
-                <p>
-                    Mom is calling
-                    <a
-                        tabindex="-1"
-                        href="/phone"
-                        on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.phone)}>
-                        go answer the phone!
-                    </a>
-                </p>
-            {:else}
-                <p>Did mom mention anything about her dosage?</p>
-            {/if}
-        </CloseableNotification>
-    {/if} -->
 <!-- TODO {#if $computerScreenIndex == 6}
         <CloseableNotification active={true} testid="hunt-done-notification">
             <p>Scavenger hunt is now done and can be reset in the settings menu</p>

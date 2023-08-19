@@ -14,6 +14,22 @@ function isTernaryState(string: string): string is TernaryState {
     return string === D || isBooleanState(string)
 }
 
+export type SingleDigitState = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+export function isSingleDigitState(string: string): string is SingleDigitState {
+    return (
+        string === "0" ||
+        string === "1" ||
+        string === "2" ||
+        string === "3" ||
+        string === "4" ||
+        string === "5" ||
+        string === "6" ||
+        string === "7" ||
+        string === "8" ||
+        string === "9"
+    )
+}
+
 // Screen 1
 type S1 = "1"
 type S1NoteStates = `${BooleanState}${BooleanState}${BooleanState}`
@@ -78,19 +94,16 @@ function isValidS5State(string: string): string is S5States {
 // Screen 6
 type S6 = "6"
 type S6MomCallingHint = TernaryState
-type S6AnsweredCallHint = TernaryState
 type S6AnsweredCallState = BooleanState
-type S6ConversationDoneState = BooleanState
-type S6States = `${S6}${S6MomCallingHint}${S6AnsweredCallHint}${S6AnsweredCallState}${S6ConversationDoneState}`
-export const S6DefaultState = "6TDFF" as const
-export const S6AnswerMomState = "6DTTF" as const
-export const S6ConversationDoneState = "6DTTT" as const
+type S6TextConversationStates = SingleDigitState
+type S6States = `${S6}${S6MomCallingHint}${S6AnsweredCallState}${S6TextConversationStates}`
+export const S6DefaultState = "6TF0" as const
+export const S6AnswerMomState = "6DT0" as const
 function isValidS6State(string: string): string is S6States {
-    if (string.length !== 2) return false
+    if (string.length !== 4) return false
     if (!isTernaryState(string[1])) return false
-    if (!isTernaryState(string[2])) return false
-    if (!isBooleanState(string[3])) return false
-    if (!isBooleanState(string[4])) return false
+    if (!isBooleanState(string[2])) return false
+    if (!isSingleDigitState(string[3])) return false
     return true
 }
 

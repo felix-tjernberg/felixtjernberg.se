@@ -1,28 +1,36 @@
 <script lang="ts">
-    import { onMount } from "svelte"
     import Button from "$components/Button/Button.svelte"
-    import TEXT_CONVERSATION from "./textConversation"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
+
+    import { enhance } from "$app/forms"
+
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { setJSCookie } from "$utilities/setJSCookie"
+    import {
+        scavengerHuntState,
+        type ScavengerHuntStates,
+        scavengerHuntStateKey,
+    } from "$stores/states/scavengerHuntState"
+    import TEXT_CONVERSATION from "./textConversation"
     import typewriter from "$utilities/transitions/typewriter"
-    import { S6ConversationDoneState, scavengerHuntState, T } from "$stores/states/scavengerHuntState"
 
     let section: HTMLElement
 
-    let firstMessage = true
-    let messageIndex = -1
-    let buttonActive = false
+    let buttonActive = true
 
-    // TODO this should probably check if that state is a specific message number instead
-    $: conversationDone = $scavengerHuntState[4] === T
+    $: firstMessage = $scavengerHuntState[3] === "0"
+    $: conversationDone = $scavengerHuntState[3] === "9"
+    $: messageIndex = $scavengerHuntState[0] === "6" ? $scavengerHuntState[3] : "9"
 
-    onMount(() => (messageIndex = 0))
+    $: newScavengerHuntState = ($scavengerHuntState.slice(0, 3) +
+        (Number($scavengerHuntState[3]) + 1)) as ScavengerHuntStates
 </script>
 
 <div id="conversation" class="background-blur relative glow border" data-testid="conversation-wrapper">
     <section bind:this={section} class="flex-column margin-vertical-flow">
         {#each TEXT_CONVERSATION as { message, person }, index}
-            <!-- TODO look at $scavengerHuntState[5] to see which messageIndex should be shown -->
-            {#if index <= messageIndex || conversationDone}
+            {#if index <= Number(messageIndex)}
                 <span
                     class="flex glow"
                     style={`${person === "mom" ? "--glow-color:var(--glow-pink)" : "--glow-color:var(--glow-green)"}`}>
@@ -32,6 +40,7 @@
                     <p
                         class="flex"
                         transition:typewriter={{ containerElement: section }}
+                        on:introstart={() => (buttonActive = false)}
                         on:introend={() => (buttonActive = true)}>
                         {message}
                     </p>
@@ -39,19 +48,37 @@
             {/if}
         {/each}
     </section>
-    {#if messageIndex + 1 !== TEXT_CONVERSATION.length && buttonActive}
-        <Button
-            flashing={firstMessage}
-            label="See next message"
-            testid="next-message-button"
-            on:click={() => {
-                if (messageIndex + 2 === TEXT_CONVERSATION.length) $scavengerHuntState = S6ConversationDoneState
-                if (firstMessage) firstMessage = false
-                messageIndex += 1
-                buttonActive = false
-            }}>
-            <TriangleDown slot="icon" />
-        </Button>
+    {#if !conversationDone && buttonActive}
+        {#if $cookiesAllowed}
+            <form
+                class="font-size-300"
+                action="?/updateScavengerHuntState"
+                method="POST"
+                use:enhance={({ cancel }) => {
+                    cancel()
+                    $scavengerHuntState = newScavengerHuntState
+                    if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, newScavengerHuntState)
+                }}>
+                <Button
+                    flashing={firstMessage}
+                    label="See next message"
+                    name={scavengerHuntStateKey}
+                    value={newScavengerHuntState}>
+                    <TriangleDown slot="icon" />
+                </Button>
+            </form>
+        {:else}
+            <form class="font-size-300" on:submit={() => ($scavengerHuntState = newScavengerHuntState)}>
+                <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
+                <Button
+                    flashing={firstMessage}
+                    label="See next message"
+                    name={scavengerHuntStateKey}
+                    value={newScavengerHuntState}>
+                    <TriangleDown slot="icon" />
+                </Button>
+            </form>
+        {/if}
     {/if}
 </div>
 
@@ -64,6 +91,11 @@
         padding: 1em 2em 1em 1em;
         width: 100%;
         max-width: 50ch;
+    }
+    #conversation form {
+        bottom: 0;
+        position: absolute !important;
+        right: 0;
     }
     :global([data-dark-mode="false"] #conversation) {
         background-color: var(--white);
@@ -96,11 +128,6 @@
     p,
     :global(#conversation button) {
         animation: fadeIn 1337ms;
-    }
-    :global(#conversation button) {
-        bottom: 0;
-        position: absolute !important;
-        right: 0;
     }
     :global(#conversation button svg) {
         animation: bob 1337ms infinite;

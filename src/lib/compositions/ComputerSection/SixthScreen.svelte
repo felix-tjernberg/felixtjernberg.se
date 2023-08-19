@@ -13,16 +13,7 @@
     import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
     import { F, scavengerHuntState } from "$stores/states/scavengerHuntState"
 
-    //TODO $: if (value === 200) {
-
-    //TODO  onMount(() => {
-    //     // input.focus()
-    //     if ($answeredCall) return
-    //     $phoneRingtonePaused = false
-    //     $momCalling = true
-    //     $answeredCall = false
-    // })
-    $: momCalling = $scavengerHuntState[3] === F
+    $: momCalling = $scavengerHuntState[2] === F
 </script>
 
 <div id="sixth-screen" class="flex-column" in:fade>

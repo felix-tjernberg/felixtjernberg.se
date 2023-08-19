@@ -1,21 +1,26 @@
 <script lang="ts">
     import phone from "$assets/images/phone.png"
 
+    import HiddenInputs from "$components/HiddenInputs.svelte"
     import PhoneCanvas from "./PhoneCanvas.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
     import TriangleDown from "$assets/svgs/TriangleDown.svelte"
 
+    import { enhance } from "$app/forms"
     import { fade } from "svelte/transition"
 
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { F, S6AnswerMomState, scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
     import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
-    import { F, S6AnswerMomState, scavengerHuntState } from "$stores/states/scavengerHuntState"
+    import { setJSCookie } from "$utilities/setJSCookie"
 
     $: screenState = $scavengerHuntState[0]
-    $: momCalling = $scavengerHuntState[3] === F
+    $: momCalling = $scavengerHuntState[2] === F
+    $: conversationDone = $scavengerHuntState[3] === "9"
 </script>
 
 <section id="phone-section" class="gap">
-    {#if screenState === "6"}
+    {#if screenState === "6" && !conversationDone}
         <p
             class="background-blur border glow font-family-primary-fat"
             data-testid="answer-instruction"
@@ -40,16 +45,34 @@
         <PhoneCanvas />
         <picture><img src={phone} alt="nokia 3310 launched 2000" /></picture>
         {#if momCalling}
-            <button
-                data-testid="c-button"
-                class="absolute glow opacity-flashing"
-                on:click={() => {
-                    // TODO add updating of cookies and scavengerHuntState search parameter ie form behaviour
-                    $phoneRingtonePaused = true
-                    $scavengerHuntState = S6AnswerMomState
-                }}>
-                <span class="visually-hidden">answer call</span>
-            </button>
+            {#if $cookiesAllowed}
+                <form
+                    class="absolute"
+                    action="?/updateScavengerHuntState"
+                    method="POST"
+                    use:enhance={({ cancel }) => {
+                        cancel()
+                        $phoneRingtonePaused = true
+                        $scavengerHuntState = S6AnswerMomState
+                        if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, S6AnswerMomState)
+                    }}>
+                    <button class="glow opacity-flashing">
+                        <span class="visually-hidden">answer call</span>
+                    </button>
+                </form>
+            {:else}
+                <form
+                    class="absolute"
+                    on:submit={() => {
+                        $phoneRingtonePaused = true
+                        $scavengerHuntState = S6AnswerMomState
+                    }}>
+                    <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
+                    <button class="glow opacity-flashing" name={scavengerHuntStateKey} value={S6AnswerMomState}>
+                        <span class="visually-hidden">answer call</span>
+                    </button>
+                </form>
+            {/if}
         {/if}
     </div>
 </section>
@@ -58,10 +81,12 @@
     picture {
         width: 200px;
     }
-    button {
-        --glow-color: var(--glow-pink);
+    form {
         top: 240px;
         left: 28px;
+    }
+    button {
+        --glow-color: var(--glow-pink);
         opacity: 0.5;
     }
     button:hover {

@@ -24,15 +24,15 @@
         const middleY = canvasHeight / 2
         const middleX = canvasWidth / 2
 
-        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[3] === T) {
+        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[2] === T) {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
             canvasContext.fillText("mom", middleX, middleY + FONT_SIZE / 2)
         }
-        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[3] === F) {
+        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[2] === F) {
             canvasContext.fillText("mom", middleX, middleY - 2)
             canvasContext.fillText("calling", middleX, middleY + FONT_SIZE + 2)
         }
-        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[4] === T) {
+        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[3] === "9") {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
         }
     }
