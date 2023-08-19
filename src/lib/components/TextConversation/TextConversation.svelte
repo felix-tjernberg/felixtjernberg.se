@@ -11,6 +11,8 @@
         scavengerHuntState,
         type ScavengerHuntStates,
         scavengerHuntStateKey,
+        T,
+        D,
     } from "$stores/states/scavengerHuntState"
     import TEXT_CONVERSATION from "./textConversation"
     import typewriter from "$utilities/transitions/typewriter"
@@ -24,7 +26,7 @@
     $: messageIndex = $scavengerHuntState[0] === "6" ? $scavengerHuntState[3] : "9"
 
     $: newScavengerHuntState = ($scavengerHuntState.slice(0, 3) +
-        (Number($scavengerHuntState[3]) + 1)) as ScavengerHuntStates
+        String(Number($scavengerHuntState[3]) + 1)) as ScavengerHuntStates
 </script>
 
 <div id="conversation" class="background-blur relative glow border" data-testid="conversation-wrapper">

@@ -1,6 +1,7 @@
 <script lang="ts">
     import phone from "$assets/images/phone.png"
 
+    import HideableNotification from "$components/Notification/HideableNotification.svelte"
     import HiddenInputs from "$components/HiddenInputs.svelte"
     import PhoneCanvas from "./PhoneCanvas.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
@@ -10,7 +11,13 @@
     import { fade } from "svelte/transition"
 
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
-    import { F, S6AnswerMomState, scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
+    import {
+        F,
+        S6AnswerMomState,
+        T,
+        scavengerHuntState,
+        scavengerHuntStateKey,
+    } from "$stores/states/scavengerHuntState"
     import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
     import { setJSCookie } from "$utilities/setJSCookie"
 
@@ -19,7 +26,7 @@
     $: conversationDone = $scavengerHuntState[3] === "9"
 </script>
 
-<section id="phone-section" class="gap">
+<section id="phone-section" class="flex-column gap">
     {#if screenState === "6" && !conversationDone}
         <p
             class="background-blur border glow font-family-primary-fat"
@@ -75,6 +82,11 @@
             {/if}
         {/if}
     </div>
+    {#if $scavengerHuntState[0] === "6" && $scavengerHuntState[3] > "3"}
+        <HideableNotification stateIndex={4} state={T}>
+            <p>Did mom just mention anakinra?</p>
+        </HideableNotification>
+    {/if}
 </section>
 
 <style>
@@ -108,9 +120,12 @@
     #phone-section {
         height: 100%;
         overflow-y: auto;
-        display: grid;
-        place-items: center;
-        padding-top: 5em;
-        padding-bottom: 4em;
+        align-items: center;
+    }
+    #phone-section > :global(:nth-child(1)) {
+        margin-top: 5em;
+    }
+    #phone-section > :global(:nth-last-child(1)) {
+        margin-bottom: 4em;
     }
 </style>

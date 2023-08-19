@@ -57,7 +57,11 @@
 
     let navigationActive: boolean
 
-    $: navigationButtonFlashing = $scavengerHuntState[0] === "5" && $navigationState === NavigationSchema.enum.computer
+    $: navigationButtonFlashing =
+        ($scavengerHuntState[0] === "5" && $navigationState === NavigationSchema.enum.computer) ||
+        ($scavengerHuntState[0] === "6" &&
+            $scavengerHuntState[3] > "3" &&
+            $navigationState === NavigationSchema.enum.phone)
 
     $: if (browser) document.documentElement.lang = $locale
 
