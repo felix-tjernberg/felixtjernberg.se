@@ -92,7 +92,7 @@
     #forth-screen > div:last-of-type {
         padding-bottom: 1em;
     }
-    #forth-screen :global(.button) {
+    #forth-screen :global(form > .button) {
         margin-top: 1em;
     }
 </style>

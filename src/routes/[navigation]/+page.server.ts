@@ -305,7 +305,8 @@ export const actions = {
 
         if (answer === null) return fail(400, { error: "Incorrect values supplied" })
 
-        if (answer !== "188" && answer !== "189") {
+        // TODO 190 is also correct because for some reason when pressing enter in the input field it adds 1 to the value, and I cann't figure out why, thought it had something to do with the YouTube player but not sure
+        if (answer !== "188" && answer !== "189" && answer !== "190") {
             if (cookiesAllowedHiddenInput === "false")
                 throw redirect(
                     302,
