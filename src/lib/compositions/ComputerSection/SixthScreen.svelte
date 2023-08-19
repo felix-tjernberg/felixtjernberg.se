@@ -6,7 +6,7 @@
     import { browser } from "$app/environment"
     import { fade } from "svelte/transition"
 
-    import { answerKey } from "./formKeys"
+    import { answerKey } from "./answerFormKeys"
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { setJSCookie } from "$utilities/setJSCookie"

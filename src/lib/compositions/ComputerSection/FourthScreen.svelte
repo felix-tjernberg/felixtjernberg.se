@@ -6,7 +6,7 @@
 
     import { fade } from "svelte/transition"
 
-    import { answerKey } from "./formKeys"
+    import { answerKey, validateS4AnswerKey } from "./answerFormKeys"
     import { audioVolume } from "$stores/settings/audioVolume"
 
     function ready(event: CustomEvent) {
@@ -24,7 +24,7 @@
             How many seconds is my friends song?<br />
             <span class="font-family-primary-thin">(the music animation is my creation)</span>
         </p>
-        <AnswerForm actionName="validateFourthScreenAnswer">
+        <AnswerForm action={validateS4AnswerKey}>
             <p slot="errorMessage" class="margin-horizontal-auto">incorrect number of seconds</p>
             <MultiDigitInput
                 label="Number of seconds"

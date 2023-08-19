@@ -7,20 +7,20 @@
     import { goto } from "$app/navigation"
     import { page } from "$app/stores"
 
-    import { answerFormKey } from "./formKeys"
+    import { answerFormKey } from "./answerFormKeys"
     import { cookiesAllowed, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
     import { firstVisitKey } from "$stores/states/firstVisit"
     import { JSActiveKey } from "$utilities/JSActiveKey"
     import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
 
-    export let actionName: string
+    export let action: string
     export let label: string = "Submit answer"
 
     let error: boolean = false
 </script>
 
 <form
-    action={`?/${actionName}`}
+    action={`?/${action}`}
     method="POST"
     class="flex-column margin-horizontal-auto"
     use:enhance={() => {

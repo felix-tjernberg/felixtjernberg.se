@@ -1,6 +1,16 @@
-/* eslint-disable no-fallthrough */
-import { type Actions, fail, redirect } from "@sveltejs/kit"
-import { answerFormKey, answerKey, pin1Key, pin2Key, pin3Key, pin4Key } from "$compositions/ComputerSection/formKeys"
+import { type Actions, type Cookies, fail, redirect } from "@sveltejs/kit"
+import {
+    answerFormKey,
+    answerKey,
+    pin1Key,
+    pin2Key,
+    pin3Key,
+    pin4Key,
+    validateS1AnswerKey,
+    validateS3AnswerKey,
+    validateS4AnswerKey,
+    validateS5AnswerKey,
+} from "$compositions/ComputerSection/answerFormKeys"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
@@ -146,6 +156,49 @@ function routeFromFormData(formData: FormData, route: NavigationStates) {
     return `/${route}?${cookiesAllowedKey}=false&${audioVolumeKey}=${audioVolume}&${darkModeKey}=${darkMode}&${decidedOnCookiesKey}=true&${firstVisitKey}=false&${likesEightBitFontKey}=${likesEightBitFont}&${navigationExplainer2Key}=${navigationExplainer2}&${navigationExplainerKey}=${navigationExplainer}&${navigationStateKey}=${route}`
 }
 
+async function getAnswerFormData(request: Request): Promise<{
+    answer: FormDataEntryValue | null
+    cookiesAllowedHiddenInput: FormDataEntryValue | null
+    formData: FormData
+}> {
+    const formData = await request.formData()
+    const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
+    const answer = formData.get(answerKey)
+    return { answer, cookiesAllowedHiddenInput, formData }
+}
+
+function handleIvalidAnswer(cookiesAllowedHiddenInput: FormDataEntryValue | null, formData: FormData) {
+    if (cookiesAllowedHiddenInput === "false")
+        throw redirect(
+            302,
+            routeFromFormData(formData, NavigationSchema.enum.computer) +
+                `&${scavengerHuntStateKey}=${getScavengerHuntState(
+                    String(formData.get(scavengerHuntStateKey)),
+                )}&error=true`,
+        )
+    return fail(400, { error: "invalid answer", formName: answerFormKey })
+}
+
+function updateScavengerHuntState(
+    cookies: Cookies,
+    cookiesAllowedHiddenInput: FormDataEntryValue | null,
+    formData: FormData,
+    newState: ScavengerHuntStates,
+) {
+    if (cookies.get(cookiesAllowedKey) === "true") {
+        cookies.set(scavengerHuntStateKey, newState, { httpOnly: false })
+        if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
+        return { newState: newState }
+    } else {
+        // in case someone submits the form without cookiesAllowed being false
+        if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
+        throw redirect(
+            302,
+            routeFromFormData(formData, NavigationSchema.enum.computer) + `&${scavengerHuntStateKey}=${newState}`,
+        )
+    }
+}
+
 export const actions = {
     allowCookies: async ({ cookies }) => {
         cookies.set(cookiesAllowedKey, "true")
@@ -211,8 +264,7 @@ export const actions = {
         return fail(400, { error: "Cookies not allowed" })
     },
 
-    // TODO validate First, Third and Fourth screens share a lot of code, this is a refactor target
-    validateFirstScreenAnswer: async ({ cookies, request }) => {
+    [validateS1AnswerKey]: async ({ cookies, request }) => {
         const formData = await request.formData()
 
         const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
@@ -222,141 +274,42 @@ export const actions = {
         const pin4 = formData.get(pin4Key)
 
         if (pin1 === null || pin2 === null || pin3 === null || pin4 === null)
-            return fail(400, { error: "Incorrect values supplied" })
+            return fail(400, { error: "Answer value is null" })
 
-        if (pin1 !== "1" || pin2 !== "2" || pin3 !== "3" || pin4 !== "4") {
-            if (cookiesAllowedHiddenInput === "false")
-                throw redirect(
-                    302,
-                    routeFromFormData(formData, NavigationSchema.enum.computer) +
-                        `&${scavengerHuntStateKey}=${getScavengerHuntState(
-                            String(formData.get(scavengerHuntStateKey)),
-                        )}&error=true`,
-                )
-            //TODO check if each pin is number between 0-9, if so return the pin inputs to client, so they can be prefilled
-            return fail(400, { error: "invalid pin code", formName: answerFormKey })
-        }
+        if (pin1 !== "1" || pin2 !== "2" || pin3 !== "3" || pin4 !== "4")
+            handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        if (cookies.get(cookiesAllowedKey) === "true") {
-            cookies.set(scavengerHuntStateKey, S2DefaultState, { httpOnly: false })
-            if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
-            return { newState: S2DefaultState }
-        } else {
-            // in case someone submits the form without cookiesAllowed being false
-            if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
-            throw redirect(
-                302,
-                routeFromFormData(formData, NavigationSchema.enum.computer) +
-                    `&${scavengerHuntStateKey}=${S2DefaultState}`,
-            )
-        }
+        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S2DefaultState)
     },
 
-    validateThirdScreenAnswer: async ({ cookies, request }) => {
-        const formData = await request.formData()
+    [validateS3AnswerKey]: async ({ cookies, request }) => {
+        const { formData, cookiesAllowedHiddenInput, answer } = await getAnswerFormData(request)
 
-        const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
-        const answer = formData.get(answerKey)
+        if (answer === null) return fail(400, { error: "Answer value is null" })
 
-        if (answer === null) return fail(400, { error: "Incorrect values supplied" })
+        if (answer.toString().toLowerCase() !== "yes") handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        if (answer.toString().toLowerCase() !== "yes") {
-            if (cookiesAllowedHiddenInput === "false")
-                throw redirect(
-                    302,
-                    routeFromFormData(formData, NavigationSchema.enum.computer) +
-                        `&${scavengerHuntStateKey}=${getScavengerHuntState(
-                            String(formData.get(scavengerHuntStateKey)),
-                        )}&error=true`,
-                )
-            return fail(400, { error: "invalid answer", formName: answerFormKey })
-        }
-
-        if (cookies.get(cookiesAllowedKey) === "true") {
-            cookies.set(scavengerHuntStateKey, S4DefaultState, { httpOnly: false })
-            if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
-            return { newState: S4DefaultState }
-        } else {
-            // in case someone submits the form without cookiesAllowed being false
-            if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
-            throw redirect(
-                302,
-                routeFromFormData(formData, NavigationSchema.enum.computer) +
-                    `&${scavengerHuntStateKey}=${S4DefaultState}`,
-            )
-        }
+        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S4DefaultState)
     },
 
-    // eslint-disable-next-line sort-keys
-    validateFourthScreenAnswer: async ({ cookies, request }) => {
-        const formData = await request.formData()
+    [validateS4AnswerKey]: async ({ cookies, request }) => {
+        const { formData, cookiesAllowedHiddenInput, answer } = await getAnswerFormData(request)
 
-        const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
-        const answer = formData.get(answerKey)
+        if (answer === null) return fail(400, { error: "Answer value is null" })
 
-        if (answer === null) return fail(400, { error: "Incorrect values supplied" })
+        if (answer !== "188" && answer !== "189" && answer !== "190")
+            handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        // TODO 190 is also correct because for some reason when pressing enter in the input field it adds 1 to the value, and I cann't figure out why, thought it had something to do with the YouTube player but not sure
-        if (answer !== "188" && answer !== "189" && answer !== "190") {
-            if (cookiesAllowedHiddenInput === "false")
-                throw redirect(
-                    302,
-                    routeFromFormData(formData, NavigationSchema.enum.computer) +
-                        `&${scavengerHuntStateKey}=${getScavengerHuntState(
-                            String(formData.get(scavengerHuntStateKey)),
-                        )}&error=true`,
-                )
-            return fail(400, { error: "invalid answer", formName: answerFormKey })
-        }
-
-        if (cookies.get(cookiesAllowedKey) === "true") {
-            cookies.set(scavengerHuntStateKey, S5DefaultState, { httpOnly: false })
-            if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
-            return { newState: S5DefaultState }
-        } else {
-            // in case someone submits the form without cookiesAllowed being false
-            if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
-            throw redirect(
-                302,
-                routeFromFormData(formData, NavigationSchema.enum.computer) +
-                    `&${scavengerHuntStateKey}=${S5DefaultState}`,
-            )
-        }
+        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S5DefaultState)
     },
 
-    // eslint-disable-next-line sort-keys
-    validateFifthScreenAnswer: async ({ cookies, request }) => {
-        const formData = await request.formData()
+    [validateS5AnswerKey]: async ({ cookies, request }) => {
+        const { formData, cookiesAllowedHiddenInput, answer } = await getAnswerFormData(request)
 
-        const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
-        const answer = formData.get(answerKey)
+        if (answer === null) return fail(400, { error: "Answer value is null" })
 
-        if (answer === null) return fail(400, { error: "Incorrect value supplied" })
+        if (answer !== "3") handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        if (answer !== "3") {
-            if (cookiesAllowedHiddenInput === "false")
-                throw redirect(
-                    302,
-                    routeFromFormData(formData, NavigationSchema.enum.computer) +
-                        `&${scavengerHuntStateKey}=${getScavengerHuntState(
-                            String(formData.get(scavengerHuntStateKey)),
-                        )}&error=true`,
-                )
-            return fail(400, { error: "invalid answer", formName: answerFormKey })
-        }
-
-        if (cookies.get(cookiesAllowedKey) === "true") {
-            cookies.set(scavengerHuntStateKey, S6DefaultState, { httpOnly: false })
-            if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
-            return { newState: S6DefaultState }
-        } else {
-            // in case someone submits the form without cookiesAllowed being false
-            if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
-            throw redirect(
-                302,
-                routeFromFormData(formData, NavigationSchema.enum.computer) +
-                    `&${scavengerHuntStateKey}=${S6DefaultState}`,
-            )
-        }
+        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S6DefaultState)
     },
 } satisfies Actions

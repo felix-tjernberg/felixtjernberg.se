@@ -4,7 +4,7 @@
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
 
     import { fade } from "svelte/transition"
-    import { answerKey } from "./formKeys"
+    import { answerKey, validateS5AnswerKey } from "./answerFormKeys"
 </script>
 
 <div id="fifth-screen" class="flex-column relative" in:fade>
@@ -15,7 +15,7 @@
             Felix Tjernberg <br />
             coach american football?
         </p>
-        <AnswerForm actionName="validateFifthScreenAnswer">
+        <AnswerForm action={validateS5AnswerKey}>
             <p slot="errorMessage" class="margin-horizontal-auto">incorrect number of years</p>
             <SingleDigitInput name={answerKey} label="years felix coached" testid="coach-years-number-input" />
         </AnswerForm>

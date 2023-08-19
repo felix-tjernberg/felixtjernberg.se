@@ -1,6 +1,7 @@
 <script lang="ts">
     import AnswerForm from "./AnswerForm.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
+    import { validateS1AnswerKey } from "./answerFormKeys"
 </script>
 
 <div id="first-screen" class="height-100percent flex">
@@ -17,7 +18,7 @@
         <p><span class="visually-hidden">corner number 4: </span>4</p>
     </div>
     <div id="content" class="margin-vertical-auto margin-horizontal width-100percent padding-vertical">
-        <AnswerForm actionName="validateFirstScreenAnswer" label="log in">
+        <AnswerForm action={validateS1AnswerKey} label="log in">
             <p slot="question" class="font-family-primary-fat line-height-1">enter pin</p>
             <p slot="errorMessage" class="font-family-primary-fat line-height-1">
                 invalid<br /> pin code<br />try again

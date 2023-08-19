@@ -4,14 +4,14 @@
 
     import { fade } from "svelte/transition"
 
-    import { answerKey } from "./formKeys"
+    import { answerKey, validateS3AnswerKey } from "./answerFormKeys"
 </script>
 
 <div id="third-screen" class="flex-column height-100percent" in:fade>
     <p class="font-family-primary-fat padding-horizontal text-transform-capitalize">
         Are you ready to start the scavenger hunt?
     </p>
-    <AnswerForm actionName="validateThirdScreenAnswer">
+    <AnswerForm action={validateS3AnswerKey}>
         <p slot="errorMessage" class="margin-horizontal-auto">That's not the word yes!</p>
         <TextInput
             name={answerKey}
