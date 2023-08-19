@@ -1,15 +1,6 @@
 /* eslint-disable no-fallthrough */
 import { type Actions, fail, redirect } from "@sveltejs/kit"
-import {
-    answerFormKey,
-    answerKey,
-    numberOfSecondsKey,
-    pin1Key,
-    pin2Key,
-    pin3Key,
-    pin4Key,
-    pinFormKey,
-} from "$compositions/ComputerSection/formKeys"
+import { answerFormKey, answerKey, pin1Key, pin2Key, pin3Key, pin4Key } from "$compositions/ComputerSection/formKeys"
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
@@ -243,7 +234,7 @@ export const actions = {
                         )}&error=true`,
                 )
             //TODO check if each pin is number between 0-9, if so return the pin inputs to client, so they can be prefilled
-            return fail(400, { error: "invalid pin code", formName: pinFormKey })
+            return fail(400, { error: "invalid pin code", formName: answerFormKey })
         }
 
         if (cookies.get(cookiesAllowedKey) === "true") {
@@ -301,7 +292,7 @@ export const actions = {
         const formData = await request.formData()
 
         const cookiesAllowedHiddenInput = formData.get(cookiesAllowedKey)
-        const answer = formData.get(numberOfSecondsKey)
+        const answer = formData.get(answerKey)
 
         if (answer === null) return fail(400, { error: "Incorrect values supplied" })
 
