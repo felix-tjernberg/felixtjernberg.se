@@ -30,12 +30,10 @@
         navigationExplainer2Key,
     } from "$stores/states/navigation"
     import type { DataBasedOnCookies, DataBasedOnDefaults } from "./+page.server"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/dialUpAudio"
     import { firstVisit, firstVisitKey } from "$stores/states/firstVisit"
     import { darkMode, darkModeKey } from "$stores/settings/darkMode"
     import { likesEightBitFont, likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
     import { navigationState, navigationStateKey, NavigationSchema } from "$stores/states/navigation"
-    import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
     import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
     import { settingsOpen, settingsOpenKey } from "$stores/states/settingsOpen"
     import { setJSCookie } from "$utilities/setJSCookie"
@@ -89,12 +87,14 @@
 
 {#if !$firstVisit && $navigationExplainer && $navigationState !== NavigationSchema.enum.navigation}
     <CloseableNotification bind:active={$navigationExplainer} booleanName={navigationExplainerKey} booleanValue="false">
-        <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
-            Pressing <NavigationIcon /> icon opens navigation
+        <span class="navigation-explainer1 flex-wrap-center gap" style="--gap-size: 0.5em">
+            Pressing <NavigationIcon /> <span class="visually-hidden">icon</span> opens navigation
         </span>
-        <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
-            Pressing <SettingsIcon /> icon opens settings
+        <br />
+        <span class="navigation-explainer1 flex-wrap-center gap" style="--gap-size: 0.5em">
+            Pressing <SettingsIcon /> <span class="visually-hidden">icon</span> opens settings
         </span>
+        <br />
         <span class="text-decoration-underline">Press these notifications to close them</span>
     </CloseableNotification>
 {/if}
@@ -106,6 +106,7 @@
         <span class="flex-wrap-center gap" style="--gap-size: 0.3em">
             Pressing one of the sections navigates to them
         </span>
+        <br />
         <span class="text-decoration-underline">Press these notifications to close them</span>
     </CloseableNotification>
 {/if}
@@ -166,3 +167,9 @@
 
 <FirstTimeVisitOverlay />
 <SettingsOverlay />
+
+<style>
+    span.navigation-explainer1 :global(svg) {
+        margin: 0;
+    }
+</style>
