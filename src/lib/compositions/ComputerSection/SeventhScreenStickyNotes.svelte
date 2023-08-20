@@ -1,21 +1,46 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
+    import RickRoll from "$assets/images/RickRoll.svelte"
     import StickyNote from "$components/StickyNote/StickyNote.svelte"
-    let notesActive = [true, true, true, true, true, true, true, true, true, true]
-    let showResetNotesButton: boolean = false
+
+    import { enhance } from "$app/forms"
+
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { F, scavengerHuntState, scavengerHuntStateKey, S7DefaultState } from "$stores/states/scavengerHuntState"
+    import { setJSCookie } from "$utilities/setJSCookie"
 </script>
 
 <div id="sticky-note-wrapper" class="relative">
-    {#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as _, index}
-        <StickyNote active={notesActive[index]} flyToRight={index % 2 === 0} />
+    {#each [10, 9, 8, 7, 6, 5, 4, 3, 2] as index}
+        <StickyNote stateIndex={index} flyToRight={index % 2 === 0} />
     {/each}
-    {#if showResetNotesButton}
-        <Button
-            label="reset notes"
-            on:click={() => {
-                notesActive.forEach(() => (notesActive = notesActive.fill(true)))
-                showResetNotesButton = false
-            }} />
+    <StickyNote stateIndex={11} flyToRight={false}>
+        <RickRoll />
+    </StickyNote>
+
+    {#if $scavengerHuntState[2] === F}<!-- BUG? known bug is that button shows even though not all StickyNotes has been clicked, should really look if all the indexes are F, however I made a kind of premature optimization to only check the last one, this might need to be fixed in the future -->
+        {#if $cookiesAllowed}
+            <form
+                action="?/updateScavengerHuntState"
+                method="POST"
+                use:enhance={({ cancel }) => {
+                    cancel()
+                    $scavengerHuntState = S7DefaultState
+                    if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, S7DefaultState)
+                }}>
+                <Button label="reset notes" name={scavengerHuntStateKey} value={S7DefaultState} />
+                <!-- BUG: just reseting to default S7 state will hide the HideableNotification if its open -->
+            </form>
+        {:else}
+            <form on:submit={() => ($scavengerHuntState = S7DefaultState)}>
+                <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
+                <Button
+                    label="reset notes"
+                    name={scavengerHuntStateKey}
+                    value={S7DefaultState} /><!-- BUG: just reseting to default S7 state will hide the HideableNotification if its open -->
+            </form>
+        {/if}
     {/if}
 </div>
 

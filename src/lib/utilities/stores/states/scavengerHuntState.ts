@@ -110,11 +110,23 @@ function isValidS6State(string: string): string is S6States {
 // Screen 7
 type S7 = "7"
 type S7ScavengerHuntCompleteNotification = BooleanState
-type S7States = `${S7}${S7ScavengerHuntCompleteNotification}`
-export const S7DefaultState = "7F" as const
+type S7StickyNote = BooleanState
+type S7States =
+    `${S7}${S7ScavengerHuntCompleteNotification}${S7StickyNote}${S7StickyNote}${S7StickyNote}${S7StickyNote}${S7StickyNote}${S7StickyNote}${S7StickyNote}${S7StickyNote}${S7StickyNote}${S7StickyNote}`
+export const S7DefaultState = "7FTTTTTTTTTT" as const
 function isValidS7State(string: string): string is S7States {
-    if (string.length !== 2) return false
+    if (string.length !== 12) return false
     if (!isBooleanState(string[1])) return false
+    if (!isBooleanState(string[2])) return false
+    if (!isBooleanState(string[3])) return false
+    if (!isBooleanState(string[4])) return false
+    if (!isBooleanState(string[5])) return false
+    if (!isBooleanState(string[6])) return false
+    if (!isBooleanState(string[7])) return false
+    if (!isBooleanState(string[8])) return false
+    if (!isBooleanState(string[9])) return false
+    if (!isBooleanState(string[10])) return false
+    if (!isBooleanState(string[11])) return false
     return true
 }
 

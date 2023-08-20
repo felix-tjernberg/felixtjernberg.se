@@ -1,33 +1,18 @@
 <script lang="ts">
-    import rickRoll from "$assets/images/rick-roll.png"
+    import RickRoll from "$assets/images/RickRoll.svelte"
     import StickyNote from "$components/StickyNote/StickyNote.svelte"
-    import { F, T, scavengerHuntState, type ScavengerHuntStates } from "$stores/states/scavengerHuntState"
 
     import { fade } from "svelte/transition"
-
-    $: newStickyNoteOneState = ($scavengerHuntState.slice(0, 1) +
-        F +
-        $scavengerHuntState.slice(2)) as ScavengerHuntStates
-    $: newStickyNoteTwoState = ($scavengerHuntState.slice(0, 2) +
-        F +
-        $scavengerHuntState.slice(3, $scavengerHuntState.length - 1) +
-        T) as ScavengerHuntStates
-    $: newStickyNoteThreeState = ($scavengerHuntState.slice(0, 3) +
-        F +
-        $scavengerHuntState.slice(4)) as ScavengerHuntStates
 </script>
 
 <div id="first-screen-notes" class="grid" transition:fade>
     <div id="first-screen-notes-top-right" class="flex-center relative">
-        <StickyNote
-            active={$scavengerHuntState[1] === T}
-            newScavengerHuntState={newStickyNoteOneState}
-            flyToRight={false}>
+        <StickyNote stateIndex={1} flyToRight={false}>
             <p>Press the notes to remove them</p>
         </StickyNote>
     </div>
     <div id="first-screen-notes-bottom-left" class="flex-center relative">
-        <StickyNote active={$scavengerHuntState[2] === T} newScavengerHuntState={newStickyNoteTwoState}>
+        <StickyNote stateIndex={2}>
             <p class="font-size-000">
                 PIN CODE:<br />
                 sum of the 4 corner numbers
@@ -35,11 +20,8 @@
         </StickyNote>
     </div>
     <div id="first-screen-notes-bottom-right" class="flex-center relative">
-        <StickyNote
-            active={$scavengerHuntState[3] === T}
-            newScavengerHuntState={newStickyNoteThreeState}
-            flyToRight={false}>
-            <picture><img src={rickRoll} alt="a qr code" /></picture>
+        <StickyNote stateIndex={3} flyToRight={false}>
+            <RickRoll />
         </StickyNote>
     </div>
 </div>

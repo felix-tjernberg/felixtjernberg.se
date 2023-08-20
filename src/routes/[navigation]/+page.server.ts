@@ -320,7 +320,7 @@ export const actions = {
 
         if (answer === null) return fail(400, { error: "Answer value is null" })
 
-        if (answer !== "200") return handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
+        if (answer !== "200" && answer !== "201") return handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
         return updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S7DefaultState)
     },
