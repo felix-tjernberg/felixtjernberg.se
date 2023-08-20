@@ -110,7 +110,7 @@
     {/if}
     {#if screenState === "7"}
         <CloseableNotification active={true} booleanName="scavengerHuntDone" testid="hunt-done-notification">
-            <p>Scavenger hunt is now done and can be reset in the settings menu</p>
+            <p>Scavenger hunt is now done, <br />and can be reset in the settings menu</p>
         </CloseableNotification>
         <Computer>
             <!-- <SeventhScreenStickyNotes slot="stickyNotes" /> -->

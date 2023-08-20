@@ -86,11 +86,3 @@
         </Button>
     </form>
 {/if}
-
-<style>
-    @media (min-width: 450px) {
-        aside {
-            max-width: calc(100vw - 2em - (var(--static-scale-400) * 4));
-        }
-    }
-</style>
