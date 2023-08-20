@@ -132,7 +132,7 @@ input::-webkit-inner-spin-button {
         left: 2px;
     }
 }
-@media (max-width: 300px) {
+@media (max-width: 450px) {
     #settings-form button,
     #navigation-form button,
     #navigation-button,
