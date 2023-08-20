@@ -1,5 +1,6 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
+    import LoadingDots from "$components/LoadingDots.svelte"
     import HiddenInputs from "$components/HiddenInputs.svelte"
     import Slider from "$components/Slider/Slider.svelte"
 
@@ -20,9 +21,7 @@
 <div id="second-screen" class="flex-column height-100percent" transition:fade>
     <div class="margin-vertical-auto margin-vertical-flow padding-vertical">
         <p class="font-family-primary-fat">
-            <span aria-hidden="true">...</span>Initial<wbr />izing<span class="loading-dot">.</span><span
-                class="loading-dot">.</span
-            ><span class="loading-dot">.</span>
+            <span aria-hidden="true">...</span>Initial<wbr />izing<LoadingDots />
         </p>
         <details>
             <summary>show dial up audio player</summary>
@@ -90,59 +89,8 @@
         opacity: 0;
     }
     @media (max-width: 500px) {
-        [aria-hidden="true"] {
+        span[aria-hidden="true"] {
             display: none;
-        }
-    }
-    .loading-dot:nth-last-of-type(1) {
-        animation: dot3 1.337s infinite;
-    }
-    .loading-dot:nth-last-of-type(2) {
-        animation: dot2 1.337s infinite;
-    }
-    .loading-dot:nth-last-of-type(3) {
-        animation: dot1 1.337s infinite;
-    }
-    @keyframes dot1 {
-        0% {
-            opacity: 0;
-        }
-        33% {
-            opacity: 1;
-        }
-        66% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 0;
-        }
-    }
-    @keyframes dot2 {
-        0% {
-            opacity: 0;
-        }
-        33% {
-            opacity: 0;
-        }
-        66% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-        }
-    }
-    @keyframes dot3 {
-        0% {
-            opacity: 0;
-        }
-        33% {
-            opacity: 0;
-        }
-        66% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
         }
     }
 </style>

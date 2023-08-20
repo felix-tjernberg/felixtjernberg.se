@@ -1,4 +1,5 @@
 <script lang="ts">
+    import LoadingDots from "$components/LoadingDots.svelte"
     import { onDestroy } from "svelte"
 
     export let label: string
@@ -9,6 +10,7 @@
     export let border: boolean = true
     export let disabled: boolean = false
     export let flashing: boolean = false
+    export let loadingDots: boolean = false
     export let glow: boolean = true
     export let hoverOverlay: boolean = true
     export let href: string | undefined = undefined
@@ -80,12 +82,16 @@
     {type}
     {value}
     tabindex="-1">
-    {#if hoverOverlay}
+    {#if hoverOverlay && !disabled}
         <div aria-hidden="true" class="absolute hover-overlay" class:opacity-flashing={flashing} />
     {/if}
     {#if $$slots.icon}
         <slot name="icon" />
-        <span class="visually-hidden">{label}</span>
+        <span class="visually-hidden">
+            {label}{#if loadingDots} processing {/if}
+        </span>
+    {:else if disabled && loadingDots}
+        <span aria-hidden="true"><LoadingDots /></span>
     {:else}
         {label}
     {/if}

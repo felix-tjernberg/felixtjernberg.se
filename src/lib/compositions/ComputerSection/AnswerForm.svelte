@@ -17,6 +17,7 @@
     export let label: string = "Submit answer"
 
     let error: boolean = false
+    let processing: boolean = false
 </script>
 
 <form
@@ -24,7 +25,7 @@
     method="POST"
     class="flex-column margin-horizontal-auto"
     use:enhance={() => {
-        // TODO move this async function to separate file as it is used in multiple places
+        processing = true
         return async ({ result }) => {
             // TODO handle if newState is undefined, however this is a super rare case when for some reason the packets are lost or damaged in transit
             // @ts-ignore
@@ -38,6 +39,8 @@
                 // @ts-ignore
                 $scavengerHuntState = url.searchParams.get(scavengerHuntStateKey)?.toString()
             }
+
+            processing = false
         }
     }}>
     {#if !$cookiesAllowed}
@@ -50,5 +53,5 @@
         <slot name="question" />
     {/if}
     <slot />
-    <Button {label} class="margin-horizontal-auto" type="submit" />
+    <Button disabled={processing} {label} loadingDots={true} class="margin-horizontal-auto" type="submit" />
 </form>
