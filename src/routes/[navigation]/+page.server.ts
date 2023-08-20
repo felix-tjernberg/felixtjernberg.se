@@ -190,7 +190,7 @@ function updateScavengerHuntState(
     if (cookies.get(cookiesAllowedKey) === "true") {
         cookies.set(scavengerHuntStateKey, newState, { httpOnly: false })
         if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
-        return { newState: newState }
+        return { newState }
     } else {
         // in case someone submits the form without cookiesAllowed being false
         if (cookiesAllowedHiddenInput !== "false") throw redirect(302, `/`)
@@ -279,9 +279,9 @@ export const actions = {
             return fail(400, { error: "Answer value is null" })
 
         if (pin1 !== "1" || pin2 !== "2" || pin3 !== "3" || pin4 !== "4")
-            handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
+            return handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S2DefaultState)
+        return updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S2DefaultState)
     },
 
     [validateS3AnswerKey]: async ({ cookies, request }) => {
@@ -289,9 +289,9 @@ export const actions = {
 
         if (answer === null) return fail(400, { error: "Answer value is null" })
 
-        if (answer.toString().toLowerCase() !== "yes") handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
+        if (answer.toString().toLowerCase() !== "yes") return handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S4DefaultState)
+        return updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S4DefaultState)
     },
 
     [validateS4AnswerKey]: async ({ cookies, request }) => {
@@ -300,9 +300,9 @@ export const actions = {
         if (answer === null) return fail(400, { error: "Answer value is null" })
 
         if (answer !== "188" && answer !== "189" && answer !== "190")
-            handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
+            return handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S5DefaultState)
+        return updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S5DefaultState)
     },
 
     [validateS5AnswerKey]: async ({ cookies, request }) => {
@@ -310,9 +310,9 @@ export const actions = {
 
         if (answer === null) return fail(400, { error: "Answer value is null" })
 
-        if (answer !== "3") handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
+        if (answer !== "3") return handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S6DefaultState)
+        return updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S6DefaultState)
     },
 
     [validateS6AnswerKey]: async ({ cookies, request }) => {
@@ -320,8 +320,8 @@ export const actions = {
 
         if (answer === null) return fail(400, { error: "Answer value is null" })
 
-        if (answer !== "200") handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
+        if (answer !== "200") return handleIvalidAnswer(cookiesAllowedHiddenInput, formData)
 
-        updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S7DefaultState)
+        return updateScavengerHuntState(cookies, cookiesAllowedHiddenInput, formData, S7DefaultState)
     },
 } satisfies Actions

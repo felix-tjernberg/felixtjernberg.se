@@ -25,15 +25,15 @@
     class="flex-column margin-horizontal-auto"
     use:enhance={() => {
         // TODO move this async function to separate file as it is used in multiple places
-        return async (result) => {
+        return async ({ result }) => {
             // TODO handle if newState is undefined, however this is a super rare case when for some reason the packets are lost or damaged in transit
             // @ts-ignore
-            if (result.result.type === "success") $scavengerHuntState = result?.result?.data?.newState
-            if (result.result.type === "failure") error = true
+            if (result.type === "success") $scavengerHuntState = result?.data?.newState
+            if (result.type === "failure") error = true
 
-            if (!$cookiesAllowed && result.result.type === "redirect") {
-                goto(result.result.location)
-                const url = new URL(result.result.location, window.location.origin)
+            if (!$cookiesAllowed && result.type === "redirect") {
+                goto(result.location)
+                const url = new URL(result.location, window.location.origin)
                 // TODO  handle if searchParams[scavengerHuntStateKey] is null, however this is a super rare case when for some reason the packets are lost or damaged in transit
                 // @ts-ignore
                 $scavengerHuntState = url.searchParams.get(scavengerHuntStateKey)?.toString()
