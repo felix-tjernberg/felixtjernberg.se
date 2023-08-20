@@ -73,6 +73,7 @@
         max-height: 100%;
         max-width: 100%;
         overflow: auto;
+        z-index: 42069;
     }
     form {
         top: 1em;

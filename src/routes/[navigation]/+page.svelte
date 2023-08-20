@@ -89,6 +89,9 @@
         type="audio/mpeg" />
 </svelte:head>
 
+<FirstTimeVisitOverlay />
+<SettingsOverlay />
+
 {#if !$firstVisit && $navigationExplainer && $navigationState !== NavigationSchema.enum.navigation}
     <CloseableNotification bind:active={$navigationExplainer} booleanName={navigationExplainerKey} booleanValue="false">
         <span class="navigation-explainer1 flex-wrap-center gap" style="--gap-size: 0.5em">
@@ -168,9 +171,6 @@
         </Button>
     </form>
 {/if}
-
-<FirstTimeVisitOverlay />
-<SettingsOverlay />
 
 <style>
     span.navigation-explainer1 :global(svg) {

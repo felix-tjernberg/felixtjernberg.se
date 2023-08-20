@@ -33,6 +33,7 @@
     <Overlay headerText="Welcome!" bind:open={$firstVisit} closeButton={false}>
         <WelcomeText slot="headerTextSVG" />
         {#if !$decidedOnCookies}
+            <h2 class="font-family-3d font-size-200">Welcome to my spot on the interwebs</h2>
             <details class="margin-vertical-flow flex-column-center" bind:open={detailsOpen} bind:this={details}>
                 <summary tabindex="-1" class="font-family-primary-fat text-align-center font-size-100">
                     Are you ok with me saving some things about you between page visits?
@@ -68,8 +69,9 @@
                 </form>
             </div>
         {:else}
-            <p class="font-family-primary-fat text-align-center font-size-100">
-                Before you explore my page I would like you to set some preferences
+            <h2 class="font-family-3d font-size-200">Before you explore my page</h2>
+            <p class="font-family-primary-fat text-align-center font-size-000">
+                I would like you to set some preferences
             </p>
             <BaseSettings />
             {#if $cookiesAllowed}
