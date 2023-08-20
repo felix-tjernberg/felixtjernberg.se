@@ -22,6 +22,18 @@
 .font-family-primary-fat {
     font-family: var(--font-family-primary-fat);
 }
+.font-family-3d {
+    font-family: var(--font-family-3d);
+    font-size: 42px;
+    font-variation-settings: "EDPT" 200, "EHLT" 0;
+    font-palette: --nabla;
+}
+@font-palette-values --nabla {
+    font-family: "Nabla";
+    base-palette: 1;
+    /* TODO: make colors be a gradient instead */
+    override-colors: 1 #02ff58, 2 #02ff58, 3 #fa0c91, 4 #fa0c91, 5 #fa0c91, 6 #02ff58, 7 #02ff58, 8 #fa0c91, 9 #02ff58;
+}
 @media (max-width: 420px) {
     .font-family-primary-fat {
         font-size: var(--static-scale-100);

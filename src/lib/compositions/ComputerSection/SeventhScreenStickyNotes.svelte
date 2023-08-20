@@ -21,10 +21,17 @@
 
 <style>
     #sticky-note-wrapper {
-        margin-top: 30px;
+        top: 50%;
+        left: 50%;
+        translate: -50%;
         max-width: 200px;
         width: 100%;
         aspect-ratio: 1/1;
         z-index: 1337;
+    }
+    @media (max-height: 400px) {
+        #sticky-note-wrapper {
+            top: 60%;
+        }
     }
 </style>

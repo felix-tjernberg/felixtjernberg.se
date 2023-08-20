@@ -109,10 +109,13 @@ function isValidS6State(string: string): string is S6States {
 
 // Screen 7
 type S7 = "7"
-type S7States = `${S7}`
-export const S7DefaultState = "7" as const
+type S7ScavengerHuntCompleteNotification = BooleanState
+type S7States = `${S7}${S7ScavengerHuntCompleteNotification}`
+export const S7DefaultState = "7F" as const
 function isValidS7State(string: string): string is S7States {
-    return string === "7"
+    if (string.length !== 2) return false
+    if (!isBooleanState(string[1])) return false
+    return true
 }
 
 export type ScavengerHuntStates = S1States | S2States | S3States | S4States | S5States | S6States | S7States

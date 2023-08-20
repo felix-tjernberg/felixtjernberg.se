@@ -16,6 +16,12 @@
 .margin-vertical-auto {
     margin: auto 0;
 }
+.margin-top-auto {
+    margin-top: auto;
+}
+.margin-bottom-auto {
+    margin-bottom: auto;
+}
 .margin-horizontal {
     --margin-horizontal-amount: var(--margin-amount);
     margin-left: var(--margin-horizontal-amount);
