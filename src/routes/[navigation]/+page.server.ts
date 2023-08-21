@@ -39,6 +39,7 @@ import { darkModeKey } from "$stores/settings/darkMode"
 import { firstVisitKey } from "$stores/states/firstVisit"
 import { JSActiveKey } from "$utilities/JSActiveKey"
 import { likesEightBitFontKey } from "$stores/settings/likesEightBitFont"
+import { maxAge } from "$utilities/maxAge"
 import type { PageServerLoad } from "./$types"
 import { settingsOpenKey } from "$stores/states/settingsOpen"
 import type { ZodSchema } from "zod"
@@ -92,7 +93,7 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
     // Return data state based on cookies
     const cookiesAllowed = cookies.get(cookiesAllowedKey) === "true"
     if (cookiesAllowed) {
-        cookies.set(navigationStateKey, String(paramsRoute.data), { httpOnly: false })
+        cookies.set(navigationStateKey, String(paramsRoute.data), { httpOnly: false, maxAge })
 
         const scavengerHuntState = getScavengerHuntState(cookies.get(scavengerHuntStateKey))
         const { email, phoneNumber } = getEmailAndPhoneNumber(scavengerHuntState)
@@ -200,7 +201,7 @@ function updateScavengerHuntState(
     newState: ScavengerHuntStates,
 ) {
     if (cookies.get(cookiesAllowedKey) === "true") {
-        cookies.set(scavengerHuntStateKey, newState, { httpOnly: false })
+        cookies.set(scavengerHuntStateKey, newState, { httpOnly: false, maxAge })
         if (formData.get(JSActiveKey) === "false") throw redirect(302, "/computer")
         return { newState }
     } else {
@@ -215,8 +216,8 @@ function updateScavengerHuntState(
 
 export const actions = {
     allowCookies: async ({ cookies }) => {
-        cookies.set(cookiesAllowedKey, "true")
-        cookies.set(decidedOnCookiesKey, "true")
+        cookies.set(cookiesAllowedKey, "true", { maxAge })
+        cookies.set(decidedOnCookiesKey, "true", { maxAge })
         throw redirect(302, "/")
     },
 
@@ -233,7 +234,7 @@ export const actions = {
 
             if (!volume.success) return fail(400, { error: "Incorrect value supplied" })
 
-            cookies.set(audioVolumeKey, String(volume.data), { httpOnly: false })
+            cookies.set(audioVolumeKey, String(volume.data), { httpOnly: false, maxAge })
 
             throw redirect(302, "/")
         }
@@ -255,7 +256,7 @@ export const actions = {
 
             if (key === null) return fail(400, { error: "No formName key supplied" })
 
-            cookies.set(String(key), String(boolean), { httpOnly: false })
+            cookies.set(String(key), String(boolean), { httpOnly: false, maxAge })
 
             throw redirect(302, "/")
         }
@@ -270,7 +271,10 @@ export const actions = {
 
             if (scavengerHuntState === null) return fail(400, { error: "No state supplied" })
 
-            cookies.set(scavengerHuntStateKey, getScavengerHuntState(String(scavengerHuntState)), { httpOnly: false })
+            cookies.set(scavengerHuntStateKey, getScavengerHuntState(String(scavengerHuntState)), {
+                httpOnly: false,
+                maxAge,
+            })
 
             throw redirect(302, "/")
         }
