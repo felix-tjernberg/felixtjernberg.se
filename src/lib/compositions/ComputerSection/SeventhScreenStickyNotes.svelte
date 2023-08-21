@@ -25,7 +25,7 @@
         <RickRoll />
     </StickyNote>
 
-    {#if $scavengerHuntState[2] === F}<!-- BUG? known bug is that button shows even though not all StickyNotes has been clicked, should really look if all the indexes are F, however I made a kind of premature optimization to only check the last one, this might need to be fixed in the future -->
+    {#if !$scavengerHuntState.slice(1).includes("T")}
         {#if $cookiesAllowed}
             <form
                 action={`?/${updateScavengerHuntStateKey}`}
