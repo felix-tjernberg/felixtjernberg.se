@@ -22,7 +22,7 @@
     </div>
     <div class="border background-blur margin-vertical-flow glow flex-column-center" id="text-wrapper">
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
-        {#if $scavengerHuntState}
+        {#if $scavengerHuntState[0] === "7"}
             <p class="font-size-300" data-testid="email-and-phone-paragraph">
                 Email Adress: <br class="br-small-screen" />{$page.data.email}
                 <br />
