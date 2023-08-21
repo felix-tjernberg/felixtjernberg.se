@@ -1,4 +1,5 @@
 <script lang="ts">
+    import BlogSection from "$compositions/BlogSection/BlogSection.svelte"
     import Button from "$components/Button/Button.svelte"
     import CoachSection from "$compositions/CoachSection/CoachSection.svelte"
     import ComputerSection from "$compositions/ComputerSection/ComputerSection.svelte"
@@ -123,6 +124,7 @@
     <ComputerSection slot="computer" />
     <ContactSection slot="contact" />
     <PhoneSection slot="phone" />
+    <BlogSection slot="blog" />
 </NavigationWrapper>
 
 {#if !navigationActive}

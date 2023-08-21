@@ -97,7 +97,6 @@
         place-self: end center;
     }
     .box {
-        place-self: start;
         overflow-x: auto;
         --margin-vertical-flow-amount: 2em;
     }

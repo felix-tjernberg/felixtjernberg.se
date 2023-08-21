@@ -27,7 +27,7 @@
     $: conversationDone = $scavengerHuntState[3] === "9"
 </script>
 
-<section id="phone-section" class="flex-column gap">
+<section id="phone-section" class="flex-column gap height-100percent">
     {#if screenState === "6" && !conversationDone}
         <p
             class="background-blur border glow font-family-primary-fat"
@@ -119,7 +119,6 @@
         text-transform: capitalize;
     }
     #phone-section {
-        height: 100%;
         overflow-y: auto;
         align-items: center;
     }
