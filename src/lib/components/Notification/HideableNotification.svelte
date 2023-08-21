@@ -13,6 +13,7 @@
         scavengerHuntStateKey,
         T,
         F,
+        updateScavengerHuntStateKey,
     } from "$stores/states/scavengerHuntState"
     import { setJSCookie } from "$utilities/setJSCookie"
 

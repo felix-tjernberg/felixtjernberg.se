@@ -18,6 +18,7 @@
         scavengerHuntStateKey,
         F,
         T,
+        updateScavengerHuntStateKey,
     } from "$stores/states/scavengerHuntState"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { setJSCookie } from "$utilities/setJSCookie"

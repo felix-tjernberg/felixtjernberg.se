@@ -7,7 +7,13 @@
     import { enhance } from "$app/forms"
 
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
-    import { F, scavengerHuntState, scavengerHuntStateKey, S7DefaultState } from "$stores/states/scavengerHuntState"
+    import {
+        F,
+        scavengerHuntState,
+        scavengerHuntStateKey,
+        S7DefaultState,
+        updateScavengerHuntStateKey,
+    } from "$stores/states/scavengerHuntState"
     import { setJSCookie } from "$utilities/setJSCookie"
 </script>
 

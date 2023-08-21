@@ -11,6 +11,7 @@
         scavengerHuntState,
         type ScavengerHuntStates,
         scavengerHuntStateKey,
+        updateScavengerHuntStateKey,
     } from "$stores/states/scavengerHuntState"
     import TEXT_CONVERSATION from "./textConversation"
     import typewriter from "$utilities/transitions/typewriter"

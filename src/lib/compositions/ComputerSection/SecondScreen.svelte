@@ -11,7 +11,12 @@
     import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/dialUpAudio"
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { setJSCookie } from "$utilities/setJSCookie"
-    import { S3DefaultState, scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
+    import {
+        S3DefaultState,
+        scavengerHuntState,
+        scavengerHuntStateKey,
+        updateScavengerHuntStateKey,
+    } from "$stores/states/scavengerHuntState"
 
     $dialUpAudioCurrentTime = 0
 

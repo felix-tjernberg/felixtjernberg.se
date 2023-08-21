@@ -17,6 +17,7 @@
         T,
         scavengerHuntState,
         scavengerHuntStateKey,
+        updateScavengerHuntStateKey,
     } from "$stores/states/scavengerHuntState"
     import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
     import { setJSCookie } from "$utilities/setJSCookie"
