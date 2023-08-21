@@ -1,7 +1,7 @@
 <script lang="ts">
     import Button from "$components/Button/Button.svelte"
     import BaseSettings from "$compositions/BaseSettings/BaseSettings.svelte"
-    import DetailsContent from "./DetailsContent.svelte"
+    import CookieDetailsContent from "./CookieDetailsContent.svelte"
     import HiddenInputs from "$components/HiddenInputs.svelte"
     import Overlay from "$components/Overlay/Overlay.svelte"
     import WelcomeText from "$assets/svgs/WelcomeText.svelte"
@@ -41,7 +41,7 @@
                         Click here to read how cookies are managed
                     </span>
                 </summary>
-                <DetailsContent {details} {detailsOpen} />
+                <CookieDetailsContent {details} {detailsOpen} />
             </details>
             <div class="flex-center font-size-000 gap">
                 <form
