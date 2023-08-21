@@ -26,6 +26,7 @@
     const TAPE_ROTATION_AMOUNT = RANDOM_SEED > 0.5 ? RANDOM_SEED * -4.2 : RANDOM_SEED * 4.2
 
     export let stateIndex: number
+    export let overrideNewScavengerHuntState: ScavengerHuntStates | false = false
     export let flyToRight: boolean = true
 
     let active: boolean
@@ -46,10 +47,16 @@
         }
     }
 
+    let newScavengerHuntState: ScavengerHuntStates
+
     $: active = $scavengerHuntState[stateIndex] === T
-    $: newScavengerHuntState = ($scavengerHuntState.slice(0, stateIndex) +
-        F +
-        $scavengerHuntState.slice(stateIndex + 1)) as ScavengerHuntStates
+    $: {
+        overrideNewScavengerHuntState
+            ? (newScavengerHuntState = overrideNewScavengerHuntState)
+            : (newScavengerHuntState = ($scavengerHuntState.slice(0, stateIndex) +
+                  F +
+                  $scavengerHuntState.slice(stateIndex + 1)) as ScavengerHuntStates)
+    }
 </script>
 
 {#if active}
