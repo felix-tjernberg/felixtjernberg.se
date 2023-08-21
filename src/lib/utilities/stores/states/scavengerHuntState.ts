@@ -35,7 +35,7 @@ type S1 = "1"
 type S1NoteStates = `${BooleanState}${BooleanState}${BooleanState}`
 type S1HintState = TernaryState
 type S1States = `${S1}${S1NoteStates}${S1HintState}`
-const S1DefaultState = "1TTTD" as const
+export const S1DefaultState = "1TTTD" as const
 function isValidS1State(string: string): string is S1States {
     if (string.length !== 5) return false
     if (!isBooleanState(string[1])) return false
@@ -131,13 +131,13 @@ function isValidS7State(string: string): string is S7States {
 }
 
 export type ScavengerHuntStates = S1States | S2States | S3States | S4States | S5States | S6States | S7States
-export const scavengerHuntDefaultState: ScavengerHuntStates = S1DefaultState
-export const scavengerHuntState = writable<ScavengerHuntStates>(scavengerHuntDefaultState)
+export const scavengerHuntState = writable<ScavengerHuntStates>(S1DefaultState)
+export const updateScavengerHuntStateKey = "updateScavengerHuntState" as const
 export const scavengerHuntStateKey = "scavengerHuntState" as const
 export const stateIndexKey = "stateIndex" as const
 export const stateValueKey = "stateValue" as const
 export function getScavengerHuntState(string: string | undefined | null): ScavengerHuntStates {
-    if (string === undefined || string === null) return scavengerHuntDefaultState
+    if (string === undefined || string === null) return S1DefaultState
 
     switch (string[0]) {
         case "1":
@@ -162,6 +162,6 @@ export function getScavengerHuntState(string: string | undefined | null): Scaven
             if (isValidS7State(string)) return string as ScavengerHuntStates
             return S7DefaultState
         default:
-            return scavengerHuntDefaultState
+            return S1DefaultState
     }
 }

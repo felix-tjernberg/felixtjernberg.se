@@ -52,7 +52,7 @@
         {#if $cookiesAllowed}
             <form
                 class="font-size-300"
-                action="?/updateScavengerHuntState"
+                action={`?/${updateScavengerHuntStateKey}`}
                 method="POST"
                 use:enhance={({ cancel }) => {
                     cancel()

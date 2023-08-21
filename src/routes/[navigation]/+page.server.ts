@@ -18,14 +18,15 @@ import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookies
 import { EMAIL, PHONE_NUMBER } from "$env/static/private"
 import {
     getScavengerHuntState,
+    S1DefaultState,
     S2DefaultState,
     S4DefaultState,
     S5DefaultState,
     S6DefaultState,
     S7DefaultState,
-    scavengerHuntDefaultState,
     scavengerHuntStateKey,
     type ScavengerHuntStates,
+    updateScavengerHuntStateKey,
 } from "$stores/states/scavengerHuntState"
 import {
     navigationExplainer2Key,
@@ -143,7 +144,7 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
         [navigationExplainer2Key]: false,
         [navigationExplainerKey]: false,
         [navigationStateKey]: NavigationSchema.enum.computer,
-        [scavengerHuntStateKey]: scavengerHuntDefaultState,
+        [scavengerHuntStateKey]: S1DefaultState,
         [settingsOpenKey]: false,
     } satisfies DataBasedOnDefaults
 }) satisfies PageServerLoad
@@ -251,7 +252,7 @@ export const actions = {
         return fail(400, { error: "Cookies not allowed" })
     },
 
-    updateScavengerHuntState: async ({ cookies, request }) => {
+    [updateScavengerHuntStateKey]: async ({ cookies, request }) => {
         if (cookies.get(cookiesAllowedKey) === "true") {
             const formData = await request.formData()
             const scavengerHuntState = formData.get(scavengerHuntStateKey)

@@ -35,7 +35,7 @@
         transition:fade>
         {#if $cookiesAllowed}
             <form
-                action="?/updateScavengerHuntState"
+                action={`?/${updateScavengerHuntStateKey}`}
                 method="POST"
                 use:enhance={({ cancel }) => {
                     cancel()
@@ -65,7 +65,7 @@
     </aside>
 {:else if $cookiesAllowed}
     <form
-        action="?/updateScavengerHuntState"
+        action={`?/${updateScavengerHuntStateKey}`}
         class="show-notification-form absolute position-horizontal-middle"
         method="POST"
         use:enhance={({ cancel }) => {

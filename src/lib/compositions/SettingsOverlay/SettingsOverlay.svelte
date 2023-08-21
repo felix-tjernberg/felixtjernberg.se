@@ -11,7 +11,12 @@
 
     import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
     import { settingsOpen } from "$stores/states/settingsOpen"
-    import { scavengerHuntState, scavengerHuntStateKey } from "$stores/states/scavengerHuntState"
+    import {
+        S1DefaultState,
+        scavengerHuntState,
+        scavengerHuntStateKey,
+        updateScavengerHuntStateKey,
+    } from "$stores/states/scavengerHuntState"
     import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
     import { setJSCookie } from "$utilities/setJSCookie"
 </script>
@@ -34,33 +39,29 @@
             {/if}
         </Description>
     </div>
-    {#if $scavengerHuntState}
+    {#if $scavengerHuntState[0] === "7"}
         <div class="flex-column-center" transition:fade={{ duration: 1337 }}>
             <Description description="Want to do the scavenger hunt again?">
                 {#if $cookiesAllowed}
                     <form
-                        action="?/toggleBoolean"
+                        action={`?/${updateScavengerHuntStateKey}`}
                         method="POST"
                         use:enhance={() => {
-                            $scavengerHuntState = false
-                            if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, "false")
+                            $scavengerHuntState = S1DefaultState
+                            if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, S1DefaultState)
                         }}>
-                        <input type="hidden" name={booleanNameKey} value={scavengerHuntStateKey} />
                         <Button
                             label="yes restart scavenger hunt!"
-                            name={valueKey}
-                            value="false"
-                            testid="reset-scavenger-hunt" />
-                        <Button label="yes restart scavenger hunt!" testid="reset-scavenger-hunt" />
+                            name={scavengerHuntStateKey}
+                            value={S1DefaultState} />
                     </form>
                 {:else}
-                    <form on:submit={() => ($scavengerHuntState = false)}>
+                    <form on:submit={() => ($scavengerHuntState = S1DefaultState)}>
                         <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
                         <Button
                             label="yes restart scavenger hunt!"
-                            testid="reset-scavenger-hunt"
                             name={scavengerHuntStateKey}
-                            value="false" />
+                            value={S1DefaultState} />
                     </form>
                 {/if}
             </Description>

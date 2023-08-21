@@ -40,7 +40,7 @@
                 }} />
             {#if $cookiesAllowed}
                 {#if !browser}
-                    <form action="?/updateScavengerHuntState" method="POST">
+                    <form action={`?/${updateScavengerHuntStateKey}`} method="POST">
                         <Button
                             class="margin-horizontal-auto"
                             name={scavengerHuntStateKey}

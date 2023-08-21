@@ -78,7 +78,7 @@
         {#if active}
             {#if $cookiesAllowed}
                 <form
-                    action="?/updateScavengerHuntState"
+                    action={`?/${updateScavengerHuntStateKey}`}
                     method="POST"
                     use:enhance={({ cancel }) => {
                         cancel()
