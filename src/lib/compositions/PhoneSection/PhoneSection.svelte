@@ -27,61 +27,64 @@
     $: conversationDone = $scavengerHuntState[3] === "9"
 </script>
 
-<section id="phone-section" class="flex-column gap height-100percent">
-    {#if screenState === "6" && !conversationDone}
-        <p
-            class="background-blur border glow font-family-primary-fat"
-            data-testid="answer-instruction"
-            id="answer-instruction"
-            transition:fade>
-            {#if momCalling}
-                Press <br />
-                "C" <br />
-                button to answer
-            {:else}
-                Press <br />
-                "<span class="visually-hidden">▼</span><TriangleDown />"<br />
-                button to show next message
-            {/if}
-        </p>
-    {/if}
-    {#if (screenState === "6" && !momCalling) || screenState === "7"}
-        <TextConversation />
-    {/if}
-    <h2 class="visually-hidden">Phone</h2>
-    <div id="phone" class="relative">
-        <PhoneCanvas />
-        <PhoneImage />
-        {#if momCalling}
-            {#if $cookiesAllowed}
-                <form
-                    class="absolute"
-                    action={`?/${updateScavengerHuntStateKey}`}
-                    method="POST"
-                    use:enhance={({ cancel }) => {
-                        cancel()
-                        $phoneRingtonePaused = true
-                        $scavengerHuntState = S6AnswerMomState
-                        if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, S6AnswerMomState)
-                    }}>
-                    <button class="glow opacity-flashing">
-                        <span class="visually-hidden">answer call</span>
-                    </button>
-                </form>
-            {:else}
-                <form
-                    class="absolute"
-                    on:submit={() => {
-                        $phoneRingtonePaused = true
-                        $scavengerHuntState = S6AnswerMomState
-                    }}>
-                    <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
-                    <button class="glow opacity-flashing" name={scavengerHuntStateKey} value={S6AnswerMomState}>
-                        <span class="visually-hidden">answer call</span>
-                    </button>
-                </form>
-            {/if}
+<section id="phone-section" class="flex-column align-items-center height-100percent">
+    <div class="flex-column align-items-center gap margin-vertical-auto before-and-after-spacing">
+        {#if screenState === "6" && !conversationDone}
+            <p
+                class="background-blur border glow font-family-primary-fat"
+                data-testid="answer-instruction"
+                id="answer-instruction"
+                transition:fade>
+                {#if momCalling}
+                    Press <br />
+                    "C"<br />
+                    button<br />
+                    to answer
+                {:else}
+                    Press <br />
+                    "<span class="visually-hidden">▼</span><TriangleDown />"<br />
+                    button to show next message
+                {/if}
+            </p>
         {/if}
+        {#if (screenState === "6" && !momCalling) || screenState === "7"}
+            <TextConversation />
+        {/if}
+        <h2 class="visually-hidden">Phone</h2>
+        <div id="phone" class="relative">
+            <PhoneCanvas />
+            <PhoneImage />
+            {#if momCalling}
+                {#if $cookiesAllowed}
+                    <form
+                        class="absolute"
+                        action={`?/${updateScavengerHuntStateKey}`}
+                        method="POST"
+                        use:enhance={({ cancel }) => {
+                            cancel()
+                            $phoneRingtonePaused = true
+                            $scavengerHuntState = S6AnswerMomState
+                            if ($cookiesAllowed) setJSCookie(scavengerHuntStateKey, S6AnswerMomState)
+                        }}>
+                        <button class="glow opacity-flashing">
+                            <span class="visually-hidden">answer call</span>
+                        </button>
+                    </form>
+                {:else}
+                    <form
+                        class="absolute"
+                        on:submit={() => {
+                            $phoneRingtonePaused = true
+                            $scavengerHuntState = S6AnswerMomState
+                        }}>
+                        <HiddenInputs excludeStates={[scavengerHuntStateKey]} />
+                        <button class="glow opacity-flashing" name={scavengerHuntStateKey} value={S6AnswerMomState}>
+                            <span class="visually-hidden">answer call</span>
+                        </button>
+                    </form>
+                {/if}
+            {/if}
+        </div>
     </div>
     {#if $scavengerHuntState[0] === "6" && $scavengerHuntState[3] > "3"}
         <HideableNotification stateIndex={4} state={T}>
@@ -120,12 +123,10 @@
     }
     #phone-section {
         overflow-y: auto;
-        align-items: center;
     }
-    #phone-section > :global(:nth-child(1)) {
-        margin-top: 5em;
-    }
-    #phone-section > :global(:nth-last-child(1)) {
-        margin-bottom: 4em;
+    .before-and-after-spacing::before,
+    .before-and-after-spacing::after {
+        content: "";
+        height: calc(var(--static-scale-300) * 2);
     }
 </style>
