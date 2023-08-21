@@ -25,9 +25,7 @@
 
 <div id="second-screen" class="flex-column height-100percent" transition:fade>
     <div class="margin-vertical-auto margin-vertical-flow padding-vertical">
-        <p class="font-family-primary-fat">
-            <span aria-hidden="true">...</span>Initial<wbr />izing<LoadingDots />
-        </p>
+        <p class="font-family-primary-fat"><span aria-hidden="true">...</span>Initializing<LoadingDots /></p>
         <details>
             <summary>show dial up audio player</summary>
             <audio

@@ -1,6 +1,6 @@
 <script lang="ts">
     import AnswerForm from "./AnswerForm.svelte"
-    import Coach from "$components/Coach/Coach.svelte"
+    import CoachImage from "$components/Coach/CoachImage.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
 
     import { fade } from "svelte/transition"
@@ -8,7 +8,7 @@
 </script>
 
 <div id="fifth-screen" class="flex-column relative" in:fade>
-    <Coach />
+    <CoachImage />
     <div id="fifth-screen-content" class="margin-vertical-auto">
         <p class="font-family-primary-fat font-size-100 text-transform-capitalize">
             How many years did <br />

@@ -1,11 +1,15 @@
 <script lang="ts">
-    import coach from "$assets/images/coach.png"
+    import avifSrcSet from "$assets/images/coach.png?format=avif&srcset&imageTools"
+    import webpSrcSet from "$assets/images/coach.png?format=webp&srcset&imageTools"
+    import fallback from "$assets/images/coach.png?url&imageTools"
 </script>
 
 <picture class="absolute">
+    <source type="image/avif" srcset={avifSrcSet} />
+    <source type="image/webp" srcset={webpSrcSet} />
     <img
         class="absolute"
-        src={coach}
+        src={fallback}
         alt="felix tjernberg in coach attire walking away from camera, with the text Dalecarlia Rebels on his upper back" />
 </picture>
 

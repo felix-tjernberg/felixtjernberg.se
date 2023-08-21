@@ -1,12 +1,12 @@
 <script lang="ts">
     import FootballPlays from "$assets/svgs/FootballPlays.svelte"
-    import Coach from "$components/Coach/Coach.svelte"
+    import CoachImage from "$components/Coach/CoachImage.svelte"
 </script>
 
 <div id="coach-section-wrapper" class="relative">
     <FootballPlays />
     <div id="coach-section-box-wrapper" class="relative background-blur border glow">
-        <Coach />
+        <CoachImage />
         <section id="coach-section">
             <h2 id="coach-header">Coaching american football for 3 years taught me a few valuable life lessons</h2>
             <div class="padding-horizontal">

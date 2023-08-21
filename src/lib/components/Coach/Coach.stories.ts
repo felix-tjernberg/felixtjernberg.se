@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/svelte"
-import Coach from "./Coach.svelte"
+import Coach from "./CoachImage.svelte"
 
 type Story = StoryObj<Coach>
 export const DefaultState: Story = {}
