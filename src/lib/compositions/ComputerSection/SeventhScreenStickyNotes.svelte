@@ -18,7 +18,7 @@
 </script>
 
 <div id="sticky-note-wrapper" class="relative">
-    {#each [10, 9, 8, 7, 6, 5, 4, 3, 2] as index}
+    {#each [2, 3, 4, 5, 6, 7, 8, 9, 10] as index}
         <StickyNote stateIndex={index} flyToRight={index % 2 === 0} />
     {/each}
     <StickyNote stateIndex={11} flyToRight={false}>
