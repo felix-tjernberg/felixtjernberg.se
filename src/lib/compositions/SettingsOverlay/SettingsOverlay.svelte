@@ -22,6 +22,7 @@
 </script>
 
 <Overlay headerText="settings" bind:open={$settingsOpen}>
+    <h2 class="font-family-3d">Settings</h2>
     <SettingsText slot="headerTextSVG" />
     <BaseSettings />
     <div class="flex-column-center">
@@ -67,4 +68,33 @@
             </Description>
         </div>
     {/if}
+    <h2 class="font-family-3d">Attributions</h2>
+    <div>
+        <h3 class="font-family-primary-fat font-size-100">Phone vibration sound</h3>
+        <a href="https://pixabay.com/sound-effects/smartphone-vibrating-alarm-silent-7040/">Link to sound</a>
+        <p>
+            Thanks to <a href="https://pixabay.com">pixabay</a> for the phone vibration sound <br />
+            This audio is licensed under their
+            <a href="https://pixabay.com/service/license-summary/">Content License</a>
+        </p>
+    </div>
+    <div>
+        <h3 class="font-family-primary-fat font-size-100">Nokia 3310 image</h3>
+        <a href="https://commons.wikimedia.org/wiki/File:Nokia_3310_Blue_R7309170_(retouch).png">Link to image</a>
+        <p>
+            Thanks to <a href="https://commons.wikimedia.org/wiki/User:Multicherry">Multicherry</a> for uploading a
+            retouched image of a nokia 3310 phone released 2000 <br />
+            taken by Rainer Knäpper to wikimedia <br />
+            This image is licensed under <a href="http://artlibre.org/licence/lal/en/">Fine Art License</a>
+        </p>
+    </div>
+    <div>
+        <h3 class="font-family-primary-fat font-size-100">Elevator music</h3>
+        <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300010">Link to sound</a>
+        <p>
+            Local Forecast - Elevator <br />Kevin MacLeod (incompetech.com)<br />
+            Licensed under Creative Commons: By Attribution 3.0
+            <a href="https://creativecommons.org/licenses/by/3.0/"> https://creativecommons.org/licenses/by/3.0/ </a>
+        </p>
+    </div>
 </Overlay>
