@@ -3,7 +3,7 @@
     import BooleanButton from "$components/BooleanButton/BooleanButton.svelte"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
-    import Notification from "$components/Notification/Notification.svelte"
+    import CloseableNotification from "$components/Notification/CloseableNotification.svelte"
     import TextConversation from "$components/TextConversation/TextConversation.svelte"
     import Slider from "$components/Slider/Slider.svelte"
     import TextInput from "$components/TextInput/TextInput.svelte"
@@ -36,7 +36,7 @@
         </div>
     </div>
     <TextConversation />
-    <Notification active={true}><p>Some text goes here</p></Notification>
+    <CloseableNotification active={true}><p>Some text goes here</p></CloseableNotification>
 </div>
 
 <style>

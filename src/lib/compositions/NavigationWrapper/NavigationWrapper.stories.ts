@@ -14,11 +14,11 @@ const meta: Meta<NavigationWrapperStory> = {
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=125%3A788&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=125%3A788&show-proto-sidebar=0"
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=125%3A788&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=125%3A788&show-proto-sidebar=0",
         },
-        layout: "fullscreen"
+        layout: "fullscreen",
     },
-    title: "Compositions/Navigation Wrapper"
+    title: "Compositions/Navigation Wrapper",
 }
 export default meta
 
@@ -31,7 +31,7 @@ StoryZoomIn.play = async ({ canvasElement }) => {
     for (const navigationLink of navigationLinks) {
         const linkText = navigationLink.textContent
         await userEvent.click(navigationLink)
-        await expect(navigationWrapper).toHaveAttribute("data-active-section", linkText?.trim())
+        await expect(navigationWrapper).toHaveAttribute("data-navigation-state", linkText?.trim())
     }
 }
 
@@ -55,9 +55,9 @@ StoryZoomOutProgrammatically.play = async ({ canvasElement }) => {
     const navigationLink = await within(navigationWrapper).getAllByRole("link")[0]
     const toggleNavigationButton = await canvas.getByTestId("toggle-navigation")
     await userEvent.click(navigationLink)
-    expect(navigationWrapper).toHaveAttribute("data-active-section", "coach")
+    expect(navigationWrapper).toHaveAttribute("data-navigation-state", "coach")
     await toggleNavigationButton.click()
-    expect(navigationWrapper).toHaveAttribute("data-active-section", "none")
+    expect(navigationWrapper).toHaveAttribute("data-navigation-state", "none")
 }
 
 export const StorySwitchSectionProgrammatically: Story = {}
@@ -66,8 +66,8 @@ StorySwitchSectionProgrammatically.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)
     const navigationWrapper = await canvas.getByTestId("navigation-wrapper")
     const switchSectionProgrammaticallyButton = await canvas.getByTestId("switch-section")
-    await expect(navigationWrapper).toHaveAttribute("data-active-section", "none")
+    await expect(navigationWrapper).toHaveAttribute("data-navigation-state", "none")
     await userEvent.click(switchSectionProgrammaticallyButton)
     sleep(1000)
-    await expect(navigationWrapper).toHaveAttribute("data-active-section", "coach")
+    await expect(navigationWrapper).toHaveAttribute("data-navigation-state", "coach")
 }

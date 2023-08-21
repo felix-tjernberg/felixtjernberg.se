@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte"
-    import { answeredCall, conversationDone, momCalling } from "$stores/phoneSectionStores"
+    import { scavengerHuntState, T, F } from "$stores/states/scavengerHuntState"
 
     const FONT_SIZE = 12 as const
 
@@ -24,15 +24,15 @@
         const middleY = canvasHeight / 2
         const middleX = canvasWidth / 2
 
-        if (JSON.parse($answeredCall)) {
+        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[2] === T) {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
             canvasContext.fillText("mom", middleX, middleY + FONT_SIZE / 2)
         }
-        if (JSON.parse($momCalling)) {
+        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[2] === F) {
             canvasContext.fillText("mom", middleX, middleY - 2)
             canvasContext.fillText("calling", middleX, middleY + FONT_SIZE + 2)
         }
-        if (JSON.parse($conversationDone)) {
+        if ($scavengerHuntState[0] === "6" && $scavengerHuntState[3] === "9") {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height)
         }
     }

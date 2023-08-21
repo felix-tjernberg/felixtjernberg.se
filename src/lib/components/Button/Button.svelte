@@ -1,4 +1,5 @@
 <script lang="ts">
+    import LoadingDots from "$components/LoadingDots.svelte"
     import { onDestroy } from "svelte"
 
     export let label: string
@@ -7,14 +8,19 @@
     export let ariaHidden: boolean = false
     export let blur: boolean = true
     export let border: boolean = true
+    export let disabled: boolean = false
     export let flashing: boolean = false
+    export let loadingDots: boolean = false
     export let glow: boolean = true
     export let hoverOverlay: boolean = true
     export let href: string | undefined = undefined
     export let id: string | undefined = undefined
+    export let name: string | undefined = undefined
     export let style: string | undefined = undefined
     export let testid: string | undefined = undefined
+    export let type: string | null = null
     export let underlined: boolean = false
+    export let value: string | undefined = undefined
 
     const elementType: "a" | "button" = href ? "a" : "button"
 
@@ -66,18 +72,26 @@
     class:underlined
     class:un-active={active === "no"}
     data-testid={testid}
+    {disabled}
     {href}
     {id}
     on:click
     on:mouseup={handeMouseUp}
+    {name}
     {style}
+    {type}
+    {value}
     tabindex="-1">
-    {#if hoverOverlay}
+    {#if hoverOverlay && !disabled}
         <div aria-hidden="true" class="absolute hover-overlay" class:opacity-flashing={flashing} />
     {/if}
     {#if $$slots.icon}
         <slot name="icon" />
-        <span class="visually-hidden">{label}</span>
+        <span class="visually-hidden">
+            {label}{#if loadingDots} processing {/if}
+        </span>
+    {:else if disabled && loadingDots}
+        <span aria-hidden="true"><LoadingDots /></span>
     {:else}
         {label}
     {/if}

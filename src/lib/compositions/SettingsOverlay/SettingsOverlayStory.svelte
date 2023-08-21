@@ -1,18 +1,21 @@
 <script lang="ts">
     import SettingsOverlay from "./SettingsOverlay.svelte"
-    // import { audioVolume } from "$stores/audioVolumeStore"
-    import { cookiesAllowed } from "$stores/cookiesAllowedStore"
-    import { darkMode } from "$stores/darkModeStore"
-    import { likesEightBitFont } from "$stores/likesEightBitFontStore"
-    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { darkMode } from "$stores/settings/darkMode"
+    import { likesEightBitFont } from "$stores/settings/likesEightBitFont"
+    import { scavengerHuntState } from "$stores/states/scavengerHuntState"
+    import { onMount } from "svelte"
 
     let dialog: HTMLDialogElement
 
-    $scavengerHuntDone = true
+    $scavengerHuntState = true
     $cookiesAllowed = true
     $darkMode = true
     $likesEightBitFont = true
-    // $audioVolume = 0.5
+
+    onMount(() => {
+        dialog.showModal()
+    })
 </script>
 
 <div>
@@ -21,7 +24,7 @@
     <p class="visually-hidden" data-testid="cookies-allowed-indicator">{$cookiesAllowed}</p>
     <p class="visually-hidden" data-testid="dark-mode-indicator">{$darkMode}</p>
     <p class="visually-hidden" data-testid="likes-eight-bit-font-indicator">{$likesEightBitFont}</p>
-    <p class="visually-hidden" data-testid="scavenger-hunt-done-indicator">{$scavengerHuntDone}</p>
+    <p class="visually-hidden" data-testid="scavenger-hunt-done-indicator">{$scavengerHuntState}</p>
     <!-- <p class="visually-hidden" data-testid="volume-indicator">{$audioVolume}</p> -->
 </div>
 

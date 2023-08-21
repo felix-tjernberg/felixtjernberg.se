@@ -13,9 +13,9 @@ const config = {
             $compositions: path.resolve("./src/lib/compositions"),
             $lib: path.resolve("./src/lib"),
             $stores: path.resolve("./src/lib/utilities/stores"),
-            $utilities: path.resolve("./src/lib/utilities")
-        }
-    }
+            $utilities: path.resolve("./src/lib/utilities"),
+        },
+    },
 }
 
 export default config

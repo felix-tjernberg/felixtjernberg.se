@@ -11,30 +11,30 @@ const meta: Meta<MultiDigitInput> = {
         label: { table: { disable: true } },
         min: {
             control: {
-                type: "number"
-            }
+                type: "number",
+            },
         },
         value: {
             control: {
-                type: "number"
-            }
-        }
+                type: "number",
+            },
+        },
     },
     component: MultiDigitInput,
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=37%3A176&starting-point-node-id=37%3A176&show-proto-sidebar=0"
-        }
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/felixtjernberg.se-design?node-id=37%3A176&starting-point-node-id=37%3A176&show-proto-sidebar=0",
+        },
     },
-    title: "Components/Multi Digit Input"
+    title: "Components/Multi Digit Input",
 }
 export default meta
 
 export const StoryValuePropertyIsNaN: Story = {}
 StoryValuePropertyIsNaN.storyName = 'Expect value property to be "" if not a number'
 StoryValuePropertyIsNaN.args = {
-    value: NaN
+    value: NaN,
 }
 StoryValuePropertyIsNaN.play = async ({ canvasElement }) => {
     const canvas = await within(canvasElement)

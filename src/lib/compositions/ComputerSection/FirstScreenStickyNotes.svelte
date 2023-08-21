@@ -1,21 +1,24 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
+    import RickRoll from "$assets/images/RickRoll.svelte"
     import StickyNote from "$components/StickyNote/StickyNote.svelte"
-    import rickRoll from "$assets/images/rick-roll.png"
+    import { F, T, scavengerHuntState, type ScavengerHuntStates } from "$stores/states/scavengerHuntState"
 
-    export let clueNotificationActive = false
+    import { fade } from "svelte/transition"
 
-    let clueActive: boolean = true
-    let clueNotificationTimeout: ReturnType<typeof setTimeout>
-    $: if (!clueActive) clueNotificationTimeout = setTimeout(() => (clueNotificationActive = true), 5000)
+    $: activateHintScavengerHuntState = ($scavengerHuntState.slice(0, 2) +
+        F +
+        $scavengerHuntState.slice(3, 4) +
+        T) as ScavengerHuntStates
 </script>
 
 <div id="first-screen-notes" class="grid" transition:fade>
     <div id="first-screen-notes-top-right" class="flex-center relative">
-        <StickyNote flyToRight={false}><p>Press the notes to remove them</p></StickyNote>
+        <StickyNote stateIndex={1} flyToRight={false}>
+            <p>Press the notes to remove them</p>
+        </StickyNote>
     </div>
     <div id="first-screen-notes-bottom-left" class="flex-center relative">
-        <StickyNote bind:active={clueActive} testid="clue-note">
+        <StickyNote stateIndex={2} overrideNewScavengerHuntState={activateHintScavengerHuntState}>
             <p class="font-size-000">
                 PIN CODE:<br />
                 sum of the 4 corner numbers
@@ -23,8 +26,8 @@
         </StickyNote>
     </div>
     <div id="first-screen-notes-bottom-right" class="flex-center relative">
-        <StickyNote flyToRight={false}>
-            <picture><img src={rickRoll} alt="a qr code" /></picture>
+        <StickyNote stateIndex={3} flyToRight={false}>
+            <RickRoll />
         </StickyNote>
     </div>
 </div>

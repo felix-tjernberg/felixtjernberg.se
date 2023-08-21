@@ -11,21 +11,21 @@ export default {
                 { name: "LightMode", value: "transparent transparent" },
                 { name: "Light (#FFF)", value: "#FFF" },
                 { name: "Dark (#333)", value: "#333333" },
-                { name: "DarkMode", value: "transparent" }
-            ]
+                { name: "DarkMode", value: "transparent" },
+            ],
         },
         controls: { matchers: { color: /(background|color)$/i, date: /Date$/ } },
         layout: "centered",
         options: { storySort: { order: ["Design System", "Pages", "Compositions", "Components", "Utilities"] } },
-        viewport: customViewports
-    }
+        viewport: customViewports,
+    },
 } satisfies Preview
 
 export const decorators = [
     (_, story) => ({
         Component: StorybookWrapper,
-        props: { context: story.globals }
-    })
+        props: { context: story.globals },
+    }),
 ]
 
 export const globalTypes = {
@@ -33,7 +33,7 @@ export const globalTypes = {
         defaultValue: "On",
         toolbar: {
             items: ["On", "Off"],
-            title: "Starfield Background"
-        }
-    }
+            title: "Starfield Background",
+        },
+    },
 }

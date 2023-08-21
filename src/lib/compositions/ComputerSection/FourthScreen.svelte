@@ -1,43 +1,59 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
-    import { onMount } from "svelte"
+    // @ts-ignore TODO check library does have types?
+    import YouTube from "svelte-youtube"
+    import AnswerForm from "./AnswerForm.svelte"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
-    import { screenIndex } from "$stores/computerSectionStores"
 
-    let value: number
-    let input: HTMLInputElement
+    import { fade } from "svelte/transition"
 
-    $: if (value === 188 || value === 189) $screenIndex = 4
+    import { answerKey, validateS4AnswerKey } from "./answerFormKeys"
+    import { audioVolume } from "$stores/settings/audioVolume"
 
-    // onMount(() => input.focus())
+    function ready(event: CustomEvent) {
+        event.detail.target.setVolume($audioVolume * 100)
+    }
 </script>
 
-<div class="flex-column-center gap" in:fade>
-    <iframe
-        tabindex="-1"
-        src="https://www.youtube-nocookie.com/embed/pgJXHhmN45Y?autoplay=1"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen />
-    <p
-        class="font-family-primary-fat font-size-000 padding-horizontal tex-transform-capitalize"
-        style="--padding-amount: 4em">
-        How many seconds is my friends song?<br />
-        <span class="font-family-primary-thin">(Which I did the animations for)</span>
-    </p>
-    <MultiDigitInput
-        label="answer"
-        description="Enter number of seconds"
-        bind:value
-        bind:input
-        testid="song-number-input" />
+<div id="forth-screen" class="flex-column gap" in:fade>
+    <!-- TODO add more YouTube options https://github.com/PandaWhisperer/svelte-youtube -->
+    <YouTube videoId="pgJXHhmN45Y" on:ready={ready} />
+    <div class="padding-horizontal flex-column gap" style="--padding-amount: 2em;">
+        <p
+            class="font-family-primary-fat font-size-100 tex-transform-capitalize margin-horizontal-auto padding-horizontal"
+            style="--padding-amount: 10px">
+            How many seconds is my friends song?<br />
+            <span class="font-family-primary-thin">(the music animation is my creation)</span>
+        </p>
+        <AnswerForm action={validateS4AnswerKey}>
+            <p slot="errorMessage" class="margin-horizontal-auto">incorrect number of seconds</p>
+            <MultiDigitInput
+                label="Number of seconds"
+                description="Enter number of seconds"
+                name={answerKey}
+                testid="song-number-input" />
+        </AnswerForm>
+    </div>
 </div>
 
 <style>
-    iframe {
+    #forth-screen > :global(div:first-of-type) {
+        display: contents;
+    }
+    #forth-screen :global(iframe) {
+        margin: auto;
         aspect-ratio: 16 / 9;
-        max-width: 420px;
-        width: 100%;
+        max-height: 50%;
+        max-width: 95%;
+    }
+    #forth-screen {
+        max-height: calc(100vh - var(--static-scale-300));
+        overflow-y: auto;
+        padding-top: 1em;
+    }
+    #forth-screen > div:last-of-type {
+        padding-bottom: 1em;
+    }
+    #forth-screen :global(form > .button) {
+        margin-top: 1em;
     }
 </style>

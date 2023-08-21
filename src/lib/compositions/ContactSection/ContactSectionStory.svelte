@@ -1,19 +1,20 @@
 <script lang="ts">
-    import type { Sections } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+    import { NavigationSchema, type NavigationStates } from "$stores/states/navigation"
+    import { scavengerHuntState } from "$stores/states/scavengerHuntState"
     import ContactSection from "./ContactSection.svelte"
 
-    let activeSection: Sections = SectionsSchema.enum.contact
+    let navigationState: NavigationStates = NavigationSchema.enum.contact
 
-    $scavengerHuntDone = false
+    $scavengerHuntState = false
+
+    const data = { email: "email@felix.se", phoneNumber: "0123456789" }
 </script>
 
 <div>
-    <p class="visually-hidden" data-testid="navigation-indicator">{activeSection}</p>
-    <button class="visually-hidden" data-testid="scavenger-hunt-button" on:click={() => ($scavengerHuntDone = true)}>
+    <p class="visually-hidden" data-testid="navigation-indicator">{navigationState}</p>
+    <button class="visually-hidden" data-testid="scavenger-hunt-button" on:click={() => ($scavengerHuntState = true)}>
         scavenger-hunt-button</button>
-    <ContactSection bind:activeSection />
+    <ContactSection {data} />
 </div>
 
 <style>

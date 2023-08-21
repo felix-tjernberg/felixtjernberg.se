@@ -1,15 +1,10 @@
 <script lang="ts">
-    import { activeSection } from "$stores/activeSectionStore"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { scavengerHuntDone } from "$stores/scavengerHuntDoneStore"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
+    import { scavengerHuntState } from "$stores/states/scavengerHuntState"
+    import { page } from "$app/stores"
 
     import LinkedIn from "$assets/svgs/LinkedIn.svelte"
     import GitHub from "$assets/svgs/GitHub.svelte"
-
-    export let data: {
-        email: string
-        phoneNumber: string
-    }
 </script>
 
 <section id="contact-section">
@@ -27,11 +22,11 @@
     </div>
     <div class="border background-blur margin-vertical-flow glow flex-column-center" id="text-wrapper">
         <h2>You can reach me best <br /> with a <br /> text, call or email</h2>
-        {#if JSON.parse($scavengerHuntDone)}
+        {#if $scavengerHuntState[0] === "7"}
             <p class="font-size-300" data-testid="email-and-phone-paragraph">
-                Email Adress: <br class="br-small-screen" />{data.email}
+                Email Adress: <br class="br-small-screen" />{$page.data.email}
                 <br />
-                Phone Number: <br class="br-small-screen" />{data.phoneNumber}
+                Phone Number: <br class="br-small-screen" />{$page.data.phoneNumber}
             </p>
         {:else}
             <p class="font-size-300" data-testid="scavenger-hunt-paragraph">
@@ -40,7 +35,7 @@
             <a
                 tabindex="-1"
                 href="/coach"
-                on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.computer)}>
+                on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.computer)}>
                 Go to scavenger hunt
             </a>
         {/if}

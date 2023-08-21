@@ -32,3 +32,7 @@
 .border-vertical {
     border-width: var(--stroke-width) 0;
 }
+
+.box-border {
+    border: var(--stroke-300) solid var(--gray-100);
+}

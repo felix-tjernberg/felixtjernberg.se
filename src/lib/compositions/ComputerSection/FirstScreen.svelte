@@ -1,94 +1,84 @@
 <script lang="ts">
+    import AnswerForm from "./AnswerForm.svelte"
     import SingleDigitInput from "$components/SingleDigitInput/SingleDigitInput.svelte"
-    import { screenIndex } from "$stores/computerSectionStores"
-    import { onMount } from "svelte"
-
-    let pin: string
-    let input: HTMLInputElement
-
-    let pin1: number | "" | undefined = undefined
-    let pin2: number | "" | undefined = undefined
-    let pin3: number | "" | undefined = undefined
-    let pin4: number | "" | undefined = undefined
-    $: pin = `${pin1}${pin2}${pin3}${pin4}`
-    $: if (pin === "1234") $screenIndex = 1
-    // onMount(() => input.focus())
+    import { validateS1AnswerKey } from "./answerFormKeys"
 </script>
 
-<div id="first-screen" class="grid">
-    <div id="top-left" class="flex-center">
+<div id="first-screen" class="height-100percent flex">
+    <div id="top-left" class="absolute">
         <p><span class="visually-hidden">corner number 1: </span>1000</p>
     </div>
-    <div id="top-right" class="flex-center relative">
+    <div id="top-right" class="absolute">
         <p><span class="visually-hidden">corner number 2: </span>200</p>
     </div>
-    <div id="bottom-left" class="flex-center relative">
+    <div id="bottom-left" class="absolute">
         <p><span class="visually-hidden">corner number 3: </span>30</p>
     </div>
-    <div id="bottom-right" class="flex-center relative">
+    <div id="bottom-right" class="absolute">
         <p><span class="visually-hidden">corner number 4: </span>4</p>
     </div>
-    <div id="content" class="flex-column-center ">
-        <p class="font-family-primary-fat">enter pin to log in</p>
-        <div class="flex-center gap">
-            <SingleDigitInput label="pin number 1" bind:value={pin1} testid="pin-input" bind:input />
-            <SingleDigitInput label="pin number 2" bind:value={pin2} testid="pin-input" />
-            <SingleDigitInput label="pin number 3" bind:value={pin3} testid="pin-input" />
-            <SingleDigitInput label="pin number 4" bind:value={pin4} testid="pin-input" />
-        </div>
+    <div id="content" class="margin-vertical-auto margin-horizontal width-100percent padding-vertical">
+        <AnswerForm action={validateS1AnswerKey} label="log in">
+            <p slot="question" class="font-family-primary-fat line-height-1">enter pin</p>
+            <p slot="errorMessage" class="font-family-primary-fat line-height-1">
+                invalid<br /> pin code<br />try again
+            </p>
+            <div class="flex-center">
+                <SingleDigitInput label="pin number 1" testid="pin-input" name="pin1" />
+                <SingleDigitInput label="pin number 2" testid="pin-input" name="pin2" />
+                <SingleDigitInput label="pin number 3" testid="pin-input" name="pin3" />
+                <SingleDigitInput label="pin number 4" testid="pin-input" name="pin4" />
+            </div>
+        </AnswerForm>
     </div>
 </div>
 
 <style>
-    #first-screen {
-        height: 100%;
-        width: 100%;
-        margin: auto;
-        display: grid;
-        grid-template-columns: 100px auto 100px;
-        grid-template-rows: 100px auto 100px;
-        grid-template-areas:
-            "top-left . top-right"
-            "content content content"
-            "bottom-left . bottom-right";
-    }
-    #top-left {
-        grid-area: top-left;
-        rotate: -6.66deg;
-        translate: 10px 30px;
+    #content {
+        max-height: 100vh;
+        overflow-y: auto;
     }
     #top-right {
-        grid-area: top-right;
         rotate: 6.66deg;
-        translate: -10px 30px;
     }
     #bottom-left {
-        grid-area: bottom-left;
         rotate: 6.9deg;
-        translate: 6.9px 13.37px;
     }
     #bottom-right {
-        grid-area: bottom-right;
         rotate: -7.2deg;
-        translate: -6.66px 13.37px;
     }
-    #bottom-left > p {
-        translate: 0 -30px;
+    #bottom-left,
+    #bottom-right {
+        bottom: 0;
     }
-    #bottom-right > p {
-        translate: -20px -30px;
+    #top-right,
+    #bottom-right {
+        right: 0;
     }
-    #content {
-        grid-area: content;
-        /* padding to match the height of the sticky-note increase button plus 1em which centers the content visually, 48px is the min height of a sticky note */
-        padding-top: calc(1em + max(48px, 1em));
+    #top-left,
+    #top-right {
+        top: 0;
     }
-    @media (max-width: 720px) {
-        #top-left {
-            translate: 40px 80px;
+    #top-left,
+    #bottom-left {
+        left: 0;
+    }
+    @media (min-height: 400px) and (min-width: 400px) {
+        #bottom-left,
+        #bottom-right {
+            bottom: 1em;
         }
+        #top-right,
+        #bottom-right {
+            right: 1em;
+        }
+        #top-left,
         #top-right {
-            translate: -40px 80px;
+            top: 1em;
+        }
+        #top-left,
+        #bottom-left {
+            left: 1em;
         }
     }
 </style>

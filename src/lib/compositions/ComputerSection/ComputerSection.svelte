@@ -1,128 +1,119 @@
 <script lang="ts">
+    import Button from "$components/Button/Button.svelte"
+    import Computer from "./Computer.svelte"
+    import HiddenInputs from "$components/HiddenInputs.svelte"
+    import HideableNotification from "$components/Notification/HideableNotification.svelte"
+
     import FirstScreen from "./FirstScreen.svelte"
     import FirstScreenStickyNotes from "./FirstScreenStickyNotes.svelte"
     import SecondScreen from "./SecondScreen.svelte"
     import ThirdScreen from "./ThirdScreen.svelte"
     import FourthScreen from "./FourthScreen.svelte"
+    import FourthScreenHints from "./FourthScreenHints.svelte"
     import FifthScreen from "./FifthScreen.svelte"
     import SixthScreen from "./SixthScreen.svelte"
     import SeventhScreen from "./SeventhScreen.svelte"
     import SeventhScreenStickyNotes from "./SeventhScreenStickyNotes.svelte"
-    import Notification from "$components/Notification/Notification.svelte"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
-    import { activeSection } from "$stores/activeSectionStore"
-    import { answeredCall } from "$stores/phoneSectionStores"
-    import { screenIndex } from "$stores/computerSectionStores"
 
-    const SCREENS = [FirstScreen, SecondScreen, ThirdScreen, FourthScreen, FifthScreen, SixthScreen, SeventhScreen]
+    import { browser } from "$app/environment"
+    import { cookiesAllowed } from "$stores/settings/cookiesAllowed"
+    import { D, scavengerHuntState } from "$stores/states/scavengerHuntState"
+    import { NavigationSchema, navigationState, navigationStateKey } from "$stores/states/navigation"
 
-    let clueNotificationActive: boolean
+    $: screenState = $scavengerHuntState[0]
 </script>
 
-<section id="computer-section" class="flex-column-center relative">
+<section id="computer-section" class="height-100percent grid-stack">
     <h2 class="visually-hidden absolute">computer</h2>
-    {#if $screenIndex == 0}
-        <Notification bind:active={clueNotificationActive} testid="clue-notification">
-            <p>
-                PIN CODE:<br />
-                Is the sum of the 4 numbers in the corners
-            </p>
-        </Notification>
-    {/if}
-    {#if $screenIndex == 5}
-        <Notification active={true} closeButton={false} testid="mom-calling-notification">
-            {#if !JSON.parse($answeredCall)}
+    {#if screenState === "1"}
+        {#if $scavengerHuntState[4] !== D}
+            <HideableNotification stateIndex={4} state={$scavengerHuntState[4]}>
                 <p>
-                    Mom is calling
-                    <a
-                        tabindex="-1"
-                        href="/phone"
-                        on:click|preventDefault={() => ($activeSection = SectionsSchema.enum.phone)}>
-                        go answer the phone!
-                    </a>
+                    PIN CODE:<br />
+                    Is the sum of the 4 numbers in the corners
+                </p>
+            </HideableNotification>
+        {/if}
+        <Computer>
+            <FirstScreenStickyNotes slot="stickyNotes" />
+            <FirstScreen slot="screen" />
+        </Computer>
+    {/if}
+    {#if screenState === "2"}
+        <HideableNotification stateIndex={1} state={$scavengerHuntState[1]}>
+            {#if browser}
+                <p>
+                    Next screen will appear when the dial up audio has completed <br /><br />
+                    If it did not start automatically <br /><br />
+                    Press "show dial up audio player" and play the audio until completion
                 </p>
             {:else}
-                <p>Did mom mention anything about her dosage?</p>
+                <p>
+                    Because you do not have JavaScript active you have to <br /><br />
+                    manually click the <br />
+                    "show dial up audio player" <br /><br />
+                    and then click the <br />
+                    "Go To Next Screen Button" <br /><br />
+                    However i recommend you to play the dial up audio for awesome nostalgic feels
+                </p>
             {/if}
-        </Notification>
+        </HideableNotification>
+        <Computer>
+            <SecondScreen slot="screen" />
+        </Computer>
     {/if}
-    {#if $screenIndex == 6}
-        <Notification active={true} testid="hunt-done-notification">
-            <p>Scavenger hunt is now done and can be reset in the settings menu</p>
-        </Notification>
+    {#if screenState === "3"}
+        <Computer>
+            <ThirdScreen slot="screen" />
+        </Computer>
     {/if}
-    <div id="computer" class="flex-column-center relative">
-        <svelte:component this={SCREENS[$screenIndex]} />
-        <div id="computer-crt-effect" class="absolute" />
-        {#if $screenIndex == 0}
-            <FirstScreenStickyNotes bind:clueNotificationActive />
+    {#if screenState === "4"}
+        <FourthScreenHints />
+        <Computer>
+            <FourthScreen slot="screen" />
+        </Computer>
+    {/if}
+    {#if screenState === "5"}
+        <HideableNotification stateIndex={1} state={$scavengerHuntState[1]}>
+            <p>you will find the answer in the coach section</p>
+        </HideableNotification>
+        <Computer>
+            <FifthScreen slot="screen" />
+        </Computer>
+    {/if}
+    {#if screenState === "6"}
+        {#if $scavengerHuntState[1] !== D}
+            <HideableNotification stateIndex={1} state={$scavengerHuntState[1]}>
+                <p>mom is calling</p>
+                {#if $cookiesAllowed}
+                    <Button
+                        href="/phone"
+                        label="Go answer the phone"
+                        underlined={true}
+                        on:click={() => ($navigationState = NavigationSchema.enum.phone)} />
+                {:else}
+                    <form on:submit={() => ($navigationState = NavigationSchema.enum.phone)}>
+                        <HiddenInputs excludeStates={[navigationStateKey]} />
+                        <Button
+                            underlined={true}
+                            label="Go answer the phone"
+                            name={navigationStateKey}
+                            value={NavigationSchema.enum.phone} />
+                    </form>
+                {/if}
+            </HideableNotification>
         {/if}
-        {#if $screenIndex == 6}
-            <SeventhScreenStickyNotes />
-        {/if}
-    </div>
+        <Computer>
+            <SixthScreen slot="screen" />
+        </Computer>
+    {/if}
+    {#if screenState === "7"}
+        <HideableNotification state={$scavengerHuntState[1]} stateIndex={1}>
+            <p>Scavenger hunt is now done, <br />and can be reset in the settings menu</p>
+        </HideableNotification>
+        <Computer>
+            <SeventhScreenStickyNotes slot="stickyNotes" />
+            <SeventhScreen slot="screen" />
+        </Computer>
+    {/if}
 </section>
-
-<style>
-    #computer-section {
-        height: 100%;
-        width: 100%;
-    }
-    #computer {
-        width: 500px;
-        aspect-ratio: 1 / 1;
-        max-height: 500px;
-    }
-    :global(#computer > :nth-child(1)) {
-        z-index: 1;
-    }
-    #computer-crt-effect {
-        inset: 0;
-        overflow: hidden;
-        background: radial-gradient(transparent, black), green;
-    }
-    :global([data-dark-mode="false"] #computer-crt-effect) {
-        background: radial-gradient(transparent, #888888), #ffffff;
-    }
-    #computer-crt-effect::before {
-        content: " ";
-        display: block;
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-            linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-        background-size: 100% 6.66px, 6.66px 100%;
-        pointer-events: none;
-        z-index: 1;
-    }
-    #computer-crt-effect::before,
-    #computer-crt-effect::after {
-        pointer-events: none;
-    }
-    #computer-crt-effect::after {
-        animation: scan-line 5s linear infinite;
-        content: "";
-        display: block;
-        width: 100%;
-        height: 50px;
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
-        position: absolute;
-        bottom: 100%;
-        z-index: 2;
-    }
-    @keyframes scan-line {
-        0% {
-            bottom: 100%;
-        }
-        100% {
-            opacity: 0.1;
-            bottom: -50px;
-        }
-    }
-    @media (max-width: 720px) {
-        #computer {
-            width: 100%;
-            height: 100%;
-        }
-    }
-</style>

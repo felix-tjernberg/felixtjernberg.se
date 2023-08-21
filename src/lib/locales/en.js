@@ -3,5 +3,5 @@ export default {
     greeting: "{name} says hello!",
     musicVolume: "Music Volume",
     toggleMusic: "Toggle Music",
-    welcome: "Welcome to my spot on the interwebs!"
+    welcome: "Welcome to my spot on the interwebs!",
 }

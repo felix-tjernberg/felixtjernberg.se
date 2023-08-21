@@ -10,23 +10,23 @@ const meta: Meta<BooleanButtonStory> = {
     argTypes: {
         booleanTest: { table: { disable: true } },
         description: { control: "text" },
-        iconTest: { table: { disable: true } }
+        iconTest: { table: { disable: true } },
     },
     component: BooleanButtonStory,
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=17%3A118&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=17%3A118&show-proto-sidebar=0"
-        }
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=17%3A118&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=17%3A118&show-proto-sidebar=0",
+        },
     },
-    title: "Components/BooleanButton"
+    title: "Components/BooleanButton",
 }
 export default meta
 
 const StoryLabelsArray = ["On", "Off"]
 export const StoryLabels: Story = {}
 StoryLabels.args = {
-    labels: StoryLabelsArray
+    labels: StoryLabelsArray,
 }
 StoryLabels.storyName = "Expect labels to be rendered"
 StoryLabels.play = async ({ canvasElement }) => {
@@ -41,7 +41,7 @@ const StoryDescriptionString = "Hello I describe what this button does"
 export const StoryDescription: Story = {}
 StoryDescription.args = {
     description: StoryDescriptionString,
-    labels: StoryLabelsArray
+    labels: StoryLabelsArray,
 }
 StoryDescription.storyName = "Expect description to be rendered"
 StoryDescription.play = async ({ canvasElement }) => {
@@ -53,7 +53,7 @@ StoryDescription.play = async ({ canvasElement }) => {
 export const StoryToggleBoolean: Story = {}
 StoryToggleBoolean.args = {
     booleanTest: true,
-    labels: StoryLabelsArray
+    labels: StoryLabelsArray,
 }
 StoryToggleBoolean.storyName = "Expect boolean to update when clicking buttons"
 StoryToggleBoolean.play = async ({ canvasElement }) => {
@@ -75,7 +75,7 @@ StoryToggleBoolean.play = async ({ canvasElement }) => {
 export const StoryAciveButtonAlwaysWhiteBackground: Story = {}
 StoryAciveButtonAlwaysWhiteBackground.args = {
     booleanTest: true,
-    labels: StoryLabelsArray
+    labels: StoryLabelsArray,
 }
 StoryAciveButtonAlwaysWhiteBackground.storyName = "Expect active button to have white background"
 StoryAciveButtonAlwaysWhiteBackground.play = async ({ canvasElement }) => {
@@ -91,6 +91,6 @@ StoryAciveButtonAlwaysWhiteBackground.play = async ({ canvasElement }) => {
 export const StoryIconsVariant: Story = {}
 StoryIconsVariant.args = {
     iconTest: true,
-    labels: StoryLabelsArray
+    labels: StoryLabelsArray,
 }
 StoryIconsVariant.storyName = "Icons variant"

@@ -1,7 +1,8 @@
 <script lang="ts">
     import "../src/lib/stylesheets/stylesheets.css"
-    import { darkMode as darkModeStore } from "../src/lib/utilities/stores/darkModeStore"
-    import StarfieldBackgroundStoryWrapper from "$lib/stories/StarfieldBackgroundStoryWrapper.svelte"
+    import "./storybook.css"
+    import { darkMode as darkModeStore } from "../src/lib/utilities/stores/settings/darkMode"
+    import StarfieldBackground from "$lib/components/StarfieldBackground.svelte"
 
     export let context: any
 
@@ -13,11 +14,10 @@
     $: $darkModeStore = darkMode
 </script>
 
-<div data-dark-mode={darkMode} data-testid="storybook-wrapper">
+<div data-dark-mode={darkMode} data-testid="storybook-wrapper" class="grid-stack">
     {#if starFieldBackground}
-        <StarfieldBackgroundStoryWrapper>
-            <slot />
-        </StarfieldBackgroundStoryWrapper>
+        <StarfieldBackground />
+        <slot />
     {:else}
         <slot />
     {/if}

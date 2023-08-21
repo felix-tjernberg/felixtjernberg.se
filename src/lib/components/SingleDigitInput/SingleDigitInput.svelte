@@ -1,77 +1,39 @@
 <script lang="ts">
-    import { z } from "zod"
-    import lastDigitOfNumber from "$utilities/lastDigitOfNumber"
-
     import Button from "$components/Button/Button.svelte"
     import DownArrow from "$assets/svgs/DownArrow.svelte"
     import UpArrow from "$assets/svgs/UpArrow.svelte"
 
+    import { browser } from "$app/environment"
+
     export let label: string
+    export let name: string
+
     export let input: HTMLInputElement | undefined = undefined
     export let testid: string | undefined = undefined
-
-    const SingleDigitBetween0and9 = z.coerce.number().int().min(0).max(9)
-
-    export let value: number | "" = 0
-
-    $: if (value === null) value = ""
-    $: if (!SingleDigitBetween0and9.safeParse(value).success && value !== null) {
-        switch (lastDigitOfNumber(Number(value))) {
-            case 0:
-                value = 0
-                break
-            case 1:
-                value = 1
-                break
-            case 2:
-                value = 2
-                break
-            case 3:
-                value = 3
-                break
-            case 4:
-                value = 4
-                break
-            case 5:
-                value = 5
-                break
-            case 6:
-                value = 6
-                break
-            case 7:
-                value = 7
-                break
-            case 8:
-                value = 8
-                break
-            case 9:
-                value = 9
-                break
-            default:
-                value = ""
-        }
-    }
+    export let value: string = ""
 </script>
 
 <div class="single-digit-input flex-column-center">
-    <Button
-        ariaHidden={true}
-        label="increase"
-        testid="increase-button"
-        on:click={() => {
-            if (value === 9) return (value = 0)
-            // @ts-ignore
-            value += 1
-        }}>
-        <UpArrow slot="icon" />
-    </Button>
+    {#if browser}
+        <Button
+            ariaHidden={true}
+            label="increase"
+            testid="increase-button"
+            type="button"
+            on:click={() => {
+                if (Number(value) >= 9) return (value = "0")
+                value = String(Number(value) + 1)
+            }}>
+            <UpArrow slot="icon" />
+        </Button>
+    {/if}
     <label class="glow glow-hover font-family-primary-fat" data-testid="input-label">
         <span class="visually-hidden">{label}</span>
         <div class="bottom-stroke">
             <input
-                tabindex="-1"
                 class="border"
                 type="number"
+                {name}
                 bind:value
                 placeholder="0"
                 min="0"
@@ -80,17 +42,19 @@
                 bind:this={input} />
         </div>
     </label>
-    <Button
-        ariaHidden={true}
-        label="decrease"
-        testid="decrease-button"
-        on:click={() => {
-            if (value === 0) return (value = 9)
-            // @ts-ignore
-            value -= 1
-        }}>
-        <DownArrow slot="icon" />
-    </Button>
+    {#if browser}
+        <Button
+            ariaHidden={true}
+            label="decrease"
+            testid="decrease-button"
+            type="button"
+            on:click={() => {
+                if (Number(value) <= 0) return (value = "9")
+                value = String(Number(value) - 1)
+            }}>
+            <DownArrow slot="icon" />
+        </Button>
+    {/if}
 </div>
 
 <style>
@@ -101,6 +65,10 @@
         --stroke-width: 0;
         height: 1em;
         max-width: 1ch;
+    }
+    label:nth-child(1) {
+        margin-top: 1em;
+        margin-bottom: 1em;
     }
     :global([data-dark-mode="false"] .single-digit-input input) {
         --stroke-width: var(--stroke-100) 0;

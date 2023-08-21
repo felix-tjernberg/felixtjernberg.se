@@ -1,10 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Press+Start+2P&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=VT323&display=swap");
+/* testing header imports instead to see if there is a speed diference */
+/* @import url('https://fonts.googleapis.com/css2?family=Nabla&family=Permanent+Marker&family=Press+Start+2P&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=VT323&display=swap'); */
 
 :root {
     --font-family-secondary: "Ubuntu", sans-serif;
     --font-family-primary-thin: "VT323", monospace;
-    --font-family-primary-fat: "Press Start 2P", cursive;
-    --font-family-accent: "Permanent Marker", cursive;
+    --font-family-primary-fat: "Press Start 2P", sans-serif;
+    --font-family-accent: "Permanent Marker", sans-serif;
+    --font-family-3d: "Nabla", monospace;
 
     --scale-value-000: 0.704;
     --scale-value-100: 1;

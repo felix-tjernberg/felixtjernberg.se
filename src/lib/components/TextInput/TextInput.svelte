@@ -4,24 +4,26 @@
     const PADDING_OFFSET = 2.674
 
     export let label: string
-    export let value: string
+    export let name: string
+    export let value: string = ""
 
-    export let input: HTMLInputElement
     export let placeholder: string = "Placeholder"
     export let testid: string | undefined = undefined
 
+    let input: HTMLInputElement
     onMount(() => {
         input.style.width = `calc(${PADDING_OFFSET}em + ${placeholder.length}ch)`
         input.style.caretColor = "transparent"
     })
 </script>
 
-<label>
+<label class="margin-horizontal-auto">
     <span class="visually-hidden">{label}</span>
     <div class="strokes-wrapper glow glow-hover">
         <input
             tabindex="-1"
             data-testid={testid}
+            {name}
             bind:value
             bind:this={input}
             type="text"
@@ -74,14 +76,14 @@
         width: 1.1ch;
     }
     .strokes-wrapper:focus-within::before {
-        animation: blink 1.72s infinite;
+        animation: blink 1.314s infinite;
     }
     @keyframes blink {
         0% {
             opacity: 1;
         }
         50% {
-            opacity: 0.5;
+            opacity: 0;
         }
         100% {
             opacity: 1;

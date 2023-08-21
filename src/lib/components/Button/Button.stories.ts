@@ -15,18 +15,18 @@ const meta: Meta<ButtonStory> = {
         iconTest: { table: { disable: true } },
         label: {
             control: {
-                type: "text"
-            }
-        }
+                type: "text",
+            },
+        },
     },
     component: ButtonStory,
     parameters: {
         design: {
             type: "figma",
-            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=15%3A109&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=15%3A109&show-proto-sidebar=0"
-        }
+            url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=15%3A109&scaling=min-zoom&page-id=11%3A864&starting-point-node-id=15%3A109&show-proto-sidebar=0",
+        },
     },
-    title: "Components/Button"
+    title: "Components/Button",
 }
 export default meta
 
@@ -34,27 +34,27 @@ const StoryUnderlinedString = "I'm underlined :)"
 export const StoryUnderlined: Story = {}
 StoryUnderlined.args = {
     label: StoryUnderlinedString,
-    underlined: true
+    underlined: true,
 }
 StoryUnderlined.storyName = "Underlined variant"
 
 export const StoryIconVariant: Story = {}
 StoryIconVariant.args = {
     iconTest: true,
-    label: "settings"
+    label: "settings",
 }
 StoryIconVariant.parameters = {
     design: {
         type: "figma",
-        url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=37%3A412&starting-point-node-id=37%3A412&show-proto-sidebar=0"
-    }
+        url: "https://www.figma.com/proto/G88PsAAI0rDAWmJ1VY6rbJ/design?node-id=37%3A412&starting-point-node-id=37%3A412&show-proto-sidebar=0",
+    },
 }
 StoryIconVariant.storyName = "Icon variant"
 
 const StoryLabelString = "Hello world!"
 export const StoryLabel: Story = {}
 StoryLabel.args = {
-    label: StoryLabelString
+    label: StoryLabelString,
 }
 StoryLabel.storyName = "Expect label to be rendered"
 StoryLabel.play = async ({ canvasElement }) => {
@@ -66,7 +66,7 @@ StoryLabel.play = async ({ canvasElement }) => {
 export const StoryOnClick: Story = {}
 StoryOnClick.args = {
     functionTest: true,
-    label: "test on:click"
+    label: "test on:click",
 }
 StoryOnClick.storyName = "Expect on:click event forwarding"
 StoryOnClick.play = async ({ canvasElement }) => {
@@ -80,7 +80,7 @@ StoryOnClick.play = async ({ canvasElement }) => {
 export const Story$$PropsClass: Story = {}
 Story$$PropsClass.args = {
     classTest: true,
-    label: "$$props.class"
+    label: "$$props.class",
 }
 Story$$PropsClass.storyName = "Expect $$props.class overide"
 Story$$PropsClass.play = async ({ canvasElement }) => {
@@ -91,7 +91,7 @@ Story$$PropsClass.play = async ({ canvasElement }) => {
 
 export const StoryDarkMode: Story = {}
 StoryDarkMode.args = {
-    label: "Dark/Light mode"
+    label: "Dark/Light mode",
 }
 StoryDarkMode.storyName = "Test dark/light mode"
 StoryDarkMode.play = async ({ canvasElement }) => {
@@ -106,7 +106,7 @@ StoryDarkMode.play = async ({ canvasElement }) => {
 
 export const StoryRippleEffect: Story = {}
 StoryRippleEffect.args = {
-    label: "Look at all them ripples!"
+    label: "Look at all them ripples!",
 }
 StoryRippleEffect.storyName = "Test Ripple Effect"
 StoryRippleEffect.play = async ({ canvasElement }) => {

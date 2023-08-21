@@ -1,25 +1,27 @@
 <script lang="ts">
     import ComputerSection from "./ComputerSection.svelte"
-    import { audioVolume } from "$stores/audioVolumeStore"
-    import { dialUpAudioCurrentTime, dialUpAudioPaused, phoneRingtonePaused } from "$stores/computerSectionStores"
-    import { activeSection } from "$stores/activeSectionStore"
+    import { audioVolume } from "$stores/settings/audioVolume"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
+    import { dialUpAudioCurrentTime, dialUpAudioPaused } from "$stores/states/dialUpAudio"
+    import { phoneRingtonePaused } from "$stores/states/phoneRingtonePaused"
     import { onDestroy } from "svelte"
-    import { SectionsSchema } from "$compositions/NavigationWrapper/NavigationSectionsSchema"
 
-    export let screenIndex: number = 0
+    export let computerScreenIndex: number = 0
 
     let phoneRingtoneTimeout: ReturnType<typeof setTimeout>
 
-    $activeSection = SectionsSchema.enum.computer
+    $navigationState = NavigationSchema.enum.computer
 
     $: if (!$phoneRingtonePaused) phoneRingtoneTimeout = setTimeout(() => ($phoneRingtonePaused = true), 5000)
     onDestroy(() => clearTimeout(phoneRingtoneTimeout))
 </script>
 
 <div class="wrapper">
-    <button class="visually-hidden" data-testid="skip-init-screen" on:click={() => (screenIndex = 2)}
+    <button class="visually-hidden" data-testid="skip-init-screen" on:click={() => (computerScreenIndex = 2)}
         >skip init screen</button>
-    <p class="visually-hidden" data-testid="active-section-indicator">activeSection indicator: {$activeSection}</p>
+    <p class="visually-hidden" data-testid="navigation-state-indicator">
+        navigationState indicator: {$navigationState}
+    </p>
     <p class="visually-hidden" data-testid="initialize-noise-playing-indicator">
         initialize noise playing: {$dialUpAudioPaused}
     </p>
@@ -32,7 +34,7 @@
         bind:paused={$dialUpAudioPaused}
         bind:currentTime={$dialUpAudioCurrentTime}
         src="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3" />
-    <ComputerSection {screenIndex} />
+    <ComputerSection />
 </div>
 
 <style>

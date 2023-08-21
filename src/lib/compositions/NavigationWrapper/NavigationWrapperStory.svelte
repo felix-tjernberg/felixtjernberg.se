@@ -1,23 +1,22 @@
 <script lang="ts">
     import NavigationWrapper from "./NavigationWrapper.svelte"
-    import { SectionsSchema } from "./NavigationSectionsSchema"
-    import type { Sections } from "./NavigationSectionsSchema"
-    import Settings from "$assets/svgs/SettingsIcon.svelte"
+    import { navigationState, NavigationSchema } from "$stores/states/navigation"
 
     let navigationActive: boolean
-    let activeSection: Sections
+
+    $navigationState = NavigationSchema.enum.navigation
 </script>
 
 <div id="navigation-wrapper-story" class="relative">
-    <NavigationWrapper bind:navigationActive bind:activeSection>
+    <NavigationWrapper bind:navigationActive>
         <section slot="phone">
             <p>phone</p>
         </section>
+        <section slot="blog">
+            <p>blog</p>
+        </section>
         <section slot="computer">
             <p>computer</p>
-        </section>
-        <section slot="welcome">
-            <p>welcome</p>
         </section>
         <section slot="coach">
             <p>coach</p>
@@ -25,18 +24,15 @@
         <section slot="contact">
             <p>contact</p>
         </section>
-        <Settings slot="settings" />
     </NavigationWrapper>
     <button
         class="absolute"
         class:visually-hidden={navigationActive}
-        on:click={() => {
-            activeSection = SectionsSchema.enum.none
-        }}
+        on:click={() => ($navigationState = NavigationSchema.enum.navigation)}
         data-testid="toggle-navigation">open navigation</button>
     <button
         class="absolute visually-hidden"
-        on:click={() => (activeSection = SectionsSchema.enum.coach)}
+        on:click={() => ($navigationState = NavigationSchema.enum.coach)}
         data-testid="switch-section">switch section programmatically</button>
 </div>
 
@@ -46,14 +42,13 @@
         width: 33%;
         margin: auto;
     }
+    #navigation-wrapper-story {
+        height: 100%;
+    }
     button {
         top: 0;
         left: 50%;
         translate: -50%;
-    }
-    div {
-        overflow: hidden;
-        max-height: 100vh;
     }
     section {
         height: 100%;
@@ -71,7 +66,7 @@
     section[slot="computer"] {
         background-color: rgba(0, 255, 0, 0.238);
     }
-    section[slot="welcome"] {
+    section[slot="blog"] {
         background-color: rgba(0, 0, 255, 0.238);
     }
     section[slot="coach"] {

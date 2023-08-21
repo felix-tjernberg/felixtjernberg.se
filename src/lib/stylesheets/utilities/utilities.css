@@ -3,12 +3,27 @@
 @import url("./flexbox.css");
 @import url("./margin.css");
 @import url("./padding.css");
+@import url("./height-and-width.css");
 
 .absolute {
     position: absolute !important;
 }
 .relative {
     position: relative !important;
+}
+.fixed {
+    position: fixed !important;
+}
+.inset {
+    inset: 0;
+}
+.position-horizontal-middle {
+    left: 50%;
+    translate: -50%;
+}
+
+.grid {
+    display: grid;
 }
 
 .background-blur {
@@ -47,6 +62,15 @@ input.glow:hover,
 }
 .button:hover:not(.active) svg {
     --glow-size: var(--stroke-300);
+}
+
+.grid-stack {
+    display: grid;
+    isolation: isolate;
+}
+.grid-stack > * {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
 }
 
 .gap {

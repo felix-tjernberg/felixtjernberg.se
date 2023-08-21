@@ -1,0 +1,34 @@
+.notification,
+.show-notification-form {
+    z-index: 9001;
+}
+
+.notification {
+    --background-blur-amount: 7px;
+    --stroke-width: var(--stroke-200);
+    color: var(--gray-900);
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    max-height: calc(100vh - 2em);
+    max-width: 90%;
+    overflow-y: auto;
+    width: max-content;
+}
+.notification button {
+    font-family: var(--font-family-primary-thin) !important;
+}
+[data-dark-mode="false"] .notification {
+    --glow-color: var(--white);
+    --stroke-width: var(--stroke-400);
+    --stroke-color: var(--gray-000);
+}
+@media (max-width: 500px) {
+    .notification p.font-size-200 {
+        font-size: var(--static-scale-100) !important;
+    }
+}
+@media (min-width: 450px) {
+    .notification {
+        max-width: calc(100vw - 2em - (var(--static-scale-400) * 4));
+    }
+}
