@@ -24,10 +24,10 @@
                 invalid<br /> pin code<br />try again
             </p>
             <div class="flex-center">
-                <SingleDigitInput label="pin number 1" testid="pin-input" name="pin1" value="1" />
-                <SingleDigitInput label="pin number 2" testid="pin-input" name="pin2" value="2" />
-                <SingleDigitInput label="pin number 3" testid="pin-input" name="pin3" value="3" />
-                <SingleDigitInput label="pin number 4" testid="pin-input" name="pin4" value="4" />
+                <SingleDigitInput label="pin number 1" testid="pin-input" name="pin1" />
+                <SingleDigitInput label="pin number 2" testid="pin-input" name="pin2" />
+                <SingleDigitInput label="pin number 3" testid="pin-input" name="pin3" />
+                <SingleDigitInput label="pin number 4" testid="pin-input" name="pin4" />
             </div>
         </AnswerForm>
     </div>
