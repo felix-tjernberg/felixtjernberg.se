@@ -37,10 +37,18 @@
         </label>
         {#if browser}
             <div class="multi-digit-input-arrows flex-column-center absolute">
-                <Button ariaHidden={true} label="increase" on:click={() => (value = String(Number(value) + 1))}>
+                <Button
+                    ariaHidden={true}
+                    label="increase"
+                    on:click={() => (value = String(Number(value) + 1))}
+                    type="button">
                     <UpArrow slot="icon" />
                 </Button>
-                <Button ariaHidden={true} label="decrease" on:click={() => (value = String(Number(value) - 1))}>
+                <Button
+                    ariaHidden={true}
+                    label="decrease"
+                    on:click={() => (value = String(Number(value) - 1))}
+                    type="button">
                     <DownArrow slot="icon" />
                 </Button>
             </div>
