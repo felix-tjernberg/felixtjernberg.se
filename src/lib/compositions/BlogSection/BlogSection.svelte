@@ -9,7 +9,7 @@
         </p>
         <p>
             <a href="https://examensarbete.felixtjernberg.se/#cube-css">
-                Why I choose CUBE CSS for Erudize's Frontend stack
+                Why I choosed CUBE CSS for the Erudize's frontend stack
             </a><br />
             and<br />
             <a href="https://examensarbete.felixtjernberg.se/#hofstadters-law">
@@ -18,7 +18,7 @@
         </p>
         <p>
             However the thesis report is in Swedish as that was a requirement, I tried using the translate feature in
-            google chrome and it did not do the best job, but it might give you the gist of it
+            google chrome and it did not do the best job, but it might give you a gist of the content
         </p>
     </div>
 </section>
