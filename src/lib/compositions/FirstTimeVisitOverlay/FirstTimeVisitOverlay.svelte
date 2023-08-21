@@ -25,8 +25,7 @@
     import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 
     let details: HTMLDetailsElement
-
-    let detailsOpen: boolean = false
+    let detailsOpen = false
 </script>
 
 {#if $firstVisit}
@@ -34,17 +33,15 @@
         <WelcomeText slot="headerTextSVG" />
         {#if !$decidedOnCookies}
             <h2 class="font-family-3d font-size-200">Welcome to my spot on the interwebs</h2>
-            <details class="margin-vertical-flow flex-column-center" bind:open={detailsOpen} bind:this={details}>
-                <summary tabindex="-1" class="font-family-primary-fat text-align-center font-size-100">
-                    Are you ok with me saving some things about you between page visits?
+            <details class="margin-vertical-flow flex-column-center" bind:this={details} bind:open={detailsOpen}>
+                <summary class="font-family-primary-fat text-align-center font-size-100" style="line-height: 1.2">
+                    Are you ok with saving your application state in cookies?
                     <br />
                     <span class="font-family-primary-thin font-size-100 text-decoration-underline">
                         Click here to read how cookies are managed
                     </span>
                 </summary>
-                {#if detailsOpen}
-                    <DetailsContent {details} {detailsOpen} />
-                {/if}
+                <DetailsContent {details} {detailsOpen} />
             </details>
             <div class="flex-center font-size-000 gap">
                 <form
@@ -65,7 +62,7 @@
                             $decidedOnCookies = true
                         }
                     }}>
-                    <Button label="Allow essential cookies" />
+                    <Button label="Allow functional cookies" />
                 </form>
             </div>
         {:else}
