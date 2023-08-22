@@ -1,4 +1,7 @@
 <script lang="ts">
+    import starfieldAvifImage from "$assets/images/starfield-background.png?avif&imageTools"
+    import starfieldImage from "$assets/images/starfield-background.png"
+
     import { onMount } from "svelte"
 
     let canvas: HTMLCanvasElement
@@ -101,4 +104,8 @@
     })
 </script>
 
+<picture>
+    <source type="image/avif" srcset={starfieldAvifImage} />
+    <img src={starfieldImage} class="height-100percent" alt="a blurry starfield" />
+</picture>
 <canvas bind:this={canvas} />

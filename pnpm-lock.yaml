@@ -109,9 +109,6 @@ devDependencies:
   svelte-check:
     specifier: ^2.10.3
     version: 2.10.3(@babel/core@7.22.9)(postcss@8.4.27)(svelte@3.59.2)
-  svelte-intl-precompile:
-    specifier: ^0.12.2
-    version: 0.12.2(@babel/core@7.22.9)(svelte@3.59.2)
   tslib:
     specifier: ^2.6.1
     version: 2.6.1
@@ -1751,34 +1748,6 @@ packages:
       '@figspec/components': 1.0.2
       '@lit-labs/react': 1.2.1
       react: 18.2.0
-    dev: true
-
-  /@formatjs/ecma402-abstract@1.17.0:
-    resolution: {integrity: sha512-6ueQTeJZtwKjmh23bdkq/DMqH4l4bmfvtQH98blOSbiXv/OUiyijSW6jU22IT8BNM1ujCaEvJfTtyCYVH38EMQ==}
-    dependencies:
-      '@formatjs/intl-localematcher': 0.4.0
-      tslib: 2.6.1
-    dev: true
-
-  /@formatjs/icu-messageformat-parser@2.6.0:
-    resolution: {integrity: sha512-yT6at0qc0DANw9qM/TU8RZaCtfDXtj4pZM/IC2WnVU80yAcliS3KVDiuUt4jSQAeFL9JS5bc2hARnFmjPdA6qw==}
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.17.0
-      '@formatjs/icu-skeleton-parser': 1.6.0
-      tslib: 2.6.1
-    dev: true
-
-  /@formatjs/icu-skeleton-parser@1.6.0:
-    resolution: {integrity: sha512-eMmxNpoX/J1IPUjPGSZwo0Wh+7CEvdEMddP2Jxg1gQJXfGfht/FdW2D5XDFj3VMbOTUQlDIdZJY7uC6O6gjPoA==}
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.17.0
-      tslib: 2.6.1
-    dev: true
-
-  /@formatjs/intl-localematcher@0.4.0:
-    resolution: {integrity: sha512-bRTd+rKomvfdS4QDlVJ6TA/Jx1F2h/TBVO5LjvhQ7QPPHp19oPNMIum7W2CMEReq/zPxpmCeB31F9+5gl/qtvw==}
-    dependencies:
-      tslib: 2.6.1
     dev: true
 
   /@hapi/hoek@9.3.0:
@@ -4286,16 +4255,6 @@ packages:
       '@babel/helper-define-polyfill-provider': 0.4.2(@babel/core@7.22.9)
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /babel-plugin-precompile-intl@0.5.2(@babel/core@7.22.9):
-    resolution: {integrity: sha512-sTXC+8+krOCP72euH47HqUZ0RAc/mcNA7UoX5joPb5J+dladwOwVcDQMWdv8MflGuWW0PkvAwXdQQWF+/L3Qxg==}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
-      '@formatjs/icu-messageformat-parser': 2.6.0
     dev: true
 
   /babel-preset-current-node-syntax@1.0.1(@babel/core@7.22.9):
@@ -8265,11 +8224,6 @@ packages:
       minipass: 7.0.2
     dev: true
 
-  /path-starts-with@2.0.1:
-    resolution: {integrity: sha512-wZ3AeiRBRlNwkdUxvBANh0+esnt38DLffHDujZyRHkqkaKHTglnY2EP5UX3b8rdeiSutgO4y9NEJwXezNP5vHg==}
-    engines: {node: '>=8'}
-    dev: true
-
   /path-to-regexp@0.1.7:
     resolution: {integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==}
     dev: true
@@ -8677,14 +8631,6 @@ packages:
       simple-get: 4.0.1
       tar-fs: 2.1.1
       tunnel-agent: 0.6.0
-    dev: true
-
-  /precompile-intl-runtime@0.8.4(svelte@3.59.2):
-    resolution: {integrity: sha512-qHwJs44sI86ByyBPH+hnOTyJBaY1yADfEMbE/CmQRgL1lJgkwJdtUWlp+DhG/81XGQCEmwFndLkv3c8Ryn+O+w==}
-    peerDependencies:
-      svelte: ^3.37.0 || ^4.0.0
-    dependencies:
-      svelte: 3.59.2
     dev: true
 
   /prelude-ls@1.2.1:
@@ -9667,11 +9613,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /strip-bom@5.0.0:
-    resolution: {integrity: sha512-p+byADHF7SzEcVnLvc/r3uognM1hUhObuHXxJcgLCfD194XAkaLbjq3Wzb0N5G2tgIjH0dgT708Z51QxMeu60A==}
-    engines: {node: '>=12'}
-    dev: true
-
   /strip-final-newline@2.0.0:
     resolution: {integrity: sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==}
     engines: {node: '>=6'}
@@ -9774,20 +9715,6 @@ packages:
       svelte: ^3.19.0 || ^4.0.0-next.0
     dependencies:
       svelte: 3.59.2
-    dev: true
-
-  /svelte-intl-precompile@0.12.2(@babel/core@7.22.9)(svelte@3.59.2):
-    resolution: {integrity: sha512-hvivS085IXkGTY5h/NhBkeQ5p8lAvXtA00+qVpWrPCQ/wAKAXIssqkhoK6H2Ac80oLna5+mLkJykEH6zJTNP2g==}
-    dependencies:
-      babel-plugin-precompile-intl: 0.5.2(@babel/core@7.22.9)
-      js-yaml: 4.1.0
-      json5: 2.2.3
-      path-starts-with: 2.0.1
-      precompile-intl-runtime: 0.8.4(svelte@3.59.2)
-      strip-bom: 5.0.0
-    transitivePeerDependencies:
-      - '@babel/core'
-      - svelte
     dev: true
 
   /svelte-preprocess@4.10.7(@babel/core@7.22.9)(postcss@8.4.27)(svelte@3.59.2)(typescript@4.9.5):

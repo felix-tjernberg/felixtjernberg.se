@@ -24,8 +24,10 @@
 </script>
 
 <div id="second-screen" class="flex-column height-100percent" transition:fade>
-    <div class="margin-vertical-auto margin-vertical-flow padding-vertical">
-        <p class="font-family-primary-fat"><span aria-hidden="true">...</span>Initializing<LoadingDots /></p>
+    <div class="margin-vertical-auto margin-vertical-flow padding-vertical scrollbar-width-0">
+        <p class="font-family-primary-fat relative">
+            Initializing<LoadingDots positionAbsolute={true} />
+        </p>
         <details>
             <summary>show dial up audio player</summary>
             <audio
@@ -86,14 +88,6 @@
     @media (min-height: 500px) {
         #second-screen > div {
             margin-top: calc(50% - 2em);
-        }
-    }
-    span[aria-hidden="true"] {
-        opacity: 0;
-    }
-    @media (max-width: 500px) {
-        span[aria-hidden="true"] {
-            display: none;
         }
     }
 </style>
