@@ -14,8 +14,6 @@
 
     import { browser } from "$app/environment"
     import { enhance } from "$app/forms"
-    import { locale } from "svelte-intl-precompile"
-    import { t } from "svelte-intl-precompile"
 
     import { audioVolume, audioVolumeKey } from "$stores/settings/audioVolume"
     import {
@@ -64,31 +62,9 @@
             $scavengerHuntState[3] > "3" &&
             $navigationState === NavigationSchema.enum.phone)
 
-    $: if (browser) document.documentElement.lang = $locale
-
     $: if (browser) window.document.body.dataset.darkMode = String($darkMode)
     $: if (browser) window.document.body.dataset.eightBitFont = String($likesEightBitFont)
 </script>
-
-<svelte:head>
-    <title>Felix Tjernberg's spot on the interconnected highway for bits</title>
-    <meta name="description" content={$t("description")} />
-    <link
-        as="audio"
-        href="https://cdn.pixabay.com/download/audio/2021/08/09/audio_a4637e27f0.mp3?filename=smartphone_vibrating_alarm_silent-7040.mp3"
-        rel="preload"
-        type="audio/mpeg" />
-    <link
-        as="audio"
-        href="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast.mp3"
-        rel="preload"
-        type="audio/mpeg" />
-    <link
-        as="audio"
-        href="https://www.soundjay.com/communication/sounds/dial-up-modem-01.mp3"
-        rel="preload"
-        type="audio/mpeg" />
-</svelte:head>
 
 <FirstTimeVisitOverlay />
 <SettingsOverlay />
