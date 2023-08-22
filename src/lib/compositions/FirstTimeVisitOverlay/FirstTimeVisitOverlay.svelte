@@ -71,6 +71,14 @@
                 I would like you to set some preferences
             </p>
             <BaseSettings />
+            <details>
+                <summary>read keyboard accessability concerns</summary>
+                I have tried my best to make this page keyboard navigatable <br /><br />
+                However because this website uses some unorthodox css, which means that you can get in a state where content
+                is not correctly placed on the screen <br /><br />
+                If this happens reloading the page might help in some cases, but if it does not help please feel free to
+                contact me :)
+            </details>
             {#if $cookiesAllowed}
                 <form
                     action="?/toggleBoolean"

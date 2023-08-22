@@ -8,8 +8,11 @@
     <div id="coach-section-box-wrapper" class="relative background-blur border glow">
         <CoachImage />
         <section id="coach-section">
+            <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+            <h2 class="section-header" tabindex="0">Coach Section</h2>
             <h2 id="coach-header">Coaching american football for 3 years taught me a few valuable life lessons</h2>
-            <div class="padding-horizontal">
+            <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+            <div class="padding-horizontal" tabindex="0">
                 <div id="statement-1">
                     <p class="clockwise-rotated-text">
                         <span class="bigger-text">Big Confidence</span> to lead when called upon

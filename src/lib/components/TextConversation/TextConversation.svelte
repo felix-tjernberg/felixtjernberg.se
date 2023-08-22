@@ -29,7 +29,8 @@
 </script>
 
 <div id="conversation" class="background-blur relative glow border" data-testid="conversation-wrapper">
-    <section bind:this={section} class="flex-column margin-vertical-flow">
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <section bind:this={section} class="flex-column margin-vertical-flow" tabindex="0">
         {#each TEXT_CONVERSATION as { message, person }, index}
             {#if index <= Number(messageIndex)}
                 <span

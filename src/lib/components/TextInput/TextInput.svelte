@@ -21,7 +21,6 @@
     <span class="visually-hidden">{label}</span>
     <div class="strokes-wrapper glow glow-hover">
         <input
-            tabindex="-1"
             data-testid={testid}
             {name}
             bind:value

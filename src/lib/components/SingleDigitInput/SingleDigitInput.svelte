@@ -20,6 +20,7 @@
             label="increase"
             testid="increase-button"
             type="button"
+            tabindex="-1"
             on:click={() => {
                 if (Number(value) >= 9) return (value = "0")
                 value = String(Number(value) + 1)
@@ -48,6 +49,7 @@
             label="decrease"
             testid="decrease-button"
             type="button"
+            tabindex="-1"
             on:click={() => {
                 if (Number(value) <= 0) return (value = "9")
                 value = String(Number(value) - 1)

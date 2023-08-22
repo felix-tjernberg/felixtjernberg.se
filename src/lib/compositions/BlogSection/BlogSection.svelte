@@ -1,4 +1,6 @@
 <section id="blog-section" class="flex-column gap height-100percent">
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <h2 class="section-header" tabindex="0">Blog section</h2>
     <div
         class="margin-auto margin-vertical-flow text-align-left background-blur box-border padding"
         style="--background-blur-amount: 7px;">

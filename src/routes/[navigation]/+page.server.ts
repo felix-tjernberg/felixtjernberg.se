@@ -67,7 +67,7 @@ type CookieStateFalse = {
     [cookiesAllowedKey]: false
 }
 
-type ScavangerHuntRewardData = { email: string | undefined; phoneNumber: string | undefined }
+type ScavangerHuntRewardData = { email: string; phoneNumber: string }
 
 export type DataBasedOnCookies = CookieStateTrue & SettingsData & StatesData & ScavangerHuntRewardData
 export type DataBasedOnParameters = CookieStateFalse & SettingsData & StatesData & ScavangerHuntRewardData
@@ -79,13 +79,6 @@ function getState<StateType>(schema: ZodSchema, state: string | undefined | null
     return exctractedState.success ? exctractedState.data : fallbackState
 }
 
-function getEmailAndPhoneNumber(scavengerHuntState: ScavengerHuntStates) {
-    const email = scavengerHuntState[0] === "7" ? EMAIL : undefined
-    const phoneNumber = scavengerHuntState[0] === "7" ? PHONE_NUMBER : undefined
-
-    return { email, phoneNumber }
-}
-
 export const load = (async ({ cookies, params, url: { searchParams } }) => {
     const paramsRoute = NavigationSchema.safeParse(params.navigation)
     if (!paramsRoute.success) throw fail(404, { error: "Page not found" })
@@ -95,22 +88,19 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
     if (cookiesAllowed) {
         cookies.set(navigationStateKey, String(paramsRoute.data), { httpOnly: false, maxAge })
 
-        const scavengerHuntState = getScavengerHuntState(cookies.get(scavengerHuntStateKey))
-        const { email, phoneNumber } = getEmailAndPhoneNumber(scavengerHuntState)
-
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, cookies.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: true,
             [darkModeKey]: !(cookies.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: cookies.get(decidedOnCookiesKey) === "true",
-            email,
+            email: EMAIL,
             [firstVisitKey]: !(cookies.get(firstVisitKey) === "false"),
             [likesEightBitFontKey]: !(cookies.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(cookies.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
-            phoneNumber,
-            [scavengerHuntStateKey]: scavengerHuntState,
+            phoneNumber: PHONE_NUMBER,
+            [scavengerHuntStateKey]: getScavengerHuntState(cookies.get(scavengerHuntStateKey)),
             [settingsOpenKey]: cookies.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnCookies
     }
@@ -125,22 +115,19 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
         }
 
-        const scavengerHuntState = getScavengerHuntState(searchParams.get(scavengerHuntStateKey))
-        const { email, phoneNumber } = getEmailAndPhoneNumber(scavengerHuntState)
-
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: false,
             [darkModeKey]: !(searchParams.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: searchParams.get(decidedOnCookiesKey) === "true",
-            email,
+            email: EMAIL,
             [firstVisitKey]: !(searchParams.get(firstVisitKey) === "false"),
             [likesEightBitFontKey]: !(searchParams.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(searchParams.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(searchParams.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
-            phoneNumber,
-            [scavengerHuntStateKey]: scavengerHuntState,
+            phoneNumber: PHONE_NUMBER,
+            [scavengerHuntStateKey]: getScavengerHuntState(searchParams.get(scavengerHuntStateKey)),
             [settingsOpenKey]: searchParams.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnParameters
     }

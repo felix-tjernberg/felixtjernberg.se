@@ -24,6 +24,7 @@
     action={`?/${action}`}
     method="POST"
     class="flex-column margin-horizontal-auto"
+    data-sveltekit-keepfocus
     use:enhance={() => {
         processing = true
         return async ({ result }) => {

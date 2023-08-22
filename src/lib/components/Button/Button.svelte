@@ -17,6 +17,7 @@
     export let id: string | undefined = undefined
     export let name: string | undefined = undefined
     export let style: string | undefined = undefined
+    export let tabindex: string | null = null
     export let testid: string | undefined = undefined
     export let type: string | null = null
     export let underlined: boolean = false
@@ -57,7 +58,6 @@
     })
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <svelte:element
     this={elementType}
     aria-hidden={ariaHidden}
@@ -79,9 +79,9 @@
     on:mouseup={handeMouseUp}
     {name}
     {style}
+    {tabindex}
     {type}
-    {value}
-    tabindex="-1">
+    {value}>
     {#if hoverOverlay && !disabled}
         <div aria-hidden="true" class="absolute hover-overlay" class:opacity-flashing={flashing} />
     {/if}

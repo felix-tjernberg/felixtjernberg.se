@@ -18,6 +18,7 @@
     <div class="navigation-link">
         {#if $cookiesAllowed}
             <a
+                tabindex="-1"
                 on:click={() => ($navigationState = NavigationSchema.enum[navigationStateName])}
                 transition:fade
                 href={`/${navigationStateName}`}>
@@ -25,9 +26,10 @@
                 <slot name="textSVG" />
             </a>
         {:else}
-            <form>
+            <form tabindex="-1">
                 <HiddenInputs excludeStates={[navigationStateKey]} />
                 <button
+                    tabindex="-1"
                     name={navigationStateKey}
                     value={NavigationSchema.enum[navigationStateName]}
                     on:click={() => ($navigationState = NavigationSchema.enum[navigationStateName])}

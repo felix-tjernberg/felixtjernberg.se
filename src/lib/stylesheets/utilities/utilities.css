@@ -95,3 +95,19 @@ input.glow:hover,
     animation: opacity-flashing 2s infinite;
     background-color: var(--glow-pink) !important;
 }
+
+.section-header {
+    text-transform: capitalize;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    opacity: 0;
+    scale: 0;
+    translate: -50% -100%;
+    transition: all 0.2s ease-in-out;
+}
+.section-header:focus {
+    translate: -50% 0;
+    opacity: 1;
+    scale: 1;
+}

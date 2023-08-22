@@ -8,13 +8,15 @@
 </script>
 
 <section id="contact-section">
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <h2 class="section-header" tabindex="0">contact section</h2>
     <div id="links-wrapper" class="glow">
-        <a tabindex="-1" class="flex-column-center" href="https://www.linkedin.com/in/felix-tjernberg">
+        <a class="flex-column-center" href="https://www.linkedin.com/in/felix-tjernberg">
             <span class="visually-hidden">Go to Felix Tjernbergs LinkedIn profile</span>
             <LinkedIn />
             <span>LinkedIn</span>
         </a>
-        <a tabindex="-1" class="flex-column-center" href="https://github.com/felix-tjernberg">
+        <a class="flex-column-center" href="https://github.com/felix-tjernberg">
             <span class="visually-hidden">Go to Felix Tjernbergs GitHub profile</span>
             <GitHub />
             <span>GitHub</span>
@@ -32,10 +34,7 @@
             <p class="font-size-300" data-testid="scavenger-hunt-paragraph">
                 Take a well deserved 5 minute break and do my scavenger hunt to unlock my email and phone number
             </p>
-            <a
-                tabindex="-1"
-                href="/coach"
-                on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.computer)}>
+            <a href="/coach" on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.computer)}>
                 Go to scavenger hunt
             </a>
         {/if}
