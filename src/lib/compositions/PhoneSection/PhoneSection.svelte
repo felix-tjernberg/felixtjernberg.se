@@ -50,7 +50,8 @@
         {#if (screenState === "6" && !momCalling) || screenState === "7"}
             <TextConversation />
         {/if}
-        <h2 class="visually-hidden">Phone</h2>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+        <h2 class="section-header" tabindex="0">Phone</h2>
         <div id="phone" class="relative">
             <PhoneCanvas />
             <PhoneImage />

@@ -24,7 +24,8 @@
 </script>
 
 <section id="computer-section" class="height-100percent grid-stack">
-    <h2 class="visually-hidden absolute">computer</h2>
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <h2 class="section-header" tabindex="0">Computer Section</h2>
     {#if screenState === "1"}
         {#if $scavengerHuntState[4] !== D}
             <HideableNotification stateIndex={4} state={$scavengerHuntState[4]}>

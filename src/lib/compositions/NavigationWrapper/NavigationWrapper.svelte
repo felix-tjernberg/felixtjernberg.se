@@ -25,35 +25,35 @@
         <Logo />
         <Logo />
     {/if}
-    <div class="height-100percent relative" id="navigation-item-computer">
+    <div class="navigation-item height-100percent relative" id="navigation-item-computer">
+        <slot name="computer" />
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.computer}>
             <ComputerText slot="textSVG" />
         </NavigationLink>
-        <slot name="computer" />
     </div>
-    <div class="height-100percent relative" id="navigation-item-coach">
+    <div class="navigation-item height-100percent relative" id="navigation-item-coach">
+        <slot name="coach" />
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.coach}>
             <CoachText slot="textSVG" />
         </NavigationLink>
-        <slot name="coach" />
     </div>
-    <div class="height-100percent relative" id="navigation-item-phone">
+    <div class="navigation-item height-100percent relative" id="navigation-item-phone">
+        <slot name="phone" />
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.phone}>
             <PhoneText slot="textSVG" />
         </NavigationLink>
-        <slot name="phone" />
     </div>
-    <div class="height-100percent relative" id="navigation-item-contact">
+    <div class="navigation-item height-100percent relative" id="navigation-item-contact">
+        <slot name="contact" />
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.contact}>
             <ContactText slot="textSVG" />
         </NavigationLink>
-        <slot name="contact" />
     </div>
-    <div class="height-100percent relative" id="navigation-item-blog">
+    <div class="navigation-item height-100percent relative" id="navigation-item-blog">
+        <slot name="blog" />
         <NavigationLink {navigationActive} navigationStateName={NavigationSchema.enum.blog}>
             <BlogText slot="textSVG" />
         </NavigationLink>
-        <slot name="blog" />
     </div>
 </div>
 
@@ -74,6 +74,10 @@
     :global(#navigation > svg:nth-of-type(1)) {
         filter: blur(15vh);
     }
+    .navigation-item > :global(*:focus-within + .navigation-link),
+    #navigation:focus-within > :global(svg) {
+        display: none;
+    }
     #navigation-item-coach {
         translate: -100% -100%;
     }
@@ -89,23 +93,32 @@
     #navigation-item-contact {
         translate: 100% 100%;
     }
-    #navigation[data-navigation-state="coach"] {
+    #navigation[data-navigation-state="coach"],
+    #navigation:has(#coach-section:focus-within) {
         translate: 100% 100%;
     }
-    #navigation[data-navigation-state="blog"] {
+    #navigation[data-navigation-state="blog"],
+    #navigation:has(#blog-section:focus-within) {
         translate: -100% 100%;
     }
-    #navigation[data-navigation-state="phone"] {
+    #navigation[data-navigation-state="phone"],
+    #navigation:has(#phone-section:focus-within) {
         translate: 100% -100%;
     }
-    #navigation[data-navigation-state="contact"] {
+    #navigation[data-navigation-state="contact"],
+    #navigation:has(#contact-section:focus-within) {
         translate: -100% -100%;
     }
     #navigation[data-navigation-state="phone"],
     #navigation[data-navigation-state="computer"],
     #navigation[data-navigation-state="blog"],
     #navigation[data-navigation-state="coach"],
-    #navigation[data-navigation-state="contact"] {
+    #navigation[data-navigation-state="contact"],
+    #navigation:has(#blog-section:focus-within),
+    #navigation:has(#computer-section:focus-within),
+    #navigation:has(#contact-section:focus-within),
+    #navigation:has(#phone-section:focus-within),
+    #navigation:has(#coach-section:focus-within) {
         scale: 1;
     }
     #navigation[data-navigation-state="navigation"] {

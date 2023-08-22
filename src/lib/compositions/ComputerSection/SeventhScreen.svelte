@@ -9,7 +9,6 @@
         is now unlocked in the
         <br />
         <a
-            tabindex="-1"
             href="/contact"
             on:click|preventDefault={() => ($navigationState = NavigationSchema.enum.contact)}
             data-testid="contact-section-link">
