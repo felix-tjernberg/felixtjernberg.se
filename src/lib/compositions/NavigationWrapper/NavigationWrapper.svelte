@@ -93,6 +93,10 @@
     #navigation-item-contact {
         translate: 100% 100%;
     }
+    #navigation[data-navigation-state="computer"],
+    #navigation:has(#computer-section:focus-within) {
+        translate: 0 0;
+    }
     #navigation[data-navigation-state="coach"],
     #navigation:has(#coach-section:focus-within) {
         translate: 100% 100%;
