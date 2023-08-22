@@ -93,37 +93,49 @@
     #navigation-item-contact {
         translate: 100% 100%;
     }
+    #navigation[data-navigation-state="phone"],
     #navigation[data-navigation-state="computer"],
-    #navigation:has(#computer-section:focus-within) {
+    #navigation[data-navigation-state="blog"],
+    #navigation[data-navigation-state="coach"],
+    #navigation[data-navigation-state="contact"] {
+        scale: 1;
+    }
+    #navigation[data-navigation-state="computer"] {
         translate: 0 0;
     }
-    #navigation[data-navigation-state="coach"],
-    #navigation:has(#coach-section:focus-within) {
+    #navigation[data-navigation-state="coach"] {
         translate: 100% 100%;
     }
-    #navigation[data-navigation-state="blog"],
-    #navigation:has(#blog-section:focus-within) {
+    #navigation[data-navigation-state="blog"] {
         translate: -100% 100%;
     }
-    #navigation[data-navigation-state="phone"],
-    #navigation:has(#phone-section:focus-within) {
+    #navigation[data-navigation-state="phone"] {
         translate: 100% -100%;
     }
-    #navigation[data-navigation-state="contact"],
-    #navigation:has(#contact-section:focus-within) {
+    #navigation[data-navigation-state="contact"] {
         translate: -100% -100%;
     }
-    #navigation[data-navigation-state="phone"],
-    #navigation[data-navigation-state="computer"],
-    #navigation[data-navigation-state="blog"],
-    #navigation[data-navigation-state="coach"],
-    #navigation[data-navigation-state="contact"],
     #navigation:has(#blog-section:focus-within),
     #navigation:has(#computer-section:focus-within),
     #navigation:has(#contact-section:focus-within),
     #navigation:has(#phone-section:focus-within),
     #navigation:has(#coach-section:focus-within) {
         scale: 1;
+    }
+    #navigation:has(#computer-section:focus-within) {
+        translate: 0 0;
+    }
+    #navigation:has(#coach-section:focus-within) {
+        translate: 100% 100%;
+    }
+    #navigation:has(#blog-section:focus-within) {
+        translate: -100% 100%;
+    }
+    #navigation:has(#phone-section:focus-within) {
+        translate: 100% -100%;
+    }
+    #navigation:has(#contact-section:focus-within) {
+        translate: -100% -100%;
     }
     #navigation[data-navigation-state="navigation"] {
         scale: 0.3;

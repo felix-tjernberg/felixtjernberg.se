@@ -76,6 +76,12 @@
                 I have tried my best to make this page keyboard navigatable <br /><br />
                 However because this website uses some unorthodox css, which means that you can get in a state where content
                 is not correctly placed on the screen <br /><br />
+                If you are using firefox the css selector :has is not supported which means keyboard navigation is very broken,
+                :has selector is
+                <a
+                    href="https://connect.mozilla.org/t5/ideas/when-is-has-css-selector-going-to-be-fully-implemented-in/idc-p/37339/highlight/true#M21675"
+                    >planned to be completed in 2023 because of the interop initiative</a>
+                <br /><br />
                 If this happens reloading the page might help in some cases, but if it does not help please feel free to
                 contact me :)
             </details>
