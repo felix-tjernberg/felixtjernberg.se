@@ -12,6 +12,7 @@
     let part3Done = true
     let part4Done = true
     let part5Done = true
+    let part6Done = true
 
     if (browser) {
         part1Done = false
@@ -19,6 +20,7 @@
         part3Done = false
         part4Done = false
         part5Done = false
+        part6Done = false
     }
 
     $: detailsOpen = browser ? detailsOpen : true
@@ -28,7 +30,7 @@
     {#if detailsOpen || part1Done}
         <span in:typewriter={{ containerElement: details }} on:introend={() => (part1Done = true)}>
             This website does not use any cookies or state that could be used to infer who you are as a person, however
-            it supports saving the state of the application in cookies,
+            it supports saving the application state in cookies,
         </span>
     {/if}
     <a
@@ -45,6 +47,15 @@
 <p class="margin-horizontal">
     {#if part2Done}
         <span in:typewriter={{ containerElement: details }} on:introend={() => (part3Done = true)}>
+            The functional cookies are stored 1 month in your browser, they are also not renewed when you visit the
+            website, so if you make a setting it will be forgotten after 1 month
+        </span>
+    {/if}
+</p>
+
+<p class="margin-horizontal">
+    {#if part3Done}
+        <span in:typewriter={{ containerElement: details }} on:introend={() => (part4Done = true)}>
             If you do not accept the functional cookies the website keeps track of state by using url search parameters,
             url search parameters are not usually considered as cookies, but I guess could be argued that they are
         </span>
@@ -52,19 +63,19 @@
     <a
         href="https://support.cookieinformation.com/en/articles/5405196-all-you-need-to-know-about-cookies?q=url+search+parameters#h_f4c7274e1d"
         target="_blank">
-        {#if part3Done}
-            <span in:typewriter={{ containerElement: details }} on:introend={() => (part4Done = true)}>
+        {#if part4Done}
+            <span in:typewriter={{ containerElement: details }} on:introend={() => (part5Done = true)}>
                 strictly necessary cookies
             </span>
         {/if}
     </a>
-    {#if part4Done}
-        <span in:typewriter={{ containerElement: details }} on:introend={() => (part5Done = true)}>
+    {#if part5Done}
+        <span in:typewriter={{ containerElement: details }} on:introend={() => (part6Done = true)}>
             in this case, so I inform you about it just in case :)
         </span>
     {/if}
 </p>
-{#if part5Done}
+{#if part6Done}
     <p class="margin-horizontal" in:typewriter={{ containerElement: details }}>
         If you do not agree with the use of any cookies I must ask you to leave :(
     </p>
