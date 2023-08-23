@@ -58,7 +58,8 @@
     <div
         class="sticky-note absolute flex-column-center"
         style={`--rotation-amount: ${TAPE_ROTATION_AMOUNT}deg`}
-        transition:flyAway={{ duration: 5000, flyToRight }}>
+        transition:flyAway={{ duration: 5000, flyToRight }}
+        on:introend>
         <StickyNoteImages />
         <slot />
         {#if active}
