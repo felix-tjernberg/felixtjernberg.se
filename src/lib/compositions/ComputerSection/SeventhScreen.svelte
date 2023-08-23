@@ -4,7 +4,7 @@
 
 <div id="seventh-screen" class="flex-column gap">
     <p class="font-family-3d margin-top-auto">Congratu<wbr />lations!</p>
-    <p class="font-family-primary-fat font-size-000 margin-bottom-auto">
+    <p class="font-family-primary-fat font-size-000">
         phone number and email <br />
         is now unlocked in the
         <br />
@@ -15,6 +15,7 @@
             contact section
         </a>
     </p>
+    <p class="margin-bottom-auto">here play with some sticky notes</p>
 </div>
 
 <style>
