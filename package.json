@@ -10,16 +10,11 @@
         "format": "prettier --plugin-search-dir . --write ."
     },
     "devDependencies": {
-        "@sveltejs/adapter-node": "^5.2.0",
+        "@sveltejs/adapter-node": "^1",
         "@sveltejs/kit": "^1.22.3",
-        "autoprefixer": "^10.4.14",
-        "cssnano": "^5.1.15",
         "eslint": "^8.46.0",
         "eslint-config-prettier": "^8.9.0",
-        "eslint-plugin-storybook": "^0.6.13",
-        "eslint-plugin-svelte3": "^4.0.0",
         "imagetools-core": "^3.3.1",
-        "postcss": "^8.4.27",
         "prettier": "^2.8.8",
         "prettier-plugin-svelte": "^2.10.1",
         "svelte": "^3.59.2",

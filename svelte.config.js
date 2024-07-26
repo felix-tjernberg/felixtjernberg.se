@@ -1,6 +1,4 @@
 import adapter from "@sveltejs/adapter-node"
-import autoprefixer from "autoprefixer"
-import cssnano from "cssnano"
 import { vitePreprocess } from "@sveltejs/kit/vite"
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -15,18 +13,7 @@ const config = {
             $utilities: "src/lib/utilities",
         },
     },
-    // Consult https://kit.svelte.dev/docs/integrations#preprocessors
-    // for more information about preprocessors
-    preprocess: vitePreprocess({
-        postcss: {
-            plugins: [
-                autoprefixer("> 0.01%"),
-                cssnano({
-                    preset: "default",
-                }),
-            ],
-        },
-    }),
+    preprocess: vitePreprocess(),
 }
 
 export default config
