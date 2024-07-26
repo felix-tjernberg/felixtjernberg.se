@@ -1,22 +1,22 @@
 <script lang="ts">
-    // @ts-ignore TODO check library does have types?
-    import YouTube from "svelte-youtube"
     import AnswerForm from "./AnswerForm.svelte"
     import MultiDigitInput from "$components/MultiDigitInput/MultiDigitInput.svelte"
 
     import { fade } from "svelte/transition"
 
     import { answerKey, validateS4AnswerKey } from "./answerFormKeys"
-    import { audioVolume } from "$stores/settings/audioVolume"
-
-    function ready(event: CustomEvent) {
-        event.detail.target.setVolume($audioVolume * 100)
-    }
 </script>
 
 <div id="forth-screen" class="flex-column gap" in:fade>
-    <!-- TODO add more YouTube options https://github.com/PandaWhisperer/svelte-youtube -->
-    <YouTube videoId="pgJXHhmN45Y" on:ready={ready} />
+    <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube-nocookie.com/embed/pgJXHhmN45Y?si=QKEOB0IKEin0IJ87"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
     <div class="padding-horizontal flex-column gap" style="--padding-amount: 2em;">
         <p
             class="font-family-primary-fat font-size-100 tex-transform-capitalize margin-horizontal-auto padding-horizontal"
