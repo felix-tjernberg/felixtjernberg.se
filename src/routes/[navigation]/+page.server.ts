@@ -15,7 +15,7 @@ import {
 import { type AudioVolume, audioVolumeKey, audioVolumeSchema } from "$stores/settings/audioVolume"
 import { booleanNameKey, valueKey } from "$utilities/toggleBooleanKeys"
 import { cookiesAllowedKey, decidedOnCookiesKey } from "$stores/settings/cookiesAllowed"
-import { EMAIL, PHONE_NUMBER } from "$env/static/private"
+import { env } from "$env/dynamic/private"
 import {
     getScavengerHuntState,
     S1DefaultState,
@@ -87,20 +87,23 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
     const cookiesAllowed = cookies.get(cookiesAllowedKey) === "true"
     if (cookiesAllowed) {
         cookies.set(navigationStateKey, String(paramsRoute.data), { httpOnly: false, maxAge })
+        const scavengerHuntState = getScavengerHuntState(cookies.get(scavengerHuntStateKey))
+        const email = scavengerHuntState[0] === "7" ? env.EMAIL : "undefined"
+        const phoneNumber = scavengerHuntState[0] === "7" ? env.PHONE_NUMBER : "undefined"
 
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, cookies.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: true,
             [darkModeKey]: !(cookies.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: cookies.get(decidedOnCookiesKey) === "true",
-            email: EMAIL,
+            email,
             [firstVisitKey]: !(cookies.get(firstVisitKey) === "false"),
             [likesEightBitFontKey]: !(cookies.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(cookies.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
-            phoneNumber: PHONE_NUMBER,
-            [scavengerHuntStateKey]: getScavengerHuntState(cookies.get(scavengerHuntStateKey)),
+            phoneNumber,
+            [scavengerHuntStateKey]: scavengerHuntState,
             [settingsOpenKey]: cookies.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnCookies
     }
@@ -114,19 +117,22 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
             throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
         }
+        const scavengerHuntState = getScavengerHuntState(searchParams.get(scavengerHuntStateKey))
+        const email = scavengerHuntState[0] === "7" ? env.EMAIL : "undefined"
+        const phoneNumber = scavengerHuntState[0] === "7" ? env.PHONE_NUMBER : "undefined"
 
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: false,
             [darkModeKey]: !(searchParams.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: searchParams.get(decidedOnCookiesKey) === "true",
-            email: EMAIL,
+            email,
             [firstVisitKey]: !(searchParams.get(firstVisitKey) === "false"),
             [likesEightBitFontKey]: !(searchParams.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(searchParams.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(searchParams.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
-            phoneNumber: PHONE_NUMBER,
+            phoneNumber,
             [scavengerHuntStateKey]: getScavengerHuntState(searchParams.get(scavengerHuntStateKey)),
             [settingsOpenKey]: searchParams.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnParameters
