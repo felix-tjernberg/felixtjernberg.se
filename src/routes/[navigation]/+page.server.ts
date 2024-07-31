@@ -87,23 +87,19 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
     const cookiesAllowed = cookies.get(cookiesAllowedKey) === "true"
     if (cookiesAllowed) {
         cookies.set(navigationStateKey, String(paramsRoute.data), { httpOnly: false, maxAge })
-        const scavengerHuntState = getScavengerHuntState(cookies.get(scavengerHuntStateKey))
-        const email = scavengerHuntState[0] === "7" ? env.EMAIL : "undefined"
-        const phoneNumber = scavengerHuntState[0] === "7" ? env.PHONE_NUMBER : "undefined"
-
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, cookies.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: true,
             [darkModeKey]: !(cookies.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: cookies.get(decidedOnCookiesKey) === "true",
-            email,
+            email: env.EMAIL,
             [firstVisitKey]: !(cookies.get(firstVisitKey) === "false"),
             [likesEightBitFontKey]: !(cookies.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(cookies.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(cookies.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
-            phoneNumber,
-            [scavengerHuntStateKey]: scavengerHuntState,
+            phoneNumber: env.PHONE_NUMBER,
+            [scavengerHuntStateKey]: getScavengerHuntState(cookies.get(scavengerHuntStateKey)),
             [settingsOpenKey]: cookies.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnCookies
     }
@@ -117,22 +113,18 @@ export const load = (async ({ cookies, params, url: { searchParams } }) => {
             searchParams.forEach((value, key) => (searchParamsString += `&${key}=${value}`))
             throw redirect(302, `/${searchParamsRoute.data}${searchParamsString}`)
         }
-        const scavengerHuntState = getScavengerHuntState(searchParams.get(scavengerHuntStateKey))
-        const email = scavengerHuntState[0] === "7" ? env.EMAIL : "undefined"
-        const phoneNumber = scavengerHuntState[0] === "7" ? env.PHONE_NUMBER : "undefined"
-
         return {
             [audioVolumeKey]: getState<AudioVolume>(audioVolumeSchema, searchParams.get(audioVolumeKey), 0.1),
             [cookiesAllowedKey]: false,
             [darkModeKey]: !(searchParams.get(darkModeKey) === "false"),
             [decidedOnCookiesKey]: searchParams.get(decidedOnCookiesKey) === "true",
-            email,
+            email: env.EMAIL,
             [firstVisitKey]: !(searchParams.get(firstVisitKey) === "false"),
             [likesEightBitFontKey]: !(searchParams.get(likesEightBitFontKey) === "false"),
             [navigationExplainer2Key]: !(searchParams.get(navigationExplainer2Key) === "false"),
             [navigationExplainerKey]: !(searchParams.get(navigationExplainerKey) === "false"),
             [navigationStateKey]: paramsRoute.data,
-            phoneNumber,
+            phoneNumber: env.PHONE_NUMBER,
             [scavengerHuntStateKey]: getScavengerHuntState(searchParams.get(scavengerHuntStateKey)),
             [settingsOpenKey]: searchParams.get(settingsOpenKey) === "true",
         } satisfies DataBasedOnParameters
