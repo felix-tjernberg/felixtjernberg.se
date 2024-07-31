@@ -14,8 +14,9 @@ RUN npm i --only=production
 
 COPY --from=sk-build /usr/src/app/build /usr/src/app/build
 
-ENV HOST_HEADER=x-forwarded-host
-ENV PROTOCOL_HEADER=x-forwarded-proto
+# ENV HOST_HEADER=x-forwarded-host
+# ENV PROTOCOL_HEADER=x-forwarded-proto
+ENV ORIGIN=https://felixtjernberg.se
 ENV ADDRESS_HEADER=True-Client-IP
 ENV XFF_DEPTH=2
 
